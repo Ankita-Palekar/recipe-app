@@ -1,0 +1,200 @@
+
+
+Started GET "/assets/rails.png" for 127.0.0.1 at 2015-07-20 13:15:30 +0530
+Connecting to database specified by database.yml
+
+PG::ConnectionBad (FATAL:  Peer authentication failed for user "foodholic"
+):
+  activerecord (3.2.15) lib/active_record/connection_adapters/postgresql_adapter.rb:1222:in `initialize'
+  activerecord (3.2.15) lib/active_record/connection_adapters/postgresql_adapter.rb:1222:in `new'
+  activerecord (3.2.15) lib/active_record/connection_adapters/postgresql_adapter.rb:1222:in `connect'
+  activerecord (3.2.15) lib/active_record/connection_adapters/postgresql_adapter.rb:324:in `initialize'
+  activerecord (3.2.15) lib/active_record/connection_adapters/postgresql_adapter.rb:28:in `new'
+  activerecord (3.2.15) lib/active_record/connection_adapters/postgresql_adapter.rb:28:in `postgresql_connection'
+  activerecord (3.2.15) lib/active_record/connection_adapters/abstract/connection_pool.rb:315:in `new_connection'
+  activerecord (3.2.15) lib/active_record/connection_adapters/abstract/connection_pool.rb:325:in `checkout_new_connection'
+  activerecord (3.2.15) lib/active_record/connection_adapters/abstract/connection_pool.rb:247:in `block (2 levels) in checkout'
+  activerecord (3.2.15) lib/active_record/connection_adapters/abstract/connection_pool.rb:242:in `loop'
+  activerecord (3.2.15) lib/active_record/connection_adapters/abstract/connection_pool.rb:242:in `block in checkout'
+  /home/ankita/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/monitor.rb:211:in `mon_synchronize'
+  activerecord (3.2.15) lib/active_record/connection_adapters/abstract/connection_pool.rb:239:in `checkout'
+  activerecord (3.2.15) lib/active_record/connection_adapters/abstract/connection_pool.rb:102:in `block in connection'
+  /home/ankita/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/monitor.rb:211:in `mon_synchronize'
+  activerecord (3.2.15) lib/active_record/connection_adapters/abstract/connection_pool.rb:101:in `connection'
+  activerecord (3.2.15) lib/active_record/connection_adapters/abstract/connection_pool.rb:410:in `retrieve_connection'
+  activerecord (3.2.15) lib/active_record/connection_adapters/abstract/connection_specification.rb:171:in `retrieve_connection'
+  activerecord (3.2.15) lib/active_record/connection_adapters/abstract/connection_specification.rb:145:in `connection'
+  activerecord (3.2.15) lib/active_record/query_cache.rb:67:in `rescue in call'
+  activerecord (3.2.15) lib/active_record/query_cache.rb:61:in `call'
+  activerecord (3.2.15) lib/active_record/connection_adapters/abstract/connection_pool.rb:479:in `call'
+  actionpack (3.2.15) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+  activesupport (3.2.15) lib/active_support/callbacks.rb:405:in `_run__548715756613343499__call__4168843086553906914__callbacks'
+  activesupport (3.2.15) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.15) lib/active_support/callbacks.rb:385:in `_run_call_callbacks'
+  activesupport (3.2.15) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (3.2.15) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (3.2.15) lib/action_dispatch/middleware/reloader.rb:65:in `call'
+  actionpack (3.2.15) lib/action_dispatch/middleware/remote_ip.rb:31:in `call'
+  actionpack (3.2.15) lib/action_dispatch/middleware/debug_exceptions.rb:16:in `call'
+  actionpack (3.2.15) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.15) lib/rails/rack/logger.rb:32:in `call_app'
+  railties (3.2.15) lib/rails/rack/logger.rb:16:in `block in call'
+  activesupport (3.2.15) lib/active_support/tagged_logging.rb:22:in `tagged'
+  railties (3.2.15) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.15) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.7) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.7) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.15) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.7) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.15) lib/action_dispatch/middleware/static.rb:63:in `call'
+  railties (3.2.15) lib/rails/engine.rb:484:in `call'
+  railties (3.2.15) lib/rails/application.rb:231:in `call'
+  rack (1.4.7) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.15) lib/rails/rack/log_tailer.rb:17:in `call'
+  rack (1.4.7) lib/rack/handler/webrick.rb:59:in `service'
+  /home/ankita/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/ankita/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/ankita/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/ankita/.rvm/gems/ruby-2.1.5@foodholic/gems/actionpack-3.2.15/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.2ms)
+  Rendered /home/ankita/.rvm/gems/ruby-2.1.5@foodholic/gems/actionpack-3.2.15/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.2ms)
+  Rendered /home/ankita/.rvm/gems/ruby-2.1.5@foodholic/gems/actionpack-3.2.15/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (7.5ms)
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to AddIngredientRecipeIndex (20150720132600)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (19.9ms)[0m  [1mCREATE UNIQUE INDEX "index_ingredient_recipes_on_recipe_id_and_ingredient_id" ON "ingredient_recipes" ("recipe_id", "ingredient_id")[0m
+PG::UndefinedTable: ERROR:  relation "ingredient_recipes" does not exist
+: CREATE UNIQUE INDEX "index_ingredient_recipes_on_recipe_id_and_ingredient_id" ON "ingredient_recipes" ("recipe_id", "ingredient_id")
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to AddIngredientRecipeIndex (20150720132600)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (235.5ms)[0m  [1mCREATE UNIQUE INDEX "index_ingredients_recipes_on_recipe_id_and_ingredient_id" ON "ingredients_recipes" ("recipe_id", "ingredient_id")[0m
+PG::UniqueViolation: ERROR:  could not create unique index "index_ingredients_recipes_on_recipe_id_and_ingredient_id"
+DETAIL:  Key (recipe_id, ingredient_id)=(87, 4) is duplicated.
+: CREATE UNIQUE INDEX "index_ingredients_recipes_on_recipe_id_and_ingredient_id" ON "ingredients_recipes" ("recipe_id", "ingredient_id")
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to AddIngredientRecipeIndex (20150720132600)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (40.9ms)[0m  [1mCREATE UNIQUE INDEX "index_ingredients_recipes_on_recipe_id_and_ingredient_id" ON "ingredients_recipes" ("recipe_id", "ingredient_id")[0m
+  [1m[35m (18.9ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150720132600')
+  [1m[36m (13.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to AddIngredientRecipeIndex (20150720132600)
+Migrating to AddUserToCategory (20150720142522)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to AddIngredientRecipeIndex (20150720132600)
+Migrating to AddUserToCategory (20150720142522)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to AddIngredientRecipeIndex (20150720132600)
+Migrating to AddUserToCategory (20150720142522)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to AddIngredientRecipeIndex (20150720132600)
+Migrating to AddUserToCategory (20150720142522)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (48.5ms)[0m  [1mALTER TABLE "categories" ADD COLUMN "user_id" integer[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150720142522')
+  [1m[36m (13.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to AddIngredientRecipeIndex (20150720132600)
+Migrating to AddUserToCategory (20150720142522)
+Migrating to AddColumnCategory (20150720144552)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (28.2ms)[0m  [1mALTER TABLE "recipes" ADD COLUMN "category_id" integer[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150720144552')
+  [1m[36m (32.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (35.0ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to AddIngredientRecipeIndex (20150720132600)
+Migrating to AddUserToCategory (20150720142522)
+Migrating to AddColumnCategory (20150720144552)
+Migrating to AddIndexRatings (20150721050513)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (274.0ms)[0m  [1mALTER TABLE "ratings" ALTER COLUMN "user_id" TYPE integer[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "ratings" ALTER COLUMN "recipe_id" TYPE integer
+  [1m[36m (49.1ms)[0m  [1mCREATE UNIQUE INDEX "index_ratings_on_user_id_and_recipe_id" ON "ratings" ("user_id", "recipe_id")[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150721050513')
+  [1m[36m (14.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to AddIndexRatings (20150721050513)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to AddIndexRatings (20150721050513)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (71.2ms)[0m  DROP INDEX "index_ratings_on_user_id_and_recipe_id"
+  [1m[36m (13.2ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20150721050513'[0m
+  [1m[35m (29.3ms)[0m  COMMIT
+  [1m[36m (0.7ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to AddIngredientRecipeIndex (20150720132600)
+Migrating to AddUserToCategory (20150720142522)
+Migrating to AddColumnCategory (20150720144552)
+Migrating to AddIndexRatings (20150721050513)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (151.5ms)[0m  [1mCREATE UNIQUE INDEX "index_ratings_on_user_id_and_recipe_id" ON "ratings" ("user_id", "recipe_id")[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150721050513')
+  [1m[36m (22.9ms)[0m  [1mCOMMIT[0m
+Migrating to ChangeIndexRatings (20150721053235)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (21.9ms)[0m  [1mALTER TABLE "ratings" ALTER COLUMN "user_id" TYPE integer[0m
+  [1m[35m (1.4ms)[0m  ALTER TABLE "ratings" ALTER COLUMN "recipe_id" TYPE integer
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150721053235')[0m
+  [1m[35m (15.1ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
