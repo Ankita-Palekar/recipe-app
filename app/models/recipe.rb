@@ -1,13 +1,11 @@
 class Recipe < ActiveRecord::Base
-	has_many :ratings
 	belongs_to :user
-	belongs_to :category
 	has_and_belongs_to_many :ingredients
+	has_many :ratings, :dependent => :destroy
+	#habtm should destroy row entries in the join table automatically it will not destroy from single ingredients or recipe table 
+	
+  attr_accessible :name, :image_links, :description, :meal_class, :total_calories, :aggregate_ratings, :serves, :approved
 
-	validates :title, presence: true
-	validates :user_id, presence: true
-	validates :method, presence: true
-
-	#needs validations
+  
 
 end

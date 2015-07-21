@@ -15,11 +15,11 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: foodholic
+  database: foodholic-recipe
   pool: 5
   host: localhost
-  username: foodholic
-  password: foodholic
+  username: foodholic-recipe
+  password: foodholic-recipe
   port: 5432
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -42,15 +42,15 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: foodholic
+  database: foodholic-recipe_test
   pool: 5
-  username: foodholic
-  password: foodholic
+  username: foodholic-recipe
+  password: foodholic-recipe
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: foodholic
+  database: foodholic-recipe_production
   pool: 5
-  username: foodholic
-  password: foodholic
+  username: foodholic-recipe
+  password: foodholic-recipe

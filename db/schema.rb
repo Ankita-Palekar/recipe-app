@@ -11,53 +11,53 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150721053235) do
-
-  create_table "categories", :force => true do |t|
-    t.string  "name"
-    t.integer "user_id"
-  end
+ActiveRecord::Schema.define(:version => 20150721130342) do
 
   create_table "ingredients", :force => true do |t|
-    t.string "name"
+    t.integer  "user_id"
+    t.string   "name",                  :null => false
+    t.string   "meal_class",            :null => false
+    t.string   "std_measurement"
+    t.integer  "stq_quantity"
+    t.integer  "calories_per_quantity"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "ingredients_recipes", :force => true do |t|
     t.integer "recipe_id"
     t.integer "ingredient_id"
+    t.integer "quantity"
   end
 
   add_index "ingredients_recipes", ["recipe_id", "ingredient_id"], :name => "index_ingredients_recipes_on_recipe_id_and_ingredient_id", :unique => true
 
   create_table "ratings", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "recipe_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "recipe_id"
+    t.integer "user_id"
+    t.integer "rating"
   end
-
-  add_index "ratings", ["recipe_id"], :name => "index_ratings_on_recipie_id"
-  add_index "ratings", ["user_id", "recipe_id"], :name => "index_ratings_on_user_id_and_recipe_id", :unique => true
-  add_index "ratings", ["user_id"], :name => "index_ratings_on_user_id"
 
   create_table "recipes", :force => true do |t|
     t.integer  "user_id"
-    t.string   "title",       :limit => nil
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "method"
-    t.integer  "category_id"
+    t.string   "name",              :null => false
+    t.text     "image_links"
+    t.text     "description",       :null => false
+    t.string   "meal_class",        :null => false
+    t.integer  "total_calories"
+    t.integer  "aggregate_ratings"
+    t.integer  "serves"
+    t.boolean  "approved"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
-  add_index "recipes", ["user_id"], :name => "index_recipies_on_user_id"
-
   create_table "users", :force => true do |t|
-    t.string   "name",            :limit => nil
-    t.string   "email",           :limit => nil,                  :null => false
-    t.string   "password_digest", :limit => nil,                  :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "admin",                          :default => "f"
+    t.string   "email",                              :null => false
+    t.string   "password_digest",                    :null => false
+    t.boolean  "is_admin",        :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

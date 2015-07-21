@@ -1,4 +1,16 @@
 Foodholic::Application.routes.draw do
+  resources :ingredients
+
+
+  resources :recipes
+
+
+  resources :users
+
+
+  resources :ratings
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -198,3 +198,253 @@ Migrating to ChangeIndexRatings (20150721053235)
   [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150721053235')[0m
   [1m[35m (15.1ms)[0m  COMMIT
   [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (49.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (61.1ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721093710)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (77.2ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying(255) NOT NULL, "encrypted_password" character varying(255) NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (30.8ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150721093710')[0m
+  [1m[35m (21.0ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.8ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (97.9ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "is_admin" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (40.7ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150721120353')[0m
+  [1m[35m (18.3ms)[0m  COMMIT
+Migrating to CreateRecipes (20150721121032)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (101.8ms)[0m  [1mCREATE TABLE "recipes" ("id" serial primary key, "user_id" integer, "name" character varying(255) NOT NULL, "image_links" text, "description" text NOT NULL, "meal_class" character varying(255) NOT NULL, "total_calories" integer, "aggregate_ratings" integer, "serves" integer, "approved" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (3.3ms)[0m  ALTER TABLE recipes ADD CONSTRAINT fk_recipes_users FOREIGN KEY (user_id) REFERENCES users(id)
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150721121032')[0m
+  [1m[35m (21.6ms)[0m  COMMIT
+Migrating to CreateIngredients (20150721121040)
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (78.3ms)[0m  [1mCREATE TABLE "ingredients" ("id" serial primary key, "user_id" integer, "name" character varying(255) NOT NULL, "meal_class" character varying(255) NOT NULL, "std_measurement" character varying(255), "stq_quantity" integer, "calories_per_quantity" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (1.4ms)[0m  ALTER TABLE recipes ADD CONSTRAINT fk_ingredients_users FOREIGN KEY (user_id) REFERENCES users(id)
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150721121040')[0m
+  [1m[35m (19.3ms)[0m  COMMIT
+Migrating to CreateRatings (20150721121049)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (40.7ms)[0m  CREATE TABLE "ratings" ("id" serial primary key, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150721121049')[0m
+  [1m[35m (20.8ms)[0m  COMMIT
+Migrating to IngredientRecipe (20150721130342)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateRatings (20150721121049)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.4ms)[0m  DROP TABLE "ratings"
+  [1m[36m (0.8ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20150721121049'[0m
+  [1m[35m (15.7ms)[0m  COMMIT
+  [1m[36m (0.8ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateIngredients (20150721121040)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE recipes DROP FOREIGN KEY fk_ingredients_users
+PG::SyntaxError: ERROR:  syntax error at or near "FOREIGN"
+LINE 1: ALTER TABLE recipes DROP FOREIGN KEY fk_ingredients_users
+                                 ^
+: ALTER TABLE recipes DROP FOREIGN KEY fk_ingredients_users
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateIngredients (20150721121040)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE recipes DROP FOREIGN KEY fk_ingredients_users
+PG::SyntaxError: ERROR:  syntax error at or near "FOREIGN"
+LINE 1: ALTER TABLE recipes DROP FOREIGN KEY fk_ingredients_users
+                                 ^
+: ALTER TABLE recipes DROP FOREIGN KEY fk_ingredients_users
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateIngredients (20150721121040)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE recipes DROP FOREIGN KEY fk_ingredients_users
+PG::SyntaxError: ERROR:  syntax error at or near "FOREIGN"
+LINE 1: ALTER TABLE recipes DROP FOREIGN KEY fk_ingredients_users
+                                 ^
+: ALTER TABLE recipes DROP FOREIGN KEY fk_ingredients_users
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateIngredients (20150721121040)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE recipes DROP FOREIGN KEY fk_ingredients_users
+PG::SyntaxError: ERROR:  syntax error at or near "FOREIGN"
+LINE 1: ALTER TABLE recipes DROP FOREIGN KEY fk_ingredients_users
+                                 ^
+: ALTER TABLE recipes DROP FOREIGN KEY fk_ingredients_users
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateIngredients (20150721121040)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.7ms)[0m  DROP TABLE "ingredients"
+  [1m[36m (1.1ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20150721121040'[0m
+  [1m[35m (19.8ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (100.0ms)[0m  [1mCREATE TABLE "ingredients" ("id" serial primary key, "user_id" integer, "name" character varying(255) NOT NULL, "meal_class" character varying(255) NOT NULL, "std_measurement" character varying(255), "stq_quantity" integer, "calories_per_quantity" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (4.2ms)[0m  ALTER TABLE ingredients ADD CONSTRAINT fk_ingredients_users FOREIGN KEY (user_id) REFERENCES users(id)
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150721121040')[0m
+  [1m[35m (15.6ms)[0m  COMMIT
+Migrating to CreateRatings (20150721121049)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateIngredients (20150721121040)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.4ms)[0m  ALTER TABLE ingredients DROP CONSTRAINT fk_ingredients_users
+  [1m[36m (1.4ms)[0m  [1mDROP TABLE "ingredients"[0m
+  [1m[35m (0.7ms)[0m  DELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20150721121040'
+  [1m[36m (19.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (121.8ms)[0m  [1mCREATE TABLE "ingredients" ("id" serial primary key, "user_id" integer, "name" character varying(255) NOT NULL, "meal_class" character varying(255) NOT NULL, "std_measurement" character varying(255), "stq_quantity" integer, "calories_per_quantity" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (2.9ms)[0m  ALTER TABLE ingredients ADD CONSTRAINT fk_ingredients_users FOREIGN KEY (user_id) REFERENCES users(id)
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150721121040')[0m
+  [1m[35m (20.6ms)[0m  COMMIT
+Migrating to CreateRatings (20150721121049)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (49.0ms)[0m  CREATE TABLE "ratings" ("id" serial primary key, "recipe_id" integer, "user_id" integer, "rating" integer) 
+  [1m[36m (2.1ms)[0m  [1mALTER TABLE ratings ADD CONSTRAINT fk_ratings_users FOREIGN KEY (user_id) REFERENCES users(id)[0m
+  [1m[35m (2.0ms)[0m  ALTER TABLE ratings ADD CONSTRAINT fk_recipes_recipes FOREIGN KEY (user_id) REFERENCES recipes(id)
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150721121049')[0m
+  [1m[35m (18.0ms)[0m  COMMIT
+Migrating to IngredientRecipe (20150721130342)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.9ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (47.9ms)[0m  [1mCREATE TABLE "ingredients_recipes" ("id" serial primary key, "recipe_id" integer, "ingredient_id" integer, "quantity" integer) [0m
+  [1m[35m (41.3ms)[0m  CREATE UNIQUE INDEX "index_ingredients_recipes_on_recipe_id_and_ingredient_id" ON "ingredients_recipes" ("recipe_id", "ingredient_id")
+  [1m[36m (2.6ms)[0m  [1mALTER TABLE ingredients_recipes ADD CONSTRAINT fk_ingredients_recipes_recipe FOREIGN KEY (recipe_id) REFERENCES recipes(id)[0m
+  [1m[35m (1.8ms)[0m  ALTER TABLE ingredients_recipes ADD CONSTRAINT fk_ingredients_recipes_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150721130342')[0m
+  [1m[35m (34.0ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (1.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'ankita@vacationlabs.com' LIMIT 1[0m
+  [1m[35mSQL (2.4ms)[0m  INSERT INTO "users" ("created_at", "email", "is_admin", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Tue, 21 Jul 2015 15:08:03 UTC +00:00], ["email", "ankita@vacationlabs.com"], ["is_admin", false], ["password_digest", "$2a$10$r0R84G5UjSNIOiJz1cyKnOuuLztLHLskwSi.3tG6M8PW4W5Knb7/."], ["updated_at", Tue, 21 Jul 2015 15:08:03 UTC +00:00]]
+  [1m[36m (12.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mUser Exists (0.8ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = '453ankitapalekar@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "is_admin", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Tue, 21 Jul 2015 15:08:04 UTC +00:00], ["email", "453ankitapalekar@gmail.com"], ["is_admin", false], ["password_digest", "$2a$10$8eVyDD/316g/xZH4CLdrEO6fWGcBvtQZQdZwA9VXXp44uueod9jhe"], ["updated_at", Tue, 21 Jul 2015 15:08:04 UTC +00:00]]
+  [1m[36m (11.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'pradosh@vacationlabs.com' LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("created_at", "email", "is_admin", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Tue, 21 Jul 2015 15:08:04 UTC +00:00], ["email", "pradosh@vacationlabs.com"], ["is_admin", false], ["password_digest", "$2a$10$zJCI.3qeOdIY.wxVHv1PIeXXpcCAJVn0vCztuoKz5y4zCaco42RES"], ["updated_at", Tue, 21 Jul 2015 15:08:04 UTC +00:00]]
+  [1m[36m (10.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'lakshadeep@vacationlabs.com' LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("created_at", "email", "is_admin", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Tue, 21 Jul 2015 15:08:04 UTC +00:00], ["email", "lakshadeep@vacationlabs.com"], ["is_admin", false], ["password_digest", "$2a$10$mpLoGBD2j8c.c2PlV.Ngw.LTRHbmYrDRreyx1FgC00wtvKk8yrMG6"], ["updated_at", Tue, 21 Jul 2015 15:08:04 UTC +00:00]]
+  [1m[36m (12.9ms)[0m  [1mCOMMIT[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (1.9ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'ankita@vacationlabs.com' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = '453ankitapalekar@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'pradosh@vacationlabs.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'lakshadeep@vacationlabs.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
