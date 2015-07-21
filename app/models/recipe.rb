@@ -8,4 +8,6 @@ class Recipe < ActiveRecord::Base
 	validates :user_id, presence: true
 	validates :method, presence: true
 
+	#needs validations
+
 end
