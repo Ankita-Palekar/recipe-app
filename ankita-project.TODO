@@ -1,0 +1,80 @@
+Recipe Project:
+  ☐ The homepage will show the popular recipies (Some way of ranking, such as star rating)
+  ☐ Recipe will have multiple ingredients
+  ☐ Search recipes by multiple ingredient. example, show me all recipes that use potates, onion, and garlic
+  ☐ Search criteria for the recipes
+  ☐ Categorization of recipies
+  ☐ Submitting new recipies
+Data model (broad overview):
+  ☐ This is not necessarily complete. Use this only as a guideline @important
+  ☐ Ingredient
+      - name
+      - meal class: jain > veg > non-veg
+      - standard unit for measuring: ml, grams, spoons, cups, etc
+      - standard quantity (eg. 1 cup)
+      - number of calories in standard quantity
+      - added by user-id
+  ☐ Recipe
+      - name
+      - multiple photos
+      - description of recipe
+      - added by which user-id
+      - meal class based on the most restrictive ingredient
+      - total calories in recipe (computed directly from each ingredient and its quantities)
+      - aggregate star-value for this rating
+      - serves how many people?
+  ☐ RecipeIngredients
+      - recipe-id
+      - ingredient-id
+      - quantity (in terms of standard unit of the ingredient)
+  ☐ UserRating
+      - recipe-id
+      - user-id
+      - rating (1-5)
+  ☐ Users
+      - email
+      - password
+      - is_admin
+
+ UX / User-interface:
+  ☐ Home page
+    ☐ Display list of recently created recipes
+    ☐ Display list of top-rated recipes
+    ☐ Free-text search
+    ☐ Advanced search
+      ☐ Search on the basis of one (or more) ingredients, with optional maximum quantity for each ingredient
+      ☐ Range for star-rating
+      ☐ Search on basis of meal-class
+      ☐ Search on basis of calories for each person
+  ☐ Recipe details page (visible to all everyone)
+    ☐ Display all details about the recipe. 
+    ☐ Photos in a gallery
+    ☐ Each ingredient should be linked to the search-results page, showing all recipes using that ingerdient
+    ☐ Meal class should be linked to the search-results page, showing all recipes belonging to the same meal class
+    ☐ Display a histogram of ratings:
+        - 1-star: number of users
+        - 2-star: number of users
+        - 3-star: number of users
+        - 4-star: number of users
+        - 5-star: number of users
+    ☐ Clicking on a star rating (on the histogram) should show a list of users who have given that rating to that recipe
+  ☐ Create recipe (visible to only signed-in user)
+    ☐ If the user is not signed-in he/she should be redirect to login page
+    ☐ Complete form to create a recipe
+    ☐ Ability to drag & drop multiple photos related to the recipe
+    ☐ Ability to quickly select pre-existing ingredients, or "quick-add" a new ingredient
+    ☐ Creating a new recipe should send a notification to all admin users to view & approve it
+  ☐ My Recipes (visible only to signed-in users)
+    ☐ If the user is not signed-in he/she should be redirect to login page
+    ☐ Reverse chronologial list of recipes created by current user
+    ☐ List of most popular recipes created by current user (most popular recipe is defined as the recipe that has the maximum number of view OR has a lot of ratings OR has a very high overall rating)
+    ☐ Ability to edit a recipe
+    ☐ List of recipes pending approval
+  ☐ Recipes pending approval (visible only to admin users)
+    ☐ If the user is not signed-in he/she should be redirect to login page
+    ☐ List of all the newly created recipes pending approval
+    ☐ List of all the newly created ingredients pending approval (an unapproved ingredient should be usable only be the person who originally created it, not the other users)
+    ☐ Approving a recipe should automatically approve all ingredients within it
+    ☐ Approving a recipe should send an email notification to the user who created it, informing him about the approval
+  ☐ Signin page
+  ☐ New user registration page
