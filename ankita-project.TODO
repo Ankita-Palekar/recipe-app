@@ -1,3 +1,9 @@
+Review:
+  ☐ DB: How is ingredient approval status being handled?
+  ☐ DB: Actual photos need to be uploaded, not links. You can fix this later after you've wrapped your head around the Paperclip gem. @later
+  ☐ DB: Appropriate indexes for various database columns @later
+  ☐ API: Read about instance methods and class methods and understand which needs to be used where.
+
 Recipe Project:
   ☐ The homepage will show the popular recipies (Some way of ranking, such as star rating)
   ☐ Recipe will have multiple ingredients
