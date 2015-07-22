@@ -1,3 +1,8 @@
 class Rating < ActiveRecord::Base
-  # attr_accessible :title, :body
+	belongs_to :user
+	belongs_to :recipe
+  attr_accessible :user_id, :recipe_id, :rating
+
+  validates :rating, :presnec => true, :numericality => true
+
 end

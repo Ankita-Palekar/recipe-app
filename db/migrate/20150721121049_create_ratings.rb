@@ -5,8 +5,8 @@ class CreateRatings < ActiveRecord::Migration
       t.belongs_to :user , index:true
       t.integer :rating
     end
-    execute "ALTER TABLE ratings ADD CONSTRAINT fk_ratings_users FOREIGN KEY (user_id) REFERENCES users(id)"
-    execute "ALTER TABLE ratings ADD CONSTRAINT fk_recipes_recipes FOREIGN KEY (user_id) REFERENCES recipes(id)"
+    execute "ALTER TABLE ratings ADD CONSTRAINT fk_ratings_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+    execute "ALTER TABLE ratings ADD CONSTRAINT fk_recipes_recipes FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE"
   end
 
   def end

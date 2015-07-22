@@ -5,12 +5,12 @@ class CreateIngredients < ActiveRecord::Migration
     	t.string :name , :null => false
     	t.string :meal_class, :null => false 
     	t.string :std_measurement
-    	t.integer :stq_quantity
+    	t.integer :std_quantity
     	t.integer :calories_per_quantity
 
       t.timestamps
     end
-    execute "ALTER TABLE ingredients ADD CONSTRAINT fk_ingredients_users FOREIGN KEY (user_id) REFERENCES users(id)"
+    execute "ALTER TABLE ingredients ADD CONSTRAINT fk_ingredients_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
   end
   def down
   	execute "ALTER TABLE ingredients DROP CONSTRAINT  fk_ingredients_users"

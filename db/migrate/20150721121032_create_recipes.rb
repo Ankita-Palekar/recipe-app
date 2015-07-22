@@ -12,7 +12,7 @@ class CreateRecipes < ActiveRecord::Migration
     	t.boolean :approved, :dafault => false
       t.timestamps
     end
-    execute "ALTER TABLE recipes ADD CONSTRAINT fk_recipes_users FOREIGN KEY (user_id) REFERENCES users(id)"
+    execute "ALTER TABLE recipes ADD CONSTRAINT fk_recipes_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
   end
 
   def down

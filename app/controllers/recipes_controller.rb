@@ -80,4 +80,12 @@ class RecipesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def show_pending_recipes
+    
+  end
+
+  def accept_recipe
+    #send mail to recipe owner
+  end
 end
