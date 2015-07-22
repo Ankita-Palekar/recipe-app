@@ -13,7 +13,7 @@ class Ingredient < ActiveRecord::Base
 		#code to save ingredients to db
 	end
 
-	def ingredient_accept(ingredient_id:)
+	def accept_ingredient(ingredient_id:)
 		#set approved flag to true  
 	end
 end
