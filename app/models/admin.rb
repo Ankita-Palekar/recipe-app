@@ -7,7 +7,7 @@ class Admin < User
 	# end
 
 	 
-	def send_email_notification_recipe_accepted
+	def send_email_notification_recipe_approved
 	  #send mail to user saying recipe accepted
 	end
 

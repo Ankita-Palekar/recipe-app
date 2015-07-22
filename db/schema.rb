@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150722065125) do
+ActiveRecord::Schema.define(:version => 20150722145329) do
 
   create_table "admins", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -30,19 +30,24 @@ ActiveRecord::Schema.define(:version => 20150722065125) do
     t.boolean  "approved",              :default => false
   end
 
-  create_table "ingredients_recipes", :force => true do |t|
-    t.integer "recipe_id"
-    t.integer "ingredient_id"
-    t.integer "quantity"
-  end
-
-  add_index "ingredients_recipes", ["recipe_id", "ingredient_id"], :name => "index_ingredients_recipes_on_recipe_id_and_ingredient_id", :unique => true
+  add_index "ingredients", ["user_id"], :name => "index_ingredients_on_user_id"
 
   create_table "ratings", :force => true do |t|
     t.integer "recipe_id"
     t.integer "user_id"
     t.integer "rating"
   end
+
+  add_index "ratings", ["recipe_id"], :name => "index_ratings_on_recipe_id"
+  add_index "ratings", ["user_id"], :name => "index_ratings_on_user_id"
+
+  create_table "recipe_ingredients", :id => false, :force => true do |t|
+    t.integer "recipe_id"
+    t.integer "ingredient_id"
+    t.integer "quantity"
+  end
+
+  add_index "recipe_ingredients", ["recipe_id", "ingredient_id"], :name => "index_ingredients_recipes_on_recipe_id_and_ingredient_id", :unique => true
 
   create_table "recipes", :force => true do |t|
     t.integer  "user_id"
@@ -57,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20150722065125) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  add_index "recipes", ["user_id"], :name => "index_recipes_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                              :null => false
