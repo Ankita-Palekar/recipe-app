@@ -11,7 +11,6 @@ class Recipe < ActiveRecord::Base
   validates :serves, :numericality => true
   validates :aggregate_ratings, :numericality => true
 
-
   def create_recipe
   	Recipe.transaction do
   		begin	
@@ -25,7 +24,6 @@ class Recipe < ActiveRecord::Base
   		end
   	end
   end
-
 
   def show_pending_recipes
     
