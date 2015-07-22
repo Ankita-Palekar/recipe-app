@@ -11,4 +11,31 @@ class Recipe < ActiveRecord::Base
   validates :serves, :numericality => true
   validates :aggregate_ratings, :numericality => true
 
+
+  def create_recipe
+  	Recipe.transaction do
+  		begin	
+	  		#save ingredients first using create_ingredients function 
+	  		#get least strict ingredient class name
+	  		#set class name to recipe 
+	  		#recipe.save!
+	  		#save recipe ingredient in join table ingredients_recipes
+	  	rescue ActiveRecord::RecordNotSaved
+  		 #error messages
+  		end
+  	end
+  end
+
+
+  def show_pending_recipes
+    
+  end
+
+  def accept_recipe
+    #make approved flag true, send mail to recipe owner
+  end
+
+  def get_recipe_type
+  	# depending upon the least strict meal class of ingredients
+  end
 end

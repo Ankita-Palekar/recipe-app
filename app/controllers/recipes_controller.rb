@@ -81,11 +81,4 @@ class RecipesController < ApplicationController
     end
   end
 
-  def show_pending_recipes
-    
-  end
-
-  def accept_recipe
-    #send mail to recipe owner
-  end
 end

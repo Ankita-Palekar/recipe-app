@@ -8,4 +8,13 @@ class Ingredient < ActiveRecord::Base
 	validates :std_quantity, :numericality => true
 	validates :calories_per_quantity, :numericality => true
 
+
+	def create_ingredients
+		#code to save ingredients to db
+	end
+
+	def ingredient_accept
+	  
+	end
+
 end

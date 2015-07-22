@@ -80,8 +80,4 @@ class IngredientsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  def ingredient_accept
-    
-  end
 end
