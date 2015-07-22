@@ -619,3 +619,23 @@ Migrating to IngredientRecipe (20150721130342)
   [1m[36m (16.7ms)[0m  [1mCOMMIT[0m
   [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
 Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (35.2ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (766.3ms)[0m  [1mCREATE TABLE "admins" ("id" serial primary key, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150722044920')
+  [1m[36m (37.2ms)[0m  [1mCOMMIT[0m
+Migrating to AddApproveStatusIngredients (20150722065125)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (212.0ms)[0m  [1mALTER TABLE "ingredients" ADD COLUMN "approved" boolean DEFAULT 'f'[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150722065125')
+  [1m[36m (31.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
