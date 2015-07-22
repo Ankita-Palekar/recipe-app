@@ -9,11 +9,13 @@ class Ingredient < ActiveRecord::Base
 	validates :std_quantity, :numericality => true
 	validates :calories_per_quantity, :numericality => true
 
+  # REVIEW: Naming. Why is this function name plural? What are the arguments
+  # of this function? What is the return value of this function?
 	def create_ingredients
 		#code to save ingredients to db
 	end
 
-	def accept_ingredient(ingredient_id:)
+ 	def accept_ingredient(ingredient_id:)
 		#set approved flag to true  
 	end
 end

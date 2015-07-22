@@ -38,7 +38,9 @@ class Recipe < ActiveRecord::Base
     # Recipe.where(approved: false)  
   end
 
-  #recipe = Recipe.new 
+  # REVIEW: naming. What is 'accept' supposed to mean? Why is the naming of
+  # this function not consistent with Ingredient#ingredient_accept? Pick one
+  # naming convention and stick to it. Either approve_x or x_approve
   def accept_recipe
     # @approved = true
     # save
@@ -46,6 +48,7 @@ class Recipe < ActiveRecord::Base
     # user.send_email_notification_recipe_accepted
   end
 
+  # REVIEW: inconsitent naming. Is this recipe type or recipe meal class?
   def self.get_recipe_type(ingredients_list:)
   	# depending upon the least strict meal class of ingredients
   end
