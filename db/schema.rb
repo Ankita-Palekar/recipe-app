@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(:version => 20150721130342) do
     t.string   "name",                  :null => false
     t.string   "meal_class",            :null => false
     t.string   "std_measurement"
-    t.integer  "stq_quantity"
+    t.integer  "std_quantity"
     t.integer  "calories_per_quantity"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false

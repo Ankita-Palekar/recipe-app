@@ -31,7 +31,7 @@ class Recipe < ActiveRecord::Base
     
   end
 
-  def accept_recipe
+  def accept_recipe(:recipe_id)
     #make approved flag true, send mail to recipe owner
   end
 
