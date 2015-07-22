@@ -8,16 +8,4 @@ class User < ActiveRecord::Base
 	EMAIL_REGEX	=	/([A-Z]|[a-z]|[0-9])\w+(.)*@([a-z]|[A-Z]|[0-9])\w+(.)([a-z]|[A-z]|[0-9])+/
   validates :email, :presence	=>	true, :uniqueness	=>	true,	:format	=>	EMAIL_REGEX, on 
   validates :password, :length => {:in => 8..20}
-
-  #list of admin related functions
-  #
-  def login
-    #if admin set admin session true rest all display will be dependent upon this session
-  end
-
-  def send_email_notification_recipe_accepted
-    #send mail to user saying recipe accepted
-  end
-
-
 end
