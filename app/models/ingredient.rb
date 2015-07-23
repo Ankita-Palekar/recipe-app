@@ -4,7 +4,7 @@ class Ingredient < ActiveRecord::Base
 	has_many :recipes, :through => :recipe_ingredients #change naming otherwise @@SCREWED
 
 
-  attr_accessible :name, :meal_class, :std_measurement, :std_quantity, :calories_per_quantity
+  attr_accessible :name, :meal_class, :std_measurement, :std_quantity, :calories_per_quantity, :approved
 	MEAL_CLASS = %w(jain veg non-veg)
 	STD_QUANTITY = ["teaspoon", "tablespoon", "fluid ounce", "gill", "cup", "pint", "quart", "gallon", "ml", "l", "dl", "pounds", "ounce", "mg", "g", "kg", "mm", "cm", "m", "inch"]
 	
@@ -22,20 +22,25 @@ class Ingredient < ActiveRecord::Base
 	end
 
 	# output :message => got saved sucessfully
-	def create_ingredient
-		begin
-			Ingredient.transaction do
-				save!  
-			end
-		rescue Exception => message
-			puts message.inspect
-			puts errors.inspect
-		end
-	end
+	# def create_ingredient
+	# 	begin
+	# 		Ingredient.transaction do
+	# 			save!  
+	# 		end
+	# 	rescue Exception => message
+	# 		puts message.inspect
+	# 		puts errors.inspect
+	# 	end
+	# end
 
 	  
  	def approve_ingredient
-		#set approved flag to true  
-		#returns status whether saved or not
+ 		begin
+		 	update_attributes!(:approved => true)
+ 		rescue Exception => e
+ 			puts e
+ 			puts errors.messages
+ 		end
+
 	end
 end

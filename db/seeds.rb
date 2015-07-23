@@ -18,14 +18,16 @@
 # 	User.create(u)
 # end
 
-ingredients_list = [{:name=>"chana", :meal_class=>"veg", :std_measurement=>"kg", :std_quantity=>100, :calories_per_quantity=>500 }]
+ingredients_list = [{:name=>"milk", :meal_class=>"veg", :std_measurement=>"l", :std_quantity=>1, :calories_per_quantity=>250, :quantity => 2}, {:name=>"vanilla", :meal_class=>"veg", :std_measurement=>"mg", :std_quantity=>10, :calories_per_quantity=>50, :quantity => 100}]
 
 
-recipe = Recipe.new 
-recipe.name = "Chole"
-recipe.description = "Chole Masala"
-recipe.serves = 4
-recipe.aggregate_ratings = 4
+recipe = Recipe.new(:name => "Vanilla Icecream", :description => "boil milk, chop dry fruits",:serves => 4, :aggregate_ratings => 4, :user_id => 1, :meal_class => Recipe.get_recipe_meal_class(:ingredients_list => ingredients_list))
+# recipe.name = "vanilla icecream"
+# recipe.description = 
+# recipe.serves = 4
+# recipe.aggregate_ratings = 4
+# recipe.user_id = 1
+
 recipe.create_recipe(:ingredients_list => ingredients_list)
 
 
