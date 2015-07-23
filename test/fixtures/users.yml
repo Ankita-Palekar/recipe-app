@@ -4,10 +4,6 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: 
-email: zomato.com
-password: zomato
-password_confirmation: zomataxxxx
-#
-two: 
-
+user1: 
+ email: zomato.com
+ password_digest: some_digest #since in db this field is specified as not null cannot keep blank

@@ -8,14 +8,14 @@
 #   
 
  
-# users_list = [{email: "ankita@vacationlabs.com", password: "ankita"},
+# users_list = [{email: "ankipale@gmail.com", password: "ankita"},
 # {email: "453ankitapalekar@gmail.com", password: "anki-cool"},
 # {email: "pradosh@vacationlabs.com", password: "pradosh"},
 # {email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
 # ]
 
 # users_list.each do |u|
-# 	User.create(u)
+# 	User.create!(u)
 # end
 
 # REVIEW -- how does one use a pre-existing ingredient?

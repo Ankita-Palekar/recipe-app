@@ -4,8 +4,10 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+# recipe1:
+#  name: papaya casew
+#  description: grind papaya
+#  serves: 4
+#  aggregate_ratings: 0
+#  creator_id: 2
+#  meal_class: veg

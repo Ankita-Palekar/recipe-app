@@ -3,6 +3,6 @@ class Rating < ActiveRecord::Base
 	belongs_to :recipe
   attr_accessible :user_id, :recipe_id, :rating
 
-  validates :rating, :presnec => true, :numericality => true
+  validates :rating, :presence => true, :numericality => true
 
 end

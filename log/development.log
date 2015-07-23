@@ -1621,3 +1621,293 @@ Connecting to database specified by database.yml
   [1m[35mSQL (0.6ms)[0m  INSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)  [["ingredient_id", 57], ["quantity", 100], ["recipe_id", 25]]
   [1m[36m (0.9ms)[0m  [1mUPDATE "recipes" SET "total_calories" = 6000, "updated_at" = '2015-07-23 10:23:27.114483' WHERE "recipes"."id" = 25[0m
   [1m[35m (21.9ms)[0m  COMMIT
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (375.7ms)[0m  [1mDROP DATABASE IF EXISTS "foodholic-recipe_test"[0m
+  [1m[35m (2115.8ms)[0m  CREATE DATABASE "foodholic-recipe_test" ENCODING = 'unicode'
+  [1m[36m (116.7ms)[0m  [1mCREATE TABLE "admins" ("id" serial primary key, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (115.0ms)[0m  CREATE TABLE "ingredients" ("id" serial primary key, "creator_id" integer, "name" character varying(255) NOT NULL, "meal_class" character varying(255) NOT NULL, "std_measurement" character varying(255), "std_quantity" integer, "calories_per_quantity" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "approved" boolean DEFAULT 'f') 
+  [1m[36m (72.3ms)[0m  [1mCREATE INDEX "index_ingredients_on_user_id" ON "ingredients" ("creator_id")[0m
+  [1m[35m (64.2ms)[0m  CREATE TABLE "ratings" ("id" serial primary key, "recipe_id" integer, "user_id" integer, "rating" integer) 
+  [1m[36m (63.6ms)[0m  [1mCREATE INDEX "index_ratings_on_recipe_id" ON "ratings" ("recipe_id")[0m
+  [1m[35m (62.4ms)[0m  CREATE INDEX "index_ratings_on_user_id" ON "ratings" ("user_id")
+  [1m[36m (9.5ms)[0m  [1mCREATE TABLE "recipe_ingredients" ("recipe_id" integer, "ingredient_id" integer, "quantity" integer) [0m
+  [1m[35m (53.4ms)[0m  CREATE UNIQUE INDEX "index_ingredients_recipes_on_recipe_id_and_ingredient_id" ON "recipe_ingredients" ("recipe_id", "ingredient_id")
+  [1m[36m (97.0ms)[0m  [1mCREATE TABLE "recipes" ("id" serial primary key, "creator_id" integer, "name" character varying(255) NOT NULL, "image_links" text, "description" text NOT NULL, "meal_class" character varying(255) NOT NULL, "total_calories" integer, "aggregate_ratings" integer, "serves" integer, "approved" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (52.5ms)[0m  CREATE INDEX "index_recipes_on_user_id" ON "recipes" ("creator_id")
+  [1m[36m (97.4ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "is_admin" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (53.2ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (9.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (63.7ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.6ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (8.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150723101739')
+  [1m[36m (10.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721120353')[0m
+  [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722143253')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722144151')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721121032')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722145329')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722183622')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722143444')[0m
+  [1m[35m (10.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722044920')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722065125')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721121040')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721121049')[0m
+  [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721130342')
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+  [1m[36m (231.3ms)[0m  [1mDROP DATABASE IF EXISTS "foodholic-recipe_test"[0m
+  [1m[35m (850.1ms)[0m  CREATE DATABASE "foodholic-recipe_test" ENCODING = 'unicode'
+  [1m[36m (82.7ms)[0m  [1mCREATE TABLE "admins" ("id" serial primary key, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (103.9ms)[0m  CREATE TABLE "ingredients" ("id" serial primary key, "creator_id" integer, "name" character varying(255) NOT NULL, "meal_class" character varying(255) NOT NULL, "std_measurement" character varying(255), "std_quantity" integer, "calories_per_quantity" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "approved" boolean DEFAULT 'f') 
+  [1m[36m (60.9ms)[0m  [1mCREATE INDEX "index_ingredients_on_user_id" ON "ingredients" ("creator_id")[0m
+  [1m[35m (64.0ms)[0m  CREATE TABLE "ratings" ("id" serial primary key, "recipe_id" integer, "user_id" integer, "rating" integer) 
+  [1m[36m (63.2ms)[0m  [1mCREATE INDEX "index_ratings_on_recipe_id" ON "ratings" ("recipe_id")[0m
+  [1m[35m (61.5ms)[0m  CREATE INDEX "index_ratings_on_user_id" ON "ratings" ("user_id")
+  [1m[36m (9.6ms)[0m  [1mCREATE TABLE "recipe_ingredients" ("recipe_id" integer, "ingredient_id" integer, "quantity" integer) [0m
+  [1m[35m (52.7ms)[0m  CREATE UNIQUE INDEX "index_ingredients_recipes_on_recipe_id_and_ingredient_id" ON "recipe_ingredients" ("recipe_id", "ingredient_id")
+  [1m[36m (119.5ms)[0m  [1mCREATE TABLE "recipes" ("id" serial primary key, "creator_id" integer, "name" character varying(255) NOT NULL, "image_links" text, "description" text NOT NULL, "meal_class" character varying(255) NOT NULL, "total_calories" integer, "aggregate_ratings" integer, "serves" integer, "approved" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (63.9ms)[0m  CREATE INDEX "index_recipes_on_user_id" ON "recipes" ("creator_id")
+  [1m[36m (86.4ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "is_admin" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (86.6ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (9.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (52.5ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.6ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (8.1ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150723101739')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721120353')[0m
+  [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722143253')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722144151')[0m
+  [1m[35m (10.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721121032')
+  [1m[36m (10.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722145329')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722183622')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722143444')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722044920')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722065125')[0m
+  [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721121040')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721121049')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721130342')
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (335.5ms)[0m  DROP DATABASE IF EXISTS "foodholic-recipe_test"
+  [1m[36m (838.1ms)[0m  [1mCREATE DATABASE "foodholic-recipe_test" ENCODING = 'unicode'[0m
+  [1m[35m (75.4ms)[0m  CREATE TABLE "admins" ("id" serial primary key, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (92.8ms)[0m  [1mCREATE TABLE "ingredients" ("id" serial primary key, "creator_id" integer, "name" character varying(255) NOT NULL, "meal_class" character varying(255) NOT NULL, "std_measurement" character varying(255), "std_quantity" integer, "calories_per_quantity" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "approved" boolean DEFAULT 'f') [0m
+  [1m[35m (62.5ms)[0m  CREATE INDEX "index_ingredients_on_user_id" ON "ingredients" ("creator_id")
+  [1m[36m (64.6ms)[0m  [1mCREATE TABLE "ratings" ("id" serial primary key, "recipe_id" integer, "user_id" integer, "rating" integer) [0m
+  [1m[35m (63.4ms)[0m  CREATE INDEX "index_ratings_on_recipe_id" ON "ratings" ("recipe_id")
+  [1m[36m (61.4ms)[0m  [1mCREATE INDEX "index_ratings_on_user_id" ON "ratings" ("user_id")[0m
+  [1m[35m (9.3ms)[0m  CREATE TABLE "recipe_ingredients" ("recipe_id" integer, "ingredient_id" integer, "quantity" integer) 
+  [1m[36m (52.2ms)[0m  [1mCREATE UNIQUE INDEX "index_ingredients_recipes_on_recipe_id_and_ingredient_id" ON "recipe_ingredients" ("recipe_id", "ingredient_id")[0m
+  [1m[35m (186.3ms)[0m  CREATE TABLE "recipes" ("id" serial primary key, "creator_id" integer, "name" character varying(255) NOT NULL, "image_links" text, "description" text NOT NULL, "meal_class" character varying(255) NOT NULL, "total_calories" integer, "aggregate_ratings" integer, "serves" integer, "approved" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (74.3ms)[0m  [1mCREATE INDEX "index_recipes_on_user_id" ON "recipes" ("creator_id")[0m
+  [1m[35m (119.5ms)[0m  CREATE TABLE "users" ("id" serial primary key, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "is_admin" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (75.3ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (9.5ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) 
+  [1m[36m (64.6ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.5ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (8.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150723101739')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721120353')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722143253')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722144151')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721121032')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722145329')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722183622')[0m
+  [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722143444')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722044920')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722065125')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721121040')[0m
+  [1m[35m (10.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721121049')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721130342')[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (26.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'ankipale@gmail.com' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = '453ankitapalekar@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'pradosh@vacationlabs.com' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'lakshadeep@vacationlabs.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (1.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'ankipale@gmail.com' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = '453ankitapalekar@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'pradosh@vacationlabs.com' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'lakshadeep@vacationlabs.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (1.2ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'ankipale@gmail.com' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (1.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'ankipale@gmail.com' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (1.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'ankipale@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (15.2ms)[0m  INSERT INTO "users" ("created_at", "email", "is_admin", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 23 Jul 2015 11:59:34 UTC +00:00], ["email", "ankipale@gmail.com"], ["is_admin", false], ["password_digest", "$2a$10$MGNaauEaqzSKpRJFYC4qN.RTy1REmPOjR0ZW2NVMuDugQn.orryNS"], ["updated_at", Thu, 23 Jul 2015 11:59:34 UTC +00:00]]
+  [1m[36m (31.0ms)[0m  [1mCOMMIT[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (1.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'ankipale@gmail.com' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (226.6ms)[0m  DROP DATABASE IF EXISTS "foodholic-recipe_test"
+  [1m[36m (852.7ms)[0m  [1mCREATE DATABASE "foodholic-recipe_test" ENCODING = 'unicode'[0m
+  [1m[35m (87.5ms)[0m  CREATE TABLE "admins" ("id" serial primary key, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (115.0ms)[0m  [1mCREATE TABLE "ingredients" ("id" serial primary key, "creator_id" integer, "name" character varying(255) NOT NULL, "meal_class" character varying(255) NOT NULL, "std_measurement" character varying(255), "std_quantity" integer, "calories_per_quantity" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "approved" boolean DEFAULT 'f') [0m
+  [1m[35m (61.2ms)[0m  CREATE INDEX "index_ingredients_on_user_id" ON "ingredients" ("creator_id")
+  [1m[36m (64.2ms)[0m  [1mCREATE TABLE "ratings" ("id" serial primary key, "recipe_id" integer, "user_id" integer, "rating" integer) [0m
+  [1m[35m (63.0ms)[0m  CREATE INDEX "index_ratings_on_recipe_id" ON "ratings" ("recipe_id")
+  [1m[36m (50.2ms)[0m  [1mCREATE INDEX "index_ratings_on_user_id" ON "ratings" ("user_id")[0m
+  [1m[35m (9.2ms)[0m  CREATE TABLE "recipe_ingredients" ("recipe_id" integer, "ingredient_id" integer, "quantity" integer) 
+  [1m[36m (63.5ms)[0m  [1mCREATE UNIQUE INDEX "index_ingredients_recipes_on_recipe_id_and_ingredient_id" ON "recipe_ingredients" ("recipe_id", "ingredient_id")[0m
+  [1m[35m (107.9ms)[0m  CREATE TABLE "recipes" ("id" serial primary key, "creator_id" integer, "name" character varying(255) NOT NULL, "image_links" text, "description" text NOT NULL, "meal_class" character varying(255) NOT NULL, "total_calories" integer, "aggregate_ratings" integer, "serves" integer, "approved" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (63.4ms)[0m  [1mCREATE INDEX "index_recipes_on_user_id" ON "recipes" ("creator_id")[0m
+  [1m[35m (108.5ms)[0m  CREATE TABLE "users" ("id" serial primary key, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "is_admin" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (64.0ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (9.5ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) 
+  [1m[36m (52.7ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.6ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (8.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150723101739')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721120353')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722143253')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722144151')
+  [1m[36m (10.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721121032')[0m
+  [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722145329')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722183622')[0m
+  [1m[35m (10.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722143444')
+  [1m[36m (10.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722044920')[0m
+  [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722065125')
+  [1m[36m (10.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721121040')[0m
+  [1m[35m (10.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721121049')
+  [1m[36m (10.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721130342')[0m
+Connecting to database specified by database.yml
+  [1m[36m (330.2ms)[0m  [1mDROP DATABASE IF EXISTS "foodholic-recipe_test"[0m
+  [1m[35m (950.2ms)[0m  CREATE DATABASE "foodholic-recipe_test" ENCODING = 'unicode'
+  [1m[36m (74.3ms)[0m  [1mCREATE TABLE "admins" ("id" serial primary key, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (115.3ms)[0m  CREATE TABLE "ingredients" ("id" serial primary key, "creator_id" integer, "name" character varying(255) NOT NULL, "meal_class" character varying(255) NOT NULL, "std_measurement" character varying(255), "std_quantity" integer, "calories_per_quantity" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "approved" boolean DEFAULT 'f') 
+  [1m[36m (50.5ms)[0m  [1mCREATE INDEX "index_ingredients_on_user_id" ON "ingredients" ("creator_id")[0m
+  [1m[35m (53.1ms)[0m  CREATE TABLE "ratings" ("id" serial primary key, "recipe_id" integer, "user_id" integer, "rating" integer) 
+  [1m[36m (52.5ms)[0m  [1mCREATE INDEX "index_ratings_on_recipe_id" ON "ratings" ("recipe_id")[0m
+  [1m[35m (62.4ms)[0m  CREATE INDEX "index_ratings_on_user_id" ON "ratings" ("user_id")
+  [1m[36m (9.5ms)[0m  [1mCREATE TABLE "recipe_ingredients" ("recipe_id" integer, "ingredient_id" integer, "quantity" integer) [0m
+  [1m[35m (63.8ms)[0m  CREATE UNIQUE INDEX "index_ingredients_recipes_on_recipe_id_and_ingredient_id" ON "recipe_ingredients" ("recipe_id", "ingredient_id")
+  [1m[36m (130.4ms)[0m  [1mCREATE TABLE "recipes" ("id" serial primary key, "creator_id" integer, "name" character varying(255) NOT NULL, "image_links" text, "description" text NOT NULL, "meal_class" character varying(255) NOT NULL, "total_calories" integer, "aggregate_ratings" integer, "serves" integer, "approved" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (63.5ms)[0m  CREATE INDEX "index_recipes_on_user_id" ON "recipes" ("creator_id")
+  [1m[36m (118.8ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "is_admin" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (64.3ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (9.4ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (64.4ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.5ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (8.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150723101739')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721120353')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722143253')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722144151')[0m
+  [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721121032')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722145329')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722183622')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722143444')[0m
+  [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722044920')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722065125')[0m
+  [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721121040')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721121049')[0m
+  [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721130342')
+Connecting to database specified by database.yml
+  [1m[36m (221.8ms)[0m  [1mDROP DATABASE IF EXISTS "foodholic-recipe_test"[0m
+  [1m[35m (1285.6ms)[0m  CREATE DATABASE "foodholic-recipe_test" ENCODING = 'unicode'
+  [1m[36m (123.1ms)[0m  [1mCREATE TABLE "admins" ("id" serial primary key, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (85.5ms)[0m  CREATE TABLE "ingredients" ("id" serial primary key, "creator_id" integer, "name" character varying(255) NOT NULL, "meal_class" character varying(255) NOT NULL, "std_measurement" character varying(255), "std_quantity" integer, "calories_per_quantity" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "approved" boolean DEFAULT 'f') 
+  [1m[36m (62.9ms)[0m  [1mCREATE INDEX "index_ingredients_on_user_id" ON "ingredients" ("creator_id")[0m
+  [1m[35m (87.4ms)[0m  CREATE TABLE "ratings" ("id" serial primary key, "recipe_id" integer, "user_id" integer, "rating" integer) 
+  [1m[36m (285.5ms)[0m  [1mCREATE INDEX "index_ratings_on_recipe_id" ON "ratings" ("recipe_id")[0m
+  [1m[35m (52.0ms)[0m  CREATE INDEX "index_ratings_on_user_id" ON "ratings" ("user_id")
+  [1m[36m (10.4ms)[0m  [1mCREATE TABLE "recipe_ingredients" ("recipe_id" integer, "ingredient_id" integer, "quantity" integer) [0m
+  [1m[35m (53.5ms)[0m  CREATE UNIQUE INDEX "index_ingredients_recipes_on_recipe_id_and_ingredient_id" ON "recipe_ingredients" ("recipe_id", "ingredient_id")
+  [1m[36m (98.5ms)[0m  [1mCREATE TABLE "recipes" ("id" serial primary key, "creator_id" integer, "name" character varying(255) NOT NULL, "image_links" text, "description" text NOT NULL, "meal_class" character varying(255) NOT NULL, "total_calories" integer, "aggregate_ratings" integer, "serves" integer, "approved" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (451.6ms)[0m  CREATE INDEX "index_recipes_on_user_id" ON "recipes" ("creator_id")
+  [1m[36m (170.1ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "is_admin" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (417.7ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (20.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (54.1ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.5ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (8.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150723101739')
+  [1m[36m (10.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721120353')[0m
+  [1m[35m (11.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722143253')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722144151')[0m
+  [1m[35m (10.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721121032')
+  [1m[36m (10.9ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722145329')[0m
+  [1m[35m (11.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722183622')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722143444')[0m
+  [1m[35m (55.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150722044920')
+  [1m[36m (374.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150722065125')[0m
+  [1m[35m (21.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721121040')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150721121049')[0m
+  [1m[35m (10.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150721130342')
+Connecting to database specified by database.yml
+  [1m[36m (0.7ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (5008.6ms)[0m  DROP DATABASE IF EXISTS "foodholic-recipe_test"
+PG::ObjectInUse: ERROR:  database "foodholic-recipe_test" is being accessed by other users
+DETAIL:  There is 1 other session using the database.
+: DROP DATABASE IF EXISTS "foodholic-recipe_test"
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (5008.6ms)[0m  DROP DATABASE IF EXISTS "foodholic-recipe_test"
+PG::ObjectInUse: ERROR:  database "foodholic-recipe_test" is being accessed by other users
+DETAIL:  There is 1 other session using the database.
+: DROP DATABASE IF EXISTS "foodholic-recipe_test"
