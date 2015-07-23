@@ -1460,3 +1460,164 @@ Connecting to database specified by database.yml
   [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)[0m  [["ingredient_id", 51], ["quantity", 100], ["recipe_id", 20]]
   [1m[35m (1.0ms)[0m  UPDATE "recipes" SET "total_calories" = 5500, "updated_at" = '2015-07-23 04:54:58.363186' WHERE "recipes"."id" = 20
   [1m[36m (25.3ms)[0m  [1mCOMMIT[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (16.1ms)[0m  [1mINSERT INTO "recipes" ("aggregate_ratings", "approved", "created_at", "description", "image_links", "meal_class", "name", "serves", "total_calories", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["aggregate_ratings", 4], ["approved", false], ["created_at", Thu, 23 Jul 2015 07:39:28 UTC +00:00], ["description", "boil milk, chop dry fruits"], ["image_links", nil], ["meal_class", "veg"], ["name", "badam milk"], ["serves", 4], ["total_calories", nil], ["updated_at", Thu, 23 Jul 2015 07:39:28 UTC +00:00], ["user_id", 2]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)  [["ingredient_id", nil], ["quantity", 2], ["recipe_id", 21]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)[0m  [["ingredient_id", nil], ["quantity", 100], ["recipe_id", 21]]
+  [1m[35m (0.9ms)[0m  UPDATE "recipes" SET "total_calories" = 5500, "updated_at" = '2015-07-23 07:39:28.678463' WHERE "recipes"."id" = 21
+  [1m[36m (28.2ms)[0m  [1mCOMMIT[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (4.7ms)[0m  [1mINSERT INTO "recipes" ("aggregate_ratings", "approved", "created_at", "description", "image_links", "meal_class", "name", "serves", "total_calories", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["aggregate_ratings", 4], ["approved", false], ["created_at", Thu, 23 Jul 2015 07:52:53 UTC +00:00], ["description", "boil soya"], ["image_links", nil], ["meal_class", "veg"], ["name", "Soya casew"], ["serves", 4], ["total_calories", nil], ["updated_at", Thu, 23 Jul 2015 07:52:53 UTC +00:00], ["user_id", 2]]
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "ingredients" ("approved", "calories_per_quantity", "created_at", "meal_class", "name", "std_measurement", "std_quantity", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["approved", false], ["calories_per_quantity", 250], ["created_at", Thu, 23 Jul 2015 07:52:53 UTC +00:00], ["meal_class", "veg"], ["name", "soya"], ["std_measurement", "l"], ["std_quantity", 1], ["updated_at", Thu, 23 Jul 2015 07:52:53 UTC +00:00], ["user_id", nil]]
+  [1m[36mSQL (1.4ms)[0m  [1mINSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)[0m  [["ingredient_id", 52], ["quantity", 2], ["recipe_id", 22]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "ingredients" ("approved", "calories_per_quantity", "created_at", "meal_class", "name", "std_measurement", "std_quantity", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["approved", false], ["calories_per_quantity", 50], ["created_at", Thu, 23 Jul 2015 07:52:53 UTC +00:00], ["meal_class", "veg"], ["name", "casew"], ["std_measurement", "mg"], ["std_quantity", 10], ["updated_at", Thu, 23 Jul 2015 07:52:53 UTC +00:00], ["user_id", nil]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)[0m  [["ingredient_id", 53], ["quantity", 100], ["recipe_id", 22]]
+  [1m[35m (1.0ms)[0m  UPDATE "recipes" SET "total_calories" = 5500, "updated_at" = '2015-07-23 07:52:53.442043' WHERE "recipes"."id" = 22
+  [1m[36m (21.3ms)[0m  [1mCOMMIT[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (4.9ms)[0m  [1mINSERT INTO "recipes" ("aggregate_ratings", "approved", "created_at", "description", "image_links", "meal_class", "name", "serves", "total_calories", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["aggregate_ratings", 4], ["approved", false], ["created_at", Thu, 23 Jul 2015 10:06:46 UTC +00:00], ["description", "grind papaya"], ["image_links", nil], ["meal_class", "veg"], ["name", "papaya casew"], ["serves", 4], ["total_calories", nil], ["updated_at", Thu, 23 Jul 2015 10:06:46 UTC +00:00], ["user_id", 2]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (4.5ms)[0m  [1mINSERT INTO "recipes" ("aggregate_ratings", "approved", "created_at", "description", "image_links", "meal_class", "name", "serves", "total_calories", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["aggregate_ratings", 4], ["approved", false], ["created_at", Thu, 23 Jul 2015 10:07:43 UTC +00:00], ["description", "grind papaya"], ["image_links", nil], ["meal_class", "veg"], ["name", "papaya casew"], ["serves", 4], ["total_calories", nil], ["updated_at", Thu, 23 Jul 2015 10:07:43 UTC +00:00], ["user_id", 2]]
+  [1m[35mSQL (1.8ms)[0m  INSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)  [["ingredient_id", 38], ["quantity", 10], ["recipe_id", 24]]
+  [1m[36mSQL (1.3ms)[0m  [1mINSERT INTO "ingredients" ("approved", "calories_per_quantity", "created_at", "meal_class", "name", "std_measurement", "std_quantity", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["approved", false], ["calories_per_quantity", 250], ["created_at", Thu, 23 Jul 2015 10:07:43 UTC +00:00], ["meal_class", "veg"], ["name", "soya"], ["std_measurement", "l"], ["std_quantity", 1], ["updated_at", Thu, 23 Jul 2015 10:07:43 UTC +00:00], ["user_id", nil]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)  [["ingredient_id", 54], ["quantity", 2], ["recipe_id", 24]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "ingredients" ("approved", "calories_per_quantity", "created_at", "meal_class", "name", "std_measurement", "std_quantity", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["approved", false], ["calories_per_quantity", 50], ["created_at", Thu, 23 Jul 2015 10:07:43 UTC +00:00], ["meal_class", "veg"], ["name", "casew"], ["std_measurement", "mg"], ["std_quantity", 10], ["updated_at", Thu, 23 Jul 2015 10:07:43 UTC +00:00], ["user_id", nil]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)  [["ingredient_id", 55], ["quantity", 100], ["recipe_id", 24]]
+  [1m[36m (0.9ms)[0m  [1mUPDATE "recipes" SET "total_calories" = 6000, "updated_at" = '2015-07-23 10:07:43.976493' WHERE "recipes"."id" = 24[0m
+  [1m[35m (16.3ms)[0m  COMMIT
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (63.7ms)[0m  [1mALTER TABLE "recipes" RENAME COLUMN "user_id" TO "creator_id"[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "ingredients" RENAME COLUMN "user_id" TO "creator_id"
+  [1m[36m (15.8ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150723101739')[0m
+  [1m[35m (11.3ms)[0m  COMMIT
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (4.7ms)[0m  [1mINSERT INTO "recipes" ("aggregate_ratings", "approved", "created_at", "creator_id", "description", "image_links", "meal_class", "name", "serves", "total_calories", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["aggregate_ratings", 4], ["approved", false], ["created_at", Thu, 23 Jul 2015 10:23:27 UTC +00:00], ["creator_id", 2], ["description", "grind papaya"], ["image_links", nil], ["meal_class", "veg"], ["name", "papaya casew"], ["serves", 4], ["total_calories", nil], ["updated_at", Thu, 23 Jul 2015 10:23:27 UTC +00:00]]
+  [1m[35mSQL (1.7ms)[0m  INSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)  [["ingredient_id", 49], ["quantity", 10], ["recipe_id", 25]]
+  [1m[36mSQL (1.7ms)[0m  [1mINSERT INTO "ingredients" ("approved", "calories_per_quantity", "created_at", "creator_id", "meal_class", "name", "std_measurement", "std_quantity", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["approved", false], ["calories_per_quantity", 250], ["created_at", Thu, 23 Jul 2015 10:23:27 UTC +00:00], ["creator_id", 2], ["meal_class", "veg"], ["name", "soya"], ["std_measurement", "l"], ["std_quantity", 1], ["updated_at", Thu, 23 Jul 2015 10:23:27 UTC +00:00]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)  [["ingredient_id", 56], ["quantity", 2], ["recipe_id", 25]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "ingredients" ("approved", "calories_per_quantity", "created_at", "creator_id", "meal_class", "name", "std_measurement", "std_quantity", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["approved", false], ["calories_per_quantity", 50], ["created_at", Thu, 23 Jul 2015 10:23:27 UTC +00:00], ["creator_id", 2], ["meal_class", "veg"], ["name", "casew"], ["std_measurement", "mg"], ["std_quantity", 10], ["updated_at", Thu, 23 Jul 2015 10:23:27 UTC +00:00]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)  [["ingredient_id", 57], ["quantity", 100], ["recipe_id", 25]]
+  [1m[36m (0.9ms)[0m  [1mUPDATE "recipes" SET "total_calories" = 6000, "updated_at" = '2015-07-23 10:23:27.114483' WHERE "recipes"."id" = 25[0m
+  [1m[35m (21.9ms)[0m  COMMIT

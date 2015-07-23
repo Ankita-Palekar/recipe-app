@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150722183622) do
+ActiveRecord::Schema.define(:version => 20150723101739) do
 
   create_table "admins", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -19,8 +19,7 @@ ActiveRecord::Schema.define(:version => 20150722183622) do
   end
 
   create_table "ingredients", :force => true do |t|
-    # REVIEW -- rename to created_by_user_id
-    t.integer  "user_id"
+    t.integer  "creator_id"
     t.string   "name",                                     :null => false
     t.string   "meal_class",                               :null => false
     t.string   "std_measurement"
@@ -31,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20150722183622) do
     t.boolean  "approved",              :default => false
   end
 
-  add_index "ingredients", ["user_id"], :name => "index_ingredients_on_user_id"
+  add_index "ingredients", ["creator_id"], :name => "index_ingredients_on_user_id"
 
   create_table "ratings", :force => true do |t|
     t.integer "recipe_id"
@@ -51,7 +50,7 @@ ActiveRecord::Schema.define(:version => 20150722183622) do
   add_index "recipe_ingredients", ["recipe_id", "ingredient_id"], :name => "index_ingredients_recipes_on_recipe_id_and_ingredient_id", :unique => true
 
   create_table "recipes", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "creator_id"
     t.string   "name",                                 :null => false
     t.text     "image_links"
     t.text     "description",                          :null => false
@@ -64,7 +63,7 @@ ActiveRecord::Schema.define(:version => 20150722183622) do
     t.datetime "updated_at",                           :null => false
   end
 
-  add_index "recipes", ["user_id"], :name => "index_recipes_on_user_id"
+  add_index "recipes", ["creator_id"], :name => "index_recipes_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                              :null => false
