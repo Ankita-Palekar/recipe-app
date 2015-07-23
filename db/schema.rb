@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20150722183622) do
   end
 
   create_table "ingredients", :force => true do |t|
+    # REVIEW -- rename to created_by_user_id
     t.integer  "user_id"
     t.string   "name",                                     :null => false
     t.string   "meal_class",                               :null => false

@@ -18,9 +18,16 @@
 # 	User.create(u)
 # end
 
+# REVIEW -- how does one use a pre-existing ingredient?
 ingredients_list = [{:name=>"milk", :meal_class=>"veg", :std_measurement=>"l", :std_quantity=>1, :calories_per_quantity=>250, :quantity => 2}, {:name=>"casew", :meal_class=>"veg", :std_measurement=>"mg", :std_quantity=>10, :calories_per_quantity=>50, :quantity => 100}]
 
 
+# REVIEW -- can you create a recipe without a meal class? Why is figuring out
+# the meal-class a responsibilty of the calling program?
+
+# REVIEW -- how is the quantity of each ingredient in this recipe being
+# handled? as a result, how are the total calories for this recipe being
+# calculated?
 recipe = Recipe.new(:name => "badam milk", :description => "boil milk, chop dry fruits",:serves => 4, :aggregate_ratings => 4, :user_id => 2, :meal_class => Recipe.get_recipe_meal_class(:ingredients_list => ingredients_list))
 # recipe.name = "vanilla icecream"
 # recipe.description = 
