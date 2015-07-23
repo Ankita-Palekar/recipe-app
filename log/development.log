@@ -1115,3 +1115,292 @@ Content-Transfer-Encoding: 7bit
 </html>
 ----==_mimepart_55b04a838f8e1_4d775d13303026b--
 
+Connecting to database specified by database.yml
+  Rendered user_mailer/recipe_approval_email.html.erb (1.0ms)
+  Rendered user_mailer/recipe_approval_email.text.erb (0.2ms)
+
+Sent mail to ankita@vacationlabs.com (13.8ms)
+Date: Thu, 23 Jul 2015 09:30:17 +0530
+From: ankita@vacationlabs.com
+To: ankita@vacationlabs.com
+Message-ID: <55b066d1da8a4_1184deb32c237cb@ankita-Inspiron-5520.mail>
+Subject: Admin recipe approval mail
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_55b066d1d8d89_1184deb32c236d8";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_55b066d1d8d89_1184deb32c236d8
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Hi, Your recipe has been approved 
+===============================================
+Keep on creating more recipes
+ 
+Thanks for joining and have a great day!
+----==_mimepart_55b066d1d8d89_1184deb32c236d8
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi! Your Recipe has been accepted by admin </h1>
+    <p>
+      Keep on creating new recipes
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
+----==_mimepart_55b066d1d8d89_1184deb32c236d8--
+
+  Rendered user_mailer/recipe_approval_email.html.erb (0.0ms)
+  Rendered user_mailer/recipe_approval_email.text.erb (0.0ms)
+
+Sent mail to ankita@vacationlabs.com (10.2ms)
+Date: Thu, 23 Jul 2015 09:32:02 +0530
+From: ankita@vacationlabs.com
+To: ankita@vacationlabs.com
+Message-ID: <55b0673aaa99d_1184deb32c239d8@ankita-Inspiron-5520.mail>
+Subject: Admin recipe approval mail
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_55b0673aa91cb_1184deb32c23874";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_55b0673aa91cb_1184deb32c23874
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Hi, Your recipe has been approved 
+===============================================
+Keep on creating more recipes
+ 
+Thanks for joining and have a great day!
+----==_mimepart_55b0673aa91cb_1184deb32c23874
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi! Your Recipe has been accepted by admin </h1>
+    <p>
+      Keep on creating new recipes
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
+----==_mimepart_55b0673aa91cb_1184deb32c23874--
+
+  Rendered user_mailer/recipe_approval_email.html.erb (0.1ms)
+  Rendered user_mailer/recipe_approval_email.text.erb (0.0ms)
+
+Sent mail to ankita@vacationlabs.com (10.4ms)
+Date: Thu, 23 Jul 2015 09:40:39 +0530
+From: ankita@vacationlabs.com
+To: ankita@vacationlabs.com
+Message-ID: <55b0693f12d96_1184deb32c241d4@ankita-Inspiron-5520.mail>
+Subject: Admin recipe approval mail
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_55b0693f11abd_1184deb32c240a6";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_55b0693f11abd_1184deb32c240a6
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Hi, Your recipe has been approved 
+===============================================
+Keep on creating more recipes
+ 
+Thanks for joining and have a great day!
+----==_mimepart_55b0693f11abd_1184deb32c240a6
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi! Your Recipe has been accepted by admin </h1>
+    <p>
+      Keep on creating new recipes
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
+----==_mimepart_55b0693f11abd_1184deb32c240a6--
+
+Connecting to database specified by database.yml
+  Rendered user_mailer/recipe_approval_email.html.erb (0.7ms)
+  Rendered user_mailer/recipe_approval_email.text.erb (0.3ms)
+
+Sent mail to ankita@vacationlabs.com (5694.1ms)
+Date: Thu, 23 Jul 2015 09:41:25 +0530
+From: ankita@vacationlabs.com
+To: ankita@vacationlabs.com
+Message-ID: <55b0696d6335d_16018ab33018117@ankita-Inspiron-5520.mail>
+Subject: Admin recipe approval mail
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_55b0696d61d81_16018ab3301807a";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_55b0696d61d81_16018ab3301807a
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Hi, Your recipe has been approved 
+===============================================
+Keep on creating more recipes
+ 
+Thanks for joining and have a great day!
+----==_mimepart_55b0696d61d81_16018ab3301807a
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi! Your Recipe has been accepted by admin </h1>
+    <p>
+      Keep on creating new recipes
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
+----==_mimepart_55b0696d61d81_16018ab3301807a--
+
+  Rendered user_mailer/recipe_approval_email.html.erb (0.1ms)
+  Rendered user_mailer/recipe_approval_email.text.erb (0.1ms)
+
+Sent mail to ankita@vacationlabs.com (6227.7ms)
+Date: Thu, 23 Jul 2015 09:43:53 +0530
+From: ankita@vacationlabs.com
+To: ankita@vacationlabs.com
+Message-ID: <55b06a01d445_16018ab3301838d@ankita-Inspiron-5520.mail>
+Subject: Admin recipe approval mail
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_55b06a01bd8a_16018ab33018296";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_55b06a01bd8a_16018ab33018296
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Hi, Your recipe has been approved 
+===============================================
+Keep on creating more recipes
+ 
+Thanks for joining and have a great day!
+----==_mimepart_55b06a01bd8a_16018ab33018296
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi! Your Recipe has been accepted by admin </h1>
+    <p>
+      Keep on creating new recipes
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
+----==_mimepart_55b06a01bd8a_16018ab33018296--
+
+Connecting to database specified by database.yml
+  Rendered user_mailer/recipe_approval_email.html.erb (0.7ms)
+  Rendered user_mailer/recipe_approval_email.text.erb (0.2ms)
+
+Sent mail to 453ankitapalekar@gmail.com (3969.7ms)
+Date: Thu, 23 Jul 2015 09:45:55 +0530
+From: ankita@vacationlabs.com
+To: 453ankitapalekar@gmail.com
+Message-ID: <55b06a7bb028c_17a2d1b320159c0@ankita-Inspiron-5520.mail>
+Subject: Admin recipe approval mail
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_55b06a7baebce_17a2d1b320158e0";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_55b06a7baebce_17a2d1b320158e0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Hi, Your recipe has been approved 
+===============================================
+Keep on creating more recipes
+ 
+Thanks for joining and have a great day!
+----==_mimepart_55b06a7baebce_17a2d1b320158e0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi! Your Recipe has been accepted by admin </h1>
+    <p>
+      Keep on creating new recipes
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
+----==_mimepart_55b06a7baebce_17a2d1b320158e0--
+
+Connecting to database specified by database.yml
+  [1m[36m (39.7ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (267.1ms)[0m  [1mINSERT INTO "recipes" ("aggregate_ratings", "approved", "created_at", "description", "image_links", "meal_class", "name", "serves", "total_calories", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["aggregate_ratings", 4], ["approved", false], ["created_at", Thu, 23 Jul 2015 04:45:54 UTC +00:00], ["description", "boil milk, chop dry fruits, knead dough"], ["image_links", nil], ["meal_class", "veg"], ["name", "modak"], ["serves", 4], ["total_calories", nil], ["updated_at", Thu, 23 Jul 2015 04:45:54 UTC +00:00], ["user_id", 2]]
+  [1m[35mSQL (71.9ms)[0m  INSERT INTO "ingredients" ("approved", "calories_per_quantity", "created_at", "meal_class", "name", "std_measurement", "std_quantity", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["approved", false], ["calories_per_quantity", 250], ["created_at", Thu, 23 Jul 2015 04:45:54 UTC +00:00], ["meal_class", "veg"], ["name", "milk"], ["std_measurement", "l"], ["std_quantity", 1], ["updated_at", Thu, 23 Jul 2015 04:45:54 UTC +00:00], ["user_id", nil]]
+  [1m[36mSQL (24.9ms)[0m  [1mINSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)[0m  [["ingredient_id", 48], ["quantity", 2], ["recipe_id", 19]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "ingredients" ("approved", "calories_per_quantity", "created_at", "meal_class", "name", "std_measurement", "std_quantity", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["approved", false], ["calories_per_quantity", 50], ["created_at", Thu, 23 Jul 2015 04:45:54 UTC +00:00], ["meal_class", "veg"], ["name", "casew"], ["std_measurement", "mg"], ["std_quantity", 10], ["updated_at", Thu, 23 Jul 2015 04:45:54 UTC +00:00], ["user_id", nil]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)[0m  [["ingredient_id", 49], ["quantity", 100], ["recipe_id", 19]]
+  [1m[35m (9.9ms)[0m  UPDATE "recipes" SET "total_calories" = 5500, "updated_at" = '2015-07-23 04:45:54.767011' WHERE "recipes"."id" = 19
+  [1m[36m (16.5ms)[0m  [1mCOMMIT[0m

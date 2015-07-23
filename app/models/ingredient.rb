@@ -8,30 +8,33 @@ class Ingredient < ActiveRecord::Base
 	MEAL_CLASS = %w(jain veg non-veg)
 	STD_QUANTITY = ["teaspoon", "tablespoon", "fluid ounce", "gill", "cup", "pint", "quart", "gallon", "ml", "l", "dl", "pounds", "ounce", "mg", "g", "kg", "mm", "cm", "m", "inch"]
 	
- #  validates :name, :presence => true
- #  validates :meal_class, :inclusion => {:in => MEAL_CLASS, :message => "meal_class can only contain jain, veg, non-veg"}
- #  validates :std_measurement, :inclusion => {:in => STD_QUANTITY, :message => "invalid measurement unit"}
-	# validates :std_quantity, :numericality => true, :presence => true
-	# validates :calories_per_quantity, :numericality => true, :presence => true
+  validates :name, :presence => true
+  validates :meal_class, :inclusion => {:in => MEAL_CLASS, :message => "meal_class can only contain jain, veg, non-veg"}
+  validates :std_measurement, :inclusion => {:in => STD_QUANTITY, :message => "invalid measurement unit"}
+	validates :std_quantity, :numericality => true, :presence => true
+	validates :calories_per_quantity, :numericality => true, :presence => true
 
-	def update_attributes(hash)
-    hash.keys.each do |key|
-      m = "#{key}="
-      self.send(m, hash[key]) if self.respond_to?(m)
-    end
-	end
+	# def update_attributes(hash)
+ #    hash.keys.each do |key|
+ #      m = "#{key}="
+ #      self.send(m, hash[key]) if self.respond_to?(m)
+ #    end
+	# end
 
 	# output :message => got saved sucessfully
-	# def create_ingredient
-	# 	begin
-	# 		Ingredient.transaction do
-	# 			save!  
-	# 		end
-	# 	rescue Exception => message
-	# 		puts message.inspect
-	# 		puts errors.inspect
-	# 	end
-	# end
+
+	def create_ingredient
+		begin
+			Ingredient.transaction do
+				save!  
+			end
+		rescue Exception => message
+			puts message.inspect
+			puts errors.inspect
+		end
+		puts id.inspect
+		id
+	end
 
 	  
  	def approve_ingredient

@@ -10,12 +10,12 @@ class Recipe < ActiveRecord::Base
 	
   attr_accessible :name, :image_links, :description, :meal_class, :total_calories, :aggregate_ratings, :serves, :approved, :user_id
 
-  # validates :name, :presence => true
-  # validates :description, :presence => true
-  # validates :meal_class, :presence => true
-  # validates :serves, :numericality => true
-  # validates :aggregate_ratings, :numericality => true
-  # validates :user_id, :presence => true
+  validates :name, :presence => true
+  validates :description, :presence => true
+  validates :meal_class, :presence => true
+  validates :serves, :numericality => true
+  validates :aggregate_ratings, :numericality => true
+  validates :user_id, :presence => true
   
   def create_recipe(ingredients_list:)
     begin
@@ -27,9 +27,12 @@ class Recipe < ActiveRecord::Base
           quantity = ingre[:quantity]
           ingre.delete(:quantity)
           total_calories += quantity * ingre[:calories_per_quantity]
-          ingredient = ingredients.new(ingre) 
-          ingredient.save!
-          recipe_ingredient = RecipeIngredient.new(recipe_id: recipe_id, ingredient_id: ingredient.id, quantity: quantity)
+          ingredient = Ingredient.new(ingre)
+          ingredient_id =  ingredient.create_ingredient
+          # ingredient = ingredients.new(ingre) 
+          # ingredient.save!
+          ingredient = 
+          recipe_ingredient = RecipeIngredient.new(recipe_id: recipe_id, ingredient_id: ingredient_id, quantity: quantity)
           recipe_ingredient.save!
         end
         update_attributes(:total_calories => total_calories)
