@@ -41,6 +41,7 @@ class Ingredient < ActiveRecord::Base
  		begin
 		 	update_attributes!(:approved => true)
  		rescue Exception => e
+ 			# REVIEW -- whe are you catching all exceptions here?
  			puts e
  			puts errors.messages
  		end
