@@ -5,7 +5,9 @@
 # below each fixture, per the syntax in the comments below
 #
 one: 
-email: xyz.com
+email: zomato.com
+password: zomato
+password_confirmation: zomataxxxx
 #
-two: {}
-#  column: value
+two: 
+

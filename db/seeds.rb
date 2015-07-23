@@ -21,7 +21,7 @@
 ingredients_list = [{:name=>"milk", :meal_class=>"veg", :std_measurement=>"l", :std_quantity=>1, :calories_per_quantity=>250, :quantity => 2}, {:name=>"casew", :meal_class=>"veg", :std_measurement=>"mg", :std_quantity=>10, :calories_per_quantity=>50, :quantity => 100}]
 
 
-recipe = Recipe.new(:name => "modak", :description => "boil milk, chop dry fruits, knead dough",:serves => 4, :aggregate_ratings => 4, :user_id => 2, :meal_class => Recipe.get_recipe_meal_class(:ingredients_list => ingredients_list))
+recipe = Recipe.new(:name => "badam milk", :description => "boil milk, chop dry fruits",:serves => 4, :aggregate_ratings => 4, :user_id => 2, :meal_class => Recipe.get_recipe_meal_class(:ingredients_list => ingredients_list))
 # recipe.name = "vanilla icecream"
 # recipe.description = 
 # recipe.serves = 4

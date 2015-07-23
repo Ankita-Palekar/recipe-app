@@ -28,11 +28,8 @@ class Recipe < ActiveRecord::Base
           ingre.delete(:quantity)
           total_calories += quantity * ingre[:calories_per_quantity]
           ingredient = Ingredient.new(ingre)
-          ingredient_id =  ingredient.create_ingredient
-          # ingredient = ingredients.new(ingre) 
-          # ingredient.save!
-          ingredient = 
-          recipe_ingredient = RecipeIngredient.new(recipe_id: recipe_id, ingredient_id: ingredient_id, quantity: quantity)
+          ingredient_id =  ingredient.create_ingredient           
+          recipe_ingredient = RecipeIngredient.new(recipe_id: recipe_id, ingredient_id: ingredient.id, quantity: quantity)
           recipe_ingredient.save!
         end
         update_attributes(:total_calories => total_calories)
