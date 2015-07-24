@@ -17,7 +17,7 @@ class Ingredient < ActiveRecord::Base
 	
 	def create_ingredient
 		save!  
-		return self
+		self
 	end
 
 	  

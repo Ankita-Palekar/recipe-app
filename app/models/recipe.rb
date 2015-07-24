@@ -42,7 +42,7 @@ class Recipe < ActiveRecord::Base
       end
       update_attributes!(:total_calories => total_calories)
     end
-    return self 
+    self
   end
 
  
@@ -54,7 +54,7 @@ class Recipe < ActiveRecord::Base
   def approve_recipe 
     update_attributes!(:approved => true)
     ingredients_list = self.ingredients
-    ingredient_list.each do |ingredient| 
+    ingredients_list.each do |ingredient| 
       ingredient.approve_ingredient
     end
     user = User.find_by_id(creator_id)

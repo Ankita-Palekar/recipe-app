@@ -5,6 +5,6 @@
 # below each fixture, per the syntax in the comments below
 #
 # ri1:
-#  recipe_id: 44
-#  ingredient_id: 38
+#  recipe_id: 1
+#  ingredient_id: 1
 #  quantity: 300

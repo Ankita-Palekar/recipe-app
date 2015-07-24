@@ -1911,3 +1911,4 @@ Connecting to database specified by database.yml
 PG::ObjectInUse: ERROR:  database "foodholic-recipe_test" is being accessed by other users
 DETAIL:  There is 1 other session using the database.
 : DROP DATABASE IF EXISTS "foodholic-recipe_test"
+Connecting to database specified by database.yml

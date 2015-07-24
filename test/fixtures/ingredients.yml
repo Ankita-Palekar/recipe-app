@@ -3,4 +3,12 @@
 # This model initially had no columns defined.  If you add columns to the
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
-#
+# #
+# ingred:
+#  id: 1 
+#  name: pepper
+#  meal_class: jain
+#  std_measurement: kg 
+#  std_quantity: 2
+#  calories_per_quantity: 20
+#  creator_id: 1

@@ -5,9 +5,10 @@
 # below each fixture, per the syntax in the comments below
 #
 # recipe1:
+#  id: 1
 #  name: papaya casew
-#  description: grind papaya
+#  description: crush papaya
 #  serves: 4
 #  aggregate_ratings: 0
-#  creator_id: 2
+#  creator_id: 1
 #  meal_class: veg
