@@ -19,9 +19,7 @@ class Recipe < ActiveRecord::Base
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
       save! 
-      recipe_id = id
       total_calories = 0
-
       ingredients_list.each do |ingre|
         total_calories += ingre[:quantity] / ingre[:std_quantity] * ingre[:calories_per_quantity] #calculating total calories in recipe
           if ingre.has_key?(:ingredient_id)
@@ -31,7 +29,7 @@ class Recipe < ActiveRecord::Base
             ingredient.create_ingredient
             ingredient_id  = ingredient.id
           end
-        recipe_ingredient = RecipeIngredient.new(recipe_id: recipe_id, ingredient_id: ingredient_id, quantity: ingre[:quantity])
+        recipe_ingredient = RecipeIngredient.new(recipe_id: id, ingredient_id: ingredient_id, quantity: ingre[:quantity])
         recipe_ingredient.save!
       end
       update_attributes!(:total_calories => total_calories)
