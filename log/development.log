@@ -1958,3 +1958,332 @@ Connecting to database specified by database.yml
   [1m[35mSQL (1.8ms)[0m  INSERT INTO "recipe_ingredients" ("ingredient_id", "quantity", "recipe_id") VALUES ($1, $2, $3)  [["ingredient_id", 49], ["quantity", 10], ["recipe_id", 32]]
   [1m[36m (1.0ms)[0m  [1mUPDATE "recipes" SET "total_calories" = 5000, "updated_at" = '2015-07-24 06:43:50.023452' WHERE "recipes"."id" = 32[0m
   [1m[35m (21.0ms)[0m  COMMIT
+
+
+Started GET "/users" for 127.0.0.1 at 2015-07-24 14:56:38 +0530
+Connecting to database specified by database.yml
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  Rendered users/index.html.erb within layouts/application (4.6ms)
+Warning. Error encountered while saving cache /home/ankita/rails-apps/foodholic-bit/tmp/cache/sass/9c41ac707cf8057931c85eb6207378b492c04480/ingredients.css.scssc: can't dump anonymous class #<Class:0x00000003790088>
+
+Compiled ingredients.css  (13ms)  (pid 19181)
+Warning. Error encountered while saving cache /home/ankita/rails-apps/foodholic-bit/tmp/cache/sass/9c41ac707cf8057931c85eb6207378b492c04480/ratings.css.scssc: can't dump anonymous class #<Class:0x00000003790088>
+
+Compiled ratings.css  (1ms)  (pid 19181)
+Warning. Error encountered while saving cache /home/ankita/rails-apps/foodholic-bit/tmp/cache/sass/9c41ac707cf8057931c85eb6207378b492c04480/recipes.css.scssc: can't dump anonymous class #<Class:0x00000003790088>
+
+Compiled recipes.css  (1ms)  (pid 19181)
+Warning. Error encountered while saving cache /home/ankita/rails-apps/foodholic-bit/tmp/cache/sass/9c41ac707cf8057931c85eb6207378b492c04480/scaffolds.css.scssc: can't dump anonymous class #<Class:0x00000003790088>
+
+Compiled scaffolds.css  (7ms)  (pid 19181)
+Warning. Error encountered while saving cache /home/ankita/rails-apps/foodholic-bit/tmp/cache/sass/9c41ac707cf8057931c85eb6207378b492c04480/users.css.scssc: can't dump anonymous class #<Class:0x00000003790088>
+
+Compiled users.css  (1ms)  (pid 19181)
+Compiled application.css  (63ms)  (pid 19181)
+Compiled jquery.js  (3ms)  (pid 19181)
+Compiled jquery_ujs.js  (0ms)  (pid 19181)
+Compiled ingredients.js  (642ms)  (pid 19181)
+Compiled ratings.js  (92ms)  (pid 19181)
+Compiled recipes.js  (98ms)  (pid 19181)
+Compiled users.js  (98ms)  (pid 19181)
+Compiled application.js  (1026ms)  (pid 19181)
+Completed 200 OK in 1154.1ms (Views: 1140.6ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2015-07-24 14:56:40 +0530
+Served asset /application.css - 200 OK (54ms)
+
+
+Started GET "/assets/ingredients.css?body=1" for 127.0.0.1 at 2015-07-24 14:56:40 +0530
+Served asset /ingredients.css - 200 OK (3ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2015-07-24 14:56:40 +0530
+Served asset /scaffolds.css - 200 OK (1ms)
+
+
+Started GET "/assets/recipes.css?body=1" for 127.0.0.1 at 2015-07-24 14:56:40 +0530
+Served asset /recipes.css - 200 OK (3ms)
+
+
+Started GET "/assets/ratings.css?body=1" for 127.0.0.1 at 2015-07-24 14:56:40 +0530
+Served asset /ratings.css - 200 OK (2ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2015-07-24 14:56:40 +0530
+Served asset /users.css - 200 OK (2ms)
+
+
+Started GET "/assets/ingredients.js?body=1" for 127.0.0.1 at 2015-07-24 14:56:40 +0530
+Served asset /ingredients.js - 200 OK (2ms)
+
+
+Started GET "/assets/ratings.js?body=1" for 127.0.0.1 at 2015-07-24 14:56:40 +0530
+Served asset /ratings.js - 200 OK (1ms)
+
+
+Started GET "/assets/recipes.js?body=1" for 127.0.0.1 at 2015-07-24 14:56:40 +0530
+Served asset /recipes.js - 200 OK (1ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2015-07-24 14:56:40 +0530
+Served asset /users.js - 200 OK (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2015-07-24 14:56:40 +0530
+Served asset /application.js - 200 OK (8ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2015-07-24 14:56:40 +0530
+Served asset /jquery.js - 200 OK (4ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2015-07-24 14:56:40 +0530
+Served asset /jquery_ujs.js - 200 OK (3ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2015-07-24 14:56:44 +0530
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (1.5ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", "1"]]
+  Rendered users/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 21.1ms (Views: 17.6ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/users/1/edit" for 127.0.0.1 at 2015-07-24 14:56:48 +0530
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+  Rendered users/_form.html.erb (9.8ms)
+  Rendered users/edit.html.erb within layouts/application (28.2ms)
+Completed 200 OK in 45.7ms (Views: 44.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at 2015-07-24 14:56:52 +0530
+Processing by UsersController#new as HTML
+  Rendered users/_form.html.erb (1.0ms)
+  Rendered users/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 9.2ms (Views: 8.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2015-07-24 14:56:54 +0530
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"uR43PcGcFdBRnG3PNMdKh6hdyS84erZXUEgVoL9EYwY=", "commit"=>"Create User"}
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  Rendered users/_form.html.erb (2.3ms)
+  Rendered users/new.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 15.5ms (Views: 6.8ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2015-07-24 14:57:00 +0530
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users" [0m
+  Rendered users/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 10.6ms (Views: 8.2ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/recipes" for 127.0.0.1 at 2015-07-24 14:57:05 +0530
+Processing by RecipesController#index as HTML
+  [1m[35mRecipe Load (0.9ms)[0m  SELECT "recipes".* FROM "recipes" 
+  Rendered recipes/index.html.erb within layouts/application (8.9ms)
+Completed 200 OK in 30.5ms (Views: 14.6ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/recipes/3/edit" for 127.0.0.1 at 2015-07-24 14:57:09 +0530
+Processing by RecipesController#edit as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mRecipe Load (0.9ms)[0m  [1mSELECT "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT 1[0m  [["id", "3"]]
+  Rendered recipes/_form.html.erb (2.1ms)
+  Rendered recipes/edit.html.erb within layouts/application (3.9ms)
+Completed 200 OK in 13.0ms (Views: 10.9ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/ingredients" for 127.0.0.1 at 2015-07-24 14:57:17 +0530
+Processing by IngredientsController#index as HTML
+  [1m[35mIngredient Load (0.7ms)[0m  SELECT "ingredients".* FROM "ingredients" 
+  Rendered ingredients/index.html.erb within layouts/application (12.0ms)
+Completed 200 OK in 28.6ms (Views: 17.7ms | ActiveRecord: 2.9ms)
+
+
+Started GET "/ratings" for 127.0.0.1 at 2015-07-24 14:57:27 +0530
+Processing by RatingsController#index as HTML
+  [1m[36mRating Load (89.2ms)[0m  [1mSELECT "ratings".* FROM "ratings" [0m
+  Rendered ratings/index.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 164.8ms (Views: 18.3ms | ActiveRecord: 144.1ms)
+
+
+Started GET "/RecipeIngredient" for 127.0.0.1 at 2015-07-24 14:57:36 +0530
+
+ActionController::RoutingError (No route matches [GET] "/RecipeIngredient"):
+  actionpack (3.2.15) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.15) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.15) lib/rails/rack/logger.rb:32:in `call_app'
+  railties (3.2.15) lib/rails/rack/logger.rb:16:in `block in call'
+  activesupport (3.2.15) lib/active_support/tagged_logging.rb:22:in `tagged'
+  railties (3.2.15) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.15) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.7) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.7) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.15) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.7) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.15) lib/action_dispatch/middleware/static.rb:63:in `call'
+  railties (3.2.15) lib/rails/engine.rb:484:in `call'
+  railties (3.2.15) lib/rails/application.rb:231:in `call'
+  rack (1.4.7) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.15) lib/rails/rack/log_tailer.rb:17:in `call'
+  rack (1.4.7) lib/rack/handler/webrick.rb:59:in `service'
+  /home/ankita/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/ankita/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/ankita/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/ankita/.rvm/gems/ruby-2.1.5@foodholic/gems/actionpack-3.2.15/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (5.0ms)
+
+
+Started GET "/recipe_ingredients" for 127.0.0.1 at 2015-07-24 14:57:52 +0530
+
+ActionController::RoutingError (No route matches [GET] "/recipe_ingredients"):
+  actionpack (3.2.15) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.15) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.15) lib/rails/rack/logger.rb:32:in `call_app'
+  railties (3.2.15) lib/rails/rack/logger.rb:16:in `block in call'
+  activesupport (3.2.15) lib/active_support/tagged_logging.rb:22:in `tagged'
+  railties (3.2.15) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.15) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.7) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.7) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.15) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.7) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.15) lib/action_dispatch/middleware/static.rb:63:in `call'
+  railties (3.2.15) lib/rails/engine.rb:484:in `call'
+  railties (3.2.15) lib/rails/application.rb:231:in `call'
+  rack (1.4.7) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.15) lib/rails/rack/log_tailer.rb:17:in `call'
+  rack (1.4.7) lib/rack/handler/webrick.rb:59:in `service'
+  /home/ankita/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/ankita/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/ankita/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/ankita/.rvm/gems/ruby-2.1.5@foodholic/gems/actionpack-3.2.15/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (1.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2015-07-24 14:59:38 +0530
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users" 
+  Rendered users/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 9.3ms (Views: 7.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/ingredients" for 127.0.0.1 at 2015-07-24 14:59:52 +0530
+Processing by IngredientsController#index as HTML
+  [1m[36mIngredient Load (0.4ms)[0m  [1mSELECT "ingredients".* FROM "ingredients" [0m
+  Rendered ingredients/index.html.erb within layouts/application (13.6ms)
+Completed 200 OK in 19.8ms (Views: 18.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/recipes" for 127.0.0.1 at 2015-07-24 14:59:56 +0530
+Processing by RecipesController#index as HTML
+  [1m[35mRecipe Load (0.6ms)[0m  SELECT "recipes".* FROM "recipes" 
+  Rendered recipes/index.html.erb within layouts/application (11.8ms)
+Completed 200 OK in 20.0ms (Views: 17.7ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/recipes/5" for 127.0.0.1 at 2015-07-24 15:00:05 +0530
+Processing by RecipesController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mRecipe Load (0.6ms)[0m  [1mSELECT "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT 1[0m  [["id", "5"]]
+  Rendered recipes/show.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 10.0ms (Views: 7.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/recipes" for 127.0.0.1 at 2015-07-24 15:00:08 +0530
+Processing by RecipesController#index as HTML
+  [1m[35mRecipe Load (0.7ms)[0m  SELECT "recipes".* FROM "recipes" 
+  Rendered recipes/index.html.erb within layouts/application (9.9ms)
+Completed 200 OK in 16.6ms (Views: 14.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/recipes/new" for 127.0.0.1 at 2015-07-24 15:00:18 +0530
+Processing by RecipesController#new as HTML
+  Rendered recipes/_form.html.erb (1.8ms)
+  Rendered recipes/new.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 9.4ms (Views: 8.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes" for 127.0.0.1 at 2015-07-24 15:00:41 +0530
+Processing by RecipesController#index as HTML
+  [1m[36mRecipe Load (0.6ms)[0m  [1mSELECT "recipes".* FROM "recipes" [0m
+  Rendered recipes/index.html.erb within layouts/application (13.8ms)
+Completed 200 OK in 20.9ms (Views: 18.7ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/recipes/8/edit" for 127.0.0.1 at 2015-07-24 15:00:43 +0530
+Processing by RecipesController#edit as HTML
+  Parameters: {"id"=>"8"}
+  [1m[35mRecipe Load (0.5ms)[0m  SELECT "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT 1  [["id", "8"]]
+  Rendered recipes/_form.html.erb (1.2ms)
+  Rendered recipes/edit.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 7.9ms (Views: 6.4ms | ActiveRecord: 0.5ms)
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from irb_binding at (irb):72)
+DEPRECATION WARNING: You're trying to create an attribute `qty'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from irb_binding at (irb):111)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:74)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:74)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:77)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:77)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:79)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:79)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:76)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:76)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:76)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:76)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:76)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:76)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:76)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:73)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:76)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:75)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:75)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:75)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
+DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
+DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:75)

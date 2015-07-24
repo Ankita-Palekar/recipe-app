@@ -40,9 +40,10 @@ class Recipe < ActiveRecord::Base
   end
 
  
-  def self.list_pending_recipes
-    Recipe.where(approved: false)  
+  def self.list_pending_recipes(page_nav:, limit:)
+    Recipe.where(approved: false).order('created_at desc').limit(limit).offset((page_nav-1)*limit)  
   end
+
   
   def approve_recipe 
     update_attributes!(:approved => true)
@@ -60,5 +61,19 @@ class Recipe < ActiveRecord::Base
     least_meal_class = ingredients_list.reduce(memo) do |memo, ingre|
       meal_class.index(memo) > meal_class.index(ingre[:meal_class]) ? ingre[:meal_class] : memo
     end
+  end
+
+  #user recipes related functions
+
+  def self.list_latest_created_recipes(page_nav:, limit:)
+    Recipe.includes(:ingredients).where(:approved => true).order('created_at desc').limit(limit).offset((page_nav-1)*limit).each do |rec|
+      rec_ingredients_quantity  = rec.recipe_ingredients
+      new_ingredients_list =  rec.ingredients.map.with_index do |ingredient, index|
+        ingredient[:quantity] =  rec_ingredients_quantity[index][:quantity]
+        ingredient
+      end
+      rec[:ingredients_list] = new_ingredients_list
+      rec 
+    end    
   end
 end

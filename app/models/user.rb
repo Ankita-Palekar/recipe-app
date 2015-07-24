@@ -14,4 +14,7 @@ class User < ActiveRecord::Base
   def send_email_notification_recipe_approved
     UserMailer.recipe_approval_email(email).deliver
   end
+
+ 
+  
 end

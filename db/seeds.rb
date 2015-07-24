@@ -19,7 +19,7 @@
 # end
 
 # REVIEW -- how does one use a pre-existing ingredient?
-ingredients_list = [{:ingredient_id => 49 , :name => "casew", :quantity => 10, :meal_class =>  "veg", :calories_per_quantity => 500 , :std_measurement => "gm", :std_quantity => 1, :creator_id => 2}]
+ingredients_list = [{:ingredient_id => 49 , :name => "casew", :quantity => 10, :meal_class =>  "veg", :calories_per_quantity => 500 , :std_measurement => "gm", :std_quantity => 1, :creator_id => 2},{:name=>"sugar", :meal_class=>"veg", :std_measurement=>"kg", :std_quantity=>1, :calories_per_quantity=>5050, :quantity => 2, :creator_id => 2}, {:name=>"casew", :meal_class=>"veg", :std_measurement=>"mg", :std_quantity=>10, :calories_per_quantity=>50, :quantity => 100, :creator_id => 2}]
 
 recipe = Recipe.new(:name => "Methayee", :description => "sugar syrup",:serves => 4, :aggregate_ratings => 0, :creator_id => 1)
 recipe.create_recipe(:ingredients_list => ingredients_list)

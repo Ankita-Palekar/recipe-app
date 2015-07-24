@@ -20,6 +20,11 @@ class Ingredient < ActiveRecord::Base
 		self
 	end
 
+
+	def self.list_pending_ingredients
+	  Ingredient.where(approved: false)  
+	end
+
 	  
  	def approve_ingredient 
 		update_attributes!(:approved => true)
