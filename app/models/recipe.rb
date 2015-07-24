@@ -4,10 +4,8 @@ class Recipe < ActiveRecord::Base
 	# has_and_belongs_to_many :ingredients
   has_many :recipe_ingredients
   has_many :ingredients, :through => :recipe_ingredients
-
 	has_many :ratings, :dependent => :destroy
-	#habtm should destroy row entries in the join table automatically it will not destroy from single ingredients or recipe table 
-	
+ 	
   attr_accessible :name, :image_links, :description, :meal_class, :total_calories, :aggregate_ratings, :serves, :approved, :creator_id
 
   validates :name, :presence => true
@@ -17,7 +15,6 @@ class Recipe < ActiveRecord::Base
   validates :aggregate_ratings, :numericality => true
   validates :creator_id, :presence => true
   
-  # REVIEW -- what is the return value of this function?
   def create_recipe(ingredients_list:)
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
@@ -26,18 +23,15 @@ class Recipe < ActiveRecord::Base
       total_calories = 0
 
       ingredients_list.each do |ingre|
-        quantity = ingre[:quantity]
-        ingre.delete(:quantity)
-        total_calories += quantity / ingre[:std_quantity] * ingre[:calories_per_quantity] #calculating total calories
+        total_calories += ingre[:quantity] / ingre[:std_quantity] * ingre[:calories_per_quantity] #calculating total calories in recipe
           if ingre.has_key?(:ingredient_id)
             ingredient_id = ingre[:ingredient_id] 
           else
-            ingredient = Ingredient.new(ingre)
+            ingredient = Ingredient.new(ingre.except(:quantity))
             ingredient.create_ingredient
             ingredient_id  = ingredient.id
           end
-        # REVIEW -- read Hash#except as provided by active_support. Use it.   
-        recipe_ingredient = RecipeIngredient.new(recipe_id: recipe_id, ingredient_id: ingredient_id, quantity: quantity)
+        recipe_ingredient = RecipeIngredient.new(recipe_id: recipe_id, ingredient_id: ingredient_id, quantity: ingre[:quantity])
         recipe_ingredient.save!
       end
       update_attributes!(:total_calories => total_calories)
@@ -50,18 +44,16 @@ class Recipe < ActiveRecord::Base
     Recipe.where(approved: false)  
   end
   
-  # output message : ingredient approved
   def approve_recipe 
     update_attributes!(:approved => true)
-    ingredients_list = self.ingredients
-    ingredients_list.each do |ingredient| 
+    self.ingredients.each do |ingredient| 
       ingredient.approve_ingredient
     end
     user = User.find_by_id(creator_id)
     user.send_email_notification_recipe_approved
   end
 
-  # output :meal_class
+
   def self.get_recipe_meal_class(ingredients_list:)
     meal_class = Ingredient::MEAL_CLASS
     memo = meal_class[meal_class.length-1]
