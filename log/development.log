@@ -2287,3 +2287,310 @@ DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Wr
 DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
 DEPRECATION WARNING: You're trying to create an attribute `quantity'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block (2 levels) in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:72)
 DEPRECATION WARNING: You're trying to create an attribute `ingredients_list'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from block in list_latest_created_recipes at /home/ankita/rails-apps/foodholic-bit/app/models/recipe.rb:75)
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (31.7ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (640.8ms)[0m  [1mALTER TABLE "recipes" ADD COLUMN "rejectd" boolean DEFAULT 'f'[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150726132513')
+  [1m[36m (31.3ms)[0m  [1mCOMMIT[0m
+Migrating to AddNameFieldUser (20150726132523)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (16.8ms)[0m  [1mALTER TABLE "users" ADD COLUMN "name" character varying(255) NOT NULL[0m
+PG::NotNullViolation: ERROR:  column "name" contains null values
+: ALTER TABLE "users" ADD COLUMN "name" character varying(255) NOT NULL
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to AddRejectFlagRecipe (20150726132513)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to AddRejectFlagRecipe (20150726132513)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (77.3ms)[0m  ALTER TABLE "recipes" DROP "rejectd"
+  [1m[36m (28.7ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20150726132513'[0m
+  [1m[35m (23.4ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (200.4ms)[0m  [1mALTER TABLE "recipes" ADD COLUMN "rejectd" boolean DEFAULT 'f'[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150726132513')
+  [1m[36m (24.3ms)[0m  [1mCOMMIT[0m
+Migrating to AddNameFieldUser (20150726132523)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.9ms)[0m  [1mALTER TABLE "users" ADD COLUMN "name" character varying(255)[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150726132523')
+  [1m[36m (5.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "user" ALTER COLUMN "name" TYPE boolean[0m
+PG::UndefinedTable: ERROR:  relation "user" does not exist
+: ALTER TABLE "user" ALTER COLUMN "name" TYPE boolean
+  [1m[35m (0.1ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (11.3ms)[0m  [1mALTER TABLE "users" ALTER COLUMN "name" TYPE boolean[0m
+PG::DatatypeMismatch: ERROR:  column "name" cannot be cast automatically to type boolean
+HINT:  Specify a USING expression to perform the conversion.
+: ALTER TABLE "users" ALTER COLUMN "name" TYPE boolean
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.8ms)[0m  [1mALTER TABLE "users" ALTER COLUMN "name" TYPE boolean[0m
+PG::DatatypeMismatch: ERROR:  column "name" cannot be cast automatically to type boolean
+HINT:  Specify a USING expression to perform the conversion.
+: ALTER TABLE "users" ALTER COLUMN "name" TYPE boolean
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mALTER TABLE "users" ALTER COLUMN "name" TYPE boolean[0m
+PG::DatatypeMismatch: ERROR:  column "name" cannot be cast automatically to type boolean
+HINT:  Specify a USING expression to perform the conversion.
+: ALTER TABLE "users" ALTER COLUMN "name" TYPE boolean
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (13.5ms)[0m  [1mALTER TABLE "users" ALTER COLUMN "name" TYPE character varying(255)[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "users" ALTER "name" SET NOT NULL
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150726134110')[0m
+  [1m[35m (33.8ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT version FROM schema_migrations[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to ChangeNameFieldUsers (20150726134110)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (15.7ms)[0m  ALTER TABLE "users" ALTER COLUMN "name" TYPE character varying(255)
+  [1m[36m (16.3ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20150726134110'[0m
+  [1m[35m (24.0ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (1.1ms)[0m  [1mALTER TABLE "users" ALTER COLUMN "name" TYPE character varying(255)[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" ALTER "name" SET NOT NULL
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150726134110')[0m
+  [1m[35m (35.4ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (142.2ms)[0m  ALTER TABLE "recipes" DROP "rejectd"
+  [1m[36m (10.0ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20150726132513'[0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (430.2ms)[0m  ALTER TABLE "recipes" ADD COLUMN "rejected" boolean DEFAULT 'f'
+  [1m[36m (7.7ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150726132513')[0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  Rendered user_mailer/recipe_rejected_email.html.erb (1.3ms)
+  Rendered user_mailer/recipe_rejected_email.text.erb (0.5ms)
+
+Sent mail to ankita@vacationlabs.com (5547.2ms)
+Date: Sun, 26 Jul 2015 20:32:24 +0530
+From: ankita@vacationlabs.com
+To: ankita@vacationlabs.com
+Message-ID: <55b4f680b5135_241b4ef31841398@ankita-Inspiron-5520.mail>
+Subject: Admin recipe rejected mail
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_55b4f680b073b_241b4ef31841229";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_55b4f680b073b_241b4ef31841229
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Hi, Your recipe has been rejected by admin 
+===============================================
+Please aedit and resend it to the user
+ 
+Thanks for joining and have a great day!
+----==_mimepart_55b4f680b073b_241b4ef31841229
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi! Your Recipe has been rejected by admin </h1>
+    <p>
+      Edit your recipe and resubmit it 
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
+----==_mimepart_55b4f680b073b_241b4ef31841229--
+
+Connecting to database specified by database.yml

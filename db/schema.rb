@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150723101739) do
+ActiveRecord::Schema.define(:version => 20150726134110) do
 
   create_table "admins", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20150723101739) do
     t.boolean  "approved",          :default => false
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
+    t.boolean  "rejected",          :default => false
   end
 
   add_index "recipes", ["creator_id"], :name => "index_recipes_on_user_id"
@@ -71,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20150723101739) do
     t.boolean  "is_admin",        :default => false
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
+    t.string   "name",                               :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
