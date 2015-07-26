@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   validates :password, :length => {:in => 8..20, :message => "Password should be between characters 8 to 20 "}
   validates :name, :presence => true
   
-  def send_email_notification_for_recipes(:function_name)
+  def send_email_notification_for_recipes(function_name:)
     UserMailer.send function_name, email
     # UserMailer.recipe_approval_email(email).deliver
   end

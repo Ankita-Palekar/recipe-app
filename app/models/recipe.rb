@@ -14,9 +14,9 @@ class Recipe < ActiveRecord::Base
   validates :aggregate_ratings, :numericality => true
   validates :creator_id, :presence => true
   
-  find_user_and_send_mail = lambda do |creator_id, function_name|
+  @@find_user_and_send_mail = lambda do |creator_id, function_name|
     user = User.find_by_id(creator_id)
-    user.send_email_notification_for_recipes(creator_id, function_name)
+    user.send_email_notification_for_recipes(:function_name => function_name)
   end
 
   def create_recipe(ingredients_list:)
@@ -47,19 +47,20 @@ class Recipe < ActiveRecord::Base
   end
 
   
-  def approve_recipe 
-    update_attributes!(:approved => true)
-    self.ingredients.each do |ingredient| 
-      ingredient.approve_ingredient
-    end
-    self.find_user_and_send_mail.call(creator_id, 'recipe_approval_email')
+  def approve_recipe
+    Recipe.transaction do
+      update_attributes!(:approved => true, :rejected=>false)
+      self.ingredients.each do |ingredient| 
+        puts ingredient.inspect
+        ingredient.approve_ingredient
+      end
+      @@find_user_and_send_mail.call(creator_id, 'recipe_approval_email')
+    end 
   end
 
   def reject_recipe
     update_attributes!(:rejected => true)
-    self.find_user_and_send_mail.call(creator_id, 'recipe_rejected_email')
-    # user = User.find_by_id(creator_id)
-    # user.send_email_notification_recipe_rejected
+    @@find_user_and_send_mail.call(creator_id, 'recipe_rejected_email')
   end
 
 
