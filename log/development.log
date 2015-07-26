@@ -2604,3 +2604,100 @@ Connecting to database specified by database.yml
   Rendered user_mailer/recipe_rejected_email.text.erb (0.3ms)
   Rendered user_mailer/recipe_approval_email.html.erb (0.4ms)
   Rendered user_mailer/recipe_approval_email.text.erb (0.3ms)
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (39.7ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+Migrating to ChangeUsertoRaterinRating (20150726173858)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (32.7ms)[0m  [1mALTER TABLE "ratings" RENAME COLUMN "user_id" TO "rater_id"[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150726173858')
+  [1m[36m (27.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to ChangeUsertoRaterinRating (20150726173858)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.9ms)[0m  ALTER TABLE "ratings" RENAME COLUMN "rater_id" TO "user_id"
+  [1m[36m (13.1ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20150726173858'[0m
+  [1m[35m (30.6ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+Migrating to ChangeUsertoRaterinRatingRatings (20150726173858)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "ratings" RENAME COLUMN "user_id" TO "rater_id"[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "ratings" RENAME COLUMN "rating" TO "ratings"
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150726173858')[0m
+  [1m[35m (18.4ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to ChangeUsertoRaterinRatingRatings (20150726173858)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.8ms)[0m  ALTER TABLE "ratings" RENAME COLUMN "rater_id" TO "user_id"
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "ratings" RENAME COLUMN "ratings" TO "rating"[0m
+  [1m[35m (1.0ms)[0m  DELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20150726173858'
+  [1m[36m (18.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+Migrating to ChangeUsertoRaterinRatingRatings (20150726173858)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "ratings" RENAME COLUMN "user_id" TO "rater_id"[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "ratings" RENAME COLUMN "rating" TO "ratings"
+  [1m[36m (174.7ms)[0m  [1mCREATE UNIQUE INDEX "index_ratings_on_rater_id_and_recipe_id" ON "ratings" ("rater_id", "recipe_id")[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150726173858')
+  [1m[36m (24.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml

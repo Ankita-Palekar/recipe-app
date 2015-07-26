@@ -2,10 +2,14 @@ require 'test_helper'
 
 class RecipeTest < ActiveSupport::TestCase
 
-  ingredients_list = [{:ingredient_id => 49 , :name => "casew", :quantity => 10, :meal_class =>  "jain", :calories_per_quantity => 500 , :std_measurement => "gm", :std_quantity => 1, :creator_id => 2},{:name=>"sugar", :meal_class=>"veg", :std_measurement=>"kg", :std_quantity=>1, :calories_per_quantity=>5050, :quantity => 2, :creator_id => 2}, {:name=>"casew", :meal_class=>"non-veg", :std_measurement=>"mg", :std_quantity=>10, :calories_per_quantity=>50, :quantity => 100, :creator_id => 2}]
+  @@ingredients_list = [{:ingredient_id => 49 , :name => "casew", :quantity => 10, :meal_class =>  "jain", :calories_per_quantity => 500 , :std_measurement => "gm", :std_quantity => 1, :creator_id => 2},{:name=>"sugar", :meal_class=>"veg", :std_measurement=>"kg", :std_quantity=>1, :calories_per_quantity=>5050, :quantity => 2, :creator_id => 2}, {:name=>"casew", :meal_class=>"non-veg", :std_measurement=>"mg", :std_quantity=>10, :calories_per_quantity=>50, :quantity => 100, :creator_id => 2}]
 
   
-    
+  def create_recipe_block
+    recipe = Recipe.new(:name => "papaya casew" ,:description => "crush papaya", :serves => 2, :aggregate_ratings => 0, :creator_id => 1)  
+    recipe.create_recipe(ingredients_list: @@ingredients_list)    
+    recipe
+  end
 
   test "create recipe" do
     recipe = Recipe.new(:name => "papaya casew" ,:description => "crush papaya", :serves => 2, :aggregate_ratings => 0, :creator_id => 1)  
@@ -36,4 +40,14 @@ class RecipeTest < ActiveSupport::TestCase
   	meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
     assert_equal("non-veg", meal_class, 'meal class does not match')
 	end
+
+
+  test "reject recipe" do
+    recipe = create_recipe_block
+    recipe_copy = Recipe.find(recipe.id)
+    assert_not_nil(recipe_copy, 'recipe not saved')
+    assert(recipe_copy.rejected, 'recipe reject failed')
+
+    #test tremainning to check for the rejection email sent or not
+  end
 end

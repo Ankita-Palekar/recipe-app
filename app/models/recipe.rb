@@ -85,4 +85,32 @@ class Recipe < ActiveRecord::Base
       rec 
     end    
   end
+
+  def self.list_top_rated_recipes_wrt_aggregate(page_nav: , limit:)
+    Recipe.order("aggregate_ratings desc").limit(limit).offset((page_nav-1)*limit)
+  end
+
+  def self.list_top_rated_recipes_wrt_count(page_nav: , limit:)
+    # SELECT count("ratings"."recipe_id"), recipes.*  FROM "recipes" INNER JOIN "ratings" ON "ratings"."recipe_id" = "recipes"."id" GROUP BY recipes.id;
+    Recipe.select("recipes.*, count(ratings.recipe_id) as count").joins(:ratings).group("recipes.id").order("count desc").limit(limit).offset((page_nav-1)*limit)
+  end
+
+  def rate_recipe(rater_id:, ratings:)
+    Recipe.transaction do
+      (approved == true) & (rater_id != creator_id) ? Rating.create!(rater_id: rater_id, recipe_id: id, ratings: ratings) : false
+      update_attributes!(:aggregate_ratings => get_recipe_aggregate_ratings)
+    end
+  end
+
+  def get_recipe_aggregate_ratings
+    # --QUERY select "ratings"."ratings", count("ratings"."ratings")  from "ratings" where "ratings"."recipe_id" = 18 group by ratings;
+    ratings_hash = ratings.group(:ratings).count #recipe.ratings.group(:ratings).count
+    (ratings_hash.reduce(0) do |memo, pair|
+      memo += pair[0] * pair[1]
+    end) / (ratings_hash.values.reduce(:+))
+  end
+
+
+
+
 end

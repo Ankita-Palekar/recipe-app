@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150726134110) do
+ActiveRecord::Schema.define(:version => 20150726173858) do
 
   create_table "admins", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -34,12 +34,13 @@ ActiveRecord::Schema.define(:version => 20150726134110) do
 
   create_table "ratings", :force => true do |t|
     t.integer "recipe_id"
-    t.integer "user_id"
-    t.integer "rating"
+    t.integer "rater_id"
+    t.integer "ratings"
   end
 
+  add_index "ratings", ["rater_id", "recipe_id"], :name => "index_ratings_on_rater_id_and_recipe_id", :unique => true
+  add_index "ratings", ["rater_id"], :name => "index_ratings_on_user_id"
   add_index "ratings", ["recipe_id"], :name => "index_ratings_on_recipe_id"
-  add_index "ratings", ["user_id"], :name => "index_ratings_on_user_id"
 
   create_table "recipe_ingredients", :id => false, :force => true do |t|
     t.integer "recipe_id"
