@@ -16,6 +16,15 @@ class Recipe < ActiveRecord::Base
   validates :serves, :numericality => true
   validates :aggregate_ratings, :numericality => true
   validates :creator_id, :presence => true
+
+
+
+  scope :free_text, ->(query) {where("name like ?", "%#{query}%")}
+  scope :aggregate_ratings, ->(ratings) {where(aggregate_ratings: ratings)}
+  scope :calories, -> (calories) {where("total_calories = ? * serves", "#{calories.to_i}")}
+  scope :ingredients, ->(query) {joins(:ingredients).where("ingredients.name like ?", "%#{query}%")}
+
+
   
   @@find_user_and_send_mail = lambda do |creator_id, function_name|
     user = User.find_by_id(creator_id)
@@ -78,15 +87,6 @@ class Recipe < ActiveRecord::Base
   #user recipes related functions
 
   def self.list_latest_created_recipes(page_nav:, limit:)
-    # Recipe.includes(:ingredients).where(:approved => true).order('created_at desc').limit(limit).offset((page_nav-1)*limit).each do |rec|
-    #   rec_ingredients_quantity  = rec.recipe_ingredients
-    #   new_ingredients_list =  rec.ingredients.map.with_index do |ingredient, index|
-    #     ingredient[:quantity] =  rec_ingredients_quantity[index][:quantity]
-    #     ingredient
-    #   end
-    #   rec[:ingredients_list] = new_ingredients_list
-    #   rec 
-    # end    
     Recipe.where(:approved => true).order('created_at desc').limit(limit).offset((page_nav-1)*limit) 
   end
 
@@ -95,7 +95,6 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.list_top_rated_recipes_wrt_count(page_nav: , limit:)
-    # SELECT count("ratings"."recipe_id"), recipes.*  FROM "recipes" INNER JOIN "ratings" ON "ratings"."recipe_id" = "recipes"."id" GROUP BY recipes.id;
     Recipe.select("recipes.*, count(ratings.recipe_id) as count").joins(:ratings).group("recipes.id").order("count desc").limit(limit).offset((page_nav-1)*limit)
   end
 
@@ -107,7 +106,6 @@ class Recipe < ActiveRecord::Base
   end
 
   def get_recipe_aggregate_ratings
-    # --QUERY select "ratings"."ratings", count("ratings"."ratings")  from "ratings" where "ratings"."recipe_id" = 18 group by ratings;
     ratings_hash = ratings.group(:ratings).count #recipe.ratings.group(:ratings).count
     (ratings_hash.reduce(0) do |memo, pair|
       memo += pair[0] * pair[1]
@@ -150,6 +148,15 @@ class Recipe < ActiveRecord::Base
   def list_rated_users(ratings:)
     Rating.joins('inner join users on users.id = ratings.rater_id').select("users.name as name, users.email as email").where(:recipe_id=>id, :ratings => ratings)
   end
+ 
 
-
+ def self.search(flag:, query:)
+   searched_recipes = Recipe.scoped
+   # searched_recipes = searched_recipes.free_text(query) if flag == 'free_text'
+   # searched_recipes = searched_recipes.aggregate_ratings(query) if flag == 'aggregate_ratings'
+   # searched_recipes = searched_recipes.calories(query) if flag == 'calories'
+   # searched_recipes = searched_recipes.ingredients(query) if flag == 'ingredients'
+   searched_recipes = searched_recipes.send flag, query
+   searched_recipes
+ end
 end

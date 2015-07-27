@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   end  
 
   def create_user(params_list:)
-      
+    create!(params_list)
+    self
   end
 end
