@@ -147,8 +147,8 @@ class Recipe < ActiveRecord::Base
     Recipe.where(rejected: true ,creator_id: creator_id).order('created_at desc').limit(limit).offset((page_nav-1)*limit)  
   end
 
-  def list_users_rated
-    rater  = Rating.select('users.*, ratings.*').joins('inner join users on users.id  = ratings.rater_id').where(:recipe_id => 18, :ratings => 5)
+  def list_rated_users(ratings:)
+    Rating.joins('inner join users on users.id = ratings.rater_id').select("users.name as name, users.email as email").where(:recipe_id=>id, :ratings => ratings)
   end
 
 

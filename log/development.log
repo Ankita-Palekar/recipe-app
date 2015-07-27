@@ -2961,3 +2961,35 @@ Migrating to CreatePhotos (20150727052544)
   [1m[36m (27.6ms)[0m  [1mCOMMIT[0m
   [1m[35m (0.7ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
 Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+Migrating to ChangeUsertoRaterinRatingRatings (20150726173858)
+Migrating to AddAvatarColumnsToUsers (20150727043652)
+Migrating to CreatePhotos (20150727052544)
+Migrating to AddIndexUsers (20150727071559)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (50.4ms)[0m  [1mCREATE INDEX "index_recipes_on_creator_id" ON "recipes" ("creator_id")[0m
+  [1m[35m (67.0ms)[0m  CREATE INDEX "index_ingredients_on_creator_id" ON "ingredients" ("creator_id")
+  [1m[36m (53.8ms)[0m  [1mCREATE INDEX "index_ratings_on_rater_id" ON "ratings" ("rater_id")[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150727071559')
+  [1m[36m (16.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
