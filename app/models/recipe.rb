@@ -1,13 +1,10 @@
 class Recipe < ActiveRecord::Base
   belongs_to :user
   has_many :photos
-  # has_and_belongs_to_many :ingredients
   has_many :recipe_ingredients
   has_many :ingredients, :through => :recipe_ingredients
   has_many :ratings, :dependent => :destroy
-  
   attr_accessible :name, :image_links, :description, :meal_class, :total_calories, :aggregate_ratings, :serves, :approved, :creator_id, :rejected, :avatar
-
   # has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   # validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   validates :name, :presence => true
@@ -23,9 +20,14 @@ class Recipe < ActiveRecord::Base
   scope :aggregate_ratings, ->(ratings) {where(aggregate_ratings: ratings)}
   scope :calories, -> (calories) {where("total_calories = ? * serves", "#{calories.to_i}")}
   scope :ingredients, ->(query) {joins(:ingredients).where("ingredients.name like ?", "%#{query}%")}
+  scope :approved, -> {where(:approved => true)}
+  scope :ordered_desc_date, -> {order('created_at desc')} 
+  scope :ordered_desc_aggregate_ratings, -> {order('aggregate_ratings desc')} 
+  scope :my_approved_recipes, ->(creator_id) {where(:creator_id => creator_id, :approved=> true)}
+  scope :my_rejected_recipes, ->(creator_id) {where(:creator_id => creator_id, :rejected=> true)}
+  # scope :ratings_hash, -> {ratings.group(:ratings).count}
 
 
-  
   @@find_user_and_send_mail = lambda do |creator_id, function_name|
     user = User.find_by_id(creator_id)
     user.send_email_notification_for_recipes(:function_name => function_name)
@@ -87,14 +89,14 @@ class Recipe < ActiveRecord::Base
   #user recipes related functions
 
   def self.list_latest_created_recipes(page_nav:, limit:)
-    Recipe.where(:approved => true).order('created_at desc').limit(limit).offset((page_nav-1)*limit) 
+    Recipe.approved.ordered_desc_date.limit(limit).offset((page_nav-1)*limit) 
   end
 
   def self.list_top_rated_recipes_wrt_aggregate(page_nav: , limit:)
-    Recipe.order("aggregate_ratings desc").limit(limit).offset((page_nav-1)*limit)
+    Recipe.ordered_desc_aggregate_ratings.limit(limit).offset((page_nav-1)*limit)
   end
 
-  def self.list_top_rated_recipes_wrt_count(page_nav: , limit:)
+  def self.list_most_rated_recipes_wrt_count(page_nav: , limit:)
     Recipe.select("recipes.*, count(ratings.recipe_id) as count").joins(:ratings).group("recipes.id").order("count desc").limit(limit).offset((page_nav-1)*limit)
   end
 
@@ -106,10 +108,10 @@ class Recipe < ActiveRecord::Base
   end
 
   def get_recipe_aggregate_ratings
-    ratings_hash = ratings.group(:ratings).count #recipe.ratings.group(:ratings).count
-    (ratings_hash.reduce(0) do |memo, pair|
+    rates_hash = ratings.group(:ratings).count
+    (rates_hash.reduce(0) do |memo, pair|
       memo += pair[0] * pair[1]
-    end) / (ratings_hash.values.reduce(:+))
+    end) / (rates_hash.values.reduce(:+))
   end
 
   def get_recipe_details
@@ -126,11 +128,11 @@ class Recipe < ActiveRecord::Base
   #user specific functions
   
   def self.list_my_recipes(page_nav:, limit:, creator_id:)
-    Recipe.where(:creator_id => creator_id, :approved=> true).order('created_at desc').limit(limit).offset((page_nav-1)*limit)
+    Recipe.my_approved_recipes(creator_id).ordered_desc_date.limit(limit).offset((page_nav-1)*limit)
   end
 
   def self.list_most_popular_recipes_wrt_aggregate(creator_id:, page_nav:, limit:)
-    Recipe.where(:id => creator_id).order("aggregate_ratings desc").limit(limit).offset((page_nav-1)*limit)
+    Recipe.my_approved_recipes(creator_id).ordered_desc_aggregate_ratings.limit(limit).offset((page_nav-1)*limit)
   end
 
   def self.list_most_popular_recipes_wrt_count(creator_id:, page_nav:, limit:)
@@ -138,11 +140,11 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.list_my_pending_recipes(creator_id:, page_nav:, limit:)
-    Recipe.where(approved: false, rejected: false ,creator_id: creator_id).order('created_at desc').limit(limit).offset((page_nav-1)*limit)  
+    Recipe.where(approved: false, rejected: false ,creator_id: creator_id).ordered_desc_date.limit(limit).offset((page_nav-1)*limit)  
   end
 
   def self.list_my_rejected_recipes(creator_id:, page_nav:, limit:)
-    Recipe.where(rejected: true ,creator_id: creator_id).order('created_at desc').limit(limit).offset((page_nav-1)*limit)  
+    Recipe.my_rejected_recipes(creator_id).ordered_desc_date.limit(limit).offset((page_nav-1)*limit)  
   end
 
   def list_rated_users(ratings:)
@@ -152,10 +154,6 @@ class Recipe < ActiveRecord::Base
 
  def self.search(flag:, query:)
    searched_recipes = Recipe.scoped
-   # searched_recipes = searched_recipes.free_text(query) if flag == 'free_text'
-   # searched_recipes = searched_recipes.aggregate_ratings(query) if flag == 'aggregate_ratings'
-   # searched_recipes = searched_recipes.calories(query) if flag == 'calories'
-   # searched_recipes = searched_recipes.ingredients(query) if flag == 'ingredients'
    searched_recipes = searched_recipes.send flag, query
    searched_recipes
  end
