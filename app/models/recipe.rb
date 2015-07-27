@@ -43,7 +43,7 @@ class Recipe < ActiveRecord::Base
 
  
   def self.list_pending_recipes(page_nav:, limit:)
-    Recipe.where(approved: false).order('created_at desc').limit(limit).offset((page_nav-1)*limit)  
+    Recipe.where(approved: false, rejected: false).order('created_at desc').limit(limit).offset((page_nav-1)*limit)  
   end
 
   
@@ -110,7 +110,37 @@ class Recipe < ActiveRecord::Base
     end) / (ratings_hash.values.reduce(:+))
   end
 
+  def get_recipe_details
 
+  end
+
+
+
+  #user specific functions
+  
+  def self.list_my_recipes(page_nav:, limit:, creator_id:)
+    Recipe.where(:creator_id => creator_id, :approved=> true).order('created_at desc').limit(limit).offset((page_nav-1)*limit)
+  end
+
+  def self.list_most_popular_recipes_wrt_aggregate(creator_id:, page_nav:, limit:)
+    Recipe.where(:id => creator_id).order("aggregate_ratings desc").limit(limit).offset((page_nav-1)*limit)
+  end
+
+  def self.list_most_popular_recipes_wrt_count(creator_id:, page_nav:, limit:)
+    Recipe.select("recipes.*, count(ratings.recipe_id) as count").joins(:ratings).where(:creator_id => creator_id).group("recipes.id").order("count desc").limit(limit).offset((page_nav-1)*limit)
+  end
+
+  def self.list_my_pending_recipes(creator_id:, page_nav:, limit:)
+    Recipe.where(approved: false, rejected: false ,creator_id: creator_id).order('created_at desc').limit(limit).offset((page_nav-1)*limit)  
+  end
+
+  def self.list_my_rejected_recipes(creator_id:, page_nav:, limit:)
+    Recipe.where(rejected: true ,creator_id: creator_id).order('created_at desc').limit(limit).offset((page_nav-1)*limit)  
+  end
+
+  def list_users_rated
+    rater  = Rating.select('users.*, ratings.*').joins('inner join users on users.id  = ratings.rater_id').where(:recipe_id => 18, :ratings => 5)
+  end
 
 
 end

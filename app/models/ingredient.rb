@@ -1,5 +1,6 @@
 class Ingredient < ActiveRecord::Base
 	# has_and_belongs_to_many :recipes
+	belongs_to :user
 	has_many :recipe_ingredients
 	has_many :recipes, :through => :recipe_ingredients #change naming otherwise @@SCREWED
 
