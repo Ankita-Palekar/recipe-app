@@ -1,5 +1,6 @@
 class Ingredient < ActiveRecord::Base
 	# has_and_belongs_to_many :recipes
+	belongs_to :user
 	has_many :recipe_ingredients
 	has_many :recipes, :through => :recipe_ingredients #change naming otherwise @@SCREWED
 
@@ -18,6 +19,11 @@ class Ingredient < ActiveRecord::Base
 	def create_ingredient
 		save!  
 		self
+	end
+
+
+	def self.list_pending_ingredients
+	  Ingredient.where(approved: false)  
 	end
 
 	  
