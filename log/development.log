@@ -2727,3 +2727,237 @@ Connecting to database specified by database.yml
 Connecting to database specified by database.yml
 Connecting to database specified by database.yml
 Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (37.8ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+Migrating to ChangeUsertoRaterinRatingRatings (20150726173858)
+Migrating to AddAvatarColumnsToRecipes (20150727043652)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (101.5ms)[0m  [1mALTER TABLE "recipes" ADD COLUMN "avatar_file_name" character varying(255)[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "recipes" ADD COLUMN "avatar_content_type" character varying(255)
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "recipes" ADD COLUMN "avatar_file_size" integer[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "recipes" ADD COLUMN "avatar_updated_at" timestamp
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150727043652')[0m
+  [1m[35m (14.6ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to AddAvatarColumnsToRecipes (20150727043652)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (92.0ms)[0m  ALTER TABLE "recipes" DROP "avatar_file_name"
+  [1m[36m (0.9ms)[0m  [1mALTER TABLE "recipes" DROP "string"[0m
+PG::UndefinedColumn: ERROR:  column "string" of relation "recipes" does not exist
+: ALTER TABLE "recipes" DROP "string"
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to AddAvatarColumnsToRecipes (20150727043652)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.2ms)[0m  ALTER TABLE "recipes" DROP "avatar_file_name"
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "recipes" DROP "string"[0m
+PG::UndefinedColumn: ERROR:  column "string" of relation "recipes" does not exist
+: ALTER TABLE "recipes" DROP "string"
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to AddAvatarColumnsToRecipes (20150727043652)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.2ms)[0m  ALTER TABLE "recipes" DROP "avatar_file_name"
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "recipes" DROP "string"[0m
+PG::UndefinedColumn: ERROR:  column "string" of relation "recipes" does not exist
+: ALTER TABLE "recipes" DROP "string"
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to AddAvatarColumnsToRecipes (20150727043652)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.3ms)[0m  ALTER TABLE "recipes" DROP "avatar_file_name"
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "recipes" DROP "avatar_content_type"[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "recipes" DROP "avatar_file_size"
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "recipes" DROP "avatar_updated_at"[0m
+  [1m[35m (29.9ms)[0m  DELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20150727043652'
+  [1m[36m (23.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to ChangeUsertoRaterinRatingRatings (20150726173858)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.7ms)[0m  ALTER TABLE "ratings" RENAME COLUMN "rater_id" TO "user_id"
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "ratings" RENAME COLUMN "ratings" TO "rating"[0m
+  [1m[35m (0.6ms)[0m  DROP INDEX "index_ratings_on_rater_id_and_recipe_id"
+Interrupt: : DROP INDEX "index_ratings_on_rater_id_and_recipe_id"
+  [1m[36m (14.8ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT version FROM schema_migrations[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+Migrating to ChangeUsertoRaterinRatingRatings (20150726173858)
+Migrating to AddAvatarColumnsToRecipes (20150727043652)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mALTER TABLE "recipes" ADD COLUMN "avatar_file_name" character varying(255)[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "recipes" ADD COLUMN "avatar_content_type" character varying(255)
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "recipes" ADD COLUMN "avatar_file_size" integer[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "recipes" ADD COLUMN "avatar_updated_at" timestamp
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150727043652')[0m
+  [1m[35m (13.6ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.2ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to AddAvatarColumnsToRecipes (20150727043652)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+DEPRECATION WARNING: Method `drop_attached_file` in the migration has been deprecated and will be replaced by `remove_attachment`. (called from measure at /home/ankita/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/benchmark.rb:279)
+  [1m[35m (1.5ms)[0m  ALTER TABLE "recipes" DROP "avatar_file_name"
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "recipes" DROP "string"[0m
+PG::UndefinedColumn: ERROR:  column "string" of relation "recipes" does not exist
+: ALTER TABLE "recipes" DROP "string"
+  [1m[35m (0.3ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to AddAvatarColumnsToRecipes (20150727043652)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.2ms)[0m  ALTER TABLE "recipes" DROP "avatar_file_name"
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "recipes" DROP "avatar_content_type"[0m
+  [1m[35m (9.2ms)[0m  ALTER TABLE "recipes" DROP "avatar_file_size"
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "recipes" DROP "avatar_updated_at"[0m
+  [1m[35m (0.7ms)[0m  DELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20150727043652'
+  [1m[36m (15.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT version FROM schema_migrations[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+Migrating to ChangeUsertoRaterinRatingRatings (20150726173858)
+Migrating to AddAvatarColumnsToUsers (20150727043652)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150727043652')[0m
+  [1m[35m (17.1ms)[0m  COMMIT
+Migrating to CreatePhotos (20150727052544)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (401.6ms)[0m  CREATE TABLE "photos" ("id" serial primary key, "avatar_file_name" character varying(255), "avatar_content_type" character varying(255), "avatar_file_size" integer, "avatar_updated_at" timestamp, "recipes_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (1.8ms)[0m  [1mCREATE INDEX "index_photos_on_recipe_id" ON "photos" ("recipe_id")[0m
+PG::UndefinedColumn: ERROR:  column "recipe_id" does not exist
+: CREATE  INDEX "index_photos_on_recipe_id" ON "photos" ("recipe_id")
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT version FROM schema_migrations[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+Migrating to ChangeUsertoRaterinRatingRatings (20150726173858)
+Migrating to AddAvatarColumnsToUsers (20150727043652)
+Migrating to CreatePhotos (20150727052544)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (93.1ms)[0m  [1mCREATE TABLE "photos" ("id" serial primary key, "avatar_file_name" character varying(255), "avatar_content_type" character varying(255), "avatar_file_size" integer, "avatar_updated_at" timestamp, "recipe_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (31.5ms)[0m  CREATE INDEX "index_photos_on_recipe_id" ON "photos" ("recipe_id")
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20150727052544')[0m
+  [1m[35m (12.6ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreatePhotos (20150727052544)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.0ms)[0m  DROP TABLE "photos"
+  [1m[36m (0.7ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20150727052544'[0m
+  [1m[35m (22.1ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150721120353)
+Migrating to CreateRecipes (20150721121032)
+Migrating to CreateIngredients (20150721121040)
+Migrating to CreateRatings (20150721121049)
+Migrating to IngredientRecipe (20150721130342)
+Migrating to CreateAdmins (20150722044920)
+Migrating to AddApproveStatusIngredients (20150722065125)
+Migrating to CreateIngredientRecipes (20150722143253)
+Migrating to AddIndexRecipesIngredientRatings (20150722143444)
+Migrating to RemovePkIngredientRecipe (20150722144151)
+Migrating to RenameIngredientRecipe (20150722145329)
+Migrating to AddDefaultApprovedRecipesIngredients (20150722183622)
+Migrating to RenameUseridtoCreatorid (20150723101739)
+Migrating to AddRejectFlagRecipe (20150726132513)
+Migrating to AddNameFieldUser (20150726132523)
+Migrating to ChangeNameFieldUsers (20150726134110)
+Migrating to ChangeUsertoRaterinRatingRatings (20150726173858)
+Migrating to AddAvatarColumnsToUsers (20150727043652)
+Migrating to CreatePhotos (20150727052544)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (86.0ms)[0m  [1mCREATE TABLE "photos" ("id" serial primary key, "avatar_file_name" character varying(255), "avatar_content_type" character varying(255), "avatar_file_size" integer, "avatar_updated_at" timestamp, "recipe_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (40.5ms)[0m  CREATE INDEX "index_photos_on_recipe_id" ON "photos" ("recipe_id")
+  [1m[36m (54.7ms)[0m  [1mALTER TABLE photos ADD CONSTRAINT fk_photos_recipes FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20150727052544')
+  [1m[36m (27.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150726173858) do
+ActiveRecord::Schema.define(:version => 20150727052544) do
 
   create_table "admins", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -31,6 +31,18 @@ ActiveRecord::Schema.define(:version => 20150726173858) do
   end
 
   add_index "ingredients", ["creator_id"], :name => "index_ingredients_on_user_id"
+
+  create_table "photos", :force => true do |t|
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.integer  "recipe_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "photos", ["recipe_id"], :name => "index_photos_on_recipe_id"
 
   create_table "ratings", :force => true do |t|
     t.integer "recipe_id"

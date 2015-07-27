@@ -1,12 +1,15 @@
 class Recipe < ActiveRecord::Base
   belongs_to :user
+  has_many :photos
   # has_and_belongs_to_many :ingredients
   has_many :recipe_ingredients
   has_many :ingredients, :through => :recipe_ingredients
   has_many :ratings, :dependent => :destroy
   
-  attr_accessible :name, :image_links, :description, :meal_class, :total_calories, :aggregate_ratings, :serves, :approved, :creator_id, :rejected
+  attr_accessible :name, :image_links, :description, :meal_class, :total_calories, :aggregate_ratings, :serves, :approved, :creator_id, :rejected, :avatar
 
+  # has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  # validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   validates :name, :presence => true
   validates :description, :presence => true
   validates :meal_class, :presence => true
@@ -75,15 +78,16 @@ class Recipe < ActiveRecord::Base
   #user recipes related functions
 
   def self.list_latest_created_recipes(page_nav:, limit:)
-    Recipe.includes(:ingredients).where(:approved => true).order('created_at desc').limit(limit).offset((page_nav-1)*limit).each do |rec|
-      rec_ingredients_quantity  = rec.recipe_ingredients
-      new_ingredients_list =  rec.ingredients.map.with_index do |ingredient, index|
-        ingredient[:quantity] =  rec_ingredients_quantity[index][:quantity]
-        ingredient
-      end
-      rec[:ingredients_list] = new_ingredients_list
-      rec 
-    end    
+    # Recipe.includes(:ingredients).where(:approved => true).order('created_at desc').limit(limit).offset((page_nav-1)*limit).each do |rec|
+    #   rec_ingredients_quantity  = rec.recipe_ingredients
+    #   new_ingredients_list =  rec.ingredients.map.with_index do |ingredient, index|
+    #     ingredient[:quantity] =  rec_ingredients_quantity[index][:quantity]
+    #     ingredient
+    #   end
+    #   rec[:ingredients_list] = new_ingredients_list
+    #   rec 
+    # end    
+    Recipe.where(:approved => true).order('created_at desc').limit(limit).offset((page_nav-1)*limit) 
   end
 
   def self.list_top_rated_recipes_wrt_aggregate(page_nav: , limit:)
@@ -111,9 +115,14 @@ class Recipe < ActiveRecord::Base
   end
 
   def get_recipe_details
-
+    return {recipe_content: Recipe.includes(:ratings, :photos, :ingredients).where(:id => id).first,
+      ratings_histogram: get_ratings_count_hash
+    }
   end
 
+  def get_ratings_count_hash
+    ratings.group(:ratings).count 
+  end
 
 
   #user specific functions
