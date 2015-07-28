@@ -6,7 +6,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index
+    get :signup
     assert_response :success
     assert_not_nil assigns(:users)
   end
@@ -17,11 +17,11 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should create user" do
-    assert_difference('User.count') do
-      post :create, user: { :name => 'zomato', :email => 'zomato@domain.com', :password => 'zomato123', :password_confirmation  => 'zomato123'}
+    assert_difference 'User.count' do
+      post :create, { :name => 'zomato', :email => 'zomato@domain.com', :password => 'zomato123', :password_confirmation  => 'zomato123'}
     end
-    assert_redirected_to '/login'
-    assert_equal 'Sucessfully signed up! you can login now', flash[:notice]
+    assert_redirected_to('/login', messgae = 'not redirected to login')
+    assert_equal('Sucessfully signed up! you can login now', flash[:notice], messgae = 'flash message not equal')
   end
 
   test "should show user" do
