@@ -24,10 +24,10 @@ class Recipe < ActiveRecord::Base
   scope :my_approved_recipes, ->(creator_id) {where(:creator_id => creator_id, :approved=> true)}
   scope :my_rejected_recipes, ->(creator_id) {where(:creator_id => creator_id, :rejected=> true)}
   scope :my_pending_recipes, ->(creator_id) {where(approved: false, rejected: false ,creator_id: creator_id)}
-  scope :page_navigation, ->(limit, page_nav) {limit(limit).offset((page_nav-1)*limit) }
   scope :ordered_by_count, -> {order("count desc")}
   scope :order_by_most_rated, -> {select("recipes.*, count(ratings.recipe_id) as count").joins(:ratings).group("recipes.id").ordered_by_count}
-
+  scope :page_navigation, ->(limit, page_nav) {limit(limit).offset((page_nav-1)*limit) }
+  scope :ratings_count_hash, -> {ratings.group(:ratings).count }
 
 
   @@find_user_and_send_mail = lambda do |creator_id, function_name|
@@ -57,12 +57,9 @@ class Recipe < ActiveRecord::Base
     self
   end
 
-
- 
   def self.list_pending_recipes(page_nav:, limit:)
     Recipe.where(approved: false, rejected: false).order('created_at desc').limit(limit).offset((page_nav-1)*limit)  
   end
-
   
   def approve_recipe
     Recipe.transaction do
@@ -79,7 +76,6 @@ class Recipe < ActiveRecord::Base
     update_attributes!(:rejected => true)
     @@find_user_and_send_mail.call(creator_id, 'recipe_rejected_email')
   end
-
 
   def self.get_recipe_meal_class(ingredients_list:)
     meal_class = Ingredient::MEAL_CLASS
@@ -124,7 +120,6 @@ class Recipe < ActiveRecord::Base
   #user specific functions
   # list_type takes => order_by_date, order_by_aggregate_ratings, order_by_ratings 
   #tatus => my_pending_recipes, my_approved_recipes, my_rejected_recipes
-  
   def  self.list_my_recipes(status:, list_type:, creator_id:, page_nav:, limit:)
     Recipe.send(status,creator_id).send(list_type).page_navigation(limit, page_nav)
   end

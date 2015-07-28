@@ -1,7 +1,10 @@
 class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
+
+
   def index
+    @user = User.find_by_id(session[:user_id]) 
     @recipes = Recipe.all
 
     respond_to do |format|
@@ -13,8 +16,8 @@ class RecipesController < ApplicationController
   # GET /recipes/1
   # GET /recipes/1.json
   def show
-    @recipe = Recipe.find(params[:id])
 
+    @recipe = Recipe.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @recipe }

@@ -7,7 +7,7 @@
 # 
 # 
 
-user1: 
- id: 1
+one: 
  email: 453ankitapalekar@gmail.com
  password_digest: some_digest #since in db this field is specified as not null cannot keep blank
+ name: ankita

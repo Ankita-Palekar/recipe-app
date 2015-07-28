@@ -43,11 +43,14 @@ class RecipeTest < ActiveSupport::TestCase
 
 
   test "reject recipe" do
+    user = User.new()
     recipe = create_recipe_block
+    recipe.reject_recipe
     recipe_copy = Recipe.find(recipe.id)
     assert_not_nil(recipe_copy, 'recipe not saved')
     assert(recipe_copy.rejected, 'recipe reject failed')
-
     #test tremainning to check for the rejection email sent or not
   end
+
+
 end

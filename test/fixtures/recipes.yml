@@ -4,11 +4,9 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-recipe1:
- id: 1
- name: papaya casew
- description: crush papaya
- serves: 4
- aggregate_ratings: 0
- creator_id: 1
- meal_class: veg
+# recipe1:
+#  name: papaya casew
+#  description: crush papaya
+#  serves: 4
+#  aggregate_ratings: 0
+#  meal_class: veg
