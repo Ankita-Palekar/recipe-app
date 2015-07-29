@@ -4,9 +4,8 @@ class Recipe < ActiveRecord::Base
   has_many :recipe_ingredients
   has_many :ingredients, :through => :recipe_ingredients
   has_many :ratings, :dependent => :destroy
-  attr_accessible :name, :image_links, :description, :meal_class, :total_calories, :aggregate_ratings, :serves, :approved, :creator_id, :rejected, :avatar
-  # has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
-  # validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  attr_accessible :name, :image_links, :description, :meal_class, :total_calories, :aggregate_ratings, :serves, :approved, :creator_id, :rejected
+ 
   validates :name, :presence => true
   validates :description, :presence => true
   validates :meal_class, :presence => true
@@ -37,7 +36,6 @@ class Recipe < ActiveRecord::Base
   end
 
   def create_recipe(ingredients_list:)
-    puts ingredients_list.inspect
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
       save! 
@@ -68,7 +66,6 @@ class Recipe < ActiveRecord::Base
     Recipe.transaction do
       update_attributes!(:approved => true, :rejected=>false)
       self.ingredients.each do |ingredient| 
-        puts ingredient.inspect
         ingredient.approve_ingredient
       end
       @@find_user_and_send_mail.call(creator_id, 'recipe_approval_email')
@@ -83,8 +80,6 @@ class Recipe < ActiveRecord::Base
   def self.get_recipe_meal_class(ingredients_list:)
     meal_class = Ingredient::MEAL_CLASS
     memo = meal_class[meal_class.length-1]
-    puts memo.inspect
-    puts "\n"
     least_meal_class = ingredients_list.reduce(memo) do |memo, ingre|
       meal_class.index(memo) > meal_class.index(ingre[:meal_class]) ? ingre[:meal_class] : memo
     end

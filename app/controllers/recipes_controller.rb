@@ -15,8 +15,7 @@ class RecipesController < ApplicationController
   # GET /recipes/1
   # GET /recipes/1.json
   def show
-
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.find(params[:id]).get_recipe_details
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @recipe }
@@ -43,13 +42,11 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(params[:recipe])
     ingredients_list = params[:ingredient]
-
     respond_to do |format|
       if @recipe.create_recipe(ingredients_list: ingredients_list)
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         format.json { render json: @recipe, status: :created, location: @recipe }
       else
-        flash[:notice] = "some error occured"
         format.html { render action: "new" }
         format.json { render json: @recipe.errors, status: :unprocessable_entity }
       end
