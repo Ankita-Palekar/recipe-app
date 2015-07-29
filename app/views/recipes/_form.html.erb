@@ -11,7 +11,129 @@
     </div>
   <% end %>
 
+  <% if flash[:notice]%>
+    <div class="control-group">
+      <div class="alerts">
+        <%= "#{flash[:notice]}" %>    
+      </div>
+    </div>
+  <% end %>
+  <div class="control-group">
+    <label class="control-label" for="inputEmail">Recipe Name</label>
+    <div class="controls">
+      <input type="hidden" name="recipe[creator_id]" value='<%="#{@current_user.id}"%>'>
+      <input type="hidden" name="recipe[aggregate_ratings]" value='<%=0%>'>
+      <input type="text" id="inputEmail" placeholder="reipe name" name="recipe[name]">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputEmail">Discription</label>
+    <div class="controls">
+      <textarea name="recipe[description]" cols="30" rows="10"></textarea>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="inputEmail">serves</label>
+    <div class="controls">
+      <input type="number" name="recipe[serves]" placeholder="4">
+    </div>
+  </div>  
+
+
+ <!--  <div class="controls">
+    <label for="title">Select your ingredients below</label>
+    <select id="select-ingredients" name="ingredients[]" multiple="multiple">
+      <option value="1">option1</option>
+      <option value="2">option2</option>
+      <option value="3">option3</option>
+    </select>
+  </div> -->
+
+
+  <div class="ingredients-container">
+    <div class="add-ingredients control-group" >
+      <label class="control-label" for="inputEmail">ingredient name</label>
+      <div class="controls">
+        <input type="text" placeholder="ingredient name" name="ingredient[][name]">
+        <input type="hidden"  name="ingredient[][creator_id]" value="<%= @current_user.id %>">
+      </div>
+      <div class="controls">
+        <label class="control-label" for="inputEmail">ingredient standard quantity</label>
+        <select name="ingredient[][std_measurement]">
+          <option value="teaspoon">teaspoon</option>
+          <option value="tablespoon">tablespoon</option>
+          <option value="fluid ounce">ounce</option>
+          <option value="gill">gill</option>
+          <option value="cup">cup</option>
+          <option value="pint">pint</option>
+          <option value="quart">quart</option>
+          <option value="gallon">gallon</option>
+          <option value="ml">milli liter</option>
+          <option value="l">liter</option>
+          <option value="dl">deci liter</option>
+          <option value="pounds">pounds</option>
+          <option value="ounce">ounce</option>
+          <option value="mg">mili grams</option>
+          <option value="g">grams</option>
+          <option value="kg">kilo grams</option>
+          <option value="mm">mili meter</option>
+          <option value="cm">centi meter</option>
+          <option value="m">meter</option>
+          <option value="inch">inch</option>
+        </select>
+      </div>
+
+      <div class="controls">
+        <label class="control-label" for="inputEmail">ingredient standard quantity</label>
+        <select name="ingredient[][meal_class]">
+          <option value="jain">jain</option>
+          <option value="veg">veg</option>
+          <option value="non-veg">non-veg</option>
+        </select>
+      </div>
+
+      <label class="control-label" for="inputEmail">ingredient standard quantity</label>
+      <div class="controls">
+        <input type="text" placeholder="ingredient standard quantity" name="ingredient[][std_quantity]">
+      </div>
+
+      <label class="control-label" for="inputEmail">ingredient quantity</label>
+      <div class="controls">
+        <input type="text" palceholder="e.g 1kg" name="ingredient[][quantity]">
+      </div>
+
+      <label class="control-label" for="inputEmail">calories per std qty</label>
+      <div class="controls">
+        <input type="text" name="ingredient[][calories_per_quantity]">
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="add-ingredients" class="btn btn-primary">add ingredient</button>
+  </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'submit', :class => 'btn btn-primary' %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+    // $(document).ready(function() {
+    //     $('#select-ingredients').multiselect();
+    // });
+  
+
+  $(document).ready(function(){  
+    var add_ingredients_block = ' <div class="ingredients-container"> <div class="add-ingredients control-group" ><label class="control-label" for="inputEmail">ingredient name</label> <div class="controls"> <input type="text" placeholder="ingredient name" name="ingredient[][name]"> <input type="hidden"  name="ingredient[][creator_id]" value="<%= @current_user.id %>"></div> <div class="controls"> <label class="control-label" for="inputEmail">ingredient standard quantity</label> <select name="ingredient[][std_measurement]"> <option value="teaspoon">teaspoon</option> <option value="tablespoon">tablespoon</option> <option value="fluid ounce">ounce</option> <option value="gill">gill</option> <option value="cup">cup</option> <option value="pint">pint</option> <option value="quart">quart</option> <option value="gallon">gallon</option> <option value="ml">milli liter</option> <option value="l">liter</option> <option value="dl">deci liter</option> <option value="pounds">pounds</option> <option value="ounce">ounce</option> <option value="mg">mili grams</option> <option value="g">grams</option> <option value="kg">kilo grams</option> <option value="mm">mili meter</option> <option value="cm">centi meter</option> <option value="m">meter</option> <option value="inch">inch</option> </select> </div> <div class="controls"> <label class="control-label" for="inputEmail">ingredient standard quantity</label> <select name="ingredient[][meal_class]"> <option value="jain">jain</option> <option value="veg">veg</option> <option value="non-veg">non-veg</option> </select> </div> <label class="control-label" for="inputEmail">ingredient standard quantity</label> <div class="controls"> <input type="text" placeholder="ingredient standard quantity" name="ingredient[][std_quantity]"> </div> <label class="control-label" for="inputEmail">ingredient quantity</label> <div class="controls"> <input type="text" palceholder="e.g 1kg" name="ingredient[][quantity]"> </div> <label class="control-label" for="inputEmail">calories per std qty</label> <div class="controls"> <input type="text" name="ingredient[][calories_per_quantity]"> </div> </div> </div>'
+      
+      $('#add-ingredients').on('click',function(e){
+        e.preventDefault()
+        $('.ingredients-container').append(add_ingredients_block)
+      })
+  })  
+
+</script>
+
+

@@ -18,6 +18,7 @@ Foodholic::Application.routes.draw do
   match "/logout" => "sessions#destroy", :via => :delete
   match "/signup" => "users#new", :via => :get
   match "/signup" => "sessions#signup", :via => :post
+   
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -11,3 +11,4 @@ one:
  email: 453ankitapalekar@gmail.com
  password_digest: some_digest #since in db this field is specified as not null cannot keep blank
  name: ankita
+ id: 1

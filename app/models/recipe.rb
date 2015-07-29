@@ -28,6 +28,7 @@ class Recipe < ActiveRecord::Base
   scope :order_by_most_rated, -> {select("recipes.*, count(ratings.recipe_id) as count").joins(:ratings).group("recipes.id").ordered_by_count}
   scope :page_navigation, ->(limit, page_nav) {limit(limit).offset((page_nav-1)*limit) }
   scope :ratings_count_hash, -> {ratings.group(:ratings).count }
+  scope :pending, -> {where(approved: false, rejected: false)}
 
 
   @@find_user_and_send_mail = lambda do |creator_id, function_name|
@@ -36,12 +37,13 @@ class Recipe < ActiveRecord::Base
   end
 
   def create_recipe(ingredients_list:)
+    puts ingredients_list.inspect
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
       save! 
       total_calories = 0
       ingredients_list.each do |ingre|
-        total_calories += ingre[:quantity] / ingre[:std_quantity] * ingre[:calories_per_quantity] #calculating total calories in recipe
+        total_calories += ingre[:quantity].to_i / ingre[:std_quantity].to_i * ingre[:calories_per_quantity].to_i #calculating total calories in recipe
           if ingre.has_key?(:ingredient_id)
             ingredient_id = ingre[:ingredient_id] 
           else
@@ -57,8 +59,9 @@ class Recipe < ActiveRecord::Base
     self
   end
 
+  #for admin
   def self.list_pending_recipes(page_nav:, limit:)
-    Recipe.where(approved: false, rejected: false).order('created_at desc').limit(limit).offset((page_nav-1)*limit)  
+    Recipe.pending.order('created_at desc').page_navigation(limit, page_nav)
   end
   
   def approve_recipe
@@ -80,6 +83,8 @@ class Recipe < ActiveRecord::Base
   def self.get_recipe_meal_class(ingredients_list:)
     meal_class = Ingredient::MEAL_CLASS
     memo = meal_class[meal_class.length-1]
+    puts memo.inspect
+    puts "\n"
     least_meal_class = ingredients_list.reduce(memo) do |memo, ingre|
       meal_class.index(memo) > meal_class.index(ingre[:meal_class]) ? ingre[:meal_class] : memo
     end
@@ -119,7 +124,7 @@ class Recipe < ActiveRecord::Base
 
   #user specific functions
   # list_type takes => order_by_date, order_by_aggregate_ratings, order_by_ratings 
-  #tatus => my_pending_recipes, my_approved_recipes, my_rejected_recipes
+  #status => my_pending_recipes, my_approved_recipes, my_rejected_recipes
   def  self.list_my_recipes(status:, list_type:, creator_id:, page_nav:, limit:)
     Recipe.send(status,creator_id).send(list_type).page_navigation(limit, page_nav)
   end

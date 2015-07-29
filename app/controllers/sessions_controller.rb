@@ -3,10 +3,12 @@ class SessionsController < ApplicationController
 
   #POST /login
   def create
-    user = User.find_by_email(params[:email].downcase)
-  	if user && user.authenticate(params[:password])
-  		 log_in user
-       redirect_to '/recipes'
+    # user = User.find_by_email(params[:email].downcase)
+  	# if user && user.authenticate(params[:password])
+  	if user = User.authenticate(:email => params[:email] , :password => params[:password])	
+      log_in user
+      flash[:notice] = "Sucessfully signed in"
+      redirect_to(:controller => "recipes", :action => "index") 
   	else
   		flash[:notice] = "Invalid email/password"
       render 'login'
@@ -15,8 +17,6 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out
-    redirect_to(:action => '/login') 
+    redirect_to '/login'
   end
-
- 
 end

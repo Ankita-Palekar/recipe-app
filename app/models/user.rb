@@ -20,4 +20,11 @@ class User < ActiveRecord::Base
     create!(params_list)
     self
   end
+
+  def self.authenticate(email:, password:)
+    user = User.find_by_email(email)
+    if user && BCrypt::Password.new(user.password_digest) == password 
+      user 
+    end
+  end
 end

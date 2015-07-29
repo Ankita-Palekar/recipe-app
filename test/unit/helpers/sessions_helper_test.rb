@@ -2,7 +2,6 @@ require 'test_helper'
 
 class SessionsHelperTest < ActionView::TestCase
 include SessionsHelper	
-	
 	def create_user
 		user_hash =  { :name => 'zomato', :email => 'zomato@domain.com', :password => 'zomato123', :password_confirmation  => 'zomato123'}
 		User.create(user_hash)
@@ -32,6 +31,4 @@ include SessionsHelper
 		log_out
 		assert_nil(session[:user_id],'user not logged out')
 	end
-
-	 
 end
