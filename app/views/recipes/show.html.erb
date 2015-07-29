@@ -1,16 +1,22 @@
 <p id="notice"><%= notice %></p>
 <!-- <div class="hero-unit"> -->
-<div>
+<div class="jumbotron">
 	<span class="label label-info"> <%= @recipe[:recipe_content].meal_class %> </span>
   <h1> <%= @recipe[:recipe_content].name %> </h1>
   <div id="myCarousel" class="carousel slide">
     <div class="carousel-inner">
-		  <% @recipe[:recipe_content].photos.each do |image| %>
-		    <div class="item"><img src="image.avatar_file_name" alt=""></div>
+		  <% @recipe[:recipe_content].photos.each_with_index do |image, index| %>
+		    	<% if index == 0 %> 
+		   			<div class="item active">
+		   	 	<% else %>
+		   			<div class="item">
+		    	<% end %>
+						<%=image_tag  image.avatar.url%>
+		   	</div> 
 		  <%end%>
     </div>
-    <!-- <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a> -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
   </div>
 
   <h4> Ingredients: </h4>

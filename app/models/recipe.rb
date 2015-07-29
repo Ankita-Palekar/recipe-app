@@ -1,6 +1,8 @@
 class Recipe < ActiveRecord::Base
+  include SessionsHelper
+
   belongs_to :user
-  has_many :photos
+  has_many :photos, :dependent => :destroy
   has_many :recipe_ingredients
   has_many :ingredients, :through => :recipe_ingredients
   has_many :ratings, :dependent => :destroy
@@ -35,7 +37,7 @@ class Recipe < ActiveRecord::Base
     user.send_email_notification_for_recipes(:function_name => function_name)
   end
 
-  def create_recipe(ingredients_list:)
+  def create_recipe(ingredients_list:, photo_list:)
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
       save! 
@@ -43,16 +45,22 @@ class Recipe < ActiveRecord::Base
       ingredients_list.each do |ingre|
         total_calories += ingre[:quantity].to_i / ingre[:std_quantity].to_i * ingre[:calories_per_quantity].to_i #calculating total calories in recipe
           if ingre.has_key?(:ingredient_id)
-            ingredient_id = ingre[:ingredient_id] 
+            # ingredient_id = ingre[:ingredient_id] 
+            ingredient = Ingredient.find(ingre[:ingredient_id])
           else
             ingredient = Ingredient.new(ingre.except(:quantity))
             ingredient.create_ingredient
-            ingredient_id  = ingredient.id
+            # ingredient_id  = ingredient.id
           end
-        recipe_ingredient = RecipeIngredient.new(recipe_id: id, ingredient_id: ingredient_id, quantity: ingre[:quantity])
+        # recipe_ingredient = RecipeIngredient.new(recipe_id: id, ingredient_id: ingredient_id, quantity: ingre[:quantity])
+        recipe_ingredient = self.recipe_ingredients.new(quantity: ingre[:quantity])
+        recipe_ingredient.ingredient = ingredient  #will assign ingredient_id in join to the ingrdient_id
         recipe_ingredient.save!
       end
-      update_attributes!(:total_calories => total_calories)
+      photo_list.each do |photo|
+        photos.create!(avatar: photo) #recipe.photos.create()
+      end
+        update_attributes!(:total_calories => total_calories)
     end
     self
   end
@@ -96,16 +104,17 @@ class Recipe < ActiveRecord::Base
 
   def rate_recipe(rater_id:, ratings:)
     Recipe.transaction do
-      (approved == true) & (rater_id != creator_id) ? Rating.create!(rater_id: rater_id, recipe_id: id, ratings: ratings) : false
+      ((approved == true) && (rater_id != creator_id)) ? (Rating.create!(rater_id: rater_id, recipe_id: id, ratings: ratings)) : false
       update_attributes!(:aggregate_ratings => get_recipe_aggregate_ratings)
     end
   end
 
   def get_recipe_aggregate_ratings
     rates_hash = ratings.group(:ratings).count
-    (rates_hash.reduce(0) do |memo, pair|
+    rates_hash.empty? ? 0 :
+    ((rates_hash.reduce(0) do |memo, pair|
       memo += pair[0] * pair[1]
-    end) / (rates_hash.values.reduce(:+))
+    end) / (rates_hash.values.reduce(:+)))  
   end
 
   def get_recipe_details

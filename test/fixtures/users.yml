@@ -12,3 +12,37 @@ one:
  password_digest: some_digest #since in db this field is specified as not null cannot keep blank
  name: ankita
  id: 1
+
+two: 
+ email: bob@gmail.com
+ password_digest: some_digest 
+ name: bob
+
+three: 
+ email: jhon@domain.com
+ password_digest: some_digest 
+ name: Jhon
+
+
+four: 
+ email: nick@gmail.com
+ password_digest: some_digest 
+ name: nick
+
+five: 
+ email: nil@gmail.com
+ password_digest: some_digest 
+ name: nil
+
+
+six: 
+ email: Jayee@gmail.com
+ password_digest: some_digest 
+ name: Jayee
+ id : 2
+
+seven: 
+ email: ron@gmail.com
+ password_digest: some_digest 
+ name: ron
+ id: 3

@@ -1,9 +1,7 @@
 require 'test_helper'
 class UserTest < ActiveSupport::TestCase
-	def create_user
-		user_hash =  { :name => 'zomato', :email => 'zomato@domain.com', :password => 'zomato123', :password_confirmation  => 'zomato123'}
-		User.create(user_hash)
-	end
+  include SessionsHelper  
+	 
 
 	#needs to load data from fixture
   test "send email notification recipe approved" do
@@ -15,14 +13,14 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "authenticate" do
-  	user = create_user
+  	user = create_user_helper
   	user_copy = User.find_by_email('zomato@domain.com')
   	assert_equal(user, user_copy, 'user not saved')
   	assert(BCrypt::Password.new(user_copy.password_digest) == 'zomato123', 'password do not match')
   end 
 
   test "authentication fail" do
-  	user = create_user
+  	user = create_user_helper
   	user_copy = User.find_by_email('zomato@domain.com')
   	assert_equal(user, user_copy, 'user not saved')
   	Rails::logger.debug BCrypt::Password.new(user_copy.password_digest) == 'zomato123xxxxxxxxxxxxxx'

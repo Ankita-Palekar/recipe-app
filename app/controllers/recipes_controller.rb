@@ -40,15 +40,17 @@ class RecipesController < ApplicationController
   # POST /recipes
   # POST /recipes.json
   def create
+    puts params.inspect
     @recipe = Recipe.new(params[:recipe])
     ingredients_list = params[:ingredient]
+    photo_list = params[:avatar]
     respond_to do |format|
-      if @recipe.create_recipe(ingredients_list: ingredients_list)
+      if @recipe.create_recipe(ingredients_list: ingredients_list, photo_list: photo_list)
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
-        format.json { render json: @recipe, status: :created, location: @recipe }
+        # format.json { render json: @recipe, status: :created, location: @recipe }
       else
         format.html { render action: "new" }
-        format.json { render json: @recipe.errors, status: :unprocessable_entity }
+        # format.json { render json: @recipe.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -4,11 +4,39 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 # #
-# ingred:
-#  id: 49
-#  name: pepper
-#  meal_class: jain
-#  std_measurement: kg 
-#  std_quantity: 2
-#  calories_per_quantity: 20
-#  creator_id: 1
+ingred:
+ name: casew
+ meal_class: jain
+ std_measurement: kg 
+ std_quantity: 2
+ calories_per_quantity: 20
+ approved: true
+ creator_id: 1
+
+ingred1:
+ name: some_ingred
+ meal_class: non-veg
+ std_measurement: kg 
+ std_quantity: 2
+ calories_per_quantity: 20
+ approved: true
+ creator_id: 1
+
+ingred2:
+ name: some more ingred
+ meal_class: veg
+ std_measurement: kg 
+ std_quantity: 2
+ calories_per_quantity: 20
+ approved: true
+ creator_id: 1
+
+ingred3:
+ name: some better ingre
+ meal_class: jain
+ std_measurement: kg 
+ std_quantity: 2
+ calories_per_quantity: 20
+ approved: true
+ creator_id: 1
+ id: 49

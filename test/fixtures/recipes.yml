@@ -10,9 +10,8 @@ one:
  serves: 4
  aggregate_ratings: 0
  meal_class: veg
- approved: true
  aggregate_ratings: 4
- creator_id : 1
+ creator_id: 1 
 
 recipe2:
  name: gulab jamun
@@ -20,7 +19,6 @@ recipe2:
  serves: 4
  aggregate_ratings: 0
  meal_class: veg
- approved: true
  aggregate_ratings: 5
  creator_id : 1
 
@@ -28,16 +26,26 @@ recipe3:
  name: shahi kabab
  description: shallow fry
  serves: 4
- aggregate_ratings: 0
+ aggregate_ratings: 2
  meal_class: veg
- rejected: true
  creator_id : 1
 
 recipe4:
  name: maggi
  description: now banned
  serves: 4
+ aggregate_ratings: 4
+ meal_class: veg
+ creator_id : 1
+
+
+rate:
+ name: papaya casew
+ description: crush papaya
+ serves: 4
  aggregate_ratings: 0
  meal_class: veg
- rejected: true
- creator_id : 1
+ aggregate_ratings: 4
+ creator_id: 1 
+ aggregate_ratings: 4
+ id : 1

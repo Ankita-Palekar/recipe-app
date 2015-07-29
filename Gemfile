@@ -25,6 +25,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem "paperclip", "~> 4.3"
 gem 'less-rails-bootstrap', '~> 2'
 gem 'therubyracer'
+gem 'rack-utf8_sanitizer'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
