@@ -13,12 +13,12 @@ Foodholic::Application.routes.draw do
   resources :ratings
   
 
+  match "/"   =>  "home#index",  :via => :get
   match "/login" => "sessions#create", :via => :post
   match "/login" => "sessions#login", :via => :get
   match "/logout" => "sessions#destroy", :via => :delete
   match "/signup" => "users#new", :via => :get
   match "/signup" => "sessions#signup", :via => :post
-   
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

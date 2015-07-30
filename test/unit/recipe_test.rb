@@ -163,4 +163,12 @@ class RecipeTest < ActiveSupport::TestCase
     recipe.get_recipe_aggregate_ratings
     assert_equal(recipe.aggregate_ratings, 4, 'aggregate calculation failing')
   end
+
+
+  test "get ratings count hash" do
+    recipe = Recipe.find(1)
+    match_hash = {5=>1, 4=>2}
+    hash =  recipe.ratings.group(:ratings).count 
+    assert_equal(hash, match_hash, 'hash does not match')
+  end
 end
