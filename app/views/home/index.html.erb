@@ -1,0 +1,57 @@
+<section>
+	<div class="span12">
+		<div class="row">
+			<div class="span8">
+				<div class="tabbable">  
+				  <ul class="nav nav-tabs">
+				    <li class="active"><a href="#tab1" data-toggle="tab">Top Rated Recipes</a></li>
+				    <li><a href="#tab2" data-toggle="tab">Most rated Recipes</a></li>
+				  </ul>
+				  <div class="tab-content">
+				    <div class="tab-pane active" id="tab1">
+				       <% @top_rated_recipes.each do |rec| %>
+				       	<div class="well">
+				       		<span class="label label-info pull-left"><%= rec.meal_class %></span>
+				       		<span class="pull-right"><i class="icon-camera"></i> <%= rec.aggregate_ratings %> </span>
+				       		<h3> <%= rec.name%> </h3>
+				       		<hr>
+				       		<p><%=rec.description %></p>
+				       	</div>
+				       <% end %>
+				    </div>
+				    <div class="tab-pane" id="tab2">
+				      <% @most_rated_recipes.each do |rec| %>
+				       	<div class="well">
+				       		<span class="label label-info pull-left"><%= rec.meal_class %></span>
+				       		<span class="pull-right"><i class="icon-camera"></i> <%= rec.aggregate_ratings %> </span>
+				       		<h3> <%= rec.name%> </h3>
+				       		<hr>
+				       		<p><%=rec.description %></p>
+				       		<hr>
+				       		<p class="pull-right"> <%= rec.count.to_i %>  votes </p>
+				       	</div>
+				      <% end %>
+				    </div>
+				  </div>
+				</div>
+				
+			</div>
+			<div class="span4">
+			<h5>Latest</h5>
+			<hr>
+				<% @latest_recipes.each do |rec| %>
+				 	<div class="well">
+				 		<span class="label label-info pull-left"><%= rec.meal_class %></span>
+				 		<span class="pull-right"><i class="icon-camera"></i> <%= rec.aggregate_ratings %> </span>
+				 		<h3> <%= rec.name%> </h3>
+				 		<hr>
+				 		<p><%=rec.description %></p>
+				 		<hr>
+				 		<strong class="pull-right"> created <%=time_ago_in_words(rec.created_at)  %> ago</strong>
+				 	</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</section>
+

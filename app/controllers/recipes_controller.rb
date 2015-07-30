@@ -1,7 +1,9 @@
 class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
+  include SessionsHelper
   def index
+    @user = User.find_by_id(session[:user_id]) 
     @recipes = Recipe.all
 
     respond_to do |format|
@@ -13,8 +15,7 @@ class RecipesController < ApplicationController
   # GET /recipes/1
   # GET /recipes/1.json
   def show
-    @recipe = Recipe.find(params[:id])
-
+    @recipe = Recipe.find(params[:id]).get_recipe_details
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @recipe }
@@ -25,7 +26,6 @@ class RecipesController < ApplicationController
   # GET /recipes/new.json
   def new
     @recipe = Recipe.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @recipe }
@@ -40,15 +40,17 @@ class RecipesController < ApplicationController
   # POST /recipes
   # POST /recipes.json
   def create
+    puts params.inspect
     @recipe = Recipe.new(params[:recipe])
-
+    ingredients_list = params[:ingredient]
+    photo_list = params[:avatar]
     respond_to do |format|
-      if @recipe.save
+      if @recipe.create_recipe(ingredients_list: ingredients_list, photo_list: photo_list)
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
-        format.json { render json: @recipe, status: :created, location: @recipe }
+        # format.json { render json: @recipe, status: :created, location: @recipe }
       else
         format.html { render action: "new" }
-        format.json { render json: @recipe.errors, status: :unprocessable_entity }
+        # format.json { render json: @recipe.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -57,7 +59,6 @@ class RecipesController < ApplicationController
   # PUT /recipes/1.json
   def update
     @recipe = Recipe.find(params[:id])
-
     respond_to do |format|
       if @recipe.update_attributes(params[:recipe])
         format.html { redirect_to @recipe, notice: 'Recipe was successfully updated.' }

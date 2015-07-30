@@ -3,4 +3,20 @@
 # This model initially had no columns defined.  If you add columns to the
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
-#
+# 
+
+
+rate1:
+ recipe_id: 1
+ rater_id: 1
+ ratings: 4
+
+rate2: 
+ recipe_id: 1
+ rater_id: 2
+ ratings: 5
+
+rate3: 
+ recipe_id: 1
+ rater_id: 3
+ ratings: 4

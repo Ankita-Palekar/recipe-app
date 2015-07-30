@@ -1,4 +1,4 @@
-<%= form_for(@recipe) do |f| %>
+<%= form_for(@recipe, :html => { :multipart => true , :class => 'form-horizontal'}) do |f| %>
   <% if @recipe.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
@@ -11,7 +11,138 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <% if flash[:notice]%>
+    <div class="control-group">
+      <div class="alerts">
+        <%= "#{flash[:notice]}" %>    
+      </div>
+    </div>
+  <% end %>
+  <div class="control-group">
+    <label class="control-label" for="inputEmail">Recipe Name</label>
+    <div class="controls">
+      <input type="hidden" id="current_user_id" name="recipe[creator_id]" value='<%="#{@current_user.id}"%>'>
+      <input type="hidden" name="recipe[aggregate_ratings]" value='<%=0%>'>
+      <input type="text" id="inputEmail" placeholder="reipe name" name="recipe[name]" required>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputEmail">Discription</label>
+    <div class="controls">
+      <textarea name="recipe[description]" cols="30" rows="10" required></textarea>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="inputEmail">serves</label>
+    <div class="controls">
+      <input type="number" name="recipe[serves]" placeholder="4" required>
+    </div>
+  </div>  
+
+
+ <!--  <div class="controls">
+    <label for="title">Select your ingredients below</label>
+    <select id="select-ingredients" name="ingredients[]" multiple="multiple">
+      <option value="1">option1</option>
+      <option value="2">option2</option>
+      <option value="3">option3</option>
+    </select>
+  </div> -->
+
+
+  <div class="ingredients-container">
+    <div class="add-ingredients" >
+      <div class="control-group">
+        <label class="control-label" for="inputEmail">ingredient name</label>
+        <div class="controls">
+          <input type="text" placeholder="ingredient name" name="ingredient[][name]">
+          <input type="hidden"  name="ingredient[][creator_id]" value="<%= @current_user.id %>" required>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="inputEmail">ingredient standard quantity </label>
+        <div class="controls">
+          <select name="ingredient[][std_measurement]">
+            <option value="teaspoon">teaspoon</option>
+            <option value="tablespoon">tablespoon</option>
+            <option value="fluid ounce">ounce</option>
+            <option value="gill">gill</option>
+            <option value="cup">cup</option>
+            <option value="pint">pint</option>
+            <option value="quart">quart</option>
+            <option value="gallon">gallon</option>
+            <option value="ml">milli liter</option>
+            <option value="l">liter</option>
+            <option value="dl">deci liter</option>
+            <option value="pounds">pounds</option>
+            <option value="ounce">ounce</option>
+            <option value="mg">mili grams</option>
+            <option value="g">grams</option>
+            <option value="kg">kilo grams</option>
+            <option value="mm">mili meter</option>
+            <option value="cm">centi meter</option>
+            <option value="m">meter</option>
+            <option value="inch">inch</option>
+          </select>
+        </div>
+      </div>
+      <div class="control-group">
+          <label class="control-label" for="inputEmail">ingredient standard quantity </label>
+        <div class="controls">
+          <select name="ingredient[][meal_class]">
+            <option value="jain">jain</option>
+            <option value="veg">veg</option>
+            <option value="non-veg">non-veg</option>
+          </select>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="inputEmail">ingredient standard quantity</label>
+        <div class="controls">
+          <input type="text" placeholder="ingredient standard quantity" name="ingredient[][std_quantity]" required>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="inputEmail">ingredient quantity</label>
+        <div class="controls">
+          <input type="text" palceholder="e.g 1kg" name="ingredient[][quantity]" required>
+        </div>
+      </div>
+
+      <div class="control-group"> 
+        <label class="control-label" for="inputEmail">calories per std qty</label>
+        <div class="controls">
+          <input type="text" name="ingredient[][calories_per_quantity]" required>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="control-group">
+    <div class="controls">
+      <button id="add-ingredients" class="btn btn-primary">add more ingredient</button>
+    </div>
+  </div>
+  <br>
+  <div class="control-group">
+        <label class="control-label" for="inputEmail">Upload image</label>
+    <div class="controls">
+        <%= file_field_tag "avatar[]", type: :file, multiple: true %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit 'submit', :class => 'btn btn-primary' %>
+    </div>
   </div>
 <% end %>
+
+<script type="text/javascript">
+    // $(document).ready(function() {
+    //     $('#select-ingredients').multiselect();
+    // });
+</script>
+
+
