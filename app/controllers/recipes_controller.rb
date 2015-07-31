@@ -44,7 +44,8 @@ include RecipesHelper
 
   # GET /recipes/1/edit
   def edit
-    @recipe = Recipe.find(params[:id])
+    @recipe_details = Recipe.find(params[:id]).get_recipe_details
+    @recipe = @recipe_details[:recipe_content]
   end
 
   # POST /recipes
@@ -68,6 +69,8 @@ include RecipesHelper
   # PUT /recipes/1
   # PUT /recipes/1.json
   def update
+
+    puts params.inspect
     @recipe = Recipe.find(params[:id])
     respond_to do |format|
       if params[:recipe][:approved] == "true"
@@ -75,7 +78,17 @@ include RecipesHelper
       elsif params[:recipe][:rejected] == "true"
         {:status =>  "sucessfully rejected"}.to_json if @recipe.reject_recipe
       elsif params[:recipe][:ratings] 
-        # @recipe.rate_recipe(rater_id: @current_user.id, ratings: params[:recipe][:ratings])
+          @recipe.rate_recipe(rater_id: @current_user.id, ratings: params[:recipe][:ratings])
+      else
+        photo_list  =  params[:avatar] ? params[:avatar] : []
+        ingredients_list = params[:ingredient]
+        respond_to do |format|
+          if @recipe.update_recipe(params: params[:recipe], ingredients_list: ingredients_list, photo_list: photo_list)
+            format.html { redirect_to @recipe, notice: 'Recipe was successfully edited.'}
+          else
+            format.html { render action: "new" }
+          end
+        end
       end
     end
   end

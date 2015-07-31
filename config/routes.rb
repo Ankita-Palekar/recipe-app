@@ -1,7 +1,7 @@
 Foodholic::Application.routes.draw do
    
   match "/recipes/pending" => 'recipes#admin_pending_recipes' , :via => :get
-  match "/recipes/:id/rate/:ratings" => "recipes#update", :via => :put
+  match "/recipes/rate" => "recipes#update", :via => :post
   
   resources :ingredients
 

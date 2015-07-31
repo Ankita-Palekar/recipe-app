@@ -68,6 +68,32 @@ class Recipe < ActiveRecord::Base
   end
 
 
+  def update_recipe(params:, photo_list:, ingredients_list:)
+    # Recipe.transaction do 
+      self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)  
+      update_attributes!(params)
+      total_calories = 0
+      ingredients_list.each do |ingre|
+        total_calories += ingre[:quantity].to_i / ingre[:std_quantity].to_i * ingre[:calories_per_quantity].to_i #
+        if ingre.has_key?(:ingredient_id)
+          ingredient = Ingredient.find(ingre[:ingredient_id])
+          ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :ingredient_id))
+        else
+          ingredient = Ingredient.new(ingre.except(:quantity))
+          ingredient.creator_id = creator_id
+          ingredient.create_ingredient
+        end
+        RecipeIngredient.find_or_initialize_by_recipe_id_and_ingredient_id(:ingredient_id=>ingredient.id, :recipe_id => id).tap do |a|
+            a.quantity = ingre[:quantity]
+          end.save!
+      end
+      photo_list.each do |photo|
+        photos.create!(avatar: photo) #recipe.photos.create()
+      end
+    # end
+    self
+  end
+
 
   #for admin
   def self.list_pending_recipes(page_nav:, limit:)

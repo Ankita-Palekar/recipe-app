@@ -17,9 +17,6 @@ module SessionsHelper
   end
 
   def is_admin?
-  	puts "==========================="
-  	puts current_user
-  	puts current_user.is_admin?
   	current_user.is_admin?
   end
 end

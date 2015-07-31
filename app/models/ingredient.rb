@@ -4,7 +4,6 @@ class Ingredient < ActiveRecord::Base
 	has_many :recipe_ingredients
 	has_many :recipes, :through => :recipe_ingredients #change naming otherwise @@SCREWED
 
-
   attr_accessible :name, :meal_class, :std_measurement, :std_quantity, :calories_per_quantity, :approved, :creator_id
 	MEAL_CLASS = %w(non-veg veg jain)
 	STD_QUANTITY = ["teaspoon", "tablespoon", "fluid ounce", "gill", "cup", "pint", "quart", "gallon", "ml", "l", "dl", "pounds", "ounce", "mg", "g", "kg", "mm", "cm", "m", "inch"]
@@ -21,6 +20,11 @@ class Ingredient < ActiveRecord::Base
 	 scope :my_unapproved_ingredients, ->(creator_id) {where(:approved => false, creator_id: creator_id )}
 	def create_ingredient
 		save!  
+		self
+	end
+
+	def update_ingredient(params:)
+		update_attributes!(params)
 		self
 	end
 

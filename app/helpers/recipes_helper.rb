@@ -34,7 +34,7 @@ module RecipesHelper
 
 			html_code += '<div class="span6"><div class="well">'+html_star+'<button type="button" class="btn btn-medium btn-success disabled pull-right" disabled="disabled">' + rec.meal_class + '</button><h4 class="text-center">' + link_to(rec.name.capitalize, rec) + '</h4><hr><div class="row"><div class="span6">'
 			html_code += (!rec.photos.empty? ? link_to(image_tag(rec.photos.first.avatar.url(:thumb), :class => "center-block img-responsive")) : "") 
-			html_code += '</div><div class="span6"><p>' + rec.description.truncate(60) + '</p> </div></div><hr><span> created about ' + time_ago_in_words(rec.created_at) +' ago </span><button class="btn btn-mini btn-primary pull-right" type="button" data-rec-id="' + rec.id.to_s + '">Rate</button></div></div>'
+			html_code += '</div><div class="span6"><p>' + rec.description.truncate(60) + '</p> </div></div><hr><span> created about ' + time_ago_in_words(rec.created_at) +' ago </span><button class="btn btn-mini btn-primary pull-right rate-recipe" type="button" data-rec-id="' + rec.id.to_s + '">Rate</button></div></div>'
   	end 
  		html_code += "</div>"
  	end if object_list != nil
