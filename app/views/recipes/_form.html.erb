@@ -33,16 +33,18 @@
       <textarea class="span8" name="recipe[description]" cols="30" rows="10" required></textarea>
     </div>
   </div>
-
+  
+  
   <div class="control-group">
     <label class="control-label" for="inputEmail">serves</label>
     <div class="controls">
-      <input class="span4" type="number" name="recipe[serves]" placeholder="4" required>
+      <input class="span4" type="number" name="recipe[serves]" placeholder="ex.4" required>
     </div>
   </div>  
 
 
  <div class="control-group inline">
+   <label class="control-label">Select existing ingredients</label>
    <div class="controls">
      <select multiple="multiple" id="existing-ingredient-list">
      <% @existing_ingredients_list.each do |ing| %>
@@ -51,17 +53,16 @@
      </select>
    </div>
  </div>
-
- <div class="control-group inline">
+  <div class="control-group inline">
    <div class="controls">
-     <button class="btn btn-primary" id="add-existing-ingredients-block">select ingredients</button>
-   </div>
- </div>
-   
+     <i class="icon-hand-left"></i>
+     <button class="btn btn-primary" id="add-existing-ingredients-block">Select Existing Ingredients</button>
+   </div> 
+  </div>
+ 
   <div id="existing-ingredient-block">
     
   </div>
- 
   <div class="ingredients-container">
     <div class="add-ingredients" >
      <!--  <div class="control-group">
@@ -134,12 +135,12 @@
  
   <div class="control-group">
     <div class="controls">
-      <button id="add-ingredients" class="btn btn-primary btn-large">Add Ingredient</button>
+      <button id="add-ingredients" class="btn btn-primary btn-large">Add More Ingredients</button>
     </div>
   </div>
   <br>
   <div class="control-group">
-        <label class="control-label" for="inputEmail">Upload image</label>
+        <label class="control-label" for="inputEmail">Upload Multiple Images</label>
     <div class="controls">
         <%= file_field_tag "avatar[]", type: :file, multiple: true %>
     </div>

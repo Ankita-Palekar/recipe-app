@@ -30,19 +30,35 @@
 	display:block;
 }
 
-
-.total-calories
-{
-	margin-left: 10%;
-}
-.aggregate-ratings{
-	margin-left: 10%;
+div.c-wrapper{
+    width: 80%; /* for example */
+    margin: auto;
 }
 
+.carousel-inner > .item > img, 
+.carousel-inner > .item > a > img{
+width: 100%; /* use this, or not */
+margin: auto;
+}
+ 
 
 .recipe-details{
 	margin: 0 auto;
 	display: block;
+	/*padding-left: 20px;*/
+}
+
+.edit-recipe{
+	padding-right: 10px;
+}
+
+.image-div img{
+	margin: 0 auto;
+	display: block;
+}
+
+.recipe-container{
+	height: 240px;
 }
 
 
@@ -62,7 +78,7 @@ body {
 .star-container {
   width: 400px;
   margin: 0 auto;
-  margin-top: 3em;
+  /*margin-top: 3em;*/
   background-color: #EFEFEF;
   padding: 4px;
 }

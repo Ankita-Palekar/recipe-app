@@ -1,0 +1,12 @@
+<div class="container">
+<div class="row">
+	<div class="span12">
+		<ul class="nav nav-tabs nav-stacked text-center">
+		  <% @users_list.each do |user| %>
+		  	<li><a href="#"><%= user.name%>  | <%= user.email %></a></li>
+		  <% end %>
+		</ul>
+	</div>
+</div>
+	
+</div>

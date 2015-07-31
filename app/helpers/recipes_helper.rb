@@ -30,11 +30,19 @@ module RecipesHelper
   	rec_block.each do |rec|
   		html_star = "<span>"
   		  (0..(rec.aggregate_ratings.to_i)).inject { html_star += '<i class="icon-star"></i>'} 
-  		html_star += "</span>"
+  		html_star += '</span>'
 
-			html_code += '<div class="span6"><div class="well">'+html_star+'<button type="button" class="btn btn-medium btn-success disabled pull-right" disabled="disabled">' + rec.meal_class + '</button><h4 class="text-center">' + link_to(rec.name.capitalize, rec) + '</h4><hr><div class="row"><div class="span6">'
+			html_code += '<div class="span6"><div class="well recipe-container">'+html_star
+			html_code+= '<a class="btn btn-warning btn-small disabled">approval pending</a>' if (!rec.approved && !rec.rejected)
+			html_code+= '<a class="btn btn-danger btn-small disabled">rejected</a>' if rec.rejected 
+			html_code+='<button type="button" class="btn btn-medium btn-success disabled pull-right" disabled="disabled">' + rec.meal_class + '</button><h4 class="text-center">' + link_to(rec.name.capitalize, rec) + '</h4><hr><div class="row"><div class="span3 image-div">'
 			html_code += (!rec.photos.empty? ? link_to(image_tag(rec.photos.first.avatar.url(:thumb), :class => "center-block img-responsive")) : "") 
-			html_code += '</div><div class="span6"><p>' + rec.description.truncate(60) + '</p> </div></div><hr><span> created about ' + time_ago_in_words(rec.created_at) +' ago </span><button class="btn btn-mini btn-primary pull-right rate-recipe" type="button" data-rec-id="' + rec.id.to_s + '">Rate</button></div></div>'
+			html_code += '</div><div class="span2"><p class="text-justify">' + rec.description.truncate(60) + '</p> </div></div><hr><span> created about ' + time_ago_in_words(rec.created_at) +' ago </span><button class="btn btn-mini btn-primary pull-right rate-recipe" type="button" data-rec-id="' + rec.id.to_s + '">Rate</button>'
+				if rec.creator_id == @current_user.id
+					html_code+= link_to('', edit_recipe_path(rec), :class => 'icon-pencil pull-right edit-recipe')
+				end
+				html_code+= '</div></div>'
+
   	end 
  		html_code += "</div>"
  	end if object_list != nil
@@ -68,7 +76,10 @@ module RecipesHelper
 	    when "top_rated_recipes"
 	    	list_type = "order_by_aggregate_ratings"
 	    when "most_rated_recipes"
-	    	list_type = "order_by_most_rated"		
+	    	list_type = "order_by_most_rated"
+	    when "my_all_recipes"
+	    	list_type = "order_by_date"
+	    						
 		end
 
 		recipe_list = Recipe.list_recipes(status: status_call, list_type: list_type, page_nav: page_nav, limit: limit, creator_id: creator_id)

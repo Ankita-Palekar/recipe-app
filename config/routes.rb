@@ -14,7 +14,7 @@ Foodholic::Application.routes.draw do
 
   resources :ratings
 
-
+  match "/recipes/:id/:ratings/rated_users" => 'recipes#rated_users_list', :via => :get
   match "/recipes/pending" => 'recipes#admin_pending_recipes' , :via => :get  
   match "/"   =>  "home#index",  :via => :get
   match "/login" => "sessions#create", :via => :post

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   #create is of sessions_controller
   before_filter :confirm_logged_in, :except => [:login, :logout, :create, :signup]
   before_filter :confirm_is_admin, :only =>[:admin_pending_recipes]
-  
+ 
   protected
 
   def confirm_logged_in

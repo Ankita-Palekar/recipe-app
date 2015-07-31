@@ -26,6 +26,7 @@ class Recipe < ActiveRecord::Base
   scope :my_approved_recipes, ->(creator_id) {where(:creator_id => creator_id, :approved=> true)}
   scope :my_rejected_recipes, ->(creator_id) {where(:creator_id => creator_id, :rejected=> true)}
   scope :my_pending_recipes, ->(creator_id) {where(approved: false, rejected: false ,creator_id: creator_id)}
+  scope :my_all_recipes, ->(creator_id){where(creator_id: creator_id)}
   scope :ordered_by_count, -> {order("count desc")}
   scope :order_by_most_rated, -> {select("recipes.*, count(ratings.recipe_id) as count").joins(:ratings).group("recipes.id").ordered_by_count}
   scope :page_navigation, ->(limit, page_nav) {limit(limit).offset((page_nav-1)*limit) }
@@ -41,20 +42,17 @@ class Recipe < ActiveRecord::Base
   def create_recipe(ingredients_list:, photo_list:)
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
-      save! 
+      save
       total_calories = 0
       ingredients_list.each do |ingre|
         total_calories += ingre[:quantity].to_i / ingre[:std_quantity].to_i * ingre[:calories_per_quantity].to_i #calculating total calories in recipe
           if ingre.has_key?(:ingredient_id)
-            # ingredient_id = ingre[:ingredient_id] 
             ingredient = Ingredient.find(ingre[:ingredient_id])
           else
             ingredient = Ingredient.new(ingre.except(:quantity))
             ingredient.creator_id = creator_id
             ingredient.create_ingredient
-            # ingredient_id  = ingredient.id
           end
-        # recipe_ingredient = RecipeIngredient.new(recipe_id: id, ingredient_id: ingredient_id, quantity: ingre[:quantity])
         recipe_ingredient = self.recipe_ingredients.new(quantity: ingre[:quantity])
         recipe_ingredient.ingredient = ingredient  #will assign ingredient_id in join to the ingrdient_id
         recipe_ingredient.save!
@@ -62,16 +60,16 @@ class Recipe < ActiveRecord::Base
       photo_list.each do |photo|
         photos.create!(avatar: photo) #recipe.photos.create()
       end
-        update_attributes!(:total_calories => total_calories)
+      update_attributes(:total_calories => total_calories)
     end
     self
   end
 
 
   def update_recipe(params:, photo_list:, ingredients_list:)
-    # Recipe.transaction do 
+    Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)  
-      update_attributes!(params)
+      update_attributes(params)
       total_calories = 0
       ingredients_list.each do |ingre|
         total_calories += ingre[:quantity].to_i / ingre[:std_quantity].to_i * ingre[:calories_per_quantity].to_i #
@@ -90,7 +88,7 @@ class Recipe < ActiveRecord::Base
       photo_list.each do |photo|
         photos.create!(avatar: photo) #recipe.photos.create()
       end
-    # end
+    end
     self
   end
 
