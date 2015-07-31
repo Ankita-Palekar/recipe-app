@@ -1,55 +1,109 @@
+ 
+
+
+<div id="myCarousel" class="carousel slide">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="<%= asset_path('recipe1.jpg')%>" />
+      <div class="container">
+        <div class="carousel-caption">
+          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus maxime, illo assumenda aliquam, consectetur consequatur repudiandae, necessitatibus est impedit a dicta nulla distinctio. Veniam ducimus suscipit fuga quaerat, illum vitae?</p>
+           
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <img src="<%= asset_path('recipe1.jpg')%>" />
+      <div class="container">
+        <div class="carousel-caption">
+          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati modi officia sapiente repellendus reprehenderit cumque aspernatur explicabo soluta recusandae, sed impedit earum ipsam ex voluptates id inventore ducimus, distinctio nam.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+
+
 <section>
-	<div class="span12">
+	<div class="container">
 		<div class="row">
-			<div class="span8">
-				<div class="tabbable">  
-				  <ul class="nav nav-tabs">
-				    <li class="active"><a href="#tab1" data-toggle="tab">Top Rated Recipes</a></li>
-				    <li><a href="#tab2" data-toggle="tab">Most rated Recipes</a></li>
-				  </ul>
-				  <div class="tab-content">
-				    <div class="tab-pane active" id="tab1">
-				       <% @top_rated_recipes.each do |rec| %>
-				       	<div class="well">
-				       		<span class="label label-info pull-left"><%= rec.meal_class %></span>
-				       		<span class="pull-right"><i class="icon-camera"></i> <%= rec.aggregate_ratings %> </span>
-				       		<h3> <%= rec.name%> </h3>
-				       		<hr>
-				       		<p><%=rec.description %></p>
-				       	</div>
-				       <% end %>
-				    </div>
-				    <div class="tab-pane" id="tab2">
-				      <% @most_rated_recipes.each do |rec| %>
-				       	<div class="well">
-				       		<span class="label label-info pull-left"><%= rec.meal_class %></span>
-				       		<span class="pull-right"><i class="icon-camera"></i> <%= rec.aggregate_ratings %> </span>
-				       		<h3> <%= rec.name%> </h3>
-				       		<hr>
-				       		<p><%=rec.description %></p>
-				       		<hr>
-				       		<p class="pull-right"> <%= rec.count.to_i %>  votes </p>
-				       	</div>
-				      <% end %>
-				    </div>
-				  </div>
+			<div class="span12">
+				<div class="row">
+					<div class="span8">
+						<div class="tabbable">  
+						  <ul class="nav nav-tabs">
+						    <li class="active"><a href="#tab1" data-toggle="tab">Top Rated Recipes</a></li>
+						    <li><a href="#tab2" data-toggle="tab">Most rated Recipes</a></li>
+						  </ul>
+						  <div class="tab-content">
+						    <div class="tab-pane active" id="tab1">
+						       <% @top_rated_recipes.each do |rec| %>
+						       	<div class="well">
+						       		<span class="label label-info pull-left"><%= rec.meal_class %></span>
+						       		<span class="pull-right"><i class="icon-star"></i> <%= rec.aggregate_ratings %> </span>
+						       		<h3 class="text-center"> <%=link_to rec.name.capitalize, rec %> </h3>
+						       		<hr>
+						       		<div class="image">
+						       			<%=link_to image_tag  rec.photos.first.avatar.url(:medium), :class => "text-center" if !rec.photos.empty?%>
+						       		</div>
+						       		<p class="text-center"><%=rec.description %></p>
+						       	</div>
+						       <% end %>
+						    </div>
+						    <div class="tab-pane" id="tab2">
+						      <% @most_rated_recipes.each do |rec| %>
+						       	<div class="well">
+						       		<span class="label label-info pull-left"><%= rec.meal_class %></span>
+						       		
+						       		<span class="pull-right">
+							       		<% (0..rec.aggregate_ratings.to_i).each do %>
+							       			<i class="icon-star"></i> 
+							       		<% end %>
+							       	<%= rec.aggregate_ratings %> 
+						       		</span>
+						       		<h3> <%=link_to rec.name.capitalize, rec %> </h3>
+						       		<hr>
+						       		<%=link_to image_tag  rec.photos.first.avatar.url(:medium) if !rec.photos.empty?%>
+						       		<p><%=rec.description %></p>
+						       		<hr>
+						       		<p class="pull-right"> <%= rec.count.to_i %>  votes </p>
+						       	</div>
+						      <% end %>
+						    </div>
+						  </div>
+						</div>
+						
+					</div>
+					<div class="span4">
+					<h5>Latest</h5>
+					<hr>
+						<% @latest_recipes.each do |rec| %>
+						 	<div class="well">
+						 		<span class="label label-info pull-left"><%= rec.meal_class %></span>
+						 		<span class="pull-right">
+					       	<% (0..rec.aggregate_ratings.to_i).each do %>
+					       			<i class="icon-star"></i> 
+					       		<% end %>
+					       	<%= rec.aggregate_ratings %> 
+			       		</span>
+						 		<h3> <%=link_to rec.name.capitalize, rec %> </h3>
+						 		<hr>
+						 		<%=link_to image_tag  rec.photos.first.avatar.url(:medium) if !rec.photos.empty?%>
+						 		<hr>
+						 		<strong class="pull-right"> created <%=time_ago_in_words(rec.created_at)  %> ago</strong>
+						 	</div>
+						<% end %>
+					</div>
 				</div>
-				
-			</div>
-			<div class="span4">
-			<h5>Latest</h5>
-			<hr>
-				<% @latest_recipes.each do |rec| %>
-				 	<div class="well">
-				 		<span class="label label-info pull-left"><%= rec.meal_class %></span>
-				 		<span class="pull-right"><i class="icon-camera"></i> <%= rec.aggregate_ratings %> </span>
-				 		<h3> <%= rec.name%> </h3>
-				 		<hr>
-				 		<p><%=rec.description %></p>
-				 		<hr>
-				 		<strong class="pull-right"> created <%=time_ago_in_words(rec.created_at)  %> ago</strong>
-				 	</div>
-				<% end %>
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,46 @@
+<div class="navbar navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="#">Foodholic</a>
+      <div class="nav-collapse collapse navbar-responsive-collapse">
+        <ul class="nav">
+          <li class="active"><a href="/">Home</a></li>
+
+          <% if is_admin? %>
+          	
+          <li><a href="/recipes/pending">admin-pending</a></li>
+          <% end %>
+          <li><a href="/recipes/top_rated_recipes">top rated recipes</a></li>
+          <li><a href="/recipes/most_rated_recipes">most rated recipes</a></li>
+          <li><%= link_to 'Create Recipe', new_recipe_path %></li>
+          <li><a href="/search">Search</a></li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Recipes<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/recipes/my_pending_recipes">My pending recipes</a></li>
+              <li><a href="/recipes/my_rejected_recipes">My rejected recipes</a></li>
+              <li><a href="/recipes/my_most_rated_recipes">My Most rated recipes</a></li>
+              <li><a href="/recipes/my_top_rated_recipes">My top rated recipes</a></li>
+              <li><a href="/recipes/my_approved_recipes">My Approved recipes</a></li>
+            </ul>
+          </li>
+        </ul>
+       <!--  <form class="navbar-search pull-left" action="">
+          <input type="text" class="search-query span2" placeholder="Search">
+           
+        </form-->
+        <ul class="nav pull-right">
+          <li>
+            <%= link_to "Log out", logout_path, method: "delete" %>
+          </li> 
+        </ul>
+      </div><!-- /.nav-collapse -->
+    </div>
+  </div> 
+</div>

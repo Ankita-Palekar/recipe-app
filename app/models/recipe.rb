@@ -15,10 +15,11 @@ class Recipe < ActiveRecord::Base
   validates :aggregate_ratings, :numericality => true
   validates :creator_id, :presence => true
 
-  scope :free_text, ->(query) {where("name like ?", "%#{query}%")}
+  scope :free_text, ->(query) {where("name ILIKE ?", "%#{query}%")}
   scope :aggregate_ratings, ->(ratings) {where(aggregate_ratings: ratings)}
+  scope :meal_class, ->(meal_class) {where(meal_class: meal_class)}
   scope :calories, -> (calories) {where("total_calories = ? * serves", "#{calories.to_i}")}
-  scope :ingredients, ->(query) {joins(:ingredients).where("ingredients.name like ?", "%#{query}%")}
+  scope :ingredients, ->(query) {joins(:ingredients).where("ingredients.name ILIKE ?", "%#{query}%")}
   scope :approved, -> {where(:approved => true)}
   scope :order_by_date, -> {order('created_at desc')} 
   scope :order_by_aggregate_ratings, -> {order('aggregate_ratings desc')} 
@@ -30,8 +31,8 @@ class Recipe < ActiveRecord::Base
   scope :page_navigation, ->(limit, page_nav) {limit(limit).offset((page_nav-1)*limit) }
   scope :ratings_count_hash, -> {ratings.group(:ratings).count }
   scope :pending, -> {where(approved: false, rejected: false)}
-
-
+  scope :photos, -> {joins(:photos)}
+  scope :include_photos, -> {includes(:photos)}
   @@find_user_and_send_mail = lambda do |creator_id, function_name|
     user = User.find_by_id(creator_id)
     user.send_email_notification_for_recipes(:function_name => function_name)
@@ -49,6 +50,7 @@ class Recipe < ActiveRecord::Base
             ingredient = Ingredient.find(ingre[:ingredient_id])
           else
             ingredient = Ingredient.new(ingre.except(:quantity))
+            ingredient.creator_id = creator_id
             ingredient.create_ingredient
             # ingredient_id  = ingredient.id
           end
@@ -65,10 +67,13 @@ class Recipe < ActiveRecord::Base
     self
   end
 
+
+
   #for admin
   def self.list_pending_recipes(page_nav:, limit:)
-    Recipe.pending.order('created_at desc').page_navigation(limit, page_nav)
+    Recipe.include_photos.pending.order('created_at desc').page_navigation(limit, page_nav)
   end
+
   
   def approve_recipe
     Recipe.transaction do
@@ -78,11 +83,14 @@ class Recipe < ActiveRecord::Base
       end
       @@find_user_and_send_mail.call(creator_id, 'recipe_approval_email')
     end 
+
+    self.approved
   end
 
   def reject_recipe
     update_attributes!(:rejected => true)
     @@find_user_and_send_mail.call(creator_id, 'recipe_rejected_email')
+    self.rejected
   end
 
   def self.get_recipe_meal_class(ingredients_list:)
@@ -91,6 +99,7 @@ class Recipe < ActiveRecord::Base
     least_meal_class = ingredients_list.reduce(memo) do |memo, ingre|
       meal_class.index(memo) > meal_class.index(ingre[:meal_class]) ? ingre[:meal_class] : memo
     end
+    
   end
 
   #user recipes related functions
@@ -98,8 +107,19 @@ class Recipe < ActiveRecord::Base
   # Recipe.list recipes function 
   # list_type => order_by_date, order_by_aggregate_ratings, order_by_most_rated
   # all_recipes are approved hence grouped together
-  def self.list_home_page_recipes(list_type:, page_nav:, limit:)
-    Recipe.approved.send(list_type).page_navigation(limit, page_nav)
+  # def self.list_home_page_recipes(list_type:, page_nav:, limit:)
+  #   Recipe.include_photos.approved.send(list_type).page_navigation(limit, page_nav)
+  # end
+
+   # list_type takes => order_by_date, order_by_aggregate_ratings, order_by_most_rated 
+  #status => my_pending_recipes, my_approved_recipes, my_rejected_recipes
+
+  def self.list_recipes(list_type:, page_nav:, limit:,status: nil, creator_id: nil)
+    if status&&creator_id
+      Recipe.include_photos.send(status,creator_id).send(list_type).page_navigation(limit, page_nav)
+    else
+      Recipe.include_photos.approved.send(list_type).page_navigation(limit, page_nav)
+    end
   end
 
   def rate_recipe(rater_id:, ratings:)
@@ -111,8 +131,7 @@ class Recipe < ActiveRecord::Base
 
   def get_recipe_aggregate_ratings
     rates_hash = ratings.group(:ratings).count
-    rates_hash.empty? ? 0 :
-    ((rates_hash.reduce(0) do |memo, pair|
+    rates_hash.empty? ? 0 : ((rates_hash.reduce(0) do |memo, pair|
       memo += pair[0] * pair[1]
     end) / (rates_hash.values.reduce(:+)))  
   end
@@ -127,11 +146,11 @@ class Recipe < ActiveRecord::Base
   end
 
   #user specific functions
-  # list_type takes => order_by_date, order_by_aggregate_ratings, order_by_ratings 
+  # list_type takes => order_by_date, order_by_aggregate_ratings, order_by_most_rated 
   #status => my_pending_recipes, my_approved_recipes, my_rejected_recipes
-  def  self.list_my_recipes(status:, list_type:, creator_id:, page_nav:, limit:)
-    Recipe.send(status,creator_id).send(list_type).page_navigation(limit, page_nav)
-  end
+  # def  self.list_my_recipes(status:, list_type:, creator_id:, page_nav:, limit:)
+  #   Recipe.send(status,creator_id).send(list_type).page_navigation(limit, page_nav)
+  # end
 
   def list_rated_users(ratings:)
     Rating.joins('inner join users on users.id = ratings.rater_id').select("users.name as name, users.email as email").where(:recipe_id=>id, :ratings => ratings)
@@ -142,4 +161,9 @@ class Recipe < ActiveRecord::Base
     searched_recipes = searched_recipes.send flag, query
     searched_recipes
   end
+
+
+  # def self.list_pending_recipes_test(page_nav:, limit:)
+  #   Recipe.includes(:photos).pending.order('created_at desc').page_navigation(limit, page_nav)
+  # end
 end

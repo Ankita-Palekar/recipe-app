@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   include SessionsHelper
-
+  include RecipesHelper
   #POST /login
   def create
     # user = User.find_by_email(params[:email].downcase)
@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   	if user = User.authenticate(:email => params[:email] , :password => params[:password])	
       log_in user
       flash[:notice] = "Sucessfully signed in"
-      redirect_to(:controller => "recipes", :action => "index") 
+      redirect_to(:controller => "home", :action => "index") 
   	else
   		flash[:notice] = "Invalid email/password"
       render 'login'

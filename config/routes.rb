@@ -1,6 +1,8 @@
 Foodholic::Application.routes.draw do
    
-
+  match "/recipes/pending" => 'recipes#admin_pending_recipes' , :via => :get
+  match "/recipes/:id/rate/:ratings" => "recipes#update", :via => :put
+  
   resources :ingredients
 
 
@@ -11,15 +13,18 @@ Foodholic::Application.routes.draw do
 
 
   resources :ratings
-  
 
+
+  match "/recipes/pending" => 'recipes#admin_pending_recipes' , :via => :get  
   match "/"   =>  "home#index",  :via => :get
   match "/login" => "sessions#create", :via => :post
   match "/login" => "sessions#login", :via => :get
   match "/logout" => "sessions#destroy", :via => :delete
   match "/signup" => "users#new", :via => :get
   match "/signup" => "sessions#signup", :via => :post
-
+  match "/search" => "recipes#search", :via => :get
+  match "/search" => "recipes#searchrecipes", :via => :post
+  match "/recipes/search" => "recipes#searchrecipes", :via => :post
   # The priority is based upon order of creation:
   # first created -> highest priority.
   # Sample of regular route:

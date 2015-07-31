@@ -29,13 +29,13 @@ class RecipeTest < ActiveSupport::TestCase
     assert(recipe.approved,'recipe not approved')
     user = User.find_by_id(recipe.creator_id)
     assert_not_nil(user, 'user is nil') 
-    user.send_email_notification_recipe_approved
+    user.send_email_notification_for_recipes(:function_name => 'recipe_approval_email')
     last_email = ActionMailer::Base.deliveries.last
-    assert_equal(user.email, last_email.to.first)
+    assert_not_nil(last_email, 'email buffer blank')
   end
 
   test "get recipe meal class" do
-  	meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
+  	meal_class = Recipe.get_recipe_meal_class(ingredients_list: @@ingredients_list)
     assert_equal("non-veg", meal_class, 'meal class does not match')
 	end
 
@@ -45,6 +45,11 @@ class RecipeTest < ActiveSupport::TestCase
     assert_not_nil(recipe_copy, 'recipe not saved')
     recipe_copy.reject_recipe
     assert(recipe_copy.rejected, 'recipe reject failed')
+    user = User.find_by_id(recipe.creator_id)
+    assert_not_nil(user, 'user is nil')
+    user.send_email_notification_for_recipes(:function_name => 'recipe_rejected_email')
+    last_email = ActionMailer::Base.deliveries.last
+    assert_not_nil(last_email, 'email buffer blank')
   end
 
   test "list pending recipes" do
@@ -105,7 +110,7 @@ class RecipeTest < ActiveSupport::TestCase
       assert(!rec.approved, 'approved error')
     end
   end
-
+  
 
   test "list my approved recipes order_by_date" do
     make_join_table

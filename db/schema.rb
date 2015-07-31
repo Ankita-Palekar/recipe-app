@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150727071559) do
+ActiveRecord::Schema.define(:version => 20150730070514) do
 
   create_table "admins", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(:version => 20150727071559) do
     t.text     "image_links"
     t.text     "description",                          :null => false
     t.string   "meal_class",                           :null => false
-    t.integer  "total_calories"
-    t.integer  "aggregate_ratings"
+    t.float    "total_calories"
+    t.float    "aggregate_ratings"
     t.integer  "serves"
     t.boolean  "approved",          :default => false
     t.datetime "created_at",                           :null => false

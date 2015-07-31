@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   validates :name, :presence => true
   
   def send_email_notification_for_recipes(function_name:)
-    UserMailer.send function_name, email
+    UserMailer.send function_name, self.email
     # UserMailer.recipe_approval_email(email).deliver
   end
   
@@ -26,5 +26,9 @@ class User < ActiveRecord::Base
     if user && BCrypt::Password.new(user.password_digest) == password 
       user 
     end
+  end
+
+  def is_admin?
+    self.is_admin
   end
 end

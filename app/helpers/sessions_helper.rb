@@ -15,4 +15,11 @@ module SessionsHelper
     session[:user_id] = nil
     session.delete(:user_id)
   end
+
+  def is_admin?
+  	puts "==========================="
+  	puts current_user
+  	puts current_user.is_admin?
+  	current_user.is_admin?
+  end
 end

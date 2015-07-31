@@ -1,51 +1,87 @@
-<p id="notice"><%= notice %></p>
-<!-- <div class="hero-unit"> -->
-<div class="jumbotron">
-	<span class="label label-info"> <%= @recipe[:recipe_content].meal_class %> </span>
-  <h1> <%= @recipe[:recipe_content].name %> </h1>
-  <div id="myCarousel" class="carousel slide">
-    <div class="carousel-inner">
-		  <% @recipe[:recipe_content].photos.each_with_index do |image, index| %>
-		    	<% if index == 0 %> 
-		   			<div class="item active">
-		   	 	<% else %>
-		   			<div class="item">
-		    	<% end %>
-						<%=image_tag  image.avatar.url%>
-		   	</div> 
-		  <%end%>
-    </div>
-    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-  </div>
+	<div class="container">
+	<div class="row">
 
-  <h4> Ingredients: </h4>
-  <table class="table table-bordered">
-  	<tr>
-  		<th>Ingredient name</th>
-  		<th>Meal class</th>
-  		<th>Standard measurement</th>
-  		<th>standard quantity </th>
-  		<th>quantity</th>
-  		<th>calories pers standard quantity</th>
-  	</tr>
-		<% @recipe[:recipe_content].ingredients.each_with_index do |ingred, index| %>
-	  	<tr>
-	  		<td><%= ingred.name %></td>
-	  		<td><%= ingred.meal_class %></td>
-	  		<td><%= ingred.std_measurement %></td>
-	  		<td><%= ingred.std_quantity %></td>
-	  		<td><%= @recipe[:recipe_content].recipe_ingredients[index].quantity %></td>
-	  		<td><%= ingred.calories_per_quantity %></td>
-	  	</tr>
+		 <%  if notice %>
+		<div class="alert alert-success">
+			<%= notice %>	
+		</div>
 		<% end %>
-  </table>
-	<h4>Description:</h4>
-	<p><%= @recipe[:recipe_content].description %></p>
-	<h4>Serves:</h4>
-	<p><%= @recipe[:recipe_content].serves %></p>
-	<h4>total calories</h4>
-	<p><%= @recipe[:recipe_content].total_calories %></p>	
+		<!-- <div class="hero-unit"> -->
+		<div class="well">
+			<button type="button" class="btn btn-large btn-success disabled pull-right" disabled="disabled"><%= @recipe[:recipe_content].meal_class %></button>
+			<% (0...(@recipe[:recipe_content].aggregate_ratings.to_i)).each do %>
+				<i class="icon-star"></i>
+			<% end %>
+		  <h1 class="text-center"> <%= @recipe[:recipe_content].name %> </h1>
+		  <hr>
+		  <div id="myCarousel" class="carousel slide">
+		    <div class="carousel-inner">
+				  <% @recipe[:recipe_content].photos.each_with_index do |image, index| %>
+				    	<% if index == 0 %> 
+				   			<div class="item active">
+				   	 	<% else %>
+				   			<div class="item">
+				    	<% end %>
+								<%=image_tag  image.avatar.url, :class => "img-rounded"%>
+				   	</div> 
+				  <%end%>
+		    </div>
+		    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+		    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+		  </div>
+			 
+		 <div class="recipe-details"> 	
+			<div class="serves inline">
+				<h4 class="inline">Serves : </h4>
+				<p class="inline"><%= @recipe[:recipe_content].serves %></p>
+			</div>
+			<div class="total-calories inline">
+				<h4 class="inline">Total Calories : </h4>
+				<p class="inline"><%= @recipe[:recipe_content].total_calories %></p>	
+			</div>
+			<div class="aggregate-ratings inline">
+				<h4 class="inline">Aggregate ratings : </h4>
+				<p class="inline"><%= @recipe[:recipe_content].aggregate_ratings %></p>	
+			</div>
+		 </div>
+		
+			<hr>
+
+		  <h4> Ingredients: </h4>
+		  <table class="table table-bordered">
+		  	<tr>
+		  		<th>Ingredient name</th>
+		  		<th>Meal class</th>
+		  		<th>Standard measurement</th>
+		  		<th>standard quantity </th>
+		  		<th>quantity</th>
+		  		<th>calories pers standard quantity</th>
+		  	</tr>
+				<% @recipe[:recipe_content].ingredients.each_with_index do |ingred, index| %>
+			  	<tr>
+			  		<td><%=link_to ingred.name, recipe_path("/search", flag: "ingredients", query: ingred.name) , method: "POST"   %></td>
+			  		<td><%=link_to ingred.meal_class, recipe_path("search", flag: "meal_class", query: ingred.meal_class), method: "POST"   %></td>
+			  		<td><%= ingred.std_measurement %></td>
+			  		<td><%= ingred.std_quantity %></td>
+			  		<td><%= @recipe[:recipe_content].recipe_ingredients[index].quantity %></td>
+			  		<td><%= ingred.calories_per_quantity %></td>
+			  	</tr>
+				<% end %>
+		  </table>
+		  <hr>
+		
+			<h4>Description : </h4>
+					<p><%= @recipe[:recipe_content].description %></p>
+			<hr>
+			<!-- <hr> -->
+		
+			<!-- <hr> -->
+		
+		</div>
+		<% # link_to 'Edit', edit_recipe_path(@recipe) %> 
+		<% # link_to 'Back', recipes_path %>
+		
+	</div>
 </div>
-<%= link_to 'Edit', edit_recipe_path(@recipe) %> |
-<%= link_to 'Back', recipes_path %>
+
+

@@ -11,4 +11,36 @@
  */
  	//= require_self
   //= require_tree 
+  .search-container{
+	margin: 0 auto;
+	display: block;
+}
 
+.inline{
+	display: inline-block;
+}
+
+.image-center img{
+	margin: 0 auto;
+	display: block;
+}
+
+.recipe-form-container{
+	margin: 0 auto;
+	display:block;
+}
+
+
+.total-calories
+{
+	margin-left: 10%;
+}
+.aggregate-ratings{
+	margin-left: 10%;
+}
+
+
+.recipe-details{
+	margin: 0 auto;
+	display: block;
+}

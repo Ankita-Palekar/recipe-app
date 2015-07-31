@@ -8,7 +8,7 @@ module ReusableFunctionsTests
 		# @@photo_list = File.new(File.join(Rails.root, "test/fixtures", "test-image.jpg"), 'rb')
 		@@photo_list =  [Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/test-image.jpg'), 'image/jpeg')]
 		USER_HASH ={:name => 'zomato', :email => 'zomato@domain.com', :password => 'zomato123', :password_confirmation  => 'zomato123'}
-		RECIPE_HASH = {:name => "Pudin hara juice" ,:description => "mint leaves", :serves => 2, :aggregate_ratings => 0}
+		RECIPE_HASH = {:name => "Pudin hara juice" ,:description => "mint leaves", :serves => 2, :aggregate_ratings => 0, :creator_id=>2}
 
 		# USERS_LIST = []
 		# RECIPE_ID_LIST= []
@@ -29,24 +29,27 @@ module ReusableFunctionsTests
 
 		def rate_randomly
 			user_list = User.pluck(:id)
-			recipe_list = Recipe.pluck(:id)
 			recipes = Recipe.find(:all, :limit => 5) 
-
 			recipes.each do |rec|
-				Rails::logger.debug user_list.shuffle.first
-				Rails::logger.debug rand(0..5)
+				Rails::logger.debug user_list
 	 			rec.approve_recipe
-				rec.rate_recipe(rater_id: user_list.shuffle.first, ratings: rand(0..5))
+				rater_id = user_list.shuffle.first
+				ratings = rand(0..5)	
+				recipe_id = rec.id
+				rec.rate_recipe(rater_id: rater_id, ratings: ratings) if (Rating.where(recipe_id: recipe_id, rater_id: rater_id)).empty?
 			end
 		end
 
 		def create_recipe_helper
 			user = create_user_helper
 			Rails::logger.debug @@photo_list.inspect
-		  recipe = Recipe.new(:name => "Pudin hara juice" ,:description => "mint leaves", :serves => 2, :aggregate_ratings => 0, :creator_id => user.id)  
+		  recipe = Recipe.new(RECIPE_HASH)  
 		  recipe.create_recipe(ingredients_list: @@ingredients_list, photo_list: @@photo_list)    
 		  recipe
 		end
+
+
+		
 
 		# def create_recipe_list_helper
 		# 	(0..10).each do 
