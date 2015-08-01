@@ -23,6 +23,12 @@ class Ingredient < ActiveRecord::Base
 		self
 	end
 
+
+	def create_ingredient_try
+		save if valid?
+		self
+	end
+
 	def update_ingredient(params:)
 		update_attributes(params)
 		self

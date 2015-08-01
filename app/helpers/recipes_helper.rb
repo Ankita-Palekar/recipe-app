@@ -6,6 +6,7 @@ module RecipesHelper
 	end
 
 	def get_existing_ingredient_list
+		@current_user = current_user
 		Ingredient.getIngredients(@current_user)		
 	end
 

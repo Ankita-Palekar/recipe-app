@@ -1,7 +1,10 @@
 Foodholic::Application.routes.draw do
    
-  match "/recipes/pending" => 'recipes#admin_pending_recipes' , :via => :get
-  match "/recipes/rate" => "recipes#update", :via => :post
+  match '/recipes/pending' => 'recipes#admin_pending_recipes' , :via => :get
+  match '/recipes/approve_recipe' => 'recipes#approve_recipe', :via => :put
+  match '/recipes/reject_recipe' => 'recipes#reject_recipe', :via => :put
+  match '/recipes/rate' => 'recipes#rate_recipe', :via => :post
+  match '/recipes/:id/:ratings/rated_users' => 'recipes#rated_users_list', :via => :get
   
   resources :ingredients
 
@@ -14,17 +17,16 @@ Foodholic::Application.routes.draw do
 
   resources :ratings
 
-  match "/recipes/:id/:ratings/rated_users" => 'recipes#rated_users_list', :via => :get
-  match "/recipes/pending" => 'recipes#admin_pending_recipes' , :via => :get  
-  match "/"   =>  "home#index",  :via => :get
-  match "/login" => "sessions#create", :via => :post
-  match "/login" => "sessions#login", :via => :get
-  match "/logout" => "sessions#destroy", :via => :delete
-  match "/signup" => "users#signup", :via => :get
-  match "/signup" => "sessions#signup", :via => :post
-  match "/search" => "recipes#search", :via => :get
-  match "/search" => "recipes#searchrecipes", :via => :post
-  match "/recipes/search" => "recipes#searchrecipes", :via => :post
+  match '/'   =>  'home#index',  :via => :get
+  match '/login' => 'sessions#create', :via => :post
+  match '/login' => 'sessions#login', :via => :get
+  match '/logout' => 'sessions#destroy', :via => :delete
+  match '/signup' => 'users#signup', :via => :get
+  match '/signup' => 'sessions#signup', :via => :post
+  match '/search' => 'recipes#search', :via => :get
+  match '/search' => 'recipes#searchrecipes', :via => :post
+  match '/recipes/search' => 'recipes#searchrecipes', :via => :post
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
   # Sample of regular route:
@@ -71,11 +73,11 @@ Foodholic::Application.routes.draw do
   #     resources :products
   #   end
 
-  # You can have the root of your site routed with "root"
+  # You can have the root of your site routed with 'root'
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
 
-  # See how all your routes lay out with "rake routes"
+  # See how all your routes lay out with 'rake routes'
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.

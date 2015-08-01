@@ -66,9 +66,6 @@
 	   // 	 }
 	   // }(jQuery));
 
-
-	    var recipe = {}
-	    
 	  // $('.approve-recipe').ajax_api({
 	  // 	url :'recipes/'+ $(this).data('rec-id'),
 			// data: {recipe:recipe},
@@ -78,16 +75,17 @@
 			// id_for_message:"display-notice-message",
 			// message:"<div class='alert alert-success'>recipe successfully approved</div>"
 	  // }); 
-
-
+	  
+	   
 		$('.approve-recipe').click(function(e){
 			e.preventDefault() 
- 
 			var $this = $(this)
 			rec_id = $(this).data('rec-id')
-			recipe["approved"] = true
+			var recipe = {"approved" : true, "id" : rec_id}
+	 
+			 console.log(recipe)
 			$.ajax({
-				url : "/recipes/"+rec_id,
+				url : "/recipes/approve_recipe",
 				method : 'PUT',
 				data: {recipe: recipe},
 				dataType : "json"
@@ -96,11 +94,11 @@
 			 	  if (recipe_object.approved == true)
 			 	  {
 				 	  $this.closest(".span6").hide()
-				 	  $('#display-notice-message').html("<div class='alert alert-success'>recipe approved successfully</div>")
+				 	  $('#display-notice-message').html("<div class='alert alert-success text-center'>recipe approved successfully</div>")
 			 	  }
 			 	  else
 			 	  {
-				 	  $('#display-notice-message').html("<div class='alert alert-danger'> resipe approval error</div>")
+				 	  $('#display-notice-message').html("<div class='alert alert-danger text-center'> resipe approval error</div>")
 			 	  }
 			 	  console.log(recipe_object)
 			 })
@@ -112,15 +110,15 @@
 			 });
 			return false
 		})
+ 
 
 		$('.reject-recipe').click(function(e){
 			e.preventDefault() 
-			var recipe = {}
-			recipe["rejected"] = true
 			rec_id = $(this).data('rec-id')
+			var recipe = {"rejected" : true, "id" : rec_id}
 			var $this = $(this)
 			$.ajax({
-				url : "/recipes/"+rec_id,
+				url : "/recipes/reject_recipe",
 				method : 'PUT',
 				data: {recipe: recipe},
 				dataType : "json"
@@ -129,11 +127,11 @@
 			 	 if (recipe_object.rejected == true)
 			 	  {
 				 	  $this.closest(".span6").hide()
-				 	  $('#display-notice-message').html("<div class='alert alert-success'>recipe rejected successfully</div>")
+				 	  $('#display-notice-message').html("<div class='alert alert-success text-center'>recipe rejected successfully</div>")
 			 	  }
 			 	  else
 			 	  {
-				 	  $('#display-notice-message').html("<div class='alert alert-danger'>recipe reject error</div>")
+				 	  $('#display-notice-message').html("<div class='alert alert-danger text-center'>recipe reject error</div>")
 			 	  }
 			 })
 			 .fail(function() {

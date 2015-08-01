@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
-	has_many :recipes , :dependent => :destroy
-	has_many :ingredient, :dependent => :destroy
-	has_many :ratings
+	has_many :recipes , foreign_key: "creator_id", class_name: "Recipe", :dependent => :destroy
+  # has_many :ingredient, foreign_key: "user_id", class_name: "Task"
+	has_many :ingredients, foreign_key: "creator_id", class_name: "Ingredient", :dependent => :destroy
+	has_many :ratings, foreign_key: "rater_id", class_name: "Rating", :dependent => :destroy
   attr_accessible :email, :password, :password_confirmation, :is_admin, :name
   has_secure_password
 

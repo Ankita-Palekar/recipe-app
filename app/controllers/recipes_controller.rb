@@ -58,36 +58,90 @@ include RecipesHelper
 
   # POST /recipes
   # POST /recipes.json
+  # def create
+  #   @current_user = current_user
+  #   @recipe = Recipe.new(params[:recipe])
+  #   @recipe.creator_id = @current_user.id
+  #   ingredients_list = []
+  #   if params[:ingredient]
+  #     ingredients_list.push(*params[:ingredient].compact) 
+  #   end
+  #   if params[:existing_ingredient]
+  #     ingredients_list.push(*params[:existing_ingredient].compact) 
+  #   end
+  #   photo_list  =  params[:avatar] ? params[:avatar] : []
+  #   respond_to do |format|
+  #     if (ingredients_list.empty? && photo_list.empty?)
+  #       notice = ""
+  #       notice += "ingredients list cannot be empty, " if ingredients_list.empty?
+  #       notice += "should add images" if photo_list.empty?
+  #       format.html { redirect_to new_recipe_path , notice: notice }
+  #     else
+  #       if @recipe.create_recipe(ingredients_list: ingredients_list, photo_list: photo_list)
+  #         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
+  #         format.json { render json: @recipe, status: :created, location: @recipe }
+  #       else
+  #         format.html { render action: "new" }
+  #         # format.json { render json: @recipe.errors, status: :unprocessable_entity }
+  #       end
+  #     end
+  #   end
+  # end
+
   def create
     @current_user = current_user
     @recipe = Recipe.new(params[:recipe])
-    @recipe.creator_id = @current_user.id
     ingredients_list = []
-    if params[:ingredient]
-      ingredients_list.push(*params[:ingredient].compact) 
-    end
-    if params[:existing_ingredient]
-      ingredients_list.push(*params[:existing_ingredient].compact) 
-    end
-    photo_list  =  params[:avatar] ? params[:avatar] : []
+    ingredients_list.push(*params[:ingredient].compact)  if params[:ingredient] 
+    ingredients_list.push(*params[:existing_ingredient].compact) if params[:existing_ingredient]
+    @recipe.create_recipe(ingredients_list: ingredients_list,current_user: @current_user, photo_list: params[:avatar])
     respond_to do |format|
-      if (ingredients_list.empty? && photo_list.empty?)
-        notice = ""
-        notice += "ingredients list cannot be empty, " if ingredients_list.empty?
-        notice += "should add images" if photo_list.empty?
-        format.html { redirect_to new_recipe_path , notice: notice }
+      if @recipe.persisted?
+        format.html { redirect_to @recipe, notice: 'recipe was successfully created.' }
+        format.json { render json: @recipe, status: :created, location: @recipe }
       else
-        if @recipe.create_recipe(ingredients_list: ingredients_list, photo_list: photo_list)
-          format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
-          format.json { render json: @recipe, status: :created, location: @recipe }
-        else
-          format.html { render action: "new" }
-          # format.json { render json: @recipe.errors, status: :unprocessable_entity }
-        end
+        format.html { render action: "new" }
+        format.json { render json: @recipe.errors, status: :unprocessable_entity }
       end
     end
-
   end
+
+
+  def approve_recipe
+    @current_user = current_user
+    @recipe = Recipe.find(params[:recipe][:id]) 
+
+    puts @recipe.inspect
+    respond_to do |format|
+      begin
+        notice = @recipe.approve_recipe(current_user: @current_user) ? 'successfully approved' : 'could not be approved'
+        format.json { render json: @recipe , notice: notice} 
+      end if params[:recipe][:approved] == "true"
+    end
+  end
+
+  def reject_recipe
+    @current_user = current_user
+    @recipe = Recipe.find(params[:recipe][:id]) 
+    respond_to do |format|
+      begin
+        notice = @recipe.reject_recipe(current_user: @current_user) ? 'successfully approved' : 'could not be approved'
+        format.json { render json: @recipe , notice: notice} 
+      end if(params[:recipe][:rejected] == "true")
+    end
+  end
+
+  def rate_recipe
+    @current_user = current_user
+    @recipe = Recipe.find(params[:id]) 
+    respond_to do |format|
+      @rate = @recipe.rate_recipe(current_user: @current_user, ratings: params[:recipe][:ratings])
+      notice = @rate.persisted? ? "successfully rated" : @rate.errors.full_messages.first
+      format.html {redirect_to request.referer, notice: notice}
+    end
+  end
+
+
 
   # PUT /recipes/1
   # PUT /recipes/1.json
@@ -96,15 +150,15 @@ include RecipesHelper
     puts params.inspect
     @recipe = Recipe.find(params[:id])
     respond_to do |format|
-      if params[:recipe][:approved] == "true"
-        notice = @recipe.approve_recipe ? 'successfully approved' : 'could not be approved'
-        format.json { render json: @recipe , notice: notice} 
-      elsif params[:recipe][:rejected] == "true"
-        notice = @recipe.reject_recipe ? 'successfully approved' : 'could not be approved'
-        format.json { render json: @recipe , notice: notice} 
-      elsif params[:recipe][:ratings] 
+      # if params[:recipe][:approved] == "true"
+      #   notice = @recipe.approve_recipe ? 'successfully approved' : 'could not be approved'
+      #   format.json { render json: @recipe , notice: notice} 
+      # elsif params[:recipe][:rejected] == "true"
+      #   notice = @recipe.reject_recipe ? 'successfully approved' : 'could not be approved'
+      #   format.json { render json: @recipe , notice: notice} 
+      if params[:recipe][:ratings] 
         
-        notice = @recipe.rate_recipe(rater_id: @current_user.id, ratings: params[:recipe][:ratings]) ? 'successfully rated' : 'You cannot rate your own recipe or you already rated this'
+        notice = @recipe.rate_recipe(current_user: @current_user, ratings: params[:recipe][:ratings]) ? 'successfully rated' : 'You cannot rate your own recipe or you already rated this'
         format.html {redirect_to request.referer, notice: notice}
       else
         photo_list  =  params[:avatar] ? params[:avatar] : []
@@ -125,6 +179,9 @@ include RecipesHelper
       end
     end
   end
+
+
+
 
   # DELETE /recipes/1
   # DELETE /recipes/1.json
