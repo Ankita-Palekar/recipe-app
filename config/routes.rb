@@ -20,7 +20,7 @@ Foodholic::Application.routes.draw do
   match "/login" => "sessions#create", :via => :post
   match "/login" => "sessions#login", :via => :get
   match "/logout" => "sessions#destroy", :via => :delete
-  match "/signup" => "users#new", :via => :get
+  match "/signup" => "users#signup", :via => :get
   match "/signup" => "sessions#signup", :via => :post
   match "/search" => "recipes#search", :via => :get
   match "/search" => "recipes#searchrecipes", :via => :post

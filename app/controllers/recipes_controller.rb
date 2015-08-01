@@ -23,9 +23,6 @@ include RecipesHelper
     render 'recipe_list'
   end
 
-
-
-
   # GET /recipes/1
   # GET /recipes/1.json
   def show
@@ -44,7 +41,6 @@ include RecipesHelper
   # GET /recipes/new
   # GET /recipes/new.json
   def new
-    @existing_ingredients_list = Ingredient.getIngredients(@current_user)
     @recipe = Recipe.new
     respond_to do |format|
       format.html # new.html.erb
@@ -54,7 +50,8 @@ include RecipesHelper
 
   # GET /recipes/1/edit
   def edit
-    @existing_ingredients_list = Ingredient.getIngredients(@current_user)
+    # @current_user = current_user
+    # @existing_ingredients_list = Ingredient.getIngredients(@current_user)
     @recipe_details = Recipe.find(params[:id]).get_recipe_details
     @recipe = @recipe_details[:recipe_content]
   end
@@ -62,54 +59,67 @@ include RecipesHelper
   # POST /recipes
   # POST /recipes.json
   def create
-    puts params.inspect
+    @current_user = current_user
     @recipe = Recipe.new(params[:recipe])
+    @recipe.creator_id = @current_user.id
     ingredients_list = []
-
-
-    ingredients_list.push(*params[:ingredient].compact) if !(defined?(params[:ingredient])).nil? 
-    ingredients_list.push(*params[:existing_ingredient].compact) if !(defined?(params[:existing_ingredient])).nil?
-     
-     
-    puts "========================"
-    photo_list = params[:avatar]
+    if params[:ingredient]
+      ingredients_list.push(*params[:ingredient].compact) 
+    end
+    if params[:existing_ingredient]
+      ingredients_list.push(*params[:existing_ingredient].compact) 
+    end
+    photo_list  =  params[:avatar] ? params[:avatar] : []
     respond_to do |format|
-      if @recipe.create_recipe(ingredients_list: ingredients_list.compact, photo_list: photo_list)
-        format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
-        # format.json { render json: @recipe, status: :created, location: @recipe }
+      if (ingredients_list.empty? && photo_list.empty?)
+        notice = ""
+        notice += "ingredients list cannot be empty, " if ingredients_list.empty?
+        notice += "should add images" if photo_list.empty?
+        format.html { redirect_to new_recipe_path , notice: notice }
       else
-        format.html { render action: "new" }
-        # format.json { render json: @recipe.errors, status: :unprocessable_entity }
+        if @recipe.create_recipe(ingredients_list: ingredients_list, photo_list: photo_list)
+          format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
+          format.json { render json: @recipe, status: :created, location: @recipe }
+        else
+          format.html { render action: "new" }
+          # format.json { render json: @recipe.errors, status: :unprocessable_entity }
+        end
       end
     end
+
   end
 
   # PUT /recipes/1
   # PUT /recipes/1.json
   def update
+    @current_user = current_user
     puts params.inspect
     @recipe = Recipe.find(params[:id])
     respond_to do |format|
       if params[:recipe][:approved] == "true"
-        {:status => "successfully approved" }.to_json  if @recipe.approve_recipe
+        notice = @recipe.approve_recipe ? 'successfully approved' : 'could not be approved'
+        format.json { render json: @recipe , notice: notice} 
       elsif params[:recipe][:rejected] == "true"
-        {:status =>  "sucessfully rejected"}.to_json if @recipe.reject_recipe
+        notice = @recipe.reject_recipe ? 'successfully approved' : 'could not be approved'
+        format.json { render json: @recipe , notice: notice} 
       elsif params[:recipe][:ratings] 
-         
-        if @recipe.rate_recipe(rater_id: @current_user.id, ratings: params[:recipe][:ratings]) 
-          
-          format.html {redirect_to request.referer, notice: 'successfully rated'}
-        else
-          format.html {redirect_to request.referer, notice: 'You cannot rate your own recipe'}
-        end
+        
+        notice = @recipe.rate_recipe(rater_id: @current_user.id, ratings: params[:recipe][:ratings]) ? 'successfully rated' : 'You cannot rate your own recipe or you already rated this'
+        format.html {redirect_to request.referer, notice: notice}
       else
         photo_list  =  params[:avatar] ? params[:avatar] : []
-        ingredients_list = params[:ingredient]
-        respond_to do |format|
-          if @recipe.update_recipe(params: params[:recipe], ingredients_list: ingredients_list, photo_list: photo_list)
+        ingredients_list = params[:ingredient] ? params[:ingredient] : []
+        if (ingredients_list.empty? && photo_list.empty?)
+          puts "should come here"
+          notice = ""
+          notice += "ingredients list cannot be empty, " if ingredients_list.empty?
+          notice += "should add images" if params[:avatar].nil?
+          format.html { render action: "edit" , notice: notice}
+        else
+          if @recipe.update_recipe(params: params[:recipe], ingredients_list: ingredients_list, photo_list:photo_list)
             format.html { redirect_to @recipe, notice: 'Recipe was successfully edited.'}
           else
-            format.html { render action: "new" }
+            format.html { render action: "edit", notice: "Recipe editing error"}
           end
         end
       end
@@ -136,6 +146,5 @@ include RecipesHelper
   def rated_users_list
     @recipe = Recipe.find(params[:id])
     @users_list = @recipe.list_rated_users(:ratings => params[:ratings])
-
   end
 end

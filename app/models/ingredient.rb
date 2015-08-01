@@ -19,12 +19,12 @@ class Ingredient < ActiveRecord::Base
 	 scope :approved_ingredients, -> {where(:approved => true)}
 	 scope :my_unapproved_ingredients, ->(creator_id) {where(:approved => false, creator_id: creator_id )}
 	def create_ingredient
-		save!  
+		save
 		self
 	end
 
 	def update_ingredient(params:)
-		update_attributes!(params)
+		update_attributes(params)
 		self
 	end
 
@@ -33,7 +33,7 @@ class Ingredient < ActiveRecord::Base
 	end
 
  	def approve_ingredient 
-		update_attributes!(:approved => true)
+		update_attributes(:approved => true)
 	end
 
 	def self.getIngredients(current_user)

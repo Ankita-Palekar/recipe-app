@@ -52,10 +52,10 @@
 						       		<span class="pull-right"><i class="icon-star"></i> <%= rec.aggregate_ratings %> </span>
 						       		<h3 class="text-center"> <%=link_to rec.name.capitalize, rec %> </h3>
 						       		<hr>
-						       		<div class="image">
+						       		<div class="image-div">
 						       			<%=link_to image_tag  rec.photos.first.avatar.url(:medium), :class => "text-center" if !rec.photos.empty?%>
 						       		</div>
-						       		<p class="text-center"><%=rec.description %></p>
+						       		<p class="text-center"><%=rec.description.truncate(60) %></p>
 						       	</div>
 						       <% end %>
 						    </div>
@@ -63,17 +63,18 @@
 						      <% @most_rated_recipes.each do |rec| %>
 						       	<div class="well">
 						       		<span class="label label-info pull-left"><%= rec.meal_class %></span>
-						       		
 						       		<span class="pull-right">
 							       		<% (0..rec.aggregate_ratings.to_i).each do %>
 							       			<i class="icon-star"></i> 
 							       		<% end %>
 							       	<%= rec.aggregate_ratings %> 
 						       		</span>
-						       		<h3> <%=link_to rec.name.capitalize, rec %> </h3>
+						       		<h3 class="text-center"> <%=link_to rec.name.capitalize, rec %> </h3>
 						       		<hr>
-						       		<%=link_to image_tag  rec.photos.first.avatar.url(:medium) if !rec.photos.empty?%>
-						       		<p><%=rec.description %></p>
+						       		<div class="image-div">
+						       			<%=link_to image_tag  rec.photos.first.avatar.url(:medium) if !rec.photos.empty?%>
+						       		</div>
+						       		<p class="text-center"><%=rec.description.truncate(60) %></p>
 						       		<hr>
 						       		<p class="pull-right"> <%= rec.count.to_i %>  votes </p>
 						       	</div>
@@ -95,7 +96,7 @@
 					       		<% end %>
 					       	<%= rec.aggregate_ratings %> 
 			       		</span>
-						 		<h3> <%=link_to rec.name.capitalize, rec %> </h3>
+						 		<h4 class="text-center"> <%=link_to rec.name.capitalize, rec %> </h4>
 						 		<hr>
 						 		<%=link_to image_tag  rec.photos.first.avatar.url(:medium) if !rec.photos.empty?%>
 						 		<hr>

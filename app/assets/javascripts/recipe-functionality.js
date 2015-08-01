@@ -82,7 +82,7 @@
 
 		$('.approve-recipe').click(function(e){
 			e.preventDefault() 
-			var message = "<div class='alert alert-success'> recipe successfully approved</div>"
+ 
 			var $this = $(this)
 			rec_id = $(this).data('rec-id')
 			recipe["approved"] = true
@@ -92,10 +92,17 @@
 				data: {recipe: recipe},
 				dataType : "json"
 			})
-			 .done(function(data, textStatus, jqXHR) {
-			 	  $this.closest(".span6").hide()
-			 	  $('#display-notice-message').html(message)
-			 	  console.log(data)
+			 .done(function(recipe_object, textStatus, jqXHR) {
+			 	  if (recipe_object.approved == true)
+			 	  {
+				 	  $this.closest(".span6").hide()
+				 	  $('#display-notice-message').html("<div class='alert alert-success'>recipe approved successfully</div>")
+			 	  }
+			 	  else
+			 	  {
+				 	  $('#display-notice-message').html("<div class='alert alert-danger'> resipe approval error</div>")
+			 	  }
+			 	  console.log(recipe_object)
 			 })
 			 .fail(function() {
 			    // alert( "error" );
@@ -111,8 +118,6 @@
 			var recipe = {}
 			recipe["rejected"] = true
 			rec_id = $(this).data('rec-id')
-			var message = "<div class='alert alert-block'> recipe successfully rejected</div>"
-
 			var $this = $(this)
 			$.ajax({
 				url : "/recipes/"+rec_id,
@@ -120,10 +125,16 @@
 				data: {recipe: recipe},
 				dataType : "json"
 			})
-			 .done(function(data, textStatus, jqXHR) {
-			 	  $this.closest(".span6").hide()
-			 	  $('#display-notice-message').html(message)
-			 	  console.log(data)
+			 .done(function(recipe_object, textStatus, jqXHR) {
+			 	 if (recipe_object.rejected == true)
+			 	  {
+				 	  $this.closest(".span6").hide()
+				 	  $('#display-notice-message').html("<div class='alert alert-success'>recipe rejected successfully</div>")
+			 	  }
+			 	  else
+			 	  {
+				 	  $('#display-notice-message').html("<div class='alert alert-danger'>recipe reject error</div>")
+			 	  }
 			 })
 			 .fail(function() {
 			    // alert( "error" );

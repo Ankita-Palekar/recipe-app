@@ -1,28 +1,30 @@
-
-
 <%= form_for(@recipe, :html => { :multipart => true , :class => 'form-horizontal'}) do |f| %>
   <% if @recipe.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="control-group">
+      <div class="alerts alert-info">
       <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
       <ul>
         <% @recipe.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>
-    </div>
-  <% end %>
-
-  <% if flash[:notice]%>
-    <div class="control-group">
-      <div class="alerts">
-        <%= "#{flash[:notice]}" %>    
       </div>
     </div>
   <% end %>
+
+  <% if notice %>
+    <div class="control-group">
+      <div class="alert alert-info">
+        <%= notice %>
+      </div>
+    </div>
+  <% end %>
+
+
   <div class="control-group">
     <label class="control-label" for="inputEmail">Recipe Name</label>
     <div class="controls">
-      <input type="hidden" id="current_user_id" name="recipe[creator_id]" value='<%="#{@current_user.id}"%>'>
+      <input type="hidden" id="current_user_id">
       <input  type="hidden" name="recipe[aggregate_ratings]" value='<%=0%>'>
       <input class="span8" type="text" id="inputEmail" placeholder="reipe name" name="recipe[name]" required>
     </div>
@@ -47,7 +49,8 @@
    <label class="control-label">Select existing ingredients</label>
    <div class="controls">
      <select multiple="multiple" id="existing-ingredient-list">
-     <% @existing_ingredients_list.each do |ing| %>
+     <%= @existing_ingredients_list = get_existing_ingredient_list %>
+     <%  @existing_ingredients_list.each do |ing| %>
        <option value='<%= "#{ing.id}-#{ing.name}-#{ing.meal_class}-#{ing.std_quantity}-#{ing.calories_per_quantity}"%>' data-ingredient-name ="<%= "#{ing.name}"%>"><%= ing.name %></option>
        <% end %>
      </select>

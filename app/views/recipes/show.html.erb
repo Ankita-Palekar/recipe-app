@@ -3,15 +3,10 @@
 
 <div class="container">
 	<div class="row">
-
 		 <%  if notice %>
-		<div class="alert alert-success">
-			<% if notice %>
-			<div class="aler alert-info">
-				<%= notice %>	
+			<div class="alert alert-success"> 
+				<%= flash[:notice] %>	
 			</div>
-			<% end %>
-		</div>
 		<% end %>
 		<!-- <div class="hero-unit"> -->
 		<div class="well">
@@ -84,9 +79,7 @@
 			 		        <i class="icon-user"></i> <%= User.count %>
 			 		      </div>
 			 		    </div>
-			 		    
 			 		    <div class="histo">
-
 								<% @recipe[:ratings_histogram].sort.each do  |key,value|%>   	
 				 		      <div class="<%= key.to_words %>  histo-rate">
 				 		        <span class="histo-star">

@@ -55,10 +55,10 @@ class Recipe < ActiveRecord::Base
           end
         recipe_ingredient = self.recipe_ingredients.new(quantity: ingre[:quantity])
         recipe_ingredient.ingredient = ingredient  #will assign ingredient_id in join to the ingrdient_id
-        recipe_ingredient.save!
+        recipe_ingredient.save
       end
       photo_list.each do |photo|
-        photos.create!(avatar: photo) #recipe.photos.create()
+        photos.create(avatar: photo) #recipe.photos.create()
       end
       update_attributes(:total_calories => total_calories)
     end
@@ -83,10 +83,10 @@ class Recipe < ActiveRecord::Base
         end
         RecipeIngredient.find_or_initialize_by_recipe_id_and_ingredient_id(:ingredient_id=>ingredient.id, :recipe_id => id).tap do |a|
             a.quantity = ingre[:quantity]
-          end.save!
+          end.save
       end
       photo_list.each do |photo|
-        photos.create!(avatar: photo) #recipe.photos.create()
+        photos.create(avatar: photo) #recipe.photos.create()
       end
     end
     self
@@ -101,7 +101,7 @@ class Recipe < ActiveRecord::Base
   
   def approve_recipe
     Recipe.transaction do
-      update_attributes!(:approved => true, :rejected=>false)
+      update_attributes(:approved => true, :rejected=>false)
       self.ingredients.each do |ingredient| 
         ingredient.approve_ingredient
       end
@@ -112,7 +112,7 @@ class Recipe < ActiveRecord::Base
   end
 
   def reject_recipe
-    update_attributes!(:rejected => true)
+    update_attributes(:rejected => true)
     @@find_user_and_send_mail.call(creator_id, 'recipe_rejected_email')
     self.rejected
   end
@@ -148,10 +148,14 @@ class Recipe < ActiveRecord::Base
 
   def rate_recipe(rater_id:, ratings:)
     Recipe.transaction do
-      ((approved == true) && (rater_id != creator_id)) ? (Rating.create!(rater_id: rater_id, recipe_id: id, ratings: ratings)) : false
-      update_attributes!(:aggregate_ratings => get_recipe_aggregate_ratings)
+      if ((approved == true) && (rater_id != creator_id)) 
+        Rating.create(rater_id: rater_id, recipe_id: id, ratings: ratings)
+        update_attributes(:aggregate_ratings => get_recipe_aggregate_ratings)
+        return true
+      end
     end
   end
+
 
   def get_recipe_aggregate_ratings
     rates_hash = ratings.group(:ratings).count
