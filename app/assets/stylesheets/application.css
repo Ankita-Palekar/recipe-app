@@ -214,10 +214,25 @@ body {
   padding-right: 27%;
 }
 
-.search-button{
-  font-size: 17px;
+i.search-button{
+  font-size: 20px;
 }
 
+.input-append input.search-box{
+  width: 150% ;
+  height: 35px
+}
+
+.input-append .advanced-search, .input-append .search-button{
+  height: 45px
+}
+
+.search-form{
+  padding-top: 3%;
+}
+select.advanced-search{
+  text-align: center;
+}
  
 
 
