@@ -92,23 +92,15 @@ module RecipesHelper
 		# html_code
 	end
 
-	# def check_if_ingredient_photo_list_empty?(ingredients_list, photo_list, recipe)
-	#   if (ingredients_list.empty? || ingredients_list.nil?)
-	#     recipe.errors[:messages] = "Ingredients cannot be empty"
-	#     return recipe
-	#   end
-	#   if (photo_list.nil? || photo_list.empty?) 
-	#     recipe.errors[:message] = "Recipe images cannot be empty"
-	#     return recipe
-	#   end
-
-	# end
-
 	def save_recipe_ingredient_join(ingredient, recipe, quantity)
-	  recipe_ingredient = recipe.recipe_ingredients.build
-	  recipe_ingredient.ingredient = ingredient  #will assign ingredient_id in join to the ingrdient_id
-	  rec_ing = RecipeIngredient.first_or_initialize(recipe_ingredient) 
-	  rec_ing.update_attributes(quantity: quantity)
+	  # recipe_ingredient = recipe.recipe_ingredients.build
+	  # recipe_ingredient.ingredient = ingredient  #will assign ingredient_id in join to the ingrdient_id
+	  # rec_ing = RecipeIngredient.first_or_initialize(recipe_ingredient) 
+	  # rec_ing.update_attributes!(quantity: quantity)
+		
+		rec_ing = RecipeIngredient.where(:ingredient_id => ingredient.id, :recipe_id => recipe.id)
+		rec_ing = RecipeIngredient.find_or_initialize_by_ingredient_id_and_recipe_id(ingredient.id, recipe.id)
+		rec_ing.update_attributes(:quantity => quantity)
 	end
 
 	def send_admin_mail(function_name)

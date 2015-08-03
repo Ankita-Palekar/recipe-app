@@ -187,7 +187,7 @@ body {
   width: 0;
   background-color: #FF8B5A;
 }
-
+/*histogram code end*/
 
 .spinner{
   display: none;
@@ -206,8 +206,20 @@ body {
 .fill-star, .star-rate:hover, .star-rate:hover ~ .star-rate{
     color: #ffd700
   }
-/*histogram code end
+.dropdown-search
+{
+  height: 120px;
+  /* width: 154px; */
+  padding-left: 27%;
+  padding-right: 27%;
+}
+
+.search-button{
+  font-size: 17px;
+}
+
+ 
 
 
 
-/*spinner code start*/
+

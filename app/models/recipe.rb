@@ -25,7 +25,7 @@ class Recipe < ActiveRecord::Base
   scope :meal_class, ->(meal_class) {where(meal_class: meal_class)}
   scope :calories, -> (calories) {where("total_calories = ? * serves", "#{calories.to_i}")}
   scope :ingredients, ->(query) {joins(:ingredients).where("ingredients.name ILIKE ?", "%#{query}%")}
-  scope :approved, -> {where(:approved => true)}
+  scope :approved, -> {where(:approved => true, :rejected => false)}
   scope :order_by_date, -> {order('created_at desc')} 
   scope :order_by_aggregate_ratings, -> {order('aggregate_ratings desc')} 
   scope :ordered_by_count, -> {order("count desc")}
@@ -37,19 +37,8 @@ class Recipe < ActiveRecord::Base
   scope :photos, -> {joins(:photos)}
   scope :include_photos, -> {includes(:photos)}
  
-
-
-
   def create_recipe(ingredients_list:, photo_list:, current_user:) 
-    if (ingredients_list.empty? || ingredients_list.nil?)
-      self.errors[:messages] = "Ingredients cannot be empty"
-      return self
-    end
-    if (photo_list.nil? || photo_list.empty?) 
-      self.errors[:message] = "Recipe images cannot be empty"
-      return self
-    end
-    puts self.inspect
+    puts ingredients_list.inspect
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
       current_user.recipes << self
@@ -72,16 +61,8 @@ class Recipe < ActiveRecord::Base
   end
 
   def update_recipe(photo_list:, ingredients_list:, current_user:)
-    if (ingredients_list.empty? || ingredients_list.nil?)
-      self.errors[:messages] = "Ingredients cannot be empty"
-      return self
-    end
-    if (photo_list.nil? || photo_list.empty?) 
-      self.errors[:message] = "Recipe images cannot be empty"
-      return self
-    end 
     Recipe.transaction do 
-      self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)  
+      self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)  if !ingredients_list.empty?
       # update_attributes(params)
       total_calories = 0
       ingredients_list.each do |ingre|
@@ -90,7 +71,6 @@ class Recipe < ActiveRecord::Base
           ingredient = Ingredient.find(ingre[:ingredient_id])
           ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :ingredient_id))
         else
-           
           ingredient = current_user.ingredients.build(ingre.except(:quantity))
           ingredient.create_ingredient
         end
@@ -132,6 +112,7 @@ class Recipe < ActiveRecord::Base
       meal_class.index(memo) > meal_class.index(ingre[:meal_class]) ? ingre[:meal_class] : memo
     end   
   end
+
   # list_type takes => order_by_date, order_by_aggregate_ratings, order_by_most_rated 
   #status => my_pending_recipes, my_approved_recipes, my_rejected_recipes
   def self.list_recipes(list_type:, page_nav:, limit:, status: nil, current_user:nil)
@@ -143,14 +124,16 @@ class Recipe < ActiveRecord::Base
   end
 
   def rate_recipe(ratings:, current_user:)
-    rate = current_user.ratings.build
-    rate.recipe = self
-    rate_object = Rating.first_or_initialize(rate)
+    rate = Rating.find_or_initialize_by_rater_id_and_recipe_id(current_user.id, self.id)
+    # rate = current_user.ratings.build
+    # rate.recipe = self
+    # rate_object = Rating.first_or_initialize(rate)
     transaction do 
-      rate_object.update_attributes(:ratings => ratings)
+      # rate_object.update_attributes(:ratings => ratings)
+      rate.update_attributes(:ratings => ratings)
       update_attributes(:aggregate_ratings => get_recipe_aggregate_ratings)
     end if current_user.id != self.creator_id
-    rate_object
+    rate
   end
 
 
@@ -175,7 +158,7 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.search(flag:, query:)
-    searched_recipes = Recipe.scoped
+    searched_recipes = Recipe.scoped.approved
     searched_recipes = searched_recipes.send flag, query
     searched_recipes
   end

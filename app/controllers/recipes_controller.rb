@@ -54,52 +54,22 @@ include RecipesHelper
 
   # GET /recipes/1/edit
   def edit
-    # @current_user = current_user
-    # @existing_ingredients_list = Ingredient.getIngredients(@current_user)
     @recipe_details = Recipe.find(params[:id]).get_recipe_details
     @recipe = @recipe_details[:recipe_content]
   end
 
-  # POST /recipes
-  # POST /recipes.json
-  # def create
-  #   @current_user = current_user
-  #   @recipe = Recipe.new(params[:recipe])
-  #   @recipe.creator_id = @current_user.id
-  #   ingredients_list = []
-  #   if params[:ingredient]
-  #     ingredients_list.push(*params[:ingredient].compact) 
-  #   end
-  #   if params[:existing_ingredient]
-  #     ingredients_list.push(*params[:existing_ingredient].compact) 
-  #   end
-  #   photo_list  =  params[:avatar] ? params[:avatar] : []
-  #   respond_to do |format|
-  #     if (ingredients_list.empty? && photo_list.empty?)
-  #       notice = ""
-  #       notice += "ingredients list cannot be empty, " if ingredients_list.empty?
-  #       notice += "should add images" if photo_list.empty?
-  #       format.html { redirect_to new_recipe_path , notice: notice }
-  #     else
-  #       if @recipe.create_recipe(ingredients_list: ingredients_list, photo_list: photo_list)
-  #         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
-  #         format.json { render json: @recipe, status: :created, location: @recipe }
-  #       else
-  #         format.html { render action: "new" }
-  #         # format.json { render json: @recipe.errors, status: :unprocessable_entity }
-  #       end
-  #     end
-  #   end
-  # end
-
+ 
   def create
     @current_user = current_user
     @recipe = Recipe.new(params[:recipe])
-    ingredients_list = []
-    ingredients_list.push(*params[:ingredient].compact)  if params[:ingredient] 
-    ingredients_list.push(*params[:existing_ingredient].compact) if params[:existing_ingredient]
-    @recipe.create_recipe(ingredients_list: ingredients_list,current_user: @current_user, photo_list: params[:avatar])
+    params[:ingredient] ||= []
+    params[:existing_ingredient] ||= []
+    params[:avatar] ||=[]
+
     respond_to do |format|
+      format.html { redirect_to new_recipe_path, notice: 'Add ingredients' } if (params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?
+      format.html { redirect_to new_recipe_path, notice: 'Add images' } if (params[:avatar].to_a).empty?
+      @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: params[:avatar].compact)
       if @recipe.persisted?
         format.html { redirect_to @recipe, notice: 'Recipe created successfully' }
         format.json { render json: @recipe, status: :created, location: @recipe }
@@ -157,12 +127,12 @@ include RecipesHelper
   def update
     @current_user = current_user
     @recipe =  Recipe.find(params[:id])
-    ingredients_list = []
-    ingredients_list.push(*params[:ingredient].compact)  if params[:ingredient] 
-    ingredients_list.push(*params[:existing_ingredient].compact) if params[:existing_ingredient]
-    @recipe.update_attributes(params[:recipe])
+    params[:ingredient]||=[]
+    params[:existing_ingredient]||=[]
+    params[:avatar]||=[]
     respond_to do |format|  
-      @recipe.update_recipe(ingredients_list: ingredients_list, photo_list:params[:avatar], current_user:@current_user)
+      @recipe.update_attributes(params[:recipe])
+      @recipe.update_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a), photo_list:params[:avatar], current_user:@current_user)
       if @recipe.valid?
         format.html { redirect_to @recipe, notice: 'Recipe was successfully edited'}
       else
@@ -170,10 +140,7 @@ include RecipesHelper
         format.json { render json: @recipe.errors, status: :unprocessable_entity }
       end   
     end
-end
-
-
-
+  end
 
   # DELETE /recipes/1
   # DELETE /recipes/1.json

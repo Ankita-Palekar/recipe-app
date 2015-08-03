@@ -15,13 +15,15 @@ class Ingredient < ActiveRecord::Base
 	validates :calories_per_quantity, :numericality => true, :presence => true
 	validates :creator_id, :presence => true
 	validates :name, :uniqueness => true
- 
+ 	
+ 	before_validation :strip_whitespace, :only => [:name]
 
 	scope :approved_ingredients, -> {where(:approved => true)}
-	scope :my_unapproved_ingredients, ->(creator_id) {where(:approved => false, creator_id: creator_id )}
+	# scope :my_unapproved_ingredients, ->(creator_id) {where(:approved => false, creator_id: creator_id )}
+	scope :unapproved_ingredients, -> {where(:approved => false)}
 	
 	def create_ingredient
-		save
+		save!
 		self
 	end
 
@@ -40,6 +42,12 @@ class Ingredient < ActiveRecord::Base
 	end
 
 	def self.getIngredients(current_user)
-		Ingredient.approved_ingredients.my_unapproved_ingredients(current_user.id)
+		# Ingredient.approved_ingredients.my_unapproved_ingredients(current_user.id)
+		current_user.ingredients.unapproved_ingredients + Ingredient.approved_ingredients
+	end
+
+	private 
+	def strip_whitespace
+	  self.name = self.name.strip
 	end
 end

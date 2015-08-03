@@ -42,6 +42,11 @@
       <input class="span4" type="number" name="recipe[serves]" placeholder="4" required value="<%= @recipe.serves %>" required>
     </div>
   </div>  
+  <div class="control-group">
+    <div class="controls">
+       <h3 class="text-center">Edit your Ingredients</h3>
+    </div>
+  </div>
   
   <div class="control-group inline">
     <label class="control-label">Select existing ingredients</label>
@@ -54,9 +59,11 @@
       </select>
     </div>
   </div>
+
   <div class="control-group inline">
    <div class="controls">
-     <i class="icon-hand-left"></i>
+     <!-- <i class="icon-hand-left"></i> -->
+      <i class="fa fa-hand-o-left fa-3x  "></i>
      <button class="btn btn-primary" id="add-existing-ingredients-block">Select Existing Ingredients</button>
    </div> 
   </div>
@@ -67,7 +74,6 @@
  
   <div class="ingredients-container">
     <div class="add-ingredients" >
-    <h3 class="text-center">Edit your Ingredients</h3>
       <% @recipe.ingredients.each_with_index do |ing, index| 
           if (ing.creator_id == @current_user.id )&& (ing.approved == false) %>
             <hr>
@@ -119,34 +125,34 @@
               <div class="control-group inline">
                 <label class="control-label" for="inputEmail">ingredient standard quantity</label>
                 <div class="controls">
-                  <input type="text" placeholder="example 10 grams" value="<%= ing.std_quantity %>" name="ingredient[][std_quantity]" required>
+                  <input type="number" placeholder="example 10 grams" value="<%= ing.std_quantity %>" name="ingredient[][std_quantity]" required>
                 </div>
               </div>
               <div class="control-group inline">
                 <label class="control-label" for="inputEmail">ingredient quantity</label>
                 <div class="controls">
-                  <input type="text" palceholder="e.g 1kg" value="<%= @recipe.recipe_ingredients[index].quantity %>" name="ingredient[][quantity]" required>
+                  <input type="number" palceholder="e.g 1kg" value="<%= @recipe.recipe_ingredients[index].quantity %>" name="ingredient[][quantity]" required>
                 </div>
               </div>
               <div class="control-group"> 
                 <label class="control-label" for="inputEmail">calories per std qty</label>
                 <div class="controls">
-                  <input type="text" name="ingredient[][calories_per_quantity]" required value="<%= ing.calories_per_quantity %>" required>
+                  <input type="number" name="ingredient[][calories_per_quantity]" required value="<%= ing.calories_per_quantity %>" required>
                 </div>
               </div>
           <%else%>
           <hr>
             <div class="control-group">
-                <label class="control-label" for="inputEmail" > <%= ing.name %></label>
+                <label class="control-label" for="inputEmail" > <%= ing.name %> already exists</label>
                 <div class="controls">
-                  <input  type="text" placeholder="edit quantity"  value="<%= @recipe.recipe_ingredients[index].quantity %>"  name="ingredient[][quantity]" required>
-                  <input type="hidden"  name="ingredient[][ingredient_id]" value="<%= ing.id %>" required>
-                  <input type="hidden"  name="ingredient[][creator_id]" value="<%= ing.creator_id %>" required>
-                  <input type="hidden"  name="ingredient[][std_quantity]" value="<%= ing.std_quantity %>" required>
+                  <input  type="number" placeholder="edit quantity"  value="<%= @recipe.recipe_ingredients[index].quantity %>"  name="existing_ingredient[][quantity]" required>
+                  <input type="hidden"  name="existing_ingredient[][ingredient_id]" value="<%= ing.id %>" required>
+                  <input type="hidden"  name="existing_ingredient[][creator_id]" value="<%= ing.creator_id %>" required>
+                  <input type="hidden"  name="existing_ingredient[][std_quantity]" value="<%= ing.std_quantity %>" required>
                   
-                  <input type="hidden"  name="ingredient[][calories_per_quantity]" value="<%= ing.calories_per_quantity %>" 
+                  <input type="hidden"  name="existing_ingredient[][calories_per_quantity]" value="<%= ing.calories_per_quantity %>" 
                   required>
-                  <input type="hidden"  name="ingredient[][meal_class]" value="<%= ing.meal_class %>" required>
+                  <input type="hidden"  name="existing_ingredient[][meal_class]" value="<%= ing.meal_class %>" required>
                 </div>
             </div>          
           <% end %>
