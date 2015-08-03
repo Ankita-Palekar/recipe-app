@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150727071559) do
+ActiveRecord::Schema.define(:version => 20150731114114) do
 
   create_table "admins", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(:version => 20150727071559) do
     t.boolean  "approved",              :default => false
   end
 
-  add_index "ingredients", ["creator_id"], :name => "index_ingredients_on_creator_id"
   add_index "ingredients", ["creator_id"], :name => "index_ingredients_on_user_id"
+  add_index "ingredients", ["name"], :name => "index_ingredients_on_name", :unique => true
 
   create_table "photos", :force => true do |t|
     t.string   "avatar_file_name"
@@ -52,11 +52,10 @@ ActiveRecord::Schema.define(:version => 20150727071559) do
   end
 
   add_index "ratings", ["rater_id", "recipe_id"], :name => "index_ratings_on_rater_id_and_recipe_id", :unique => true
-  add_index "ratings", ["rater_id"], :name => "index_ratings_on_rater_id"
   add_index "ratings", ["rater_id"], :name => "index_ratings_on_user_id"
   add_index "ratings", ["recipe_id"], :name => "index_ratings_on_recipe_id"
 
-  create_table "recipe_ingredients", :id => false, :force => true do |t|
+  create_table "recipe_ingredients", :force => true do |t|
     t.integer "recipe_id"
     t.integer "ingredient_id"
     t.integer "quantity"
@@ -70,8 +69,8 @@ ActiveRecord::Schema.define(:version => 20150727071559) do
     t.text     "image_links"
     t.text     "description",                          :null => false
     t.string   "meal_class",                           :null => false
-    t.integer  "total_calories"
-    t.integer  "aggregate_ratings"
+    t.float    "total_calories"
+    t.float    "aggregate_ratings"
     t.integer  "serves"
     t.boolean  "approved",          :default => false
     t.datetime "created_at",                           :null => false
@@ -79,7 +78,6 @@ ActiveRecord::Schema.define(:version => 20150727071559) do
     t.boolean  "rejected",          :default => false
   end
 
-  add_index "recipes", ["creator_id"], :name => "index_recipes_on_creator_id"
   add_index "recipes", ["creator_id"], :name => "index_recipes_on_user_id"
 
   create_table "users", :force => true do |t|

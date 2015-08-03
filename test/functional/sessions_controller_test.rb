@@ -18,7 +18,7 @@ class SessionsControllerTest < ActionController::TestCase
   	post(:create, {:email => 'zomato@domain.com', :password => 'zomato123'})
     Rails::logger.debug flash
   	assert_response(:redirect, message = "no redirect")
-  	assert_redirected_to('/recipes' , message='not redirecting to recipes') #should be home here
+  	assert_redirected_to('/' , message='not redirecting to recipes') #should be home here
   end
 
   test "should create session if not logged in" do

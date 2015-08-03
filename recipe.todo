@@ -40,16 +40,16 @@ Data model (broad overview):
 
  UX / User-interface:
   ☐ Home page
-    ☐ Display list of recently created recipes
-    ☐ Display list of top-rated recipes
+    ✔ Display list of recently created recipes @done (15-07-31 00:31)
+    ✔ Display list of top-rated recipes @done (15-07-31 00:31)
     ☐ Free-text search
     ☐ Advanced search
       ☐ Search on the basis of one (or more) ingredients, with optional maximum quantity for each ingredient
       ☐ Range for star-rating
       ☐ Search on basis of meal-class
       ☐ Search on basis of calories for each person
-  ☐ Recipe details page (visible to all everyone)
-    ☐ Display all details about the recipe. 
+  ✔ Recipe details page (visible to all everyone) @done (15-07-31 00:31)
+    ☐ Display all details about the recipe.
     ☐ Photos in a gallery
     ☐ Each ingredient should be linked to the search-results page, showing all recipes using that ingerdient
     ☐ Meal class should be linked to the search-results page, showing all recipes belonging to the same meal class
@@ -60,23 +60,23 @@ Data model (broad overview):
         - 4-star: number of users
         - 5-star: number of users
     ☐ Clicking on a star rating (on the histogram) should show a list of users who have given that rating to that recipe
-  ☐ Create recipe (visible to only signed-in user)
-    ☐ If the user is not signed-in he/she should be redirect to login page
-    ☐ Complete form to create a recipe
+  ✔ Create recipe (visible to only signed-in user) @done (15-07-31 00:31)
+    ✔ If the user is not signed-in he/she should be redirect to login page @done (15-07-31 00:31)
+    ✔ Complete form to create a recipe @done (15-07-31 00:31)
     ☐ Ability to drag & drop multiple photos related to the recipe
     ☐ Ability to quickly select pre-existing ingredients, or "quick-add" a new ingredient
-    ☐ Creating a new recipe should send a notification to all admin users to view & approve it
-  ☐ My Recipes (visible only to signed-in users)
-    ☐ If the user is not signed-in he/she should be redirect to login page
-    ☐ Reverse chronologial list of recipes created by current user
-    ☐ List of most popular recipes created by current user (most popular recipe is defined as the recipe that has the maximum number of view OR has a lot of ratings OR has a very high overall rating)
+    ✔ Creating a new recipe should send a notification to all admin users to view & approve it @done (15-07-31 00:31)
+  ✔ My Recipes (visible only to signed-in users) @done (15-07-31 00:32)
+    ✔ If the user is not signed-in he/she should be redirect to login page @done (15-07-31 00:32)
+    ✔ Reverse chronologial list of recipes created by current user @done (15-07-31 00:32)
+    ✔ List of most popular recipes created by current user (most popular recipe is defined as the recipe that has the maximum number of view OR has a lot of ratings OR has a very high overall rating) @done (15-07-31 00:32)
     ☐ Ability to edit a recipe
     ☐ List of recipes pending approval
-  ☐ Recipes pending approval (visible only to admin users)
-    ☐ If the user is not signed-in he/she should be redirect to login page
-    ☐ List of all the newly created recipes pending approval
-    ☐ List of all the newly created ingredients pending approval (an unapproved ingredient should be usable only be the person who originally created it, not the other users)
-    ☐ Approving a recipe should automatically approve all ingredients within it
+  ✔ Recipes pending approval (visible only to admin users) @done (15-07-31 00:32)
+    ✔ If the user is not signed-in he/she should be redirect to login page @done (15-07-31 00:32)
+    ✔ List of all the newly created recipes pending approval @done (15-07-31 00:32)
+    ✔ List of all the newly created ingredients pending approval (an unapproved ingredient should be usable only be the person who originally created it, not the other users) @done (15-07-31 00:32)
+    ✔ Approving a recipe should automatically approve all ingredients within it @done (15-07-31 00:32)
     ☐ Approving a recipe should send an email notification to the user who created it, informing him about the approval
   ☐ Signin page
   ☐ New user registration page
