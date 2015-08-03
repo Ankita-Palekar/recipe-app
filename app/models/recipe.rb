@@ -1,7 +1,9 @@
+include RecipesHelper
+
 class Recipe < ActiveRecord::Base
   include SessionsHelper
 
-  belongs_to :user
+  belongs_to :user, :foreign_key => 'creator_id'
   has_many :photos, :dependent => :destroy
   has_many :recipe_ingredients
   has_many :ingredients, :through => :recipe_ingredients
@@ -23,83 +25,61 @@ class Recipe < ActiveRecord::Base
   scope :approved, -> {where(:approved => true)}
   scope :order_by_date, -> {order('created_at desc')} 
   scope :order_by_aggregate_ratings, -> {order('aggregate_ratings desc')} 
-  scope :my_approved_recipes, ->(creator_id) {where(:creator_id => creator_id, :approved=> true)}
-  scope :my_rejected_recipes, ->(creator_id) {where(:creator_id => creator_id, :rejected=> true)}
-  scope :my_pending_recipes, ->(creator_id) {where(approved: false, rejected: false ,creator_id: creator_id)}
-  scope :my_all_recipes, ->(creator_id){where(creator_id: creator_id)}
   scope :ordered_by_count, -> {order("count desc")}
   scope :order_by_most_rated, -> {select("recipes.*, count(ratings.recipe_id) as count").joins(:ratings).group("recipes.id").ordered_by_count}
+  scope :pending, -> {where(approved: false, rejected: false)}
+  scope :rejected, -> {where(rejected: true)}
   scope :page_navigation, ->(limit, page_nav) {limit(limit).offset((page_nav-1)*limit) }
   scope :ratings_count_hash, -> {ratings.group(:ratings).count }
-  scope :pending, -> {where(approved: false, rejected: false)}
   scope :photos, -> {joins(:photos)}
   scope :include_photos, -> {includes(:photos)}
  
-  @@find_user_and_send_mail = lambda do |creator_id, function_name|
-    user = User.find_by_id(creator_id)
-    user.send_email_notification_for_recipes(:function_name => function_name)
-  end
 
-  # def create_recipe(ingredients_list:, photo_list:)
-  #   Recipe.transaction do 
-  #     self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
-  #     save!
-  #     total_calories = 0
-  #     ingredients_list.each do |ingre|
-  #       total_calories += ingre[:quantity].to_i / ingre[:std_quantity].to_i * ingre[:calories_per_quantity].to_i #calculating total calories in recipe
-  #         if ingre.has_key?(:ingredient_id)
-  #           ingredient = Ingredient.find(ingre[:ingredient_id])
-  #         else
-  #           ingredient = Ingredient.new(ingre.except(:quantity))
-  #           ingredient.creator_id = creator_id
-  #           ingredient.create_ingredient
-  #         end
-  #       recipe_ingredient = self.recipe_ingredients.new(quantity: ingre[:quantity])
-  #       recipe_ingredient.ingredient = ingredient  #will assign ingredient_id in join to the ingrdient_id
-  #       recipe_ingredient.save
-  #     end
-  #     photo_list.each do |photo|
-  #       photos.create(avatar: photo) #recipe.photos.create()
-  #     end
-  #     update_attributes(:total_calories => total_calories)
-  #   end
-  #   self
-  # end
 
-  def create_recipe(ingredients_list:, photo_list:, current_user:)
-    begin
-      raise 'ingredients cannot be empty'  if (ingredients_list.empty? || ingredients_list.nil?)
-      raise 'photos cannot be empty' if  (photo_list.nil? || photo_list.empty?) 
-      Recipe.transaction do 
-        self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
-        current_user.recipes << self
-        total_calories = 0
-        ingredients_list.each do |ingre|
-          total_calories += ingre[:quantity].to_i / ingre[:std_quantity].to_i * ingre[:calories_per_quantity].to_i #calculating total calories in recipe
-            if ingre.has_key?(:ingredient_id)
-              ingredient = Ingredient.find(ingre[:ingredient_id])
-            else
-              ingredient = current_user.ingredients.build(ingre.except(:quantity))
-              ingredient.create_ingredient_try 
-              raise ( "ingredient" +ingredient.name+" alreay exist") if !ingredient.valid?
-            end
-          recipe_ingredient = self.recipe_ingredients.new(quantity: ingre[:quantity])
-          recipe_ingredient.ingredient = ingredient  #will assign ingredient_id in join to the ingrdient_id
-          recipe_ingredient.save!
+
+  def create_recipe(ingredients_list:, photo_list:, current_user:) 
+    if (ingredients_list.empty? || ingredients_list.nil?)
+      self.errors[:messages] = "Ingredients cannot be empty"
+      return self
+    end
+    if (photo_list.nil? || photo_list.empty?) 
+      self.errors[:message] = "Recipe images cannot be empty"
+      return self
+    end
+    puts self.inspect
+    Recipe.transaction do 
+      self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
+      current_user.recipes << self
+      total_calories = 0
+      ingredients_list.each do |ingre|
+        total_calories += ingre[:quantity].to_i / ingre[:std_quantity].to_i * ingre[:calories_per_quantity].to_i #calculating total calories in recipe
+        if ingre.has_key?(:ingredient_id)
+          ingredient = Ingredient.find(ingre[:ingredient_id])
+        else
+          ingredient = current_user.ingredients.build(ingre.except(:quantity))
+          ingredient.create_ingredient
         end
-        photo_list.map { |photo| photos.create(avatar: photo)}
-        update_attributes(:total_calories => total_calories)
+        save_recipe_ingredient_join(ingredient, self, ingre[:quantity])
       end
-    rescue StandardError => e
-      self.errors[:message] = e.message
+      photo_list.map { |photo| photos.create(avatar: photo)}
+      update_attributes(:total_calories => total_calories)
+      send_admin_mail('recipe_created_email')
     end
     self
   end
 
-  def update_recipe(params:, photo_list:, ingredients_list:)
+  def update_recipe(photo_list:, ingredients_list:, current_user:)
+    if (ingredients_list.empty? || ingredients_list.nil?)
+      self.errors[:messages] = "Ingredients cannot be empty"
+      return self
+    end
+    if (photo_list.nil? || photo_list.empty?) 
+      self.errors[:message] = "Recipe images cannot be empty"
+      return self
+    end 
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)  
-      update_attributes(params)
+      # update_attributes(params)
       total_calories = 0
       ingredients_list.each do |ingre|
         total_calories += ingre[:quantity].to_i / ingre[:std_quantity].to_i * ingre[:calories_per_quantity].to_i #
@@ -107,31 +87,28 @@ class Recipe < ActiveRecord::Base
           ingredient = Ingredient.find(ingre[:ingredient_id])
           ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :ingredient_id))
         else
-          ingredient = Ingredient.new(ingre.except(:quantity))
-          ingredient.creator_id = creator_id
+           
+          ingredient = current_user.ingredients.build(ingre.except(:quantity))
           ingredient.create_ingredient
         end
-        RecipeIngredient.find_or_initialize_by_recipe_id_and_ingredient_id(:ingredient_id=>ingredient.id, :recipe_id => id).tap do |a|
-            a.quantity = ingre[:quantity]
-          end.save
+        save_recipe_ingredient_join(ingredient, self, ingre[:quantity])
       end
-      photo_list.each do |photo|
-        photos.create(avatar: photo) #recipe.photos.create()
-      end
+      photo_list.map { |photo| photos.create(avatar: photo)}
+      update_attributes(:total_calories => total_calories)
     end
     self
   end
 
   #for admin
   def self.list_pending_recipes(page_nav:, limit:)
-    Recipe.include_photos.pending.order('created_at desc').page_navigation(limit, page_nav)
+    Recipe.include_photos.pending.order_by_date.page_navigation(limit, page_nav)
   end
   
   def approve_recipe(current_user:)
     Recipe.transaction do
       update_attributes(:approved => true, :rejected=>false) 
       self.ingredients.map {|ingredient| ingredient.approve_ingredient}
-      @@find_user_and_send_mail.call(creator_id, 'recipe_approval_email')
+      send_approved_or_rejected_mail('recipe_approval_email', current_user)
     end if current_user.is_admin
     self
   end
@@ -139,7 +116,8 @@ class Recipe < ActiveRecord::Base
   def reject_recipe(current_user:)
     begin 
       update_attributes(:rejected => true, :approved => false) 
-      @@find_user_and_send_mail.call(creator_id, 'recipe_rejected_email')  
+      user = User.find(self.creator_id)
+      send_approved_or_rejected_mail('recipe_rejected_email',user)  
     end  if current_user.is_admin
     self
   end
@@ -149,49 +127,27 @@ class Recipe < ActiveRecord::Base
     memo = meal_class[meal_class.length-1]
     least_meal_class = ingredients_list.reduce(memo) do |memo, ingre|
       meal_class.index(memo) > meal_class.index(ingre[:meal_class]) ? ingre[:meal_class] : memo
-    end
-    
+    end   
   end
-
-  #user recipes related functions
-
-  # Recipe.list recipes function 
-  # list_type => order_by_date, order_by_aggregate_ratings, order_by_most_rated
-  # all_recipes are approved hence grouped together
-  # def self.list_home_page_recipes(list_type:, page_nav:, limit:)
-  #   Recipe.include_photos.approved.send(list_type).page_navigation(limit, page_nav)
-  # end
-
-   # list_type takes => order_by_date, order_by_aggregate_ratings, order_by_most_rated 
+  # list_type takes => order_by_date, order_by_aggregate_ratings, order_by_most_rated 
   #status => my_pending_recipes, my_approved_recipes, my_rejected_recipes
-
-  def self.list_recipes(list_type:, page_nav:, limit:,status: nil, creator_id: nil)
-    if status&&creator_id
-      Recipe.include_photos.send(status,creator_id).send(list_type).page_navigation(limit, page_nav)
+  def self.list_recipes(list_type:, page_nav:, limit:, status: nil, current_user:nil)
+    if status && current_user
+      current_user.recipes.include_photos.send(status).send(list_type).order_by_date.page_navigation(limit, page_nav)
     else
-      Recipe.include_photos.approved.send(list_type).page_navigation(limit, page_nav)
+      Recipe.include_photos.approved.send(list_type).order_by_date.page_navigation(limit, page_nav)
     end
   end
-
-  # def rate_recipe(rater_id:, ratings:)
-  #   Recipe.transaction do
-  #     if ((approved == true) && (rater_id != creator_id)) 
-  #       Rating.create(rater_id: rater_id, recipe_id: id, ratings: ratings)
-  #       update_attributes(:aggregate_ratings => get_recipe_aggregate_ratings)
-  #       return true
-  #     end
-  #   end
-  # end
-
 
   def rate_recipe(ratings:, current_user:)
-    rate = current_user.ratings.build(:ratings => ratings)
+    rate = current_user.ratings.build
     rate.recipe = self
+    rate_object = Rating.first_or_initialize(rate)
     transaction do 
-      rate.save 
+      rate_object.update_attributes(:ratings => ratings)
       update_attributes(:aggregate_ratings => get_recipe_aggregate_ratings)
-    end if rate.valid?
-    rate
+    end if current_user.id != self.creator_id
+    rate_object
   end
 
 
@@ -203,7 +159,7 @@ class Recipe < ActiveRecord::Base
   end
 
   def get_recipe_details
-    return {recipe_content: Recipe.includes(:ratings, :photos, :ingredients).where(:id => id).first,
+    return {recipe_content: Recipe.includes(:ratings, :photos, :ingredients).find(self),
       ratings_histogram: get_ratings_count_hash}
   end
 
@@ -211,15 +167,8 @@ class Recipe < ActiveRecord::Base
     ratings.group(:ratings).count 
   end
 
-  #user specific functions
-  # list_type takes => order_by_date, order_by_aggregate_ratings, order_by_most_rated 
-  #status => my_pending_recipes, my_approved_recipes, my_rejected_recipes
-  # def  self.list_my_recipes(status:, list_type:, creator_id:, page_nav:, limit:)
-  #   Recipe.send(status,creator_id).send(list_type).page_navigation(limit, page_nav)
-  # end
-
   def list_rated_users(ratings:)
-    Rating.joins('inner join users on users.id = ratings.rater_id').select("users.name as name, users.email as email").where(:recipe_id=>id, :ratings => ratings)
+    self.ratings.includes(:user).where(:ratings=> ratings)
   end
 
   def self.search(flag:, query:)
@@ -227,9 +176,4 @@ class Recipe < ActiveRecord::Base
     searched_recipes = searched_recipes.send flag, query
     searched_recipes
   end
-
-
-  # def self.list_pending_recipes_test(page_nav:, limit:)
-  #   Recipe.includes(:photos).pending.order('created_at desc').page_navigation(limit, page_nav)
-  # end
 end

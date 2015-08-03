@@ -5,8 +5,10 @@ module ReusableFunctionsTests
 		
 		@@photo_list =  [Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/test-image.jpg'), 'image/jpeg')]
 		
-		USER_HASH ={:name => 'zomato', :email => 'zomato@domain.com', :password => 'zomato123', :password_confirmation  => 'zomato123'}
+		USER_HASH ={:name => 'zomato', :email => 'zomato@domain.com',is_admin: true ,:password => 'zomato123', :password_confirmation  => 'zomato123'}
 		RECIPE_HASH = {:name => "Pudin hara juice" ,:description => "mint leaves", :serves => 2, :aggregate_ratings => 0, :creator_id=>2}
+
+		UPDATE_RECIPE_HASH = {:name => "xyz" ,:description => "mint leaves", :serves => 2, :aggregate_ratings => 0, :creator_id=>2}
 		def create_user_helper
 			User.create(USER_HASH)
 		end
@@ -37,9 +39,10 @@ module ReusableFunctionsTests
 
 		def create_recipe_helper
 			user = create_user_helper
+			user_copy = User.find_by_email('zomato@domain.com')
 			Rails::logger.debug @@photo_list.inspect
 		  recipe = Recipe.new(RECIPE_HASH)  
-		  recipe.create_recipe(ingredients_list: @@ingredients_list, photo_list: @@photo_list)    
+		  recipe.create_recipe(ingredients_list: @@ingredients_list, photo_list: @@photo_list, current_user: user_copy)    
 		  recipe
 		end
 

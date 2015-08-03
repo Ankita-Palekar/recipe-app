@@ -10,26 +10,26 @@
 		<% end %>
 		<!-- <div class="hero-unit"> -->
 		<div class="well">
-			<% if @recipe[:recipe_content].creator_id != @current_user.id %>
-				<a href="#" class="btn btn-primary btn-large rate-recipe" data-rec-id="<%= @recipe[:recipe_content].id %>">Rate </a>
+			<% if @recipe.creator_id != @current_user.id %>
+				<a href="#" class="btn btn-primary btn-large rate-recipe" data-rec-id="<%= @recipe.id %>">Rate </a>
 			<%end%>
 			<!-- <a  class="btn btn-primary btn-large">Rate</a> -->
-			<button type="button" class="btn btn-large btn-success disabled pull-right" disabled="disabled"><%= @recipe[:recipe_content].meal_class %></button>
-			<% if @recipe[:recipe_content].creator_id == @current_user.id%>
-				<%= link_to edit_recipe_path(@recipe[:recipe_content]) do %>
+			<button type="button" class="btn btn-large btn-success disabled pull-right" disabled="disabled"><%= @recipe.meal_class %></button>
+			<% if @recipe.creator_id == @current_user.id%>
+				<%= link_to edit_recipe_path(@recipe) do %>
 					<i class="icon-pencil pull-right edit-recipe"></i>	
 				<%end%>
 			<% end %>
-			<% (0...(@recipe[:recipe_content].aggregate_ratings.to_i)).each do %>
+			<% (0...(@recipe.aggregate_ratings.to_i)).each do %>
 				<i class="icon-star"></i>
 			<% end %>
 			<div class="page-header">
-		  	<h1 class="text-center"> <%= @recipe[:recipe_content].name.capitalize %> </h1>
+		  	<h1 class="text-center"> <%= @recipe.name.capitalize %> </h1>
 			</div>
 		   <div class="carousel-wrapper">
 	   		  <div id="myCarousel" class="carousel slide">
 	   		    <div class="carousel-inner">
-	   				  <% @recipe[:recipe_content].photos.each_with_index do |image, index| %>
+	   				  <% @recipe.photos.each_with_index do |image, index| %>
 	   				    	<% if index == 0 %> 
 	   				   			<div class="item active">
 	   				   	 	<% else %>
@@ -50,15 +50,15 @@
 					 <div class="recipe-details"> 	
 						<div class="serves ">
 							<h4 class="inline">Serves : </h4>
-							<p class="inline"><%= @recipe[:recipe_content].serves %></p>
+							<p class="inline"><%= @recipe.serves %></p>
 						</div>
 						<div class="total-calories ">
 							<h4 class="inline">Total Calories : </h4>
-							<p class="inline"><%= @recipe[:recipe_content].total_calories %></p>	
+							<p class="inline"><%= @recipe.total_calories %></p>	
 						</div>
 						<div class="aggregate-ratings ">
 							<h4 class="inline">Aggregate ratings : </h4>
-							<p class="inline"><%= @recipe[:recipe_content].aggregate_ratings %></p>	
+							<p class="inline"><%= @recipe.aggregate_ratings %></p>	
 						</div>
 					 </div>
 			 		
@@ -67,7 +67,7 @@
 			 			<div class="star-container pull-right">
 			 		  <div class="star-inner">
 			 		    <div class="rating">
-			 		      <span class="rating-num"><%= @recipe[:recipe_content].aggregate_ratings %></span>
+			 		      <span class="rating-num"><%= @recipe.aggregate_ratings %></span>
 			 		      <div class="rating-stars">
 			 		        <span><i class="active icon-star"></i></span>
 			 		        <span><i class="active icon-star"></i></span>
@@ -80,10 +80,10 @@
 			 		      </div>
 			 		    </div>
 			 		    <div class="histo">
-								<% @recipe[:ratings_histogram].sort.each do  |key,value|%>   	
+								<% @recipe_ratings_histogram.sort.each do  |key,value|%>   	
 				 		      <div class="<%= key.to_words %>  histo-rate">
 				 		        <span class="histo-star">
-				 		          <a href="/recipes/<%=@recipe[:recipe_content].id%>/<%= key %>/rated_users"><i class="active icon-star"></i> <%= key %> </a></span>
+				 		          <a href="/recipes/<%=@recipe.id%>/<%= key %>/rated_users"><i class="active icon-star"></i> <%= key %> </a></span>
 				 		        <span class="bar-block">
 				 		          <span id="bar-<%= key.to_words %>" class="bar">
 				 		            <span><%= value	 %></span>&nbsp;
@@ -109,13 +109,13 @@
 		  		<th>quantity</th>
 		  		<th>calories pers standard quantity</th>
 		  	</tr>
-				<% @recipe[:recipe_content].ingredients.each_with_index do |ingred, index| %>
+				<% @recipe.ingredients.each_with_index do |ingred, index| %>
 			  	<tr>
 			  		<td><%=link_to ingred.name, recipe_path("/search", flag: "ingredients", query: ingred.name) , method: "POST"   %></td>
 			  		<td><%=link_to ingred.meal_class, recipe_path("search", flag: "meal_class", query: ingred.meal_class), method: "POST"   %></td>
 			  		<td><%= ingred.std_measurement %></td>
 			  		<td><%= ingred.std_quantity %></td>
-			  		<td><%= @recipe[:recipe_content].recipe_ingredients[index].quantity %></td>
+			  		<td><%= @recipe.recipe_ingredients[index].quantity %></td>
 			  		<td><%= ingred.calories_per_quantity %></td>
 			  	</tr>
 				<% end %>
@@ -123,7 +123,7 @@
 		  <hr>
 		
 			<h4>Description : </h4>
-					<p><%= @recipe[:recipe_content].description %></p>
+					<p><%= @recipe.description %></p>
 		</div>
 	</div>
 </div>

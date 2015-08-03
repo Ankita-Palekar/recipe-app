@@ -1,8 +1,8 @@
 class Ingredient < ActiveRecord::Base
 	# has_and_belongs_to_many :recipes
-	belongs_to :user
+	belongs_to :user, :foreign_key => 'creator_id'
 	has_many :recipe_ingredients
-	has_many :recipes, :through => :recipe_ingredients #change naming otherwise @@SCREWED
+	has_many :recipes, :through => :recipe_ingredients 
 
   attr_accessible :name, :meal_class, :std_measurement, :std_quantity, :calories_per_quantity, :approved, :creator_id
 	MEAL_CLASS = %w(non-veg veg jain)
@@ -24,13 +24,8 @@ class Ingredient < ActiveRecord::Base
 	end
 
 
-	def create_ingredient_try
-		save if valid?
-		self
-	end
-
 	def update_ingredient(params:)
-		update_attributes(params)
+		update_attributes(params) 
 		self
 	end
 

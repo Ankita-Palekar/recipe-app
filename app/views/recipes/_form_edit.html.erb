@@ -2,7 +2,6 @@
   <% if @recipe.errors.any? %>
     <div id="error_explanation" class="control-group">
       <div class="alert alert-info">
-        <h2><%= pluralize(@recipe[].errors.count, "error") %> prohibited this recipe from being saved:</h2>
         <ul>
           <% @recipe.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>
@@ -40,7 +39,7 @@
   <div class="control-group">
     <label class="control-label" for="inputEmail">serves</label>
     <div class="controls">
-      <input class="span4" type="number" name="recipe[serves]" placeholder="4" required value="<%= @recipe.serves %>">
+      <input class="span4" type="number" name="recipe[serves]" placeholder="4" required value="<%= @recipe.serves %>" required>
     </div>
   </div>  
   
@@ -76,7 +75,7 @@
                 <label class="control-label" for="inputEmail" >ingredient name</label>
                 <div class="controls">
                   <input type="hidden"  name="ingredient[][ingredient_id]" value="<%= ing.id %>" required>
-                  <input class="span8" type="text" placeholder="ingredient name" value="<%= ing.name %>"  name="ingredient[][name]">
+                  <input class="span8" type="text" placeholder="ingredient name" value="<%= ing.name %>"  name="ingredient[][name]" required>
                   <input type="hidden"  name="ingredient[][creator_id]" value="<%= ing.creator_id %>" required>
                 </div>
               </div>
@@ -132,7 +131,7 @@
               <div class="control-group"> 
                 <label class="control-label" for="inputEmail">calories per std qty</label>
                 <div class="controls">
-                  <input type="text" name="ingredient[][calories_per_quantity]" required value="<%= ing.calories_per_quantity %>">
+                  <input type="text" name="ingredient[][calories_per_quantity]" required value="<%= ing.calories_per_quantity %>" required>
                 </div>
               </div>
           <%else%>
@@ -140,14 +139,14 @@
             <div class="control-group">
                 <label class="control-label" for="inputEmail" > <%= ing.name %></label>
                 <div class="controls">
-                  <input  type="text" placeholder="edit quantity"  value="<%= @recipe.recipe_ingredients[index].quantity %>"  name="ingredient[][quantity]">
+                  <input  type="text" placeholder="edit quantity"  value="<%= @recipe.recipe_ingredients[index].quantity %>"  name="ingredient[][quantity]" required>
                   <input type="hidden"  name="ingredient[][ingredient_id]" value="<%= ing.id %>" required>
                   <input type="hidden"  name="ingredient[][creator_id]" value="<%= ing.creator_id %>" required>
                   <input type="hidden"  name="ingredient[][std_quantity]" value="<%= ing.std_quantity %>" required>
                   
                   <input type="hidden"  name="ingredient[][calories_per_quantity]" value="<%= ing.calories_per_quantity %>" 
                   required>
-                  <input type="hidden"  name="ingredient[][meal_class]" value="<%= ing.meal_class %>" >
+                  <input type="hidden"  name="ingredient[][meal_class]" value="<%= ing.meal_class %>" required>
                 </div>
             </div>          
           <% end %>

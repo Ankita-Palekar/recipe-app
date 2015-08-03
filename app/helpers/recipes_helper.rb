@@ -41,42 +41,43 @@ module RecipesHelper
 			html_code+= '<a class="btn btn-warning btn-small disabled">approval pending</a>' if (!rec.approved && !rec.rejected)
 			html_code+= '<a class="btn btn-danger btn-small disabled">rejected</a>' if rec.rejected 
 			html_code+='<button type="button" class="btn btn-medium btn-success disabled pull-right" disabled="disabled">' + rec.meal_class + '</button><h4 class="text-center">' + link_to(rec.name.capitalize, rec) + '</h4><hr><div class="row"><div class="span3 image-div">'
-			html_code += (!rec.photos.empty? ? link_to(image_tag(rec.photos.first.avatar.url(:thumb), :class => "center-block img-responsive image-rounded")) : "") 
-			html_code += '</div><div class="span2"><p class="text-justify">' + rec.description.truncate(60) + '</p> </div></div><hr><span> created about ' + time_ago_in_words(rec.created_at) +' ago </span><button class="btn btn-mini btn-primary pull-right rate-recipe" type="button" data-rec-id="' + rec.id.to_s + '">Rate</button>'
-				if rec.creator_id == @current_user.id
-					html_code+= link_to('', edit_recipe_path(rec), :class => 'icon-pencil pull-right edit-recipe')
-				end
-				html_code+= '</div></div>'
-
+			html_code += (!rec.photos.empty? ? link_to(image_tag(rec.photos.first.avatar.url(:thumb), :class => "image-rounded")) : "") 
+			html_code += '</div><div class="span2"><p class="text-justify">' + rec.description.truncate(60) + '</p> </div></div><hr><span> created about ' + time_ago_in_words(rec.created_at) +' ago </span>'
+			
+			if rec.creator_id == @current_user.id
+				html_code+= link_to('', edit_recipe_path(rec), :class => 'icon-pencil pull-right edit-recipe')
+			end
+			html_code+= '</div></div>'
   	end 
  		html_code += "</div>"
  	end if object_list != nil
  	html_code
 	end
 
-
 # type will be my recipes or general recipes
 	def show_recipe_list(status:, page_nav:, limit:)
-		creator_id = nil
+		
 		status_call = nil
 		case status
 			when "my_pending_recipes"
-				status_call = status
+				status_call = 'pending'
 				list_type = "order_by_date"
-				creator_id = @current_user.id
+				@current_user = current_user
 	    when  "my_rejected_recipes"
-	    	status_call = status
+	    	status_call = "rejected"
 	    	list_type = "order_by_date"
-	    	creator_id = @current_user.id
+	    	@current_user = current_user
 	    when  "my_approved_recipes"
-	    	status_call = status
+	    	status_call = "approved"
 	    	list_type = "order_by_date"
 	    	creator_id = @current_user.id
 	    when  "my_top_rated_recipes"
-	    	status_call = "my_approved_recipes"
+	    	@current_user = current_user
+	    	status_call = "approved"
 	    	list_type = "order_by_aggregate_ratings"
 	    when  "my_most_rated_recipes"
-	    	status_call = "my_approved_recipes"
+	    	@current_user = current_user
+	    	status_call = "approved"
 	    	list_type = "order_by_most_rated"
 	    when "top_rated_recipes"
 	    	list_type = "order_by_aggregate_ratings"
@@ -84,12 +85,46 @@ module RecipesHelper
 	    	list_type = "order_by_most_rated"
 	    when "my_all_recipes"
 	    	list_type = "order_by_date"
-	    						
+	    	@current_user = current_user
 		end
 
-		recipe_list = Recipe.list_recipes(status: status_call, list_type: list_type, page_nav: page_nav, limit: limit, creator_id: creator_id)
+		recipe_list = Recipe.list_recipes(status: status_call, list_type: list_type, page_nav: page_nav, limit: limit, current_user: @current_user)
 		recipe_list 
 		# html_code =  make_html_code(recipe_list)
 		# html_code
 	end
+
+	# def check_if_ingredient_photo_list_empty?(ingredients_list, photo_list, recipe)
+	#   if (ingredients_list.empty? || ingredients_list.nil?)
+	#     recipe.errors[:messages] = "Ingredients cannot be empty"
+	#     return recipe
+	#   end
+	#   if (photo_list.nil? || photo_list.empty?) 
+	#     recipe.errors[:message] = "Recipe images cannot be empty"
+	#     return recipe
+	#   end
+
+	# end
+
+	def save_recipe_ingredient_join(ingredient, recipe, quantity)
+	  recipe_ingredient = recipe.recipe_ingredients.build
+	  recipe_ingredient.ingredient = ingredient  #will assign ingredient_id in join to the ingrdient_id
+	  rec_ing = RecipeIngredient.first_or_initialize(recipe_ingredient) 
+	  rec_ing.update_attributes(quantity: quantity)
+	end
+end
+
+
+
+def send_admin_mail(function_name)
+  admin_list  = User.get_admins 
+  admin_list.each do |admin|
+    user = User.find_by_id(admin.id)
+    user.admin_notify_email(:function_name => function_name)
+  end
+end
+
+def send_approved_or_rejected_mail(function_name, creator)
+  user = User.find(creator.id)
+  user.user_notify_email(:function_name => function_name)
 end

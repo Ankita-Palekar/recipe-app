@@ -11,7 +11,17 @@
  */
  	//= require_self
   //= require_tree 
-  .search-container{
+  //= require font-awesome
+
+.signup-form, .login-form
+{
+  margin: 0 auto;
+  display: block;
+  width: 60%;
+}
+
+
+.search-container{
 	margin: 0 auto;
 	display: block;
 }
@@ -55,6 +65,7 @@ margin: auto;
 .image-div img{
 	margin: 0 auto;
 	display: block;
+  border-radius: 20px;
 }
 
 .recipe-container{
@@ -178,4 +189,23 @@ body {
 }
 
 
+.spinner{
+  display: none;
+}
+.star-rating{
+  display: relative;
+}
+.star-rate-content{
+  margin: 0 auto;
+  display: block;
+}
+
+
+.star-rate:hover, .star-rate:hover ~ .star-rate{
+    color: #ffd700
+  }
 /*histogram code end
+
+
+
+/*spinner code start*/

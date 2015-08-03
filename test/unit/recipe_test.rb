@@ -16,9 +16,12 @@ class RecipeTest < ActiveSupport::TestCase
   test "update recipe" do
     params = {name: "xyz"}
     recipe = create_recipe_helper
+
     recipe_copy = Recipe.find(recipe.id)
     assert(recipe_copy.present?, 'recipe not saved') 
-    recipe_copy.update_recipe(params:params, photo_list: @@photo_list, ingredients_list: @@ingredients_list)
+    user_copy = User.find_by_email('zomato@domain.com')
+    recipe.update_attributes(UPDATE_RECIPE_HASH)
+    recipe_copy.update_recipe(photo_list: @@photo_list, ingredients_list: @@ingredients_list, current_user: user_copy)
     assert(recipe.ingredients.count > 0,'ingredients not inserted')
     assert(recipe.photos.count ,'images not inserted') #--TODO
     assert_equal(15600, recipe.total_calories, 'total calorie calculation wrong')
@@ -30,19 +33,20 @@ class RecipeTest < ActiveSupport::TestCase
     recipe = create_recipe_helper 
     recipe_copy = Recipe.find(recipe.id)
     assert(recipe_copy.present?, 'recipe not saved') 
-    recipe_copy.rate_recipe(rater_id: 3, ratings: 4)
-    assert(recipe_copy.ratings,'recipe not rated')
+    current_user = User.find_by_email('zomato@domain.com')
+    rate_object = recipe_copy.rate_recipe( ratings: 4, current_user: current_user)
+    assert(rate_object.persisted?,'recipe not rated')
   end
 
   test "approve recipe" do 
     recipe = create_recipe_helper
     recipe_copy = Recipe.find(recipe.id)
     assert_not_nil(recipe_copy, 'recipe not saved')
-    recipe.approve_recipe
-    assert(recipe.approved,'recipe not approved')
+    current_user = User.find_by_email('zomato@domain.com')
+    recipe.approve_recipe(current_user: current_user)
+    assert(recipe_copy.approved,'recipe not approved')
     user = User.find_by_id(recipe.creator_id)
-    assert_not_nil(user, 'user is nil') 
-    user.send_email_notification_for_recipes(:function_name => 'recipe_approval_email')
+    assert_not_nil(user.present?, 'user is nil') 
     last_email = ActionMailer::Base.deliveries.last
     assert_not_nil(last_email, 'email buffer blank')
   end
@@ -56,11 +60,11 @@ class RecipeTest < ActiveSupport::TestCase
     recipe = create_recipe_helper
     recipe_copy = Recipe.find(recipe.id)
     assert_not_nil(recipe_copy, 'recipe not saved')
-    recipe_copy.reject_recipe
-    assert(recipe_copy.rejected, 'recipe reject failed')
+    current_user = User.find_by_email('zomato@domain.com')
+    recipe.approve_recipe(current_user: current_user)
+    assert(recipe_copy.rejected,'recipe not rejected')
     user = User.find_by_id(recipe.creator_id)
-    assert_not_nil(user, 'user is nil')
-    user.send_email_notification_for_recipes(:function_name => 'recipe_rejected_email')
+    assert_not_nil(user.present?, 'user is nil') 
     last_email = ActionMailer::Base.deliveries.last
     assert_not_nil(last_email, 'email buffer blank')
   end
@@ -79,7 +83,9 @@ class RecipeTest < ActiveSupport::TestCase
   test "list_my_top_rated_recipes" do
     make_join_table
     rate_randomly
-    list = Recipe.list_recipes(list_type: 'order_by_aggregate_ratings', status: 'my_approved_recipes' , page_nav: 1, limit: 5, creator_id: 1  )
+    current_user = User.find_by_email('zomato@domain.com')
+
+    list = Recipe.list_recipes(list_type: 'order_by_aggregate_ratings', status: 'my_approved_recipes' , page_nav: 1, limit: 5, current_user: current_user )
     last_date = Time.zone.now
     last_count = 5
     list.each_with_index do |rec, index|
@@ -93,7 +99,8 @@ class RecipeTest < ActiveSupport::TestCase
   test "list_my_most_rated_recipes" do
     make_join_table
     rate_randomly
-    list = Recipe.list_recipes(list_type: 'order_by_most_rated', status: 'my_approved_recipes' , page_nav: 1, limit: 5, creator_id: 1)
+    current_user = User.find_by_email('zomato@domain.com')
+    list = Recipe.list_recipes(list_type: 'order_by_most_rated', status: 'my_approved_recipes' , page_nav: 1, limit: 5, current_user: current_user)
     last_count = Rating.count.to_i
     list.each_with_index do |rec, index|
       assert(rec.approved, 'not approved recipe listed')
@@ -106,7 +113,9 @@ class RecipeTest < ActiveSupport::TestCase
   test "list_my_pending recipes" do
     make_join_table
     rate_randomly
-    list = Recipe.list_recipes(list_type: 'order_by_date', status: 'my_pending_recipes' , page_nav: 1, limit: 5, creator_id: 1)
+    current_user = User.find_by_email('zomato@domain.com')
+
+    list = Recipe.list_recipes(list_type: 'order_by_date', status: 'pending' , page_nav: 1, limit: 5, current_user: current_user)
     list.each_with_index do |rec, index|
       assert(!rec.approved, 'approved error')
     end
@@ -116,8 +125,9 @@ class RecipeTest < ActiveSupport::TestCase
   test "list_my_approved_recipes" do
     make_join_table
     rate_randomly
+    current_user = User.find_by_email('zomato@domain.com')
      
-    list = Recipe.list_recipes(list_type: 'order_by_date', status: 'my_approved_recipes' , page_nav: 1, limit: 5, creator_id: 1)  
+    list = Recipe.list_recipes(list_type: 'order_by_date', status: 'approved' , page_nav: 1, limit: 5,   current_user: current_user)  
       list.each_with_index do |rec, index|
       assert(rec.approved, 'not approved ')
     end
@@ -126,7 +136,9 @@ class RecipeTest < ActiveSupport::TestCase
   test "list_my_rejected_recipes" do
     make_join_table
     rate_randomly
-    list = Recipe.list_recipes(status: 'my_rejected_recipes',creator_id: 1, list_type: 'order_by_date', page_nav: 1, limit: 5)
+    current_user = User.find_by_email('zomato@domain.com')
+
+    list = Recipe.list_recipes(status: 'my_rejected_recipes',current_user: current_user, list_type: 'order_by_date', page_nav: 1, limit: 5)
     list.each_with_index do |rec, index|
       assert(rec.rejected, 'rejected error')
     end
@@ -135,7 +147,7 @@ class RecipeTest < ActiveSupport::TestCase
   test "list_top_rated_recipes" do
     make_join_table
     rate_randomly
-    list = Recipe.list_recipes(list_type: 'order_by_date', page_nav: 1, limit: 5)
+    list = Recipe.list_recipes(list_type: 'order_by_aggregate_ratings', status: 'approved' ,page_nav: 1, limit: 5)
     last_rate = 5
     list.each_with_index do |rec, index|
       assert(rec.approved, 'approval error')
@@ -149,7 +161,9 @@ class RecipeTest < ActiveSupport::TestCase
   test "list_most_rated_recipes" do
     make_join_table
     rate_randomly
-    list = Recipe.list_recipes(status: 'my_approved_recipes',creator_id: 1, list_type: 'order_by_most_rated', page_nav: 1, limit: 5)
+    current_user = User.find_by_email('zomato@domain.com')
+    assert(current_user.present?, 'user not present')
+    list = Recipe.list_recipes(list_type: 'order_by_most_rated', page_nav: 1, limit: 5, current_user: current_user)
     last_count = Rating.count.to_i
     list.each_with_index do |rec, index|
       assert(rec.approved, 'approval error')

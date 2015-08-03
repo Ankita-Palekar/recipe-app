@@ -1,12 +1,10 @@
 <%= form_for(@recipe, :html => { :multipart => true , :class => 'form-horizontal'}) do |f| %>
   <% if @recipe.errors.any? %>
     <div id="error_explanation" class="control-group">
-      <div class="alerts alert-info">
-      <ul>
+      <div class="alerts alert-danger">
         <% @recipe.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+          <p class="text-center"><%= msg %></p>
         <% end %>
-      </ul>
       </div>
     </div>
   <% end %>
