@@ -200,8 +200,10 @@ body {
   display: block;
 }
 
-
-.star-rate:hover, .star-rate:hover ~ .star-rate{
+.star-rate-bock{
+  font-size: 23px;
+}
+.fill-star, .star-rate:hover, .star-rate:hover ~ .star-rate{
     color: #ffd700
   }
 /*histogram code end

@@ -12,20 +12,20 @@ class User < ActiveRecord::Base
   validates :name, :presence => true
   
   def user_notify_email(function_name:)
-    UserMailer.send function_name, self.email
+    UserMailer.send(function_name, self.email).deliver
     # UserMailer.recipe_approval_email(email).deliver
   end
 
   def admin_notify_email(function_name:)
-    AdminMailer.send function_name, self.email
+    AdminMailer.send(function_name, self.email).deliver
   end
   
   def self.get_admins
     User.where(:is_admin=>true)
   end
 
-  def create_user(params_list:)
-    create!(params_list)
+  def create_user
+    save
     self
   end
 

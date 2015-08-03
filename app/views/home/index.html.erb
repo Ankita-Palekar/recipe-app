@@ -72,7 +72,7 @@
 						       		<h3 class="text-center"> <%=link_to rec.name.capitalize, rec %> </h3>
 						       		<hr>
 						       		<div class="image-div">
-						       			<%=link_to image_tag  rec.photos.first.avatar.url(:medium) if !rec.photos.empty?%>
+						       			<%=link_to image_tag  rec.photos.first.avatar.url(:medium), :class => "img-rounded" if !rec.photos.empty?%>
 						       		</div>
 						       		<p class="text-center"><%=rec.description.truncate(60) %></p>
 						       		<hr>
@@ -98,7 +98,7 @@
 			       		</span>
 						 		<h4 class="text-center"> <%=link_to rec.name.capitalize, rec %> </h4>
 						 		<hr>
-						 		<%=link_to image_tag  rec.photos.first.avatar.url(:medium) if !rec.photos.empty?%>
+						 		<%=link_to image_tag  rec.photos.first.avatar.url(:medium), :class =>"img-rounded" if !rec.photos.empty?%>
 						 		<hr>
 						 		<strong class="pull-right"> created <%=time_ago_in_words(rec.created_at)  %> ago</strong>
 						 	</div>

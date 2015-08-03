@@ -10,12 +10,15 @@ class Recipe < ActiveRecord::Base
   has_many :ratings, :dependent => :destroy
   attr_accessible :name, :image_links, :description, :meal_class, :total_calories, :aggregate_ratings, :serves, :approved, :creator_id, :rejected
  
+  
   validates :name, :presence => true
   validates :description, :presence => true
   validates :meal_class, :presence => true
   validates :serves, :numericality => true
   validates :aggregate_ratings, :numericality => true
   validates :creator_id, :presence => true
+
+  before_validation :strip_whitespace, :only => [:name, :description]
 
   scope :free_text, ->(query) {where("name ILIKE ?", "%#{query}%")}
   scope :aggregate_ratings, ->(ratings) {where(aggregate_ratings: ratings)}
@@ -175,5 +178,11 @@ class Recipe < ActiveRecord::Base
     searched_recipes = Recipe.scoped
     searched_recipes = searched_recipes.send flag, query
     searched_recipes
+  end
+
+ private
+  def strip_whitespace
+    self.name = self.name.strip
+    self.description = self.description.strip
   end
 end

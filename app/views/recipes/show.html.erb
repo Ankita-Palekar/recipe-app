@@ -10,22 +10,31 @@
 		<% end %>
 		<!-- <div class="hero-unit"> -->
 		<div class="well">
+
+		<div>
 			<% if @recipe.creator_id != @current_user.id %>
-				<a href="#" class="btn btn-primary btn-large rate-recipe" data-rec-id="<%= @recipe.id %>">Rate </a>
+				<a href="#" class="btn btn-primary btn-large rate-recipe" data-rec-id="<%= @recipe.id %>">Rate This Recipe </a>
 			<%end%>
-			<!-- <a  class="btn btn-primary btn-large">Rate</a> -->
-			<button type="button" class="btn btn-large btn-success disabled pull-right" disabled="disabled"><%= @recipe.meal_class %></button>
+			
 			<% if @recipe.creator_id == @current_user.id%>
 				<%= link_to edit_recipe_path(@recipe) do %>
-					<i class="icon-pencil pull-right edit-recipe"></i>	
+					<i class="fa fa-pencil fa-3x edit-recipe"></i>	
 				<%end%>
 			<% end %>
-			<% (0...(@recipe.aggregate_ratings.to_i)).each do %>
-				<i class="icon-star"></i>
-			<% end %>
+			<button type="button" class="btn btn-large btn-success disabled pull-right" disabled="disabled"><%= @recipe.meal_class %></button>
+		</div>
+		<div>
+			<div class="star-rate-bock pull-right">
+				<% (0...(@recipe.aggregate_ratings.to_i)).each do %>
+					<i class="fa fa-star fill-star fa-1x"></i>
+				<% end %>
+			</div>
 			<div class="page-header">
 		  	<h1 class="text-center"> <%= @recipe.name.capitalize %> </h1>
 			</div>
+			
+		</div>
+			<!-- <a  class="btn btn-primary btn-large">Rate</a> -->
 		   <div class="carousel-wrapper">
 	   		  <div id="myCarousel" class="carousel slide">
 	   		    <div class="carousel-inner">
@@ -57,7 +66,7 @@
 							<p class="inline"><%= @recipe.total_calories %></p>	
 						</div>
 						<div class="aggregate-ratings ">
-							<h4 class="inline">Aggregate ratings : </h4>
+							<h4 class="inline">Aggregate Ratings : </h4>
 							<p class="inline"><%= @recipe.aggregate_ratings %></p>	
 						</div>
 					 </div>

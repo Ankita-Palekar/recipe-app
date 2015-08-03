@@ -6,4 +6,5 @@ class Rating < ActiveRecord::Base
   validates :rater_id, presence:true
   validates :recipe_id, presence:true
   validates :rater_id, :uniqueness => {:scope => :recipe_id, :message => "you have already rated this recipe"}
+   
 end

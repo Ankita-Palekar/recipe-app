@@ -27,13 +27,15 @@ module ReusableFunctionsTests
 		def rate_randomly
 			user_list = User.pluck(:id)
 			recipes = Recipe.find(:all, :limit => 5) 
+			create_user_helper
+			current_user = User.find_by_email('zomato@domain.com')
 			recipes.each do |rec|
 				Rails::logger.debug user_list
-	 			rec.approve_recipe
+	 			rec.approve_recipe(:current_user => current_user)
 				rater_id = user_list.shuffle.first
 				ratings = rand(0..5)	
 				recipe_id = rec.id
-				rec.rate_recipe(rater_id: rater_id, ratings: ratings) if (Rating.where(recipe_id: recipe_id, rater_id: rater_id)).empty?
+				rec.rate_recipe(current_user: current_user, ratings: ratings) if (Rating.where(recipe_id: recipe_id, rater_id: rater_id)).empty?
 			end
 		end
 
@@ -45,6 +47,5 @@ module ReusableFunctionsTests
 		  recipe.create_recipe(ingredients_list: @@ingredients_list, photo_list: @@photo_list, current_user: user_copy)    
 		  recipe
 		end
-
 	end
 end	

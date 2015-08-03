@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(:name => params[:name], :email=> params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation])
-    if @user.save
+    if @user.create_user
       flash[:notice] = "Sucessfully signed up! you can login now"
       redirect_to '/login'
     else

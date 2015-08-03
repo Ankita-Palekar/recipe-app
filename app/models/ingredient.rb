@@ -15,9 +15,11 @@ class Ingredient < ActiveRecord::Base
 	validates :calories_per_quantity, :numericality => true, :presence => true
 	validates :creator_id, :presence => true
 	validates :name, :uniqueness => true
+ 
 
-	 scope :approved_ingredients, -> {where(:approved => true)}
-	 scope :my_unapproved_ingredients, ->(creator_id) {where(:approved => false, creator_id: creator_id )}
+	scope :approved_ingredients, -> {where(:approved => true)}
+	scope :my_unapproved_ingredients, ->(creator_id) {where(:approved => false, creator_id: creator_id )}
+	
 	def create_ingredient
 		save
 		self

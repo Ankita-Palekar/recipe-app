@@ -41,7 +41,8 @@
 	    	})
 	    	 .done(function(response, textStatus, jqXHR) { 
     	 	  	$('.spinner').css('display','none')
-    	 	  	$('.notice-message').html(response.notice)
+    	 	  	 console.log(response)
+    	 	  	$('.notice-message').html(response.message)
 	    	 })
 	    	 .fail(function() {
 	    	    // alert( "error" );

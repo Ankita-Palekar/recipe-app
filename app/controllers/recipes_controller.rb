@@ -116,8 +116,11 @@ include RecipesHelper
     @recipe = Recipe.find(params[:recipe][:id]) 
     respond_to do |format|
       begin
-        notice = @recipe.approve_recipe(current_user: @current_user) ? 'successfully approved' : 'could not be approved'
+        notice = {}
+        notice[:message] = @recipe.approve_recipe(current_user: @current_user) ? 'successfully approved' : 'could not be approved'
+        format.html {redirect_to @recipe , notice: notice}
         format.json { render json: @recipe , notice: notice} 
+
       end if params[:recipe][:approved] == "true"
     end
   end
@@ -127,8 +130,10 @@ include RecipesHelper
     @recipe = Recipe.find(params[:recipe][:id]) 
     respond_to do |format|
       begin
-        notice = @recipe.reject_recipe(current_user: @current_user) ? 'successfully rejected' : 'could not be rejected'
-        format.json { render json: @recipe , notice: notice} 
+        notice = {}
+        notice[:message] = @recipe.reject_recipe(current_user: @current_user) ? 'successfully rejected' : 'could not be rejected'
+        format.html {redirect_to @recipe , notice: notice}
+        format.json { render json: @recipe , notice: notice}  
       end if(params[:recipe][:rejected] == "true")
     end
   end
@@ -139,8 +144,11 @@ include RecipesHelper
     @recipe = Recipe.find(params[:recipe][:id]) 
     respond_to do |format|
       @rate = @recipe.rate_recipe(current_user: @current_user, ratings: params[:recipe][:ratings])
-      @rate[:notice] = @rate.changed? ? "successfully rated" : @rate.errors.full_messages.first
-      format.json {render json: @rate, status: :created, location: @recipe }
+      puts @rate.inspect
+      notice = {}
+      notice[:message] = @rate.persisted? ? "successfully rated" : "could not rate"
+      format.html {redirect_to @recipe , notice: notice}
+      format.json {render json: notice, status: :created}
     end
   end
 
@@ -156,7 +164,7 @@ include RecipesHelper
     respond_to do |format|  
       @recipe.update_recipe(ingredients_list: ingredients_list, photo_list:params[:avatar], current_user:@current_user)
       if @recipe.valid?
-        format.html { redirect_to @recipe, notice: 'Recipe was successfully edited.'}
+        format.html { redirect_to @recipe, notice: 'Recipe was successfully edited'}
       else
         format.html { render action: "edit" }
         format.json { render json: @recipe.errors, status: :unprocessable_entity }
