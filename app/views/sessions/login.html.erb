@@ -2,9 +2,8 @@
   <div class="row">
     <div class="login-form">
       <div class="well">
-        <h2 class="page-header text-center">Login To Use This app</h2>
+        <h2 class="page-header text-center">Login To Create New recipes </h2>
         <form class="form-horizontal" action="/login" method="POST">
-
           <% if  flash[:notice] %>
             <div class='control-group'>
               <div class='alert alert-error'>
@@ -31,7 +30,7 @@
           </div>
           <div class="control-group inline">
             <div class="controls">
-              <a  href="/signup" class="btn btn-primary">Sign Up</a>
+              <%= link_to("Sign Up", signup_path , :class => 'btn btn-primary') %>
             </div>
           </div>
         </form>

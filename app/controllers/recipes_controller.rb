@@ -30,8 +30,6 @@ include RecipesHelper
       @recipe_details = Recipe.find(params[:id]).get_recipe_details
       @recipe = @recipe_details[:recipe_content]
       @recipe_ratings_histogram = @recipe_details[:ratings_histogram]
-
-
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @recipe }

@@ -114,7 +114,7 @@ class Recipe < ActiveRecord::Base
   end
 
   # list_type takes => order_by_date, order_by_aggregate_ratings, order_by_most_rated 
-  #status => my_pending_recipes, my_approved_recipes, my_rejected_recipes
+  #status => pending, approved, rejected
   def self.list_recipes(list_type:, page_nav:, limit:, status: nil, current_user:nil)
     if status && current_user
       current_user.recipes.include_photos.send(status).send(list_type).order_by_date.page_navigation(limit, page_nav)

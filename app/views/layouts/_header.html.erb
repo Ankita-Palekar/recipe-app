@@ -9,15 +9,14 @@
       <a class="brand" href="/">Foodholic</a>
       <div class="nav-collapse collapse navbar-responsive-collapse">
         <ul class="nav">
-          <% if is_admin? %>
-          	
-          <li><a href="/recipes/pending">admin-pending</a></li>
+          <% if logged_in? && is_admin? %>
+            <li><a href="/recipes/pending">admin-pending</a></li>
           <% end %>
           <li><a href="/recipes/top_rated_recipes">top rated recipes</a></li>
           <li><a href="/recipes/most_rated_recipes">most rated recipes</a></li>
           <li><%= link_to 'Create Recipe', new_recipe_path %></li>
           <li><a href="/search">Search</a></li>
-
+          <% if logged_in? %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Recipes<b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -28,15 +27,24 @@
               <li><a href="/recipes/my_approved_recipes">My Approved recipes</a></li>
             </ul>
           </li>
+          <% end %>
         </ul>
        <!--  <form class="navbar-search pull-left" action="">
           <input type="text" class="search-query span2" placeholder="Search">
            
         </form-->
+
         <ul class="nav pull-right">
-          <li>
-            <%= link_to "Log out", logout_path, method: "delete" %>
-          </li> 
+          <%  if !logged_in? %>
+            <li><%= link_to "login", login_path %></li>
+          <% else %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= "#{@current_user.name }" %><b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>  <%= link_to "Log out", logout_path, method: "delete" %></li>
+              </ul>
+            </li>
+          <% end %>
         </ul>
       </div><!-- /.nav-collapse -->
     </div>
