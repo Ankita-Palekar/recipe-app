@@ -10,21 +10,23 @@
       <div class="nav-collapse collapse navbar-responsive-collapse">
         <ul class="nav">
           <% if user_signed_in? && is_admin? %>
-            <li><a href="/recipes/pending">Admin Pending Recipes</a></li>
+            <li>
+              <%= link_to("Admin Pending Recipes", admin_pending_recipes_path) %>
+            </li>
           <% end %>
-          <li><a href="/recipes/top_rated_recipes">Top Rated Recipes</a></li>
-          <li><a href="/recipes/most_rated_recipes">Most Rated Recipes</a></li>
-          <li><a href="/search">Search</a></li>
-          <li><%= link_to 'Create Recipe', :controller=> :recipes, :action => :new %></li>
+          <li> <%= link_to("Top Rated Recipes", top_rated_recipes_path) %></li>
+          <li><%= link_to("Most Rated Recipes", most_rated_recipes_path) %></li>
+          <li><%= link_to("Search", search_recipes_path)%></li>
+          <li><%= link_to 'Create Recipe', new_recipe_path %></li>
           <% if user_signed_in? %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Recipes<b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="/recipes/my_pending_recipes">My pending recipes</a></li>
-              <li><a href="/recipes/my_rejected_recipes">My rejected recipes</a></li>
-              <li><a href="/recipes/my_most_rated_recipes">My Most rated recipes</a></li>
-              <li><a href="/recipes/my_top_rated_recipes">My top rated recipes</a></li>
-              <li><a href="/recipes/my_approved_recipes">My Approved recipes</a></li>
+              <li> <%= link_to("My Pending Recipe", my_pending_recipes_path) %></li>
+              <li><%= link_to("My Rejected Recipes", my_rejected_recipes_path) %></li>
+              <li><%= link_to("My Most Rated Recipes", my_most_rated_recipes_path ) %></li>
+              <li><%= link_to("My Top Rated Recipes", my_top_rated_recipes_path) %></li>
+              <li><%= link_to("My Approved Recipes", my_approved_recipes_path) %></li>
             </ul>
           </li>
           <% end %>

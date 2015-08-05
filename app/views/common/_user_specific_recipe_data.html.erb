@@ -4,6 +4,7 @@
 		<a href="#" class="btn btn-primary btn-large rate-recipe" data-rec-id="<%= @recipe.id %>">Rate This Recipe </a>
 	<%end%>
 	<% if @recipe.creator_id == @current_user.id%>	
-		<%= link_to("", {:controller => :recipes, :action => :edit, :id => @recipe.id} ,{:class => "fa fa-pencil fa-3x edit-recipe"})%>
+		<%# link_to("", {:controller => :recipes, :action => :edit, :id => @recipe.id} ,{:class => "fa fa-pencil fa-3x edit-recipe"})%>
+		<%= link_to("", edit_recipe_path , :class => "fa fa-pencil fa-3x edit") %>
 	<% end %>
 <% end %>

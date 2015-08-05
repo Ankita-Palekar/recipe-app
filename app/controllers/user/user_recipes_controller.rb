@@ -34,12 +34,9 @@ include RecipesHelper
     params[:ingredient] ||= []
     params[:existing_ingredient] ||= []
     params[:avatar] ||=[]
-
     respond_to do |format|
-      path = "/recipes/#{@recipe.id}"
-      
-      format.html { redirect_to path, notice: 'Add ingredients' } if (params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?
-      format.html { redirect_to path, notice: 'Add images' } if (params[:avatar].to_a).empty?
+      format.html { redirect_to @recipe, notice: 'Add ingredients' } if (params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?
+      format.html { redirect_to @recipe, notice: 'Add images' } if (params[:avatar].to_a).empty?
       @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: params[:avatar].compact)
       if @recipe.persisted?
         format.html { redirect_to path, notice: 'Recipe created successfully' }
@@ -80,9 +77,7 @@ include RecipesHelper
       @recipe.update_attributes(params[:recipe])
       @recipe.update_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a), photo_list:params[:avatar], current_user:@current_user)
       if @recipe.valid?
-        path = "/recipes/#{@recipe.id}"  #@@TODO find dynamic instad of hard coding
-        puts path
-        format.html { redirect_to path, notice: 'Recipe was successfullt edited'}
+        format.html { redirect_to @recipe, notice: 'Recipe was successfullt edited'}
       else
         format.html { render action: "edit" }
         format.json { render json: @recipe.errors, status: :unprocessable_entity }

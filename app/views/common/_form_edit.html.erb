@@ -1,4 +1,5 @@
-<%= form_for("/recipes",:options => {method: :post, action: :edit, :id => @recipe.id}, :html => { :multipart => true , :class => 'form-horizontal'}) do |f| %>
+<%# form_for("/recipes",:options => {method: :post, action: :edit, :id => @recipe.id}, :html => { :multipart => true , :class => 'form-horizontal'}) do |f| %>
+<%= form_for(@recipe, :html => { :multipart => true , :class => 'form-horizontal'}) do |f| %>
   <% if @recipe.errors.any? %>
     <div id="error_explanation" class="control-group">
       <div class="alert alert-info">

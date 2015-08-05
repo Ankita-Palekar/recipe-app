@@ -38,7 +38,7 @@ include RecipesHelper
     render '/common/search'
   end
 
-  def searchrecipes
+  def search_recipes
     query_hash = params[:flag]
     query_hash = query_hash.reject {|key, val| val.empty?}
     @page_header = "Search Result"

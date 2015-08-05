@@ -1,5 +1,6 @@
 <!-- @@TODO find dynamic instead of custom url for form-->
-<%= form_for("/recipes/#{@recipe.id}", html: { multipart: true , :class => 'form-horizontal'}) do |f| %>
+<%# form_for("/recipes/#{@recipe.id}", html: { multipart: true , :class => 'form-horizontal'}) do |f| %>
+<%= form_for(@recipe, html: { multipart: true , :class => 'form-horizontal'}) do |f| %>
   <% if @recipe.errors.any? %>
     <div id="error_explanation" class="control-group">
       <div class="alerts alert-danger">
