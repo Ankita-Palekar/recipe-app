@@ -5,15 +5,48 @@
 				<div class="search-container">
 					<form class="search-form" method="post" action="/search">
 							<div class="input-append">
-							  <input class="search-box" placeholder="searc recipes" type="text" name="query">
-						  		<select class="advanced-search"  name="flag" id="">
+							  <input class="search-box" placeholder="searc recipes" type="text" name="flag[free_text]" value="">
+						  		<!-- <select class="advanced-search"  name="flag[]" id="">
 			   			   		<option value="free_text">Free Search</option>
 			   			   		<option value="aggregate_ratings">agregate ratings</option>
 			   			   		<option value="ingredients">ingredients</option>
 			   			   		<option value="calories">calories</option>
 			   			   		<option value="meal_class">meal class</option>
-			       			</select>
-							  <button type="submit" class="btn search-button"><i class="fa fa-search fa-2x"></i></button>
+			       			</select> -->
+									<div class="btn-group">
+		                <button class="btn dropdown-toggle advanced-search-dropdown" data-toggle="dropdown">Action <span class="caret"></span></button>
+		                <ul class="dropdown-menu">
+		                  <li> <span>aggregate ratings :</span>
+		                  	<input class="pull-right" type="text" name="flag[aggregate_ratings]" value="">
+		                  </li>
+		                  <li class="divider"></li>
+		                  <li>ingredients :
+		                  	<input class="pull-right" type="text" name="flag[ingredients]">
+		                  </li>
+		                  <li class="divider"></li>
+		                  <li>calories :
+		                  	<input class="pull-right" type="text" name="flag[calories]">
+		                  </li>
+		                  <li class="divider"></li>
+		                  <li>meal class : 
+		                  	<select name="flag[meal_class]" class="pull-right"> 
+		                  		<option value="jain">jain</option> 
+		                  		<option value="veg">veg</option>
+		                  		<option value="non-veg">non-veg</option>
+		                  	</select>		 
+		                  </li>
+		                </ul>
+		              </div>
+<!-- 
+							  <input class="search-box" placeholder="searc recipes" type="text" name="query">
+ 						  		<select class="advanced-search"  name="flag[]" id="">
+ 			   			   		<option value="free_text">meal class</option>
+ 			   			   		<option value="aggregate_ratings">agregate ratings</option>
+ 			   			   		<option value="ingredients">ingredients</option>
+ 			   			   		<option value="calories">calories</option>
+ 			   			   		<option value="meal_class">meal class</option>
+ 			       			</select> -->
+							  <button type="submit" class="btn search-button"><i class="fa fa-search"></i></button>
 							</div>
 
 				 <!--    <input type="text" class="input-medium search-query span8" name="query">

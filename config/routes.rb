@@ -1,12 +1,12 @@
 Foodholic::Application.routes.draw do
 
   devise_for :users
+  root :to => 'home#index' 
   # devise_for :users, controllers: { sessions: "users/sessions" }
 
   match '/search' => 'recipes#search' , :via => :get
   devise_for :user
   match '/search' => 'recipes#searchrecipes', :via => :post
-  
   match '/recipes/:id/:ratings/rated_users' => 'recipes#rated_users_list',:via => :get
   match '/recipes/top_rated_recipes' => 'recipes#top_rated_recipes' 
   match '/recipes/most_rated_recipes'=> 'recipes#most_rated_recipes' 
@@ -28,11 +28,10 @@ Foodholic::Application.routes.draw do
 
   
   scope :module => "user"   do
-    match '/recipes/rate' => 'user_recipes#rate_recipe', :via => :post
     match '/recipes/new' => 'user_recipes#new', :via => :get    
+    match '/recipes/rate' => 'user_recipes#rate_recipe', :via => :post
     match '/recipes/edit/:id' => 'user_recipes#edit', :via => :get #@@TODO change route to /controller/:id/edit
     match '/recipes/edit/:id' => 'user_recipes#update', :via => :post
-
     match '/recipes' => 'user_recipes#create', :via => :post
     match '/recipes/my_pending_recipes' => 'user_recipes#my_pending_recipes', :via => :get
     match '/recipes/my_rejected_recipes' => 'user_recipes#my_rejected_recipes', :via => :get
@@ -110,5 +109,5 @@ Foodholic::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  match ':controller(/:action(/:id))(.:format)'
+  # match ':controller(/:action(/:id))(.:format)'
 end

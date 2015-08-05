@@ -157,15 +157,19 @@ class Recipe < ActiveRecord::Base
     self.ratings.includes(:user).where(:ratings=> ratings)
   end
 
-  def self.search(flag:, query:)
-    searched_recipes = Recipe.scoped.approved
-    searched_recipes = searched_recipes.send flag, query
-    searched_recipes
+  def self.search(query_hash:)
+    searched_recipes = Recipe.approved
+    result = []
+    result = searched_recipes.reduce(searched_recipes) {|val,(flag, query)| result.push = searched_recipes.send(flag, query)}
+    
+    # searched_recipes = Recipe.approved.aggregate_ratings(query_hash['aggregate_ratings']).meal_class(query_hash['meal_class']).calories(query_hash['calories']).ingredients(query_hash['ingredients']).free_text(query_hash['free_text'])
+    result
   end
 
  private
   def strip_whitespace
     self.name = self.name.strip
+
     self.description = self.description.strip
   end
 end
