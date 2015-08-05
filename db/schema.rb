@@ -11,12 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150731114114) do
+ActiveRecord::Schema.define(:version => 20150805064738) do
 
   create_table "admins", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "ingredients", :force => true do |t|
     t.integer  "creator_id"
@@ -81,12 +97,11 @@ ActiveRecord::Schema.define(:version => 20150731114114) do
   add_index "recipes", ["creator_id"], :name => "index_recipes_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                              :null => false
-    t.string   "password_digest",                    :null => false
-    t.boolean  "is_admin",        :default => false
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
-    t.string   "name",                               :null => false
+    t.string   "email",                         :null => false
+    t.boolean  "is_admin",   :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.string   "name",                          :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

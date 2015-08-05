@@ -1,0 +1,17 @@
+<div class="container">
+	<!-- <div class="row"> -->
+	<h1 class="page-header"> <%= "#{@page_header}" %></h1>
+	<%= render :template => 'recipes/rate_modal' %>
+		<div id="display-notice-message">
+			<% if notice %>
+				<div class="alert alert-info">
+					<%= notice %>
+				</div>
+			<% end %>
+		</div>
+			<%= 
+      	html_code = make_html_code(@recipe_list)
+      	html_code.html_safe
+			%>
+	<!-- </div> -->
+</div>

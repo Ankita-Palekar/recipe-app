@@ -3,26 +3,18 @@
 
 <div class="container">
 	<div class="row">
-		 <%  if notice %>
-			<div class="alert alert-success"> 
-				<%= flash[:notice] %>	
+		<%  if notice %>
+			<div class="alert alert-success text-center"> 
+				<%= notice %>	
 			</div>
 		<% end %>
 		<!-- <div class="hero-unit"> -->
 		<div class="well">
-
+		<%= render 'common/user_specific_recipe_data'%>
 		<div>
-			<% if @recipe.creator_id != @current_user.id %>
-				<a href="#" class="btn btn-primary btn-large rate-recipe" data-rec-id="<%= @recipe.id %>">Rate This Recipe </a>
-			<%end%>
-			
-			<% if @recipe.creator_id == @current_user.id%>
-				<%= link_to edit_recipe_path(@recipe) do %>
-					<i class="fa fa-pencil fa-3x edit-recipe"></i>	
-				<%end%>
-			<% end %>
 			<button type="button" class="btn btn-large btn-success disabled pull-right" disabled="disabled"><%= @recipe.meal_class %></button>
 		</div>
+
 		<div>
 			<div class="star-rate-bock pull-right">
 				<% (0...(@recipe.aggregate_ratings.to_i)).each do %>
@@ -32,7 +24,6 @@
 			<div class="page-header">
 		  	<h1 class="text-center"> <%= @recipe.name.capitalize %> </h1>
 			</div>
-			
 		</div>
 			<!-- <a  class="btn btn-primary btn-large">Rate</a> -->
 		   <div class="carousel-wrapper">
@@ -119,9 +110,13 @@
 		  		<th>calories pers standard quantity</th>
 		  	</tr>
 				<% @recipe.ingredients.each_with_index do |ingred, index| %>
-			  	<tr>
-			  		<td><%=link_to ingred.name, recipe_path("/search", flag: "ingredients", query: ingred.name) , method: "POST"   %></td>
-			  		<td><%=link_to ingred.meal_class, recipe_path("search", flag: "meal_class", query: ingred.meal_class), method: "POST"   %></td>
+			  	<tr>		
+			  	 	<td>
+							<%= link_to ingred.name, :controller => :recipes, :action => :search, query: ingred.name, method: "POST"%>
+			  		</td>
+			  		<td>
+			  		  <%= link_to ingred.meal_class, :controller => :recipes, :action => :search, query: ingred.meal_class, method: "POST"%>
+			  		</td>
 			  		<td><%= ingred.std_measurement %></td>
 			  		<td><%= ingred.std_quantity %></td>
 			  		<td><%= @recipe.recipe_ingredients[index].quantity %></td>
@@ -131,6 +126,7 @@
 		  </table>		
 			<h4>Description : </h4>
 				<p><%= @recipe.description %></p>
+				<%= render  '/common/approve_reject.html' %>
 		</div>
 	</div>
 </div>

@@ -5,19 +5,22 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :is_admin, :name
   has_secure_password
 
-
 	EMAIL_REGEX	=	/([A-Z]|[a-z]|[0-9])\w+(.)*@([a-z]|[A-Z]|[0-9])\w+(.)([a-z]|[A-z]|[0-9])+/
   validates :email, :presence	=>	true, :uniqueness	=>	true,	:format	=>	EMAIL_REGEX
   validates :password, :length => {:minimum => 8, :message => 'password length should me more then 8 chars'}
   validates :name, :presence => true
   
+  devise :database_authenticatable, :registerable, :confirmable, :recoverable, stretches: 20
+
   def user_notify_email(function_name:)
-    UserMailer.send(function_name, self.email).deliver
-    # UserMailer.recipe_approval_email(email).deliver
+    # UserMailer.send(function_name, self.email).deliver
+    UserMailer.delay.send(function_name, self.email) #for delayed jobs
+     
   end
 
   def admin_notify_email(function_name:)
-    AdminMailer.send(function_name, self.email).deliver
+    # AdminMailer.send(function_name, self.email).deliver
+    AdminMailer.delay.send(function_name, self.email) #for delayed jobs
   end
   
   def self.get_admins

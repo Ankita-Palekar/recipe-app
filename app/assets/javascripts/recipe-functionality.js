@@ -41,6 +41,7 @@
 	    	})
 	    	 .done(function(response, textStatus, jqXHR) { 
     	 	  	$('.spinner').css('display','none')
+    	 	 		$('.rate-recipe').css('display','none')
     	 	  	 console.log(response)
     	 	  	$('.notice-message').html(response.message)
 	    	 })

@@ -28,6 +28,9 @@ gem 'therubyracer'
 gem 'rack-utf8_sanitizer'
 gem 'to_words'
 gem "font-awesome-rails"
+gem 'delayed_job_active_record', '0.4.3'
+gem 'daemon-spawn', '0.4.2' #for productin
+gem 'devise'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

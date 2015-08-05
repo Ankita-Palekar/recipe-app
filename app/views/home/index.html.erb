@@ -50,7 +50,7 @@
 						       	<div class="well">
 						       		<span class="label label-info pull-left"><%= rec.meal_class %></span>
 						       		<span class="pull-right"><i class="icon-star"></i> <%= rec.aggregate_ratings %> </span>
-						       		<h3 class="text-center"> <%=link_to rec.name.capitalize, rec %> </h3>
+						       		<h3 class="text-center"><%= link_to(rec.name.capitalize, {controller: :recipes, action: :show, id: rec.id}) %></h3>
 						       		<hr>
 						       		<div class="image-div">
 						       			<%=link_to image_tag  rec.photos.first.avatar.url(:medium), :class => "text-center" if !rec.photos.empty?%>
@@ -69,7 +69,7 @@
 							       		<% end %>
 							       	<%= rec.aggregate_ratings %> 
 						       		</span>
-						       		<h3 class="text-center"> <%=link_to rec.name.capitalize, rec %> </h3>
+						       		<h3 class="text-center"> <%= link_to(rec.name.capitalize, {controller: :recipes, action: :show, id: rec.id}) %> </h3>
 						       		<hr>
 						       		<div class="image-div">
 						       			<%=link_to image_tag  rec.photos.first.avatar.url(:medium), :class => "img-rounded" if !rec.photos.empty?%>
@@ -96,7 +96,7 @@
 					       		<% end %>
 					       	<%= rec.aggregate_ratings %> 
 			       		</span>
-						 		<h4 class="text-center"> <%=link_to rec.name.capitalize, rec %> </h4>
+						 		<h4 class="text-center"> <%= link_to(rec.name.capitalize, {controller: :recipes, action: :show, id: rec.id}) %> </h4>
 						 		<hr>
 						 		<%=link_to image_tag  rec.photos.first.avatar.url(:medium), :class =>"img-rounded" if !rec.photos.empty?%>
 						 		<hr>

@@ -9,14 +9,14 @@
       <a class="brand" href="/">Foodholic</a>
       <div class="nav-collapse collapse navbar-responsive-collapse">
         <ul class="nav">
-          <% if logged_in? && is_admin? %>
-            <li><a href="/recipes/pending">admin-pending</a></li>
+          <% if user_signed_in? && is_admin? %>
+            <li><a href="/recipes/pending">Admin Pending Recipes</a></li>
           <% end %>
-          <li><a href="/recipes/top_rated_recipes">top rated recipes</a></li>
-          <li><a href="/recipes/most_rated_recipes">most rated recipes</a></li>
-          <li><%= link_to 'Create Recipe', new_recipe_path %></li>
+          <li><a href="/recipes/top_rated_recipes">Top Rated Recipes</a></li>
+          <li><a href="/recipes/most_rated_recipes">Most Rated Recipes</a></li>
           <li><a href="/search">Search</a></li>
-          <% if logged_in? %>
+          <li><%= link_to 'Create Recipe', :controller=> :recipes, :action => :new %></li>
+          <% if user_signed_in? %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Recipes<b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -35,11 +35,11 @@
         </form-->
 
         <ul class="nav pull-right">
-          <%  if !logged_in? %>
-            <li><%= link_to "login", login_path %></li>
+          <%  if !user_signed_in? %>
+            <li><%= link_to("Login", login_path) %></li>
           <% else %>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= "#{@current_user.name }" %><b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= "#{@current_user.name.capitalize }" %><b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li>  <%= link_to "Log out", logout_path, method: "delete" %></li>
               </ul>
