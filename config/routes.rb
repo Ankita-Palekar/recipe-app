@@ -1,8 +1,7 @@
 Foodholic::Application.routes.draw do
 
   devise_for :users
-  # devise_for :user
-  root :to => 'home#index' 
+  devise_for :user
   
   get '/search' => 'recipes#search' , :via => :get, :as => 'search_recipes'
   get '/search' => 'recipes#search_recipes', :via => :post
@@ -16,6 +15,7 @@ Foodholic::Application.routes.draw do
   # match '/login' => 'sessions#login'
   match '/logout' => 'sessions#destroy', :via => :delete
   # match '/signup' => 'users#new'
+  root :to => 'home#index' 
   # match '/users' => 'users#create', :via => :post  
 
   # User::Application.routes.draw do 
