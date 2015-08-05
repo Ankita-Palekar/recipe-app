@@ -7,11 +7,11 @@ module SessionsHelper
 	# 	@current_user ||= current_user
 	# end
 
-	# def logged_in?
-	# 	user_signed_in?
-	# 	# puts "===================="
-	# 	# !current_user.nil?
-	# end
+	def logged_in?
+		user_signed_in?
+		# puts "===================="
+		# !current_user.nil?
+	end
 
 	def log_out
     session[:user_id] = nil

@@ -33,15 +33,15 @@
           <input type="text" class="search-query span2" placeholder="Search">
            
         </form-->
-
+  
         <ul class="nav pull-right">
           <%  if !user_signed_in? %>
-            <li><%= link_to("Login", login_path) %></li>
+            <li><%= link_to("Login", new_user_session_path) %></li>
           <% else %>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= "#{@current_user.name.capitalize }" %><b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= "#{current_user.name.capitalize }" %><b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li>  <%= link_to "Log out", logout_path, method: "delete" %></li>
+                 <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>       
               </ul>
             </li>
           <% end %>

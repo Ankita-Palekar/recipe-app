@@ -3,8 +3,8 @@ class SessionsController < ApplicationController
   include RecipesHelper
   #POST /login
   def create
-    # user = User.find_by_email(params[:email].downcase)
-  	# if user && user.authenticate(params[:password])
+    user = User.find_by_email(params[:email].downcase)
+  	if user && user.authenticate(params[:password])
   	if user = User.authenticate(:email => params[:email] , :password => params[:password])	
       log_in user
       flash[:notice] = "Sucessfully signed in"

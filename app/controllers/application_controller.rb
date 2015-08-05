@@ -1,28 +1,17 @@
 class ApplicationController < ActionController::Base
   # protect_from_forgery
   include SessionsHelper
-  # create is of sessions_controller
-  # before_filter :confirm_logged_in, :except => [:login, :logout, :create, :signup, :new]
-  # before_filter :confirm_is_admin, :only =>[:admin_pending_recipes]
- 
-  protected
+	# before_filter :configure_sign_up_params, only: [:create]
 
-  # def confirm_logged_in
-  # 	unless logged_in?
-  # 		flash[:notice] = 'login before carying out any action'
-  #     redirect_to '/login'
-  # 		return false
-  # 	else
-  # 		return true
-  # 	end
+ #  def configure_sign_up_params
+ #    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email) }
+ #  end
+
+  # before_filter :configure_permitted_parameters, if: :devise_controller?
+  # protected
+
+  # def configure_permitted_parameters
+  #   devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:name) }
   # end
 
-  # def confirm_is_admin
-  #   unless is_admin?
-  #     redirect_to '/caution'
-  #     return false
-  #   else
-  #     return true
-  #   end
-  # end
 end

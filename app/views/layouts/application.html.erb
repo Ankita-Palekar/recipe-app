@@ -11,6 +11,10 @@
 <body>
  
 <%=render :partial => 'layouts/header'  %>
+	<% if notice || alert %>
+		<p  clas="alert text-center"><%= notice %></p>
+		<p class="alert text-center"><%= alert %></p>	
+	<% end %>
 <%= yield %>
 </body>
 </html>

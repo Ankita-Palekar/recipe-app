@@ -139,7 +139,7 @@ include RecipesHelper
     unless logged_in?
       # puts "you are not allowed"
       flash[:notice] = 'login before carying out any action'
-      redirect_to '/login'
+      redirect_to new_user_session_path
       return false
     else
       return true
