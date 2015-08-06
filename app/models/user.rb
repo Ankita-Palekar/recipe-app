@@ -13,12 +13,11 @@ class User < ActiveRecord::Base
   validates :password, :length => {:minimum => 8, :message => 'password length should me more then 8 chars'}
   validates :name, :presence => true
   
-  devise :database_authenticatable, :registerable, :recoverable, stretches: 20
+  devise :database_authenticatable, :registerable, :recoverable, stretches: 12
 
   def user_notify_email(function_name:)
     # UserMailer.send(function_name, self.email).deliver
     UserMailer.delay.send(function_name, self.email) #for delayed jobs
-     
   end
 
   def admin_notify_email(function_name:)

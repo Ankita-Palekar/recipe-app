@@ -39,6 +39,8 @@ include RecipesHelper
   end
 
   def search_recipes
+    puts "====================="
+    puts params.inspect
     query_hash = params[:flag]
     query_hash = query_hash.reject {|key, val| val.empty?}
     @page_header = "Search Result"

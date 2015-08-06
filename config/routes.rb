@@ -5,7 +5,7 @@ Foodholic::Application.routes.draw do
   
   get '/search' => 'recipes#search' , :via => :get, :as => 'search_recipes'
   
-  post '/search' => 'recipes#search_recipes'
+  post '/search' => 'recipes#search_recipes', :as => 'search_by_click'
   get '/recipes/:id/:ratings/rated_users' => 'recipes#rated_users_list', :as => 'rated_users_list' 
 
   get '/recipes/top_rated_recipes' => 'recipes#top_rated_recipes', :as => "top_rated_recipes"

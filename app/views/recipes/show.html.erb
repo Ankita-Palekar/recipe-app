@@ -112,10 +112,10 @@
 				<% @recipe.ingredients.each_with_index do |ingred, index| %>
 			  	<tr>		
 			  	 	<td>
-							<%= link_to ingred.name, :controller => :recipes, :action => :search, query: ingred.name, method: "POST"%>
+							<%= link_to ingred.name, {:controller => :recipes, :action => :search_recipes, :'flag[ingredients]'=> ingred.name}, { method: :POST , :'data-toggle' => "tooltip", :'data-placement' => "top", :title=> "search recipes with #{ingred.name}", :class=>"ingredient-link"}%>
 			  		</td>
 			  		<td>
-			  		  <%= link_to ingred.meal_class, :controller => :recipes, :action => :search, query: ingred.meal_class, method: "POST"%>
+			  		 	<%= link_to ingred.meal_class, {:controller => :recipes, :action => :search_recipes, :'flag[meal_class]'=> ingred.meal_class}, { method: :POST , :'data-toggle' => "tooltip", :'data-placement' => "top", :title=> "search recipes with #{ingred.meal_class}", :class=>"meal_class-link"}%>
 			  		</td>
 			  		<td><%= ingred.std_measurement %></td>
 			  		<td><%= ingred.std_quantity %></td>
