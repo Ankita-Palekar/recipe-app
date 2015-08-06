@@ -9,44 +9,27 @@
       <a class="brand" href="/">Foodholic</a>
       <div class="nav-collapse collapse navbar-responsive-collapse">
         <ul class="nav">
-          <% if user_signed_in? && is_admin? %>
-            <li>
-              <%= link_to("Admin Pending Recipes", admin_pending_recipes_path) %>
-            </li>
-          <% end %>
+          <%= print_admin_pending_recipe_link %>
+          <%= print_user_recipes_navbar_links %>
           <li> <%= link_to("Top Rated Recipes", top_rated_recipes_path) %></li>
           <li><%= link_to("Most Rated Recipes", most_rated_recipes_path) %></li>
           <li><%= link_to("Search", search_recipes_path)%></li>
           <li><%= link_to 'Create Recipe', new_recipe_path %></li>
           <% if user_signed_in? %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Recipes<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li> <%= link_to("My Pending Recipe", my_pending_recipes_path) %></li>
-              <li><%= link_to("My Rejected Recipes", my_rejected_recipes_path) %></li>
-              <li><%= link_to("My Most Rated Recipes", my_most_rated_recipes_path ) %></li>
-              <li><%= link_to("My Top Rated Recipes", my_top_rated_recipes_path) %></li>
-              <li><%= link_to("My Approved Recipes", my_approved_recipes_path) %></li>
-            </ul>
-          </li>
-          <% end %>
-        </ul>
-       <!--  <form class="navbar-search pull-left" action="">
-          <input type="text" class="search-query span2" placeholder="Search">
-           
-        </form-->
-  
-        <ul class="nav pull-right">
-          <%  if !user_signed_in? %>
-            <li><%= link_to("Login", new_user_session_path) %></li>
-          <% else %>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= "#{current_user.name.capitalize }" %><b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Recipes<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>      
+                <li> <%= link_to("My Pending Recipe", my_pending_recipes_path) %></li>
+                <li><%= link_to("My Rejected Recipes", my_rejected_recipes_path) %></li>
+                <li><%= link_to("My Most Rated Recipes", my_most_rated_recipes_path ) %></li>
+                <li><%= link_to("My Top Rated Recipes", my_top_rated_recipes_path) %></li>
+                <li><%= link_to("My Approved Recipes", my_approved_recipes_path) %></li>
               </ul>
             </li>
           <% end %>
+        </ul>
+        <ul class="nav pull-right">
+          <%= print_user_profile_navbar_links %>
         </ul>
       </div><!-- /.nav-collapse -->
     </div>

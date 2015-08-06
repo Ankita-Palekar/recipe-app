@@ -11,15 +11,7 @@
     </div>
   <% end %>
   
-  <!-- @@TODO find concise way of writing below if loop  -->
-  <% if notice %>
-    <div class="control-group">
-      <div class="alert alert-info">
-        <%= notice %>
-      </div>
-    </div>
-  <% end %>
-
+  <%= print_if_notice notice %>
 
   <div class="control-group">
     <label class="control-label" for="inputEmail">Recipe Name</label>
@@ -142,26 +134,22 @@
               </div>
           <%else%>
           <hr>
-            <div class="control-group">
-              <label class="control-label" for="inputEmail" > <%= ing.name %> already exists</label>
-              <div class="controls">
-                <input  type="number" placeholder="edit quantity"  value="<%= @recipe.recipe_ingredients[index].quantity %>"  name="existing_ingredient[][quantity]" required>
-                <input type="hidden"  name="existing_ingredient[][ingredient_id]" value="<%= ing.id %>" required>
-                <input type="hidden"  name="existing_ingredient[][creator_id]" value="<%= ing.creator_id %>" required>
-                <input type="hidden"  name="existing_ingredient[][std_quantity]" value="<%= ing.std_quantity %>" required>
-                
-                <input type="hidden"  name="existing_ingredient[][calories_per_quantity]" value="<%= ing.calories_per_quantity %>" 
-                required>
-                <input type="hidden"  name="existing_ingredient[][meal_class]" value="<%= ing.meal_class %>" required>
-              </div>
-            </div>          
+          <div class="control-group">
+            <label class="control-label" for="inputEmail" > <%= ing.name %> already exists</label>
+            <div class="controls">
+              <input  type="number" placeholder="edit quantity"  value="<%= @recipe.recipe_ingredients[index].quantity %>"  name="existing_ingredient[][quantity]" required>
+              <input type="hidden"  name="existing_ingredient[][ingredient_id]" value="<%= ing.id %>" required>
+              <input type="hidden"  name="existing_ingredient[][creator_id]" value="<%= ing.creator_id %>" required>
+              <input type="hidden"  name="existing_ingredient[][std_quantity]" value="<%= ing.std_quantity %>" required>
+              <input type="hidden"  name="existing_ingredient[][calories_per_quantity]" value="<%= ing.calories_per_quantity %>" 
+              required>
+              <input type="hidden"  name="existing_ingredient[][meal_class]" value="<%= ing.meal_class %>" required>
+            </div>
+          </div>          
           <% end %>
       <% end %>
     </div>
   </div>
-
-
-
   <div class="control-group">
     <div class="controls">
       <button id="add-ingredients" class="btn btn-primary btn-large">Add More Ingredient</button>
@@ -171,7 +159,7 @@
   <div class="control-group">
     <label class="control-label" for="inputEmail">Upload image</label>
     <div class="controls">
-        <%= file_field_tag "avatar[]", type: :file, multiple: true %>
+      <%= file_field_tag "avatar[]", type: :file, multiple: true %>
     </div>
   </div>
   <div class="control-group">

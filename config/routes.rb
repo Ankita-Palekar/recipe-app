@@ -28,8 +28,8 @@ Foodholic::Application.routes.draw do
   end
   
   scope :module => "admin" do
-    put '/recipes/approve_recipe' => 'admin_recipes#approve_recipe'
-    put '/recipes/reject_recipe' => 'admin_recipes#reject_recipe'
+    put '/recipes/approve_recipe' => 'admin_recipes#approve_recipe', :as => 'approve_recipe'
+    put '/recipes/reject_recipe' => 'admin_recipes#reject_recipe', :as => "reject_recipe"
     get '/recipes/admin_pending_recipes' => 'admin_recipes#admin_pending_recipes', :as => 'admin_pending_recipes' 
   end
   

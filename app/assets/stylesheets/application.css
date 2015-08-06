@@ -227,7 +227,7 @@ i.search-button{
   /*height: 45px*/
 }
 
-.advanced-search-dropdown.dropdown-toggle{
+.dropdown-toggle.advanced-search-dropdown{
   width: 140px;
 }
 
@@ -238,7 +238,7 @@ select.advanced-search{
   text-align: center;
 }
  
- ul.dropdown-menu{
+ ul.dropdown-menu.advanced-search{
   width:365px;
  }
 

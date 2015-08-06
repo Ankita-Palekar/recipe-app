@@ -1,8 +1,4 @@
-include RecipesHelper
-
 class Recipe < ActiveRecord::Base
-  include SessionsHelper
-
   belongs_to :user, :foreign_key => 'creator_id'
   has_many :photos, :dependent => :destroy
   has_many :recipe_ingredients
@@ -37,6 +33,32 @@ class Recipe < ActiveRecord::Base
   scope :photos, -> {joins(:photos)}
   scope :include_photos, -> {includes(:photos)}
  
+  def save_recipe_ingredient_join(ingredient, recipe, quantity)
+    # recipe_ingredient = recipe.recipe_ingredients.build
+    # recipe_ingredient.ingredient = ingredient  #will assign ingredient_id in join to the ingrdient_id
+    # rec_ing = RecipeIngredient.first_or_initialize(recipe_ingredient) 
+    # rec_ing.update_attributes!(quantity: quantity)
+    
+    rec_ing = RecipeIngredient.where(:ingredient_id => ingredient.id, :recipe_id => recipe.id)
+    rec_ing = RecipeIngredient.find_or_initialize_by_ingredient_id_and_recipe_id(ingredient.id, recipe.id)
+    rec_ing.update_attributes(:quantity => quantity)
+  end
+
+  def send_admin_mail(function_name)
+    admin_list  = User.get_admins 
+    admin_list.each do |admin|
+      user = User.find_by_id(admin.id)
+      user.admin_notify_email(:function_name => function_name)
+    end
+  end
+
+  def send_approved_or_rejected_mail(function_name, creator)
+    user = User.find(creator.id)
+    user.user_notify_email(:function_name => function_name)
+  end
+
+
+
   def create_recipe(ingredients_list:, photo_list:, current_user:) 
     puts ingredients_list.inspect
     Recipe.transaction do 
@@ -164,7 +186,6 @@ class Recipe < ActiveRecord::Base
     end
     searched_recipes
   end
-
  private
   def strip_whitespace
     self.name = self.name.strip

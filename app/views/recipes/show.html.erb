@@ -1,105 +1,95 @@
  
 <%= render :template => 'recipes/rate_modal' %>
-
 <div class="container">
 	<div class="row">
-		<%  if notice %>
-			<div class="alert alert-success text-center"> 
-				<%= notice %>	
-			</div>
-		<% end %>
-		<!-- <div class="hero-unit"> -->
+		<%= print_if_notice notice%>
 		<div class="well">
-		<%= render 'common/user_specific_recipe_data'%>
+			<%= print_rate_button @recipe %>
+			<%= print_recipe_edit_content @recipe %>
 		<div>
 			<button type="button" class="btn btn-large btn-success disabled pull-right" disabled="disabled"><%= @recipe.meal_class %></button>
 		</div>
-
 		<div>
 			<div class="star-rate-bock pull-right">
-				<% (0...(@recipe.aggregate_ratings.to_i)).each do %>
-					<i class="fa fa-star fill-star fa-1x"></i>
-				<% end %>
+				<%= print_star_rates(@recipe.aggregate_ratings.to_i) %>
 			</div>
 			<div class="page-header">
 		  	<h1 class="text-center"> <%= @recipe.name.capitalize %> </h1>
 			</div>
 		</div>
-			<!-- <a  class="btn btn-primary btn-large">Rate</a> -->
-		   <div class="carousel-wrapper">
-	   		  <div id="myCarousel" class="carousel slide">
-	   		    <div class="carousel-inner">
-	   				  <% @recipe.photos.each_with_index do |image, index| %>
-	   				    	<% if index == 0 %> 
-	   				   			<div class="item active">
-	   				   	 	<% else %>
-	   				   			<div class="item">
-	   				    	<% end %>
-	   								<%=image_tag  image.avatar.url, :class => "img-rounded"%>
-	   				   	</div> 
-	   				  <%end%>
-	   		    </div>
-	   		    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-	   		    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-	   		  </div>
-		   </div>
+	  <div class="carousel-wrapper">
+	 		  <div id="myCarousel" class="carousel slide">
+	 		    <div class="carousel-inner">
+	 				  <% @recipe.photos.each_with_index do |image, index| %>
+	 				    	<% if index == 0 %> 
+	 				   			<div class="item active">
+	 				   	 	<% else %>
+	 				   			<div class="item">
+	 				    	<% end %>
+	 								<%=image_tag  image.avatar.url, :class => "img-rounded"%>
+	 				   	</div> 
+	 				  <%end%>
+	 		    </div>
+	 		    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+	 		    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+	 		  </div>
+	  </div>
 	
-			 <div class="row">
-			 	<div class="span5">
-
-					 <div class="recipe-details"> 	
-						<div class="serves ">
-							<h4 class="inline">Serves : </h4>
-							<p class="inline"><%= @recipe.serves %></p>
-						</div>
-						<div class="total-calories ">
-							<h4 class="inline">Total Calories : </h4>
-							<p class="inline"><%= @recipe.total_calories %></p>	
-						</div>
-						<div class="aggregate-ratings ">
-							<h4 class="inline">Aggregate Ratings : </h4>
-							<p class="inline"><%= @recipe.aggregate_ratings %></p>	
-						</div>
-					 </div>
-			 		
-			 	</div>
-			 	<div class="span6">
-			 			<div class="star-container pull-right">
-			 		  <div class="star-inner">
-			 		    <div class="rating">
-			 		      <span class="rating-num"><%= @recipe.aggregate_ratings %></span>
-			 		      <div class="rating-stars">
-			 		        <span><i class="active icon-star"></i></span>
-			 		        <span><i class="active icon-star"></i></span>
-			 		        <span><i class="active icon-star"></i></span>
-			 		        <span><i class="active icon-star"></i></span>
-			 		        <span><i class="icon-star"></i></span>
+	 	<div class="row">
+	 		<div class="span5">
+				<div class="recipe-details"> 	
+					<div class="serves ">
+						<h4 class="inline">Serves : </h4>
+						<p class="inline"><%= @recipe.serves %></p>
+					</div>
+					<div class="total-calories ">
+						<h4 class="inline">Total Calories : </h4>
+						<p class="inline"><%= @recipe.total_calories %></p>	
+					</div>
+					<div class="aggregate-ratings ">
+						<h4 class="inline">Aggregate Ratings : </h4>
+						<p class="inline"><%= @recipe.aggregate_ratings %></p>	
+					</div>
+				</div>
+	 		</div>
+	 		<div class="span6">
+	 			<div class="star-container pull-right">
+	 		  	<div class="star-inner">
+	 		    	<div class="rating">
+	 		      	<span class="rating-num"><%= @recipe.aggregate_ratings %></span>
+		 		      <div class="rating-stars">
+		 		        <span><i class="active icon-star"></i></span>
+		 		        <span><i class="active icon-star"></i></span>
+		 		        <span><i class="active icon-star"></i></span>
+		 		        <span><i class="active icon-star"></i></span>
+		 		        <span><i class="icon-star"></i></span>
+		 		      </div>
+		 		      <div class="rating-users">
+		 		        <i class="icon-user"></i> <%= User.count %>
+		 		      </div>
+	 		    	</div>
+		 		    <div class="histo">
+							<% @recipe_ratings_histogram.sort.each do  |key,value|%>   	
+			 		      <div class="<%= key.to_words %>  histo-rate">
+			 		        <span class="histo-star">
+			 		          <a href="/recipes/<%=@recipe.id%>/<%= key %>/rated_users">
+			 		          	<i class="active icon-star"></i> <%= key %> 
+			 		          </a>
+			 		        </span>
+			 		        <span class="bar-block">
+			 		          <span id="bar-<%= key.to_words %>" class="bar">
+			 		            <span><%= value	 %></span>&nbsp;
+			 		          </span> 
+			 		        </span>
 			 		      </div>
-			 		      <div class="rating-users">
-			 		        <i class="icon-user"></i> <%= User.count %>
-			 		      </div>
-			 		    </div>
-			 		    <div class="histo">
-								<% @recipe_ratings_histogram.sort.each do  |key,value|%>   	
-				 		      <div class="<%= key.to_words %>  histo-rate">
-				 		        <span class="histo-star">
-				 		          <a href="/recipes/<%=@recipe.id%>/<%= key %>/rated_users"><i class="active icon-star"></i> <%= key %> </a></span>
-				 		        <span class="bar-block">
-				 		          <span id="bar-<%= key.to_words %>" class="bar">
-				 		            <span><%= value	 %></span>&nbsp;
-				 		          </span> 
-				 		        </span>
-				 		      </div>
-								<% end %>
-			 		    </div>
-			 		  </div>
-			 		</div>
-			 	</div>
-			 </div>
-		
-			<hr>
-
-		  <h4> Ingredients: </h4>
+							<% end %>
+		 		    </div>
+	 		  	</div>
+	 			</div>
+	 		</div>
+	 	</div>
+		<hr>
+		<h4> Ingredients: </h4>
 		  <table class="table table-bordered">
 		  	<tr>
 		  		<th>Ingredient name</th>
@@ -112,6 +102,7 @@
 				<% @recipe.ingredients.each_with_index do |ingred, index| %>
 			  	<tr>		
 			  	 	<td>
+			  	 	<!-- @@TODO use named route and change below controller -->
 							<%= link_to ingred.name, {:controller => :recipes, :action => :search_recipes, :'flag[ingredients]'=> ingred.name}, { method: :POST , :'data-toggle' => "tooltip", :'data-placement' => "top", :title=> "search recipes with #{ingred.name}", :class=>"ingredient-link"}%>
 			  		</td>
 			  		<td>
@@ -125,8 +116,10 @@
 				<% end %>
 		  </table>		
 			<h4>Description : </h4>
-				<p><%= @recipe.description %></p>
-				<%= render  '/common/approve_reject.html' %>
+			<p><%= @recipe.description %></p>
+			<div class="text-center">
+				<%= print_approve_reject_button(@recipe) %>
+			</div>		
 		</div>
 	</div>
 </div>
