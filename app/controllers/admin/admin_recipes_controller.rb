@@ -1,7 +1,13 @@
 class Admin::AdminRecipesController < ApplicationController
-	
+	# include SessionsHelper
 	before_filter :confirm_is_admin
-	
+
+	def admin_pending_recipes
+		@page_header = "Admin Pending Recipes"
+		@recipe_list =  Recipe.list_pending_recipes(page_nav: 1, limit: 100)
+	 	render '/common/recipe_list_admin'
+	end
+
 	def approve_recipe
 	  @current_user = current_user
 	  @recipe = Recipe.find(params[:recipe][:id]) 

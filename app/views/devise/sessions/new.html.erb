@@ -5,6 +5,11 @@
         <h2 class="page-header text-center">Login To Create New recipes </h2>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html:{:class => "form-horizontal"}) do |f| %>
             <div class="control-group">
+              <div class="controls">
+                <%= devise_error_messages! %>
+              </div>
+            </div>
+            <div class="control-group">
               <label class="control-label" for="inputEmail">Email</label>
               <div class="controls">
                 <%= f.email_field :email, autofocus: true %>
@@ -18,9 +23,9 @@
             </div>
             <div class="control-group inline">
               <div class="controls">
-                 <div class="actions">
-                    <%= f.submit "Log in", :class => "btn btn-primary" %>
-                  </div>
+                <div class="actions">
+                  <%= f.submit "Log in", :class => "btn btn-primary" %>
+                </div>
               </div>
             </div>
 

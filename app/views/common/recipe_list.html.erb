@@ -1,17 +1,47 @@
+<% @recipe_list||=[] %>
 <div class="container">
-	<!-- <div class="row"> -->
 	<h1 class="page-header"> <%= "#{@page_header}" %></h1>
 	<%= render :template => 'recipes/rate_modal' %>
-		<div id="display-notice-message">
-			<% if notice %>
-				<div class="alert alert-info">
-					<%= notice %>
+	<div id="display-notice-message">
+		<% if notice %>
+			<div class="alert alert-info">
+				<%= notice %>
+			</div>
+		<% end %>
+	</div>
+	<% @recipe_list.each_slice(2) do |rec_block| %>
+		<div class="row">
+			<% rec_block.each do |rec| %>
+				<div class="span6">
+					<div class="well recipe-container">
+						<span><%= (0..(rec.aggregate_ratings.to_i)).reduce {'<i class="icon-star"></i>'.html_safe}   %></span>
+						<%= '<a class="btn btn-warning btn-small disabled">approval pending</a>'.html_safe if (!rec.approved && !rec.rejected) %>
+						<%= '<a class="btn btn-danger btn-small disabled">rejected</a>'.html_safe if rec.rejected %>
+						<button type="button" class="btn btn-medium btn-success disabled pull-right" disabled="disabled">
+							<%= rec.meal_class %>
+						</button>
+						<h4 class="text-center"><%= link_to(rec.name.capitalize, rec) %></h4>
+						<hr>
+						<div class="row">
+							<div class="span6">
+								<div class="span3 image-div">
+									<%= (!rec.photos.empty? ? link_to(image_tag(rec.photos.first.avatar.url(:thumb), :class => "image-rounded")) : "")  %>
+								</div>
+								<div class="span2">
+									<p class="text-justify">
+										<%= rec.description.truncate(60) %>
+									</p> 
+								</div> 	
+							</div>
+							<hr>
+							<p class="text-center"> created about <%= time_ago_in_words(rec.created_at) %> ago </p>
+						</div>
+					</div>
 				</div>
-			<% end %>
+			<% end  %>
 		</div>
-			<%= 
-      	html_code = make_html_code(@recipe_list)
-      	html_code.html_safe
-			%>
-	<!-- </div> -->
+	<% end %>
 </div>
+
+
+ 

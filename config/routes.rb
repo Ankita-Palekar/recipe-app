@@ -4,12 +4,12 @@ Foodholic::Application.routes.draw do
   devise_for :user
   
   get '/search' => 'recipes#search' , :via => :get, :as => 'search_recipes'
-  get '/search' => 'recipes#search_recipes', :via => :post
+  
+  post '/search' => 'recipes#search_recipes'
   get '/recipes/:id/:ratings/rated_users' => 'recipes#rated_users_list', :as => 'rated_users_list' 
 
   get '/recipes/top_rated_recipes' => 'recipes#top_rated_recipes', :as => "top_rated_recipes"
   get '/recipes/most_rated_recipes'=> 'recipes#most_rated_recipes', :as => "most_rated_recipes"
-  get '/recipes/pending' => 'recipes#admin_pending_recipes', :as => 'admin_pending_recipes' 
   
   # match '/login' => 'sessions#create', :via => :post
   # match '/login' => 'sessions#login'
@@ -23,24 +23,30 @@ Foodholic::Application.routes.draw do
   #   root :to => 'home#index' 
   # end
 
-
+  devise_scope :user do
+    match '/user/sign_out' => 'devise/sessions#destroy', :as => :destroy_user_session, via: [:get, :delete]
+  end
+  
+  scope :module => "admin" do
+    put '/recipes/approve_recipe' => 'admin_recipes#approve_recipe'
+    put '/recipes/reject_recipe' => 'admin_recipes#reject_recipe'
+    get '/recipes/admin_pending_recipes' => 'admin_recipes#admin_pending_recipes', :as => 'admin_pending_recipes' 
+  end
+  
   
   scope :module => "user"   do
-    match '/recipes/new' => 'user_recipes#new', :via => :get, :as => 'new_recipe'   
-    match '/recipes/rate' => 'user_recipes#rate_recipe', :via => :post
-    get '/recipes/:id/edit' => 'user_recipes#edit' , :as => 'edit_recipe'
-    put '/recipes/:id' => 'user_recipes#update'
-    post '/recipes' => 'user_recipes#create'
+
+    get '/recipes/new' => 'user_recipes#new',  :as => 'new_recipe'   
+    post '/recipes/rate' => 'user_recipes#rate_recipe'
     get '/recipes/my_pending_recipes' => 'user_recipes#my_pending_recipes', :as => "my_pending_recipes"
     get '/recipes/my_rejected_recipes' => 'user_recipes#my_rejected_recipes', :as => "my_rejected_recipes"
     get '/recipes/my_top_rated_recipes' => 'user_recipes#my_top_rated_recipes', :as => "my_top_rated_recipes"
     get '/recipes/my_most_rated_recipes' => 'user_recipes#my_most_rated_recipes', :as => "my_most_rated_recipes"
     get '/recipes/my_approved_recipes' => 'user_recipes#my_approved_recipes', :as => "my_approved_recipes"
-  end
-  
-  scope :module => "admin" do
-    match '/recipes/approve_recipe' => 'admin_recipes#approve_recipe' , :via => :put
-    match '/recipes/reject_recipe' => 'admin_recipes#reject_recipe', :via => :put
+    get '/recipes/:id/edit' => 'user_recipes#edit' , :as => 'edit_recipe'
+    put '/recipes/:id' => 'user_recipes#update'
+    post '/recipes' => 'user_recipes#create'
+    get '/recipes' => 'user_recipes#index'
   end
   get '/recipes/:id' => 'recipes#show' ,:as => 'recipe'
   

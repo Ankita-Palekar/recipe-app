@@ -1,16 +1,6 @@
 module SessionsHelper
-	# def log_in(user)
-	# 	session[:user_id]  = user.id
-	# end
-
-	# def current_user
-	# 	@current_user ||= current_user
-	# end
-
 	def logged_in?
 		user_signed_in?
-		# puts "===================="
-		# !current_user.nil?
 	end
 
 	def log_out
@@ -19,6 +9,6 @@ module SessionsHelper
   end
 
   def is_admin?
-  	current_user.is_admin?
+  	current_user.is_admin if logged_in?
   end
 end

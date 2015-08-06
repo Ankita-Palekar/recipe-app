@@ -1,21 +1,13 @@
 require 'test_helper'
 
 class RecipesControllerTest < ActionController::TestCase
-include SessionsHelper
-include ReusableFunctionsTests
+  include SessionsHelper
+  include ReusableFunctionsTests
+  
   setup do
     @recipe = recipes(:one)
   end
 
-# helper test
-  # test "before test login user" do
-  #   session[:user_id] = 1
-  #   @current_user = current_user if logged_in?
-  #   @current_user_id = @current_user.id
-  # end
-
-
-  
   test "should show top rated recipes" do
     # test_before_test_login_user
     assert_generates "/recipes/top_rated_recipes", { controller: "recipes", action: "top_rated_recipes"}
@@ -32,20 +24,25 @@ include ReusableFunctionsTests
     assert_template('/common/recipe_list')
   end
 
-
-  test "should test my_pending_recipes" do
+  test "should show search page" do
     # test_before_test_login_user
-    assert_generates "/recipes/my_pending_recipes", { controller: "recipes", action: "my_pending_recipes"}
-    get :most_rated_recipes
+    get :search
     assert_response :success
-    
-    # assert_redirected_to '/login' 
-    # assert_template('/common/recipe_list')
+    assert_template('/common/recipe_list')
   end
 
+  test "should show searchd_recipes page" do
+    # test_before_test_login_user
+    
+    post :search_recipes, flag:{:ingredients => 'sugar', :calories => 300, :meal_class => 'veg', :aggregate_ratings => 3 }
+    assert_response :success
+    assert_template('/common/recipe_list')
+  end
 
-
-
+  test "should show recipe" do
+    get :show, id: @recipe
+    assert_response :success
+  end
 
 
   # test "should get index" do
@@ -105,11 +102,6 @@ include ReusableFunctionsTests
   # end
 
 
-  # test "should show recipe" do
-  #   test_before_test_login_user
-  #   get :show, id: @recipe
-  #   assert_response :success
-  # end
 
   # test "should get edit" do
   #  test_before_test_login_user

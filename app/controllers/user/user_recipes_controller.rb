@@ -9,8 +9,9 @@ include RecipesHelper
   before_filter :confirm_logged_in 
   
   def index
-    @recipe_list = show_recipe_list(:status=> 'my_all_recipes', :page_nav => 1, :limit => 10)
-    render 'recipe_list'
+    @recipe_list
+    @recipe_list = Recipe.list_recipes(list_type:'order_by_date', page_nav:1, limit:100, current_user: current_user)
+    render '/common/recipe_list'
   end
 
   # GET /recipes/new
@@ -34,17 +35,25 @@ include RecipesHelper
     params[:ingredient] ||= []
     params[:existing_ingredient] ||= []
     params[:avatar] ||=[]
+    
+    # puts "==============================="
+    # puts ((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?)
+    # puts params[:avatar].empty?
     respond_to do |format|
-      format.html { redirect_to @recipe, notice: 'Add ingredients' } if (params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?
-      format.html { redirect_to @recipe, notice: 'Add images' } if (params[:avatar].to_a).empty?
-      @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: params[:avatar].compact)
+      notice = ''
+      if !((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?) && !((params[:avatar].to_a).empty?)
+        @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: params[:avatar].compact)
+      else
+        notice = "Recipe Images and Ingredients cannnot be blank"
+      end
+
       if @recipe.persisted?
-        format.html { redirect_to path, notice: 'Recipe created successfully' }
+        format.html { redirect_to @recipe, notice: 'Recipe created successfully' }
         format.json { render json: @recipe, status: :created, location: @recipe }
       else
-        notice = @recipe.errors
-        format.html { redirect_to path, notice: notice }
-        format.json { render json: @recipe.errors, status: :unprocessable_entity }
+        flash[:notice] = notice
+        format.html {render '/common/create_recipe', notice: notice }
+        format.json {render json: @recipe.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,7 +68,8 @@ include RecipesHelper
       @rate = @recipe.rate_recipe(current_user: @current_user, ratings: params[:recipe][:ratings])
       puts @rate.inspect
       notice = {}
-      notice[:message] = @rate.persisted? ? "successfully rated" : "could not rate"
+      # @TODO find proper consition fr successfull rate
+      notice[:message] =@rate.persisted? ? "successfully rated" : "could not rate"
       format.html {redirect_to @recipe , notice: notice}
       format.json {render json: notice, status: :created}
     end
@@ -79,7 +89,7 @@ include RecipesHelper
       if @recipe.valid?
         format.html { redirect_to @recipe, notice: 'Recipe was successfullt edited'}
       else
-        format.html { render action: "edit" }
+        format.html { render  "/common/edit_recipe" }
         format.json { render json: @recipe.errors, status: :unprocessable_entity }
       end   
     end

@@ -24,7 +24,7 @@ class Recipe < ActiveRecord::Base
   scope :aggregate_ratings, ->(ratings) {where(aggregate_ratings: ratings)}
   scope :meal_class, ->(meal_class) {where(meal_class: meal_class)}
   scope :calories, -> (calories) {where("total_calories = ? * serves", "#{calories.to_i}")}
-  scope :ingredients, ->(query) {joins(:ingredients).where("ingredients.name ILIKE ?", "%#{query}%")}
+  scope :ingredients, ->(query) {joins(:ingredients).where("ingredients.name ILIKE ? AND ingredients.name <> ''", "%#{query}%")}
   scope :approved, -> {where(:approved => true, :rejected => false)}
   scope :order_by_date, -> {order('created_at desc')} 
   scope :order_by_aggregate_ratings, -> {order('aggregate_ratings desc')} 
@@ -158,18 +158,16 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.search(query_hash:)
-    # searched_recipes = Recipe.approved
-    # result = []
-    # result = searched_recipes.reduce(searched_recipes) {|val,(flag, query)| result.push = searched_recipes.send(flag, query)}
-    
-    # # searched_recipes = Recipe.approved.aggregate_ratings(query_hash['aggregate_ratings']).meal_class(query_hash['meal_class']).calories(query_hash['calories']).ingredients(query_hash['ingredients']).free_text(query_hash['free_text'])
-    # result
+    searched_recipes = Recipe.approved.scoped
+    query_hash.each do |flag,query|
+      searched_recipes = searched_recipes.send(flag,query)
+    end
+    searched_recipes
   end
 
  private
   def strip_whitespace
     self.name = self.name.strip
-
     self.description = self.description.strip
   end
 end

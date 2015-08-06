@@ -49,6 +49,7 @@ include RecipesHelper
   def rated_users_list
     @recipe = Recipe.find(params[:id])
     @users_list = @recipe.list_rated_users(:ratings => params[:ratings])
+
   end
 
 

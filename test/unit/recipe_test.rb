@@ -2,6 +2,7 @@ require 'test_helper'
 
 class RecipeTest < ActiveSupport::TestCase
   include ReusableFunctionsTests   
+  
   test "create recipe" do
     recipe = create_recipe_helper
     recipe_copy = Recipe.find(recipe.id)
@@ -16,7 +17,6 @@ class RecipeTest < ActiveSupport::TestCase
   test "update recipe" do
     params = {name: "xyz"}
     recipe = create_recipe_helper
-
     recipe_copy = Recipe.find(recipe.id)
     assert(recipe_copy.present?, 'recipe not saved') 
     user_copy = User.find_by_email('zomato@domain.com')

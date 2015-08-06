@@ -9,41 +9,41 @@
 
 one: 
  email: 453ankitapalekar@gmail.com
- password_digest: some_digest #since in db this field is specified as not null cannot keep blank
- name: ankita
  is_admin: true
+ encrypted_password: ankita123
  id: 1
+ name: ankita
 
 two: 
  email: bob@gmail.com
- password_digest: some_digest 
+ encrypted_password: bob123 
  name: bob
 
 three: 
  email: jhon@domain.com
- password_digest: some_digest 
+ # password_digest: some_digest 
  name: Jhon
 
 
 four: 
  email: nick@gmail.com
- password_digest: some_digest 
+ # password_digest: some_digest 
  name: nick
 
 five: 
  email: nil@gmail.com
- password_digest: some_digest 
+ # password_digest: some_digest 
  name: nil
 
 
 six: 
  email: Jayee@gmail.com
- password_digest: some_digest 
+ # password_digest: some_digest 
  name: Jayee
  id : 2
 
 seven: 
  email: ron@gmail.com
- password_digest: some_digest 
+ # password_digest: some_digest 
  name: ron
  id: 3
