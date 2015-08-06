@@ -1,5 +1,8 @@
 <!-- @@TODO find dynamic instead of custom url for form-->
 <%# form_for("/recipes/#{@recipe.id}", html: { multipart: true , :class => 'form-horizontal'}) do |f| %>
+
+<%= render "/common/images_upload_modal"%>
+
 <%= form_for(@recipe, html: { multipart: true , :class => 'form-horizontal'}) do |f| %>
   <% if @recipe.errors.any? %>
     <div id="error_explanation" class="control-group">
@@ -82,7 +85,9 @@
         <%= file_field_tag "avatar[]", type: :file, multiple: true %>
     </div>
   </div>
-
+  <div>
+    <a href="#" class='btn btn-success add-photo'>Click to upload your files</a> 
+  </div>
   <div class="control-group">
     <div class="controls">
       <%= f.submit 'Save Recipe', :class => 'btn btn-primary btn-large' %>

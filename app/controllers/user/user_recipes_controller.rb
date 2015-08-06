@@ -17,6 +17,7 @@ include RecipesHelper
   # GET /recipes/new
   # GET /recipes/new.json
   def new
+    @photo = Photo.new
     @recipe = Recipe.new
     render "/common/create_recipe"
   end

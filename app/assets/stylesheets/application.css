@@ -12,6 +12,7 @@
  	//= require_self
   //= require_tree 
   //= require font-awesome
+  //= require dropzone/dropzone
 
 .signup-form, .login-form
 {

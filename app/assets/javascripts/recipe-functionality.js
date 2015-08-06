@@ -28,6 +28,13 @@
 	    	return false
 	    })
 
+	   $('.add-photo').click(function(){
+			recipe_id =  $(this).data('rec-id')
+			$('#modal-recipe-id').val(recipe_id)
+			$('#photo-upload-modal').modal('toggle')
+		})
+
+	    // @@TODO use plugins for all the codes doen here which are almost repeating
 
 	    $('.star-rate').click(function(){
 	    	var recipe = {"id" : $(this).closest('.star-rating').data('rec-id'), "ratings" : $(this).data('star-rate')}
@@ -58,6 +65,7 @@
 	    $('.ingredient-link,.meal_class-link').hover(function(){
 	    	$(this).tooltip('toggle')
 	    })
+
 
 	    
 	    // ajaxapi created
@@ -109,6 +117,8 @@
 	  // }); 
 	  
 	   
+		
+
 		$('.approve-recipe').click(function(e){
 			e.preventDefault() 
 			var $this = $(this)
@@ -198,8 +208,25 @@
 		  }, 1000);
 		  
 
+		  // file upload code 
+		 // // disable auto discover
+		 // Dropzone.autoDiscover = false;
+		 // // grap our upload form by its id
+		 // $("#photo_upload").dropzone({
+		 // 	// restrict image size to a maximum 1MB
+		 // 	maxFilesize: 1,
+		 // 	// changed the passed param to one accepted by
+		 // 	// our rails app
+		 // 	paramName: "upload[image]",
+		 // 	// show remove links on each image upload
+		 // 	addRemoveLinks: true
+		 // });	
+		  
 
 	})  
+
+
+
 
 
 }).call(this);
