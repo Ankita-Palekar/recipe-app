@@ -221,11 +221,11 @@ i.search-button{
 
 .input-append input.search-box{
   width: 150% ;
-  /*height: 35px*/
+  height: 35px
 }
 
 .input-append .advanced-search, .input-append .search-button{
-  /*height: 45px*/
+  height: 45px
 }
 
 .dropdown-toggle.advanced-search-dropdown{
@@ -239,10 +239,14 @@ select.advanced-search{
   text-align: center;
 }
  
- ul.dropdown-menu.advanced-search{
-  width:365px;
- }
+ul.dropdown-menu.advanced-search{
+width:365px;
+}
 
+
+.advanced-search{
+  text-align: center; 
+}
 
 
 

@@ -19,8 +19,6 @@ include RecipesHelper
   end
 
   
-
-
   # GET /recipes/1
   # GET /recipes/1.json
   def show 
@@ -39,8 +37,6 @@ include RecipesHelper
   end
 
   def search_recipes
-    puts "====================="
-    puts params.inspect
     query_hash = params[:flag]
     query_hash = query_hash.reject {|key, val| val.empty?}
     @page_header = "Search Result"
@@ -51,11 +47,8 @@ include RecipesHelper
   def rated_users_list
     @recipe = Recipe.find(params[:id])
     @users_list = @recipe.list_rated_users(:ratings => params[:ratings])
-
   end
 
-
- 
   # # GET /recipes/1/edit
   # def edit
   #   @recipe_details = Recipe.find(params[:id]).get_recipe_details
