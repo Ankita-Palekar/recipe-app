@@ -15,18 +15,6 @@
           <li><%= link_to("Most Rated Recipes", most_rated_recipes_path) %></li>
           <li><%= link_to("Search", search_recipes_path)%></li>
           <li><%= link_to 'Create Recipe', new_recipe_path %></li>
-          <% if user_signed_in? %>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Recipes<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li> <%= link_to("My Pending Recipe", my_pending_recipes_path) %></li>
-                <li><%= link_to("My Rejected Recipes", my_rejected_recipes_path) %></li>
-                <li><%= link_to("My Most Rated Recipes", my_most_rated_recipes_path ) %></li>
-                <li><%= link_to("My Top Rated Recipes", my_top_rated_recipes_path) %></li>
-                <li><%= link_to("My Approved Recipes", my_approved_recipes_path) %></li>
-              </ul>
-            </li>
-          <% end %>
         </ul>
         <ul class="nav pull-right">
           <%= print_user_profile_navbar_links %>
