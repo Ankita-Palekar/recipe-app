@@ -1,4 +1,5 @@
 class Recipe < ActiveRecord::Base
+  # REVIEW: recipe <=> creator association
   belongs_to :user, :foreign_key => 'creator_id'
   has_many :photos, :dependent => :destroy
   has_many :recipe_ingredients
@@ -19,7 +20,11 @@ class Recipe < ActiveRecord::Base
   scope :free_text, ->(query) {where("name ILIKE ?", "%#{query}%")}
   scope :aggregate_ratings, ->(ratings) {where(aggregate_ratings: ratings)}
   scope :meal_class, ->(meal_class) {where(meal_class: meal_class)}
+  # REVIEW: Why is this a search by exact calories? It was supposed to be a
+  # range search
   scope :calories, -> (calories) {where("total_calories = ? * serves", "#{calories.to_i}")}
+
+  # REVIEW: search by multiple ingredients is required
   scope :ingredients, ->(query) {joins(:ingredients).where("ingredients.name ILIKE ? AND ingredients.name <> ''", "%#{query}%")}
   scope :approved, -> {where(:approved => true, :rejected => false)}
   scope :order_by_date, -> {order('created_at desc')} 
@@ -63,6 +68,7 @@ class Recipe < ActiveRecord::Base
     puts ingredients_list.inspect
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
+      # REVIEw: Why is the following line required?
       current_user.recipes << self
       total_calories = 0
       ingredients_list.each do |ingre|
@@ -75,13 +81,17 @@ class Recipe < ActiveRecord::Base
         end
         save_recipe_ingredient_join(ingredient, self, ingre[:quantity])
       end
+      # REVIEW: What will happen if there is an error in creating the photo?
       photo_list.map { |photo| photos.create(avatar: photo)}
+
+      # REVIEW: What will happen if there is an error in updating the total_calories?
       update_attributes(:total_calories => total_calories)
       send_admin_mail('recipe_created_email')
     end
     self
   end
 
+  # REVIEW: Why is there code duplication in create & update?
   def update_recipe(photo_list:, ingredients_list:, current_user:)
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)  if !ingredients_list.empty?
@@ -109,6 +119,9 @@ class Recipe < ActiveRecord::Base
     Recipe.include_photos.pending.order_by_date.page_navigation(limit, page_nav)
   end
   
+  # REVIEW: what happens if user is not admin? Read ActiveRecord::Error class
+  # and use it. You can use it for your own custom validation messages as
+  # well.
   def approve_recipe(current_user:)
     Recipe.transaction do
       update_attributes(:approved => true, :rejected=>false) 
@@ -182,6 +195,9 @@ class Recipe < ActiveRecord::Base
   def self.search(query_hash:)
     searched_recipes = Recipe.approved.scoped
     query_hash.each do |flag,query|
+      # REVIEW: NEVER EVER execute untrusted code coming from user-input.
+      # Either restructure this search completely OR create a whitelist of
+      # permissible values for 'flag'
       searched_recipes = searched_recipes.send(flag,query)
     end
     searched_recipes
