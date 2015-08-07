@@ -63,30 +63,42 @@ class Recipe < ActiveRecord::Base
   end
 
 
+  def add_recipe_photos(photo_list, recipe)
+    photo_list.each do |photo|
+      photo = Photo.find(photo)
+      photo.recipe = self
+      photo.save!
+    end
+  end
+
+  def add_recipe_ingredients(ingredients_list, recipe, current_user)
+    total_calories = 0
+    ingredients_list.each do |ingre|
+      total_calories += ingre[:quantity].to_i / ingre[:std_quantity].to_i * ingre[:calories_per_quantity].to_i #calculating total calories in recipe
+      if ingre.has_key?(:ingredient_id)
+        ingredient = Ingredient.find(ingre[:ingredient_id])
+        ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :ingredient_id))
+      else
+        ingredient = current_user.ingredients.build(ingre.except(:quantity))
+        ingredient.create_ingredient
+      end
+      save_recipe_ingredient_join(ingredient, recipe, ingre[:quantity])
+    end
+    total_calories
+  end
+
 
   def create_recipe(ingredients_list:, photo_list:, current_user:) 
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
       # REVIEw: Why is the following line required?
       current_user.recipes << self
-      total_calories = 0
-      ingredients_list.each do |ingre|
-        total_calories += ingre[:quantity].to_i / ingre[:std_quantity].to_i * ingre[:calories_per_quantity].to_i #calculating total calories in recipe
-        if ingre.has_key?(:ingredient_id)
-          ingredient = Ingredient.find(ingre[:ingredient_id])
-        else
-          ingredient = current_user.ingredients.build(ingre.except(:quantity))
-          ingredient.create_ingredient
-        end
-        save_recipe_ingredient_join(ingredient, self, ingre[:quantity])
-      end
+      total_calories = add_recipe_ingredients(ingredients_list, self, current_user)
+      add_recipe_photos(photo_list, self)
       # REVIEW: What will happen if there is an error in creating the photo?
       # REVIEW: What will happen if there is an error in updating the total_calories?
       # photo_list.map { |photo| photos.create(avatar: photo)}
-      photo_list.each do |photo|
-        photo.recipe = self
-      end
-      update_attributes(:total_calories => total_calories)
+      update_attributes!(:total_calories => total_calories)
       send_admin_mail('recipe_created_email')
     end
     self
@@ -96,21 +108,9 @@ class Recipe < ActiveRecord::Base
   def update_recipe(photo_list:, ingredients_list:, current_user:)
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)  if !ingredients_list.empty?
-      # update_attributes(params)
-      total_calories = 0
-      ingredients_list.each do |ingre|
-        total_calories += ingre[:quantity].to_i / ingre[:std_quantity].to_i * ingre[:calories_per_quantity].to_i #
-        if ingre.has_key?(:ingredient_id)
-          ingredient = Ingredient.find(ingre[:ingredient_id])
-          ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :ingredient_id))
-        else
-          ingredient = current_user.ingredients.build(ingre.except(:quantity))
-          ingredient.create_ingredient
-        end
-        save_recipe_ingredient_join(ingredient, self, ingre[:quantity])
-      end
-      photo_list.map { |photo| photos.create(avatar: photo)}
-      update_attributes(:total_calories => total_calories)
+      total_calories =  add_recipe_ingredients(ingredients_list, self, current_user)
+      add_recipe_photos(photo_list, self)
+      update_attributes!(:total_calories => total_calories)
     end
     self
   end
@@ -195,11 +195,12 @@ class Recipe < ActiveRecord::Base
 
   def self.search(query_hash:)
     searched_recipes = Recipe.approved.scoped
+    flag_check = ["ingredients", "meal_class", "calories", "free_text", "aggregate_ratings"] # tie it in your head always check if data is coming fo user beofre executing
     query_hash.each do |flag,query|
       # REVIEW: NEVER EVER execute untrusted code coming from user-input.
       # Either restructure this search completely OR create a whitelist of
       # permissible values for 'flag'
-      searched_recipes = searched_recipes.send(flag,query)
+      searched_recipes = searched_recipes.send(flag,query) if flag_check.include? flag
     end
     searched_recipes
   end

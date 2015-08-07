@@ -1,3 +1,5 @@
+
+<%= render "/common/images_upload_modal"%>
 <%= form_for(@recipe, :html => { :multipart => true , :class => 'form-horizontal'}) do |f| %>
   <% if @recipe.errors.any? %>
     <div id="error_explanation" class="control-group">
@@ -154,6 +156,16 @@
     <div class="controls">
       <button id="add-ingredients" class="btn btn-primary btn-large">Add More Ingredient</button>
     </div>
+  </div>
+
+  <div class="controle-group">
+    <div class="controls"> 
+      <a href="#" class='btn btn-success add-photo'>Create a recipe image gallery</a> 
+    </div>
+  </div>
+
+  <div class="photo-id">
+    <input type="hidden" id="add-photo-array" name="avatar[]" value="">
   </div>
   <br>
   <div class="control-group">

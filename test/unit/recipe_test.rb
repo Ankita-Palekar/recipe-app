@@ -6,8 +6,8 @@ class RecipeTest < ActiveSupport::TestCase
   test "create recipe" do
     recipe = create_recipe_helper
     recipe_copy = Recipe.find(recipe.id)
-    assert(recipe_copy.present?, 'recipe not saved') 
-    assert(recipe.ingredients.count > 0,'ingredients not inserted')
+    assert((recipe_copy.present?) && (recipe.id = recipe_copy.id), 'recipe not saved') 
+    assert(recipe.ingredients.count ,'ingredients not inserted')
     assert(recipe.photos.count ,'images not inserted') #--TODO
     assert_equal(15600, recipe.total_calories, 'total calorie calculation wrong')
   end
@@ -18,15 +18,16 @@ class RecipeTest < ActiveSupport::TestCase
     params = {name: "xyz"}
     recipe = create_recipe_helper
     recipe_copy = Recipe.find(recipe.id)
-    assert(recipe_copy.present?, 'recipe not saved') 
+    assert((recipe_copy.present?) && (recipe.id = recipe_copy.id), 'recipe not saved') 
     user_copy = User.find_by_email('zomato@domain.com')
-    recipe.update_attributes(UPDATE_RECIPE_HASH)
+    recipe_copy.update_attributes(UPDATE_RECIPE_HASH)
     recipe_copy.update_recipe(photo_list: @@photo_list, ingredients_list: @@ingredients_list, current_user: user_copy)
-    assert(recipe.ingredients.count > 0,'ingredients not inserted')
+    assert(recipe.ingredients.count,'ingredients not inserted')
+    Rails.logger.debug recipe.photos.count
     assert(recipe.photos.count ,'images not inserted') #--TODO
     assert_equal(15600, recipe.total_calories, 'total calorie calculation wrong')
     recipe_check = Recipe.find(recipe_copy.id)
-    assert(recipe_check.name=="xyz", 'recipe not updated')
+    assert(recipe_check.name == "xyz", 'recipe not updated')
   end
 
   test "rate recipe" do

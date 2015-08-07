@@ -24,23 +24,24 @@ include RecipesHelper
 
   # GET /recipes/1/edit
   def edit
+    @photo = Photo.new
     @recipe_details = Recipe.find(params[:id]).get_recipe_details
     @recipe = @recipe_details[:recipe_content]
     render "/common/edit_recipe"
   end
 
- 
   def create
     @current_user = current_user
+    @photo = Photo.new
     @recipe = Recipe.new(params[:recipe])
     params[:ingredient] ||= []
     params[:existing_ingredient] ||= []
-    params[:avatar] ||=[].to_json
-    photo_ids = JSON::parse(params[:avatar])
+    photo_id_array ||=[]
+    photo_id_array = JSON::parse(params[:avatar].first) 
     respond_to do |format|
       notice = ''
-      if !((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?) && !(photo_ids.empty?)
-        @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: photo_ids.compact)
+      if !((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?) && !(photo_id_array.empty?)
+        @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: photo_id_array.compact)
       else
         notice = "Recipe Images and Ingredients cannnot be blank"
       end
@@ -55,8 +56,6 @@ include RecipesHelper
       end
     end
   end
-
-  
 
   def rate_recipe
     @current_user = current_user
@@ -76,14 +75,17 @@ include RecipesHelper
   # PUT /recipes/1
   # PUT /recipes/1.json
   def update
+    @photo = Photo.new
     @current_user = current_user
     @recipe =  Recipe.find(params[:id])
     params[:ingredient]||=[]
     params[:existing_ingredient]||=[]
     params[:avatar]||=[]
+    photo_id_array ||=[]
+    photo_id_array = JSON::parse(params[:avatar].first) 
     respond_to do |format|  
       @recipe.update_attributes(params[:recipe])
-      @recipe.update_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a), photo_list:params[:avatar], current_user:@current_user)
+      @recipe.update_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a), photo_list:photo_id_array, current_user:@current_user)
       if @recipe.valid?
         format.html { redirect_to @recipe, notice: 'Recipe was successfullt edited'}
       else
@@ -148,6 +150,4 @@ include RecipesHelper
       return true
     end
   end
-
-
 end
