@@ -41,6 +41,7 @@ class Ingredient < ActiveRecord::Base
 		update_attributes(:approved => true)
 	end
 
+	# REVIEW: snake_case
 	def self.getIngredients(current_user)
 		# Ingredient.approved_ingredients.my_unapproved_ingredients(current_user.id)
 		current_user.ingredients.unapproved_ingredients + Ingredient.approved_ingredients

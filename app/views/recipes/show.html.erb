@@ -4,8 +4,8 @@
 	<div class="row">
 		<%= print_if_notice notice%>
 		<div class="well">
-			<%= print_rate_button @recipe %>
-			<%= print_recipe_edit_content @recipe %>
+			<%= print_rate_button(@recipe) if user_signed_in? %>
+			<%= print_recipe_edit_content(@recipe) if user_signed_in? %>
 		<div>
 			<button type="button" class="btn btn-large btn-success disabled pull-right" disabled="disabled"><%= @recipe.meal_class %></button>
 		</div>

@@ -12,7 +12,7 @@ module RecipesHelper
 		recipe.ratings.where(:rater_id => current_user.id)
 	end
 	def is_recipe_owner?(recipe)
-		current_user.id == recipe.creator_id
+		(current_user.id == recipe.creator_id)
 	end
 
 	def get_existing_ingredient_list
@@ -50,7 +50,7 @@ module RecipesHelper
 
 	def print_rate_button(recipe)
  		button =""
-		button = generate_rate_button(recipe) if !is_recipe_owner?(recipe)
+		button = generate_rate_button(recipe) if !is_recipe_owner?(recipe) 
 		return button.html_safe
 	end
 
@@ -69,14 +69,15 @@ module RecipesHelper
 	end
 
 	def print_user_profile_navbar_links
+		
 		# @@TODO use contet nested content tage for theis
- 		html = ""
+ 		html =""
  		html = '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> '+"#{current_user.name.capitalize }" +'<b class="caret"></b></a><ul class="dropdown-menu">' + (link_to "Sign out", destroy_user_session_path, :method => :delete) + '</ul></li>' if user_signed_in?
 		html.html_safe 
 	end
 
 	def print_user_recipes_navbar_links
-		html =""
+		html = ""
 		part2 = ""
 		part1 = '<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Recipes<b class="caret"></b></a>'
@@ -93,7 +94,7 @@ module RecipesHelper
 	end
 
 	def print_star_rates(aggregate_ratings)
-		html = ""
+		html =""
 		html = (0...(aggregate_ratings.to_i)).inject("") {|html, item| html+='<i class="fa fa-star fill-star fa-1x"></i>'}
 		html.html_safe
 	end
