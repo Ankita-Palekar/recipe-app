@@ -4,7 +4,7 @@ module ReusableFunctionsTests
 	included do 
 		@@ingredients_list = [{:ingredient_id => 49 , :name => "casew", :quantity => 10, :meal_class =>  "jain", :calories_per_quantity => 500 , :std_measurement => "gm", :std_quantity => 1, :creator_id => 2},{:name=>"sugar", :meal_class=>"veg", :std_measurement=>"kg", :std_quantity=>1, :calories_per_quantity=>5050, :quantity => 2, :creator_id => 2}, {:name=>"tomato", :meal_class=>"non-veg", :std_measurement=>"mg", :std_quantity=>10, :calories_per_quantity=>50, :quantity => 100, :creator_id => 2}]
 		
-		@@photo_list =  [Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/test-image.jpg'), 'image/jpeg')]
+		@@photo_list =  [Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/test_image.jpg'), 'image/jpeg')]
 		
 		USER_HASH ={:name => 'zomato', :email => 'zomato@domain.com',is_admin: true ,:password => 'zomato123', :password_confirmation  => 'zomato123'}
 		RECIPE_HASH = {:name => "Pudin hara juice" ,:description => "mint leaves", :serves => 2, :aggregate_ratings => 0, :creator_id=>2}
@@ -47,6 +47,14 @@ module ReusableFunctionsTests
 		  recipe = Recipe.new(RECIPE_HASH)  
 		  recipe.create_recipe(ingredients_list: @@ingredients_list, photo_list: @@photo_list, current_user: user_copy)    
 		  recipe
+		end
+
+		def upload_image
+			image = fixture_file_upload('cover.png', 'image/png')
+			@photo = Photo.new
+			@photo.avatar = image
+			@photo.save
+			@photo
 		end
 	end
 end	

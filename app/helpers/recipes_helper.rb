@@ -65,16 +65,18 @@ module RecipesHelper
 	end
 
 	def print_login_link
-		content_tag(:li, link_to("Login", new_user_session_path)) if !user_signed_in
+		content_tag(:li, link_to("Login", new_user_session_path)) if !user_signed_in?
 	end
 
 	def print_user_profile_navbar_links
 		# @@TODO use contet nested content tage for theis
+ 		html = ""
  		html = '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> '+"#{current_user.name.capitalize }" +'<b class="caret"></b></a><ul class="dropdown-menu">' + (link_to "Sign out", destroy_user_session_path, :method => :delete) + '</ul></li>' if user_signed_in?
 		html.html_safe 
 	end
 
 	def print_user_recipes_navbar_links
+		html =""
 		part2 = ""
 		part1 = '<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Recipes<b class="caret"></b></a>'
@@ -86,10 +88,12 @@ module RecipesHelper
 		end
 		part3 = "</li>"
 		html =(part1+part2+part3) if user_signed_in?
+		
 		return html.html_safe
 	end
 
 	def print_star_rates(aggregate_ratings)
+		html = ""
 		html = (0...(aggregate_ratings.to_i)).inject("") {|html, item| html+='<i class="fa fa-star fill-star fa-1x"></i>'}
 		html.html_safe
 	end

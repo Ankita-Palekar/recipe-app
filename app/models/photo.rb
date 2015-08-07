@@ -6,5 +6,5 @@ class Photo < ActiveRecord::Base
   # validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   # validates :recipe_id, :presence => true
   validates_attachment :avatar, :presence => true,
-    :content_type => { :content_type => "image/jpeg" }
+    :content_type => { :content_type => /\Aimage\/.*\Z/ }
 end

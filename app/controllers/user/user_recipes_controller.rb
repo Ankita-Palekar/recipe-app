@@ -37,11 +37,14 @@ include RecipesHelper
     params[:existing_ingredient] ||= []
     params[:avatar] ||=[]
     
+    puts params.inspect
+
     # puts "==============================="
     # puts ((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?)
     # puts params[:avatar].empty?
     respond_to do |format|
       notice = ''
+
       if !((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?) && !((params[:avatar].to_a).empty?)
         @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: params[:avatar].compact)
       else

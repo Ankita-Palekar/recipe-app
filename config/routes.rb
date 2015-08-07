@@ -53,7 +53,7 @@ Foodholic::Application.routes.draw do
   end
   get '/recipes/:id' => 'recipes#show' ,:as => 'recipe'
   
-
+  
   get  'photos(.:format)' => 'photos#index', :as => :photos
   post '/photos(.:format)' => 'photos#create'
   get  '/photos/new(.:format)' => 'photos#new', :as => :new_photo

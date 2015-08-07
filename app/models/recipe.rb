@@ -60,7 +60,6 @@ class Recipe < ActiveRecord::Base
 
 
   def create_recipe(ingredients_list:, photo_list:, current_user:) 
-    puts ingredients_list.inspect
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
       current_user.recipes << self
@@ -75,7 +74,10 @@ class Recipe < ActiveRecord::Base
         end
         save_recipe_ingredient_join(ingredient, self, ingre[:quantity])
       end
-      photo_list.map { |photo| photos.create(avatar: photo)}
+      # photo_list.map { |photo| photos.create(avatar: photo)}
+      photo_list.each do |photo|
+        photo.recipe = self
+      end
       update_attributes(:total_calories => total_calories)
       send_admin_mail('recipe_created_email')
     end

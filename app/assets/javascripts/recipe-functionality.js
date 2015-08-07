@@ -208,19 +208,48 @@
 		  }, 1000);
 		  
 
+		 $('.trigger-process-queue').click(function(){
+		 		$('.dropzone').dropzone({processQueue: true})
+		 })
+
 		  // file upload code 
 		 // // disable auto discover
-		 // Dropzone.autoDiscover = false;
+		 Dropzone.autoDiscover = false;
 		 // // grap our upload form by its id
-		 // $("#photo_upload").dropzone({
-		 // 	// restrict image size to a maximum 1MB
-		 // 	maxFilesize: 1,
-		 // 	// changed the passed param to one accepted by
-		 // 	// our rails app
-		 // 	paramName: "upload[image]",
-		 // 	// show remove links on each image upload
-		 // 	addRemoveLinks: true
-		 // });	
+		 $(".dropzone").dropzone({
+		 	// restrict image size to a maximum 1MB
+		 	maxFilesize: 1,
+		 	dictDefaultMessage: "Drop files to create recipe album",
+		 	dictFallbackMessage: "Your browser is not supported please upgrade or you are missing in some functionality ",
+		 	// changed the passed param to one accepted by
+		 	// our rails app
+		 	paramName: "file",
+		 	// show remove links on each image upload
+		 	addRemoveLinks: true,
+		 	autoProcessQueue: true,
+		 	success: function(file, response){		 
+		 		$(file.previewTemplate).find('.dz-remove').attr('id', response.object.id);
+		 		$(file.previewElement).addClass("dz-success");
+		 		var photo_id = []
+		 		$('.dz-success').each(function(){
+		 			console.log($(this))
+		 			photo_id.push($(this).find('.dz-remove').attr('id')) 
+		 		})
+		 		photo_id_array = JSON.stringify(photo_id)
+		 		$('#add-photo-array').val(photo_id_array)
+		 	},
+		 	removedfile: function(file){
+				var id = $(file.previewTemplate).find('.dz-remove').attr('id'); 
+			 	$(file.previewTemplate).find('.dz-remove').parent().remove()
+				$.ajax({
+					type: 'DELETE',
+					url: '/photos/' + id,
+					success: function(data){
+						console.log(data.message);
+					}
+			});
+		}
+		 });	
 		  
 
 	})  

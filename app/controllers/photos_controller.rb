@@ -4,21 +4,24 @@ class PhotosController < ApplicationController
 	end
 
   def create
-  	puts "======================="
-  	puts params.inspect
-  	# params[:avatar] = params[:file]
-  	
-
   	@photo = Photo.new
-  	@photo.update_attributes(:avatar => params[:file])
-
-  	if @photo.save
-  	  render json: { message: "success" }, :status => 200
+    @photo.avatar = params[:file]
+    if @photo.save
+  	  render json: { object: @photo }, :status => 200
+      flash[:notice] = "image uploaded successfully"
   	else
-  	  #  you need to send an error header, otherwise Dropzone
-          #  will not interpret the response as an error:
   	  render json: { error: @photo.errors.full_messages.join(',')}, :status => 400
   	end  		
+  end
+
+  def destroy
+    @photo = Photo.find(params[:id])
+    if @photo.destroy    
+      flash[:notice] = "File deleted from server"
+      render json: { message: flash[:notice] }
+    else
+      render json: { message: @photo.errors.full_messages.join(',') }
+    end
   end
 
   private
