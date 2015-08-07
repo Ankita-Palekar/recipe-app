@@ -1,5 +1,8 @@
 <!-- @@TODO find dynamic instead of custom url for form-->
 <%# form_for("/recipes/#{@recipe.id}", html: { multipart: true , :class => 'form-horizontal'}) do |f| %>
+
+<%= render "/common/images_upload_modal"%>
+
 <%= form_for(@recipe, html: { multipart: true , :class => 'form-horizontal'}) do |f| %>
   <% if @recipe.errors.any? %>
     <div id="error_explanation" class="control-group">
@@ -75,14 +78,25 @@
   </div>
 
   <br>
-  <div class="control-group">
+  <!-- <div class="control-group">
     <label class="control-label" for="inputEmail">Upload Multiple Images</label>
     
     <div class="controls">
-        <%= file_field_tag "avatar[]", type: :file, multiple: true %>
+        <%# file_field_tag "avatar[]", type: :file, multiple: true %>
+    </div>
+  </div> -->
+
+  <!-- @@TODO precessqueue of images on click of button instead of auto  -->
+  <div class="controle-group">
+    <div class="controls"> 
+      <a href="#" class='btn btn-success add-photo'>Create a recipe image gallery</a> 
     </div>
   </div>
 
+  <div class="photo-id">
+    <input type="hidden" id="add-photo-array" name="avatar[]" value="">
+  </div>
+  <hr>
   <div class="control-group">
     <div class="controls">
       <%= f.submit 'Save Recipe', :class => 'btn btn-primary btn-large' %>

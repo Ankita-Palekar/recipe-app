@@ -89,6 +89,7 @@ module RecipesHelper
 		end
 		part3 = "</li>"
 		html =(part1+part2+part3) if user_signed_in?
+		
 		return html.html_safe
 	end
 

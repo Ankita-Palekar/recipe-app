@@ -65,7 +65,6 @@ class Recipe < ActiveRecord::Base
 
 
   def create_recipe(ingredients_list:, photo_list:, current_user:) 
-    puts ingredients_list.inspect
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
       # REVIEw: Why is the following line required?
@@ -82,9 +81,11 @@ class Recipe < ActiveRecord::Base
         save_recipe_ingredient_join(ingredient, self, ingre[:quantity])
       end
       # REVIEW: What will happen if there is an error in creating the photo?
-      photo_list.map { |photo| photos.create(avatar: photo)}
-
       # REVIEW: What will happen if there is an error in updating the total_calories?
+      # photo_list.map { |photo| photos.create(avatar: photo)}
+      photo_list.each do |photo|
+        photo.recipe = self
+      end
       update_attributes(:total_calories => total_calories)
       send_admin_mail('recipe_created_email')
     end

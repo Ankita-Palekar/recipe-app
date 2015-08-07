@@ -57,6 +57,8 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    dropzonejs-rails (0.7.1)
+      rails (> 3.1)
     erubis (2.7.0)
     execjs (2.5.2)
     font-awesome-rails (4.4.0.0)
@@ -157,6 +159,7 @@ DEPENDENCIES
   daemon-spawn (= 0.4.2)
   delayed_job_active_record (= 0.4.3)
   devise
+  dropzonejs-rails
   font-awesome-rails
   jquery-rails
   less-rails-bootstrap (~> 2)

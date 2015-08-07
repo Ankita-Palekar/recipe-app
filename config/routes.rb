@@ -2,7 +2,10 @@ Foodholic::Application.routes.draw do
 
   devise_for :users
   devise_for :user
+
   
+
+
   get '/search' => 'recipes#search' , :via => :get, :as => 'search_recipes'
   
   post '/search' => 'recipes#search_recipes', :as => 'search_by_click'
@@ -50,9 +53,19 @@ Foodholic::Application.routes.draw do
   end
   get '/recipes/:id' => 'recipes#show' ,:as => 'recipe'
   
-  # resources :users
-  # resources :ratings
+  
+  get  'photos(.:format)' => 'photos#index', :as => :photos
+  post '/photos(.:format)' => 'photos#create'
+  get  '/photos/new(.:format)' => 'photos#new', :as => :new_photo
+  get  '/photos/:id/edit(.:format)' => 'photos#edit', :as => :edit_photo
+  get  '/photos/:id(.:format)' => 'photos#show', :as => :photo 
+  put  '/photos/:id(.:format)' => 'photos#update'
+  delete '/photos/:id(.:format)' => 'photos#destroy'
+                            
 
+
+  # resources :ratings
+  # resources :users
 
 
 

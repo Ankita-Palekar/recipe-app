@@ -28,6 +28,13 @@
 	    	return false
 	    })
 
+	   $('.add-photo').click(function(){
+			recipe_id =  $(this).data('rec-id')
+			$('#modal-recipe-id').val(recipe_id)
+			$('#photo-upload-modal').modal('toggle')
+		})
+
+	    // @@TODO use plugins for all the codes doen here which are almost repeating
 
 	    $('.star-rate').click(function(){
 	    	var recipe = {"id" : $(this).closest('.star-rating').data('rec-id'), "ratings" : $(this).data('star-rate')}
@@ -58,6 +65,7 @@
 	    $('.ingredient-link,.meal_class-link').hover(function(){
 	    	$(this).tooltip('toggle')
 	    })
+
 
 	    
 	    // ajaxapi created
@@ -109,6 +117,8 @@
 	  // }); 
 	  
 	   
+		
+
 		$('.approve-recipe').click(function(e){
 			e.preventDefault() 
 			var $this = $(this)
@@ -198,8 +208,54 @@
 		  }, 1000);
 		  
 
+		 $('.trigger-process-queue').click(function(){
+		 		$('.dropzone').dropzone({processQueue: true})
+		 })
+
+		  // file upload code 
+		 // // disable auto discover
+		 Dropzone.autoDiscover = false;
+		 // // grap our upload form by its id
+		 $(".dropzone").dropzone({
+		 	// restrict image size to a maximum 1MB
+		 	maxFilesize: 1,
+		 	dictDefaultMessage: "Drop files to create recipe album",
+		 	dictFallbackMessage: "Your browser is not supported please upgrade or you are missing in some functionality ",
+		 	// changed the passed param to one accepted by
+		 	// our rails app
+		 	paramName: "file",
+		 	// show remove links on each image upload
+		 	addRemoveLinks: true,
+		 	autoProcessQueue: true,
+		 	success: function(file, response){		 
+		 		$(file.previewTemplate).find('.dz-remove').attr('id', response.object.id);
+		 		$(file.previewElement).addClass("dz-success");
+		 		var photo_id = []
+		 		$('.dz-success').each(function(){
+		 			console.log($(this))
+		 			photo_id.push($(this).find('.dz-remove').attr('id')) 
+		 		})
+		 		photo_id_array = JSON.stringify(photo_id)
+		 		$('#add-photo-array').val(photo_id_array)
+		 	},
+		 	removedfile: function(file){
+				var id = $(file.previewTemplate).find('.dz-remove').attr('id'); 
+			 	$(file.previewTemplate).find('.dz-remove').parent().remove()
+				$.ajax({
+					type: 'DELETE',
+					url: '/photos/' + id,
+					success: function(data){
+						console.log(data.message);
+					}
+			});
+		}
+		 });	
+		  
 
 	})  
+
+
+
 
 
 }).call(this);
