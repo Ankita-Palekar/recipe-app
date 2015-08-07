@@ -20,6 +20,7 @@ class PhotosControllerTest < ActionController::TestCase
 	 	assert_difference('Upload.count', -1) do
 	 	  delete :destroy, id: @photo
 	 	end	
+	 	assert_response :success
 	 	assert_equal("File deleted from server", flash[:notice])
 	end
 end

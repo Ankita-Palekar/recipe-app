@@ -42,6 +42,8 @@ include RecipesHelper
     # puts "==============================="
     # puts ((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?)
     # puts params[:avatar].empty?
+    
+    
     respond_to do |format|
       notice = ''
 
