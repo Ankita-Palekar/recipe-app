@@ -40,13 +40,8 @@ class Recipe::UserRecipesController < ApplicationController
     @recipe = Recipe.new(params[:recipe])
     params[:ingredient] ||= []
     params[:existing_ingredient] ||= []
-    photo_id_array ||=[]
-
-    puts params.inspect
-
+    params[:avatar] = ["[]"] if params[:avatar].first.empty?
     photo_id_array = JSON::parse(params[:avatar].first) 
-
-    # respond_to do |format|
       
       if !((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?) && !(photo_id_array.empty?)
         @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: photo_id_array.compact)
@@ -90,8 +85,7 @@ class Recipe::UserRecipesController < ApplicationController
     @recipe =  Recipe.find(params[:id])
     params[:ingredient]||=[]
     params[:existing_ingredient]||=[]
-    params[:avatar]||=[]
-    photo_id_array ||=[]
+    params[:avatar] = ["[]"] if params[:avatar].first.empty?
     photo_id_array = JSON::parse(params[:avatar].first) 
     respond_to do |format|  
       @recipe.update_attributes(params[:recipe])
