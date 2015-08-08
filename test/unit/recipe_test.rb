@@ -12,6 +12,8 @@ class RecipeTest < ActiveSupport::TestCase
     assert_equal(15600, recipe.total_calories, 'total calorie calculation wrong')
   end
 
+  
+
   #needs to load data in recipe, ingredients, recipe_ingredients fixture
 
   test "update recipe" do

@@ -1,7 +1,7 @@
 <% @recipe_list||=[] %>
 <div class="container">
 	<h1 class="page-header"> <%= "#{@page_header}" %></h1>
-	<%= render :template => 'recipes/rate_modal' %>
+	<%= render  '/common/rate_modal' %>
 	<div id="display-notice-message">
 		<% if notice %>
 			<div class="alert alert-info">

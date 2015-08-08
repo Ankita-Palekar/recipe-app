@@ -41,9 +41,13 @@ class Recipe::UserRecipesController < ApplicationController
     params[:ingredient] ||= []
     params[:existing_ingredient] ||= []
     photo_id_array ||=[]
+
+    puts params.inspect
+
     photo_id_array = JSON::parse(params[:avatar].first) 
-    respond_to do |format|
-      notice = ''
+
+    # respond_to do |format|
+      
       if !((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?) && !(photo_id_array.empty?)
         @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: photo_id_array.compact)
       else
@@ -51,14 +55,16 @@ class Recipe::UserRecipesController < ApplicationController
       end
 
       if @recipe.persisted?
-        format.html { redirect_to @recipe, notice: 'Recipe created successfully' }
-        format.json { render json: @recipe, status: :created, location: @recipe }
+        # format.html { redirect_to @recipe, notice: 'Recipe created successfully' }
+        flash[:notice] = 'Recipe created successfully'
+        redirect_to @recipe
+        # format.json { render json: @recipe, status: :created, location: @recipe }
       else
         flash[:notice] = notice
-        format.html {render '/common/create_recipe', notice: notice }
-        format.json {render json: @recipe.errors, status: :unprocessable_entity }
+        render '/common/create_recipe'
+        # format.json {render json: @recipe.errors, status: :unprocessable_entity }
       end
-    end
+    # end
   end
 
   def rate_recipe
