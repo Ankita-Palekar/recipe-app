@@ -2,23 +2,12 @@ Foodholic::Application.routes.draw do
 
   devise_for :users
   devise_for :user
-
-  
-
-
-  get '/search' => 'recipes#search' , :via => :get, :as => 'search_recipes'
-  
-  post '/search' => 'recipes#search_recipes', :as => 'search_by_click'
-  get '/recipes/:id/:ratings/rated_users' => 'recipes#rated_users_list', :as => 'rated_users_list' 
-
-  get '/recipes/top_rated_recipes' => 'recipes#top_rated_recipes', :as => "top_rated_recipes"
-  get '/recipes/most_rated_recipes'=> 'recipes#most_rated_recipes', :as => "most_rated_recipes"
+  root :to => 'home#index' 
   
   # match '/login' => 'sessions#create', :via => :post
   # match '/login' => 'sessions#login'
-  match '/logout' => 'sessions#destroy', :via => :delete
+  # match '/logout' => 'sessions#destroy', :via => :delete
   # match '/signup' => 'users#new'
-  root :to => 'home#index' 
   # match '/users' => 'users#create', :via => :post  
 
   # User::Application.routes.draw do 
@@ -30,15 +19,27 @@ Foodholic::Application.routes.draw do
     match '/user/sign_out' => 'devise/sessions#destroy', :as => :destroy_user_session, via: [:get, :delete]
   end
   
-  scope :module => "admin" do
+ 
+
+  # scope :module => "admin" do
+  # end
+  
+  
+  scope :module => "recipe"   do
+    # public recipe controller related routes
+    get '/search' => 'recipes#search' , :via => :get, :as => 'search_recipes'
+    post '/search' => 'recipes#search_recipes', :as => 'search_by_click'
+    get '/recipes/:id/:ratings/rated_users' => 'recipes#rated_users_list', :as => 'rated_users_list' 
+    get '/recipes/top_rated_recipes' => 'recipes#top_rated_recipes', :as => "top_rated_recipes"
+    get '/recipes/most_rated_recipes'=> 'recipes#most_rated_recipes', :as => "most_rated_recipes"
+
+    #admin recipe controller related routes
+    
     put '/recipes/approve_recipe' => 'admin_recipes#approve_recipe', :as => 'approve_recipe'
     put '/recipes/reject_recipe' => 'admin_recipes#reject_recipe', :as => "reject_recipe"
     get '/recipes/admin_pending_recipes' => 'admin_recipes#admin_pending_recipes', :as => 'admin_pending_recipes' 
-  end
-  
-  
-  scope :module => "user"   do
 
+    # user recipe controller related routes routes
     get '/recipes/new' => 'user_recipes#new',  :as => 'new_recipe'   
     post '/recipes/rate' => 'user_recipes#rate_recipe'
     get '/recipes/my_pending_recipes' => 'user_recipes#my_pending_recipes', :as => "my_pending_recipes"
@@ -50,8 +51,8 @@ Foodholic::Application.routes.draw do
     put '/recipes/:id' => 'user_recipes#update'
     post '/recipes' => 'user_recipes#create'
     get '/recipes' => 'user_recipes#index'
+    get '/recipes/:id' => 'recipes#show' ,:as => 'recipe'
   end
-  get '/recipes/:id' => 'recipes#show' ,:as => 'recipe'
   
   
   get  'photos(.:format)' => 'photos#index', :as => :photos
