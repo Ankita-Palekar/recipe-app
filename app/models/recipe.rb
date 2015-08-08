@@ -16,6 +16,7 @@ class Recipe < ActiveRecord::Base
   validates :creator_id, :presence => true
 
   before_validation :strip_whitespace, :only => [:name, :description]
+  self.per_page = 10 #for pagination
 
   scope :free_text, ->(query) {where("name ILIKE ?", "%#{query}%")}
   scope :aggregate_ratings, ->(ratings) {where(aggregate_ratings: ratings)}
@@ -33,7 +34,7 @@ class Recipe < ActiveRecord::Base
   scope :order_by_most_rated, -> {select("recipes.*, count(ratings.recipe_id) as count").joins(:ratings).group("recipes.id").ordered_by_count}
   scope :pending, -> {where(approved: false, rejected: false)}
   scope :rejected, -> {where(rejected: true)}
-  scope :page_navigation, ->(limit, page_nav) {limit(limit).offset((page_nav-1)*limit) }
+  # scope :page_navigation, ->(limit, page_nav) {limit(limit).offset((page_nav-1)*limit) }
   scope :ratings_count_hash, -> {ratings.group(:ratings).count }
   scope :photos, -> {joins(:photos)}
   scope :include_photos, -> {includes(:photos)}
@@ -116,8 +117,8 @@ class Recipe < ActiveRecord::Base
   end
 
   #for admin
-  def self.list_pending_recipes(page_nav:, limit:)
-    Recipe.include_photos.pending.order_by_date.page_navigation(limit, page_nav)
+  def self.list_pending_recipes
+    Recipe.include_photos.pending.order_by_date 
   end
   
   # REVIEW: what happens if user is not admin? Read ActiveRecord::Error class
@@ -151,11 +152,12 @@ class Recipe < ActiveRecord::Base
 
   # list_type takes => order_by_date, order_by_aggregate_ratings, order_by_most_rated 
   #status => pending, approved, rejected
-  def self.list_recipes(list_type:, page_nav:, limit:, status: nil, current_user:nil)
+  # def self.list_recipes(list_type:, page_nav:, limit:, status: nil, current_user:nil)
+  def self.list_recipes(list_type:, status: nil, current_user:nil)
     if status && current_user
-      current_user.recipes.include_photos.send(status).send(list_type).order_by_date.page_navigation(limit, page_nav)
+      current_user.recipes.include_photos.send(status).send(list_type).order_by_date
     else
-      Recipe.include_photos.approved.send(list_type).order_by_date.page_navigation(limit, page_nav)
+      Recipe.include_photos.approved.send(list_type).order_by_date
     end
   end
 

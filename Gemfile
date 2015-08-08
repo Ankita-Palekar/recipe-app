@@ -33,6 +33,8 @@ gem 'daemon-spawn', '0.4.2' #for productin
 gem 'devise'
 gem 'dropzonejs-rails'
 gem 'cancancan', '~> 1.10'
+gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-bootstrap'
 # To use ActiveModel has_s
 # ecure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

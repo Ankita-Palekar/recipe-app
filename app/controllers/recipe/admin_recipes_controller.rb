@@ -4,7 +4,7 @@ class Recipe::AdminRecipesController < ApplicationController
 	authorize_resource :class => false
 	def admin_pending_recipes
 		@page_header = "Admin Pending Recipes"
-		@recipe_list =  Recipe.list_pending_recipes(page_nav: 1, limit: 100)
+		@recipe_list =  Recipe.list_pending_recipes.paginate(:page => params[:page])
 	 	render '/common/recipe_list_admin'
 	end
 

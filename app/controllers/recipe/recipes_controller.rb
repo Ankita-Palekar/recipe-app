@@ -8,14 +8,14 @@ class Recipe::RecipesController < ApplicationController
 
   def top_rated_recipes
     @page_header = "Top Rated Recipes"
-    @recipe_list = Recipe.list_recipes(list_type:'order_by_aggregate_ratings', page_nav:1, limit:100)
+    @recipe_list = Recipe.list_recipes(list_type:'order_by_aggregate_ratings').paginate(:page => params[:page])
     render '/common/recipe_list'
   end
 
   
   def most_rated_recipes
     @page_header = "Most Rated Recipes"
-    @recipe_list = Recipe.list_recipes(list_type:'order_by_most_rated', page_nav:1, limit:100)
+    @recipe_list = Recipe.list_recipes(list_type:'order_by_most_rated').paginate(:page => params[:page])
     render '/common/recipe_list'
   end
 
@@ -41,7 +41,7 @@ class Recipe::RecipesController < ApplicationController
     query_hash = params[:flag]
     query_hash = query_hash.reject {|key, val| val.empty?}
     @page_header = "Search Result"
-    @recipe_list =  Recipe.search(:query_hash => query_hash)
+    @recipe_list =  Recipe.search(:query_hash => query_hash).paginate(:page => params[:page])
     render '/common/search'
   end
 

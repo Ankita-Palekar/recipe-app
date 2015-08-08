@@ -13,7 +13,7 @@ class Recipe::UserRecipesController < ApplicationController
   
   def index
     @recipe_list
-    @recipe_list = Recipe.list_recipes(list_type:'order_by_date', page_nav:1, limit:100, current_user: current_user)
+    @recipe_list = Recipe.list_recipes(list_type:'order_by_date', current_user: current_user).paginate(:page => params[:page])
     render '/common/recipe_list'
   end
 
@@ -101,31 +101,31 @@ class Recipe::UserRecipesController < ApplicationController
 
   def my_pending_recipes
     @page_header = "My Pending Recipes"
-    @recipe_list = Recipe.list_recipes(list_type:'order_by_date', status: 'pending', page_nav:1, limit:100, current_user: @current_user)
+    @recipe_list = Recipe.list_recipes(list_type:'order_by_date', status: 'pending', current_user: @current_user).paginate(:page => params[:page])
     render '/common/recipe_list'
   end
 
   def my_rejected_recipes
     @page_header = "My Rejected Recipes"
-    @recipe_list = Recipe.list_recipes(list_type:'order_by_date',status: 'rejected', page_nav:1, limit:100, current_user: @current_user)
+    @recipe_list = Recipe.list_recipes(list_type:'order_by_date',status: 'rejected', current_user: @current_user).paginate(:page => params[:page])
     render '/common/recipe_list'
   end
 
   def my_top_rated_recipes
     @page_header = "My Top Rated Recipes"
-    @recipe_list = Recipe.list_recipes(list_type:'order_by_aggregate_ratings',status: 'approved', page_nav:1, limit:100, current_user: @current_user)
+    @recipe_list = Recipe.list_recipes(list_type:'order_by_aggregate_ratings',status: 'approved', current_user: @current_user).paginate(:page => params[:page])
     render '/common/recipe_list'
   end
 
   def my_most_rated_recipes
     @page_header = "My Most Rated Recipes"
-    @recipe_list = Recipe.list_recipes(list_type:'order_by_most_rated',status: 'approved', page_nav:1, limit:100, current_user: @current_user)
+    @recipe_list = Recipe.list_recipes(list_type:'order_by_most_rated',status: 'approved', current_user: @current_user).paginate(:page => params[:page])
     render '/common/recipe_list'
   end
 
   def my_approved_recipes
     @page_header = "My Approved Recipes"
-    @recipe_list = Recipe.list_recipes(list_type:'order_by_date',status: 'approved', page_nav:1, limit:100, current_user: @current_user)
+    @recipe_list = Recipe.list_recipes(list_type:'order_by_date',status: 'approved', current_user: @current_user).paginate(:page => params[:page])
     render '/common/recipe_list'
   end
 
