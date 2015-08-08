@@ -32,6 +32,7 @@ GEM
     bcrypt (3.1.10)
     bcrypt-ruby (3.0.1)
     builder (3.0.4)
+    cancancan (1.12.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.7)
@@ -155,6 +156,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
+  cancancan (~> 1.10)
   coffee-rails (~> 3.2.1)
   daemon-spawn (= 0.4.2)
   delayed_job_active_record (= 0.4.3)
