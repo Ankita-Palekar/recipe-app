@@ -1,6 +1,6 @@
 class Ingredient < ActiveRecord::Base
 	# has_and_belongs_to_many :recipes
-	belongs_to :user, :foreign_key => 'creator_id'
+	belongs_to :creator, :foreign_key => 'creator_id', :class_name => User
 	has_many :recipe_ingredients
 	has_many :recipes, :through => :recipe_ingredients 
 

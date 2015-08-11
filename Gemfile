@@ -35,8 +35,11 @@ gem 'dropzonejs-rails'
 gem 'cancancan', '~> 1.10'
 gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
+gem 'bootstrap-wysihtml5-rails', '~> 0.3.3.7' #for recipe content details
+gem 'chosen-rails'
+
 # To use ActiveModel has_s
-# ecure_password
+# secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON

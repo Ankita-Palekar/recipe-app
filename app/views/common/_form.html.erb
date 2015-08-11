@@ -29,7 +29,7 @@
   <div class="control-group">
     <label class="control-label" for="inputEmail">Discription</label>
     <div class="controls">
-      <textarea class="span8" name="recipe[description]" cols="30" rows="10" required></textarea>
+      <textarea class="span8" id="recipe-description" name="recipe[description]" cols="30" rows="10" required></textarea>
     </div>
   </div>
   
@@ -41,11 +41,17 @@
     </div>
   </div>  
 
+  <div class="control-group">
+     <div class="controls"> 
+      <h5> Type and select ingredients from the list of ingredietns </h5>
+     </div>
+  </div>
+
   <% if logged_in? %>
     <div class="control-group inline">
       <label class="control-label">Select existing ingredients</label>
       <div class="controls">
-        <select multiple="multiple" id="existing-ingredient-list">
+        <select multiple="multiple" id="existing-ingredient-list" class="chosen-select">
           <%= @existing_ingredients_list = get_existing_ingredient_list %>
           <%@existing_ingredients_list.each do |ing| %>
             <option value='<%= "#{ing.id}-#{ing.name}-#{ing.meal_class}-#{ing.std_quantity}-#{ing.calories_per_quantity}"%>' data-ingredient-name ="<%= "#{ing.name}"%>"><%= ing.name %></option>
@@ -58,7 +64,7 @@
   <div class="control-group inline">
    <div class="controls">
      <i class="fa fa-hand-o-left fa-3x  "></i>
-     <button class="btn btn-primary" id="add-existing-ingredients-block">Select Existing Ingredients</button>
+     <button class="btn btn-info btn-small" id="add-existing-ingredients-block">click to add selected ingredients</button>
    </div> 
   </div>
  
@@ -66,14 +72,12 @@
   </div>
 
   <div class="ingredients-container">
-    <div class="add-ingredients" >
-    </div>
   </div>
 
  
   <div class="control-group">
     <div class="controls">
-      <button id="add-ingredients" class="btn btn-primary btn-large">Add More Ingredients</button>
+      <button id="add-ingredient" class="btn btn-info btn-small">Add More Ingredients</button>
     </div>
   </div>
 
@@ -89,7 +93,7 @@
   <!-- @@TODO precessqueue of images on click of button instead of auto  -->
   <div class="controle-group">
     <div class="controls"> 
-      <a href="#" class='btn btn-success add-photo'>Create a recipe image gallery</a> 
+      <a href="#" class='btn btn-small add-photo'>Make Recipe image gallery</a> 
     </div>
   </div>
 

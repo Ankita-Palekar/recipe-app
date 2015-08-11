@@ -7,7 +7,7 @@ module ReusableFunctionsTests
 		RECIPE_HASH = {:name => "Pudin hara juice" ,:description => "mint leaves", :serves => 2, :aggregate_ratings => 0, :creator_id=>2}
 		UPDATE_RECIPE_HASH = {:name => "xyz" ,:description => "mint leaves", :serves => 2, :aggregate_ratings => 0, :creator_id=>2}
 		@@photo_list = []
-
+		
 
 		def create_user_helper
 			User.create(USER_HASH)

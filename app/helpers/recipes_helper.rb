@@ -56,7 +56,7 @@ module RecipesHelper
 
 	def print_recipe_edit_content(recipe)
 		link = ""
-		link = link_to("", edit_recipe_path(recipe) , :class => "fa fa-pencil fa-3x edit") if is_recipe_owner?(recipe)
+		link = link_to("", edit_recipe_path(recipe) , :class => "fa fa-pencil fa-3x edit recipe-edit") if is_recipe_owner?(recipe)
 		link.html_safe
 	end
 
@@ -68,8 +68,26 @@ module RecipesHelper
 		content_tag(:li, link_to("Login", new_user_session_path)) if !user_signed_in?
 	end
 
+	def list_approve_reject_button(rec, admin_show_status)
+		html = ""
+		html << content_tag(:div, :class => "inline approve-reject-button-block") do 
+			concat content_tag(:button, "approve", {:class => "btn btn-mini btn-success approve-recipe", :type => "button", :'data-rec-id' => rec.id})
+			concat content_tag(:button, "reject", {:class => "btn btn-mini btn-danger reject-recipe", :type => "button", :'data-rec-id' => rec.id})
+		end
+		html.html_safe if (user_signed_in? && current_user.is?(:admin) && admin_show_status)
+
+
+
+		# <div class="inline"> 
+		# 	<button class="btn btn-mini btn-success approve-recipe" type="button" data-rec-id='<%="#{rec.id}"%>'>approve</button>
+		# 	<button class="btn btn-mini btn-danger reject-recipe" type="button" data-rec-id='<%="#{rec.id}"%>'>reject</button>
+		# </div>
+	end
+
+	#gets content down and image on top 
+	 
+
 	def print_user_profile_navbar_links
-		
 		# @@TODO use contet nested content tage for theis
  		html =""
  		html = '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> '+"#{current_user.name.capitalize }" +'<b class="caret"></b></a><ul class="dropdown-menu">' + (link_to "Sign out", destroy_user_session_path, :method => :delete) + '</ul></li>' if user_signed_in?
@@ -93,9 +111,25 @@ module RecipesHelper
 		return html.html_safe
 	end
 
+
 	def print_star_rates(aggregate_ratings)
 		html =""
+		
 		html = (0...(aggregate_ratings.to_i)).inject("") {|html, item| html+='<i class="fa fa-star fill-star fa-1x"></i>'}
+		html += (0...(5 - aggregate_ratings.to_i)).inject("") {|html, item| html+='<i class="fa fa-star-o muted fa-1x"></i>'}
+
+		html.html_safe
+	end
+
+
+	def print_meal_class(meal_class, page)
+		class_name = "info" if meal_class == 'jain'
+		class_name = "success" if meal_class == 'veg'
+		class_name = "important" if meal_class == 'non-veg'
+		html = ""
+		html = '<span type="button" class="list-meal-class label label-' + class_name + ' inline" disabled="disabled">'+ meal_class +'</span>' if page == 'list'
+		html = '<button type="button" class="btn btn-large btn-'+class_name+' disabled pull-right" disabled="disabled">'+meal_class+'</button>' if page == 'detail'
+	
 		html.html_safe
 	end
 
@@ -104,6 +138,7 @@ module RecipesHelper
 		html = content_tag(:div,  :class => "alert alert-success text-center") do 
 			notice
 		end if notice
+
 		html.html_safe
 
 		# <%  if notice %>

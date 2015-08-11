@@ -1,7 +1,7 @@
 Foodholic::Application.routes.draw do
 
   devise_for :users
-  devise_for :user
+  # devise_for :user
   root :to => 'home#index' 
   
   # match '/login' => 'sessions#create', :via => :post
@@ -9,7 +9,7 @@ Foodholic::Application.routes.draw do
   # match '/logout' => 'sessions#destroy', :via => :delete
   # match '/signup' => 'users#new'
   # match '/users' => 'users#create', :via => :post  
-
+  
   # User::Application.routes.draw do 
   #   resources :users
   #   root :to => 'home#index' 
@@ -51,10 +51,12 @@ Foodholic::Application.routes.draw do
     put '/recipes/:id' => 'user_recipes#update'
     post '/recipes' => 'user_recipes#create'
     get '/recipes' => 'user_recipes#index'
+    delete '/recipes/destroy_ingredient' => "user_recipes#destroy_ingredient"
     get '/recipes/:id' => 'recipes#show' ,:as => 'recipe'
   end
   
-  
+
+  get '/users/:id' => 'users#show' ,:as => 'user'
   get  'photos(.:format)' => 'photos#index', :as => :photos
   post '/photos(.:format)' => 'photos#create'
   get  '/photos/new(.:format)' => 'photos#new', :as => :new_photo

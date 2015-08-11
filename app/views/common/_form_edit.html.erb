@@ -25,7 +25,7 @@
   <div class="control-group">
     <label class="control-label" for="inputEmail">Discription</label>
     <div class="controls">
-      <textarea class="span8" name="recipe[description]" cols="30" rows="10" value="" required>
+      <textarea id="recipe-description" class="span8" name="recipe[description]" cols="30" rows="10" value="" required>
         <%= "#{@recipe.description }"%>
       </textarea>
     </div>
@@ -46,7 +46,7 @@
   <div class="control-group inline">
     <label class="control-label">Select existing ingredients</label>
     <div class="controls">
-      <select multiple="multiple" id="existing-ingredient-list">
+      <select multiple="multiple" id="existing-ingredient-list" class="chosen-select">
       <%= @existing_ingredients_list = get_existing_ingredient_list %>
       <% @existing_ingredients_list.each do |ing| %>
         <option value='<%= "#{ing.id}-#{ing.name}-#{ing.meal_class}-#{ing.std_quantity}-#{ing.calories_per_quantity}"%>' data-ingredient-name ="<%= "#{ing.name}"%>"><%= ing.name %></option>
@@ -58,7 +58,7 @@
   <div class="control-group inline">
     <div class="controls">
       <i class="fa fa-hand-o-left fa-3x  "></i>
-      <button class="btn btn-primary" id="add-existing-ingredients-block">Select Existing Ingredients</button>
+      <button class="btn btn-info btn-small" id="add-existing-ingredients-block">Select Existing Ingredients</button>
     </div> 
   </div>
   
@@ -67,7 +67,7 @@
   </div>
  
   <div class="ingredients-container">
-    <div class="add-ingredients" >
+    <div class="my-existing-ingredients" >
       <% @recipe.ingredients.each_with_index do |ing, index| 
           if (ing.creator_id == @current_user.id )&& (ing.approved == false) %>
             <hr>
@@ -135,8 +135,8 @@
                 </div>
               </div>
           <%else%>
-          <hr>
-          <div class="control-group">
+          <div class="control-group existing-ingredient">
+            <hr>
             <label class="control-label" for="inputEmail" > <%= ing.name %> already exists</label>
             <div class="controls">
               <input  type="number" placeholder="edit quantity"  value="<%= @recipe.recipe_ingredients[index].quantity %>"  name="existing_ingredient[][quantity]" required>
@@ -146,21 +146,26 @@
               <input type="hidden"  name="existing_ingredient[][calories_per_quantity]" value="<%= ing.calories_per_quantity %>" 
               required>
               <input type="hidden"  name="existing_ingredient[][meal_class]" value="<%= ing.meal_class %>" required>
+              <button type="button" data-rec-id='<%= "#{@recipe.id}" %>' data-ing-id ='<%= "#{ing.id}" %>' class="close remove-existing-ingredient">&times;</button>
+
             </div>
+             
+             
           </div>          
           <% end %>
       <% end %>
     </div>
   </div>
+  
   <div class="control-group">
     <div class="controls">
-      <button id="add-ingredients" class="btn btn-primary btn-large">Add More Ingredient</button>
+      <button id="add-ingredient" class="btn btn-info btn-small">Add More Ingredient</button>
     </div>
   </div>
 
   <div class="controle-group">
     <div class="controls"> 
-      <a href="#" class='btn btn-success add-photo'>Create a recipe image gallery</a> 
+      <a href="#" class='btn  btn-small add-photo'>Create a recipe image gallery</a> 
     </div>
   </div>
 
@@ -168,15 +173,15 @@
     <input type="hidden" id="add-photo-array" name="avatar[]" value="">
   </div>
   <br>
-  <div class="control-group">
+<!--   <div class="control-group">
     <label class="control-label" for="inputEmail">Upload` image</label>
     <div class="controls">
-      <%= file_field_tag "avatar[]", type: :file, multiple: true %>
+      <%# file_field_tag "avatar[]", type: :file, multiple: true %>
     </div>
-  </div>
+  </div> -->
   <div class="control-group">
     <div class="controls">
-      <%= f.submit 'Save Recipe', :class => 'btn btn-primary btn-large' %>
+      <%= f.submit 'Save Recipe', :class => 'btn btn-primary' %>
     </div>
   </div>
 <% end %>

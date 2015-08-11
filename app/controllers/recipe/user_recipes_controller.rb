@@ -70,7 +70,7 @@ class Recipe::UserRecipesController < ApplicationController
       @rate = @recipe.rate_recipe(current_user: @current_user, ratings: params[:recipe][:ratings])
       puts @rate.inspect
       notice = {}
-      # @TODO find proper consition fr successfull rate
+      # @TODO find proper condition fr successfull rate
       notice[:message] =@rate.persisted? ? "successfully rated" : "could not rate"
       format.html {redirect_to @recipe , notice: notice}
       format.json {render json: notice, status: :created}
@@ -96,6 +96,20 @@ class Recipe::UserRecipesController < ApplicationController
         format.html { render  "/common/edit_recipe" }
         format.json { render json: @recipe.errors, status: :unprocessable_entity }
       end   
+    end
+  end
+
+  # DELETE recipe_id ingredient_id
+  def destroy_ingredient
+    puts params.inspect
+
+
+    @recipe = Recipe.find(params[:recipe_ingredient][:recipe_id])
+    @recipe.destroy_recipe_ingredient(params[:recipe_ingredient][:ingredient_id])
+    notice = {}
+    notice = "You are not the recipe owner to delete it" if !@Recipe.valid?
+    respond_to do |format|
+      format.json{render json: notice, status: 200}
     end
   end
 

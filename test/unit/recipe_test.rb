@@ -12,7 +12,7 @@ class RecipeTest < ActiveSupport::TestCase
     assert_equal(15600, recipe.total_calories, 'total calorie calculation wrong')
   end
 
-  
+
 
   #needs to load data in recipe, ingredients, recipe_ingredients fixture
 
@@ -199,5 +199,9 @@ class RecipeTest < ActiveSupport::TestCase
     assert(recipe.persisted?,'recipe not existing')
     list_users = recipe.list_rated_users(ratings: recipe_rating.ratings)
     assert(list_users, 'list not found')
+  end
+
+  test "should search wrt calories" do
+    
   end
 end

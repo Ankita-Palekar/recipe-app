@@ -1,6 +1,6 @@
 class Recipe < ActiveRecord::Base
   # REVIEW: recipe <=> creator association
-  belongs_to :user, :foreign_key => 'creator_id'
+  belongs_to :creator, :foreign_key => 'creator_id', :class_name => User
   has_many :photos, :dependent => :destroy
   has_many :recipe_ingredients
   has_many :ingredients, :through => :recipe_ingredients
@@ -93,7 +93,8 @@ class Recipe < ActiveRecord::Base
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
       # REVIEw: Why is the following line required?
-      current_user.recipes << self
+      self.creator = current_user
+      # current_user.recipes << self
       total_calories = add_recipe_ingredients(ingredients_list, self, current_user)
       add_recipe_photos(photo_list, self)
       # REVIEW: What will happen if there is an error in creating the photo?
@@ -142,6 +143,10 @@ class Recipe < ActiveRecord::Base
     self
   end
 
+  def destroy_recipe_ingredient(ingredient_id:)
+    ((self.creator_id == current_user.id )|| (current_user.is? :admin)) ? self.recipe_ingredient.find_by_ingredient_id(ingredient_id).delete : (self.errors = "You are not the owner to delete this")
+  end
+
   def self.get_recipe_meal_class(ingredients_list:)
     meal_class = Ingredient::MEAL_CLASS
     memo = meal_class[meal_class.length-1]
@@ -153,15 +158,19 @@ class Recipe < ActiveRecord::Base
   # list_type takes => order_by_date, order_by_aggregate_ratings, order_by_most_rated 
   #status => pending, approved, rejected
   # def self.list_recipes(list_type:, page_nav:, limit:, status: nil, current_user:nil)
-  def self.list_recipes(list_type:, status: nil, current_user:nil)
+  
+  def self.list_recipes(list_type:, status: nil, current_user:nil, other_user: nil)
     if status && current_user
       current_user.recipes.include_photos.send(status).send(list_type).order_by_date
+    elsif other_user && status
+      other_user.recipes.include_photos.send(status).send(list_type)
     else
       Recipe.include_photos.approved.send(list_type).order_by_date
     end
   end
 
   def rate_recipe(ratings:, current_user:)
+    
     rate = Rating.find_or_initialize_by_rater_id_and_recipe_id(current_user.id, self.id)
     # rate = current_user.ratings.build
     # rate.recipe = self
@@ -192,19 +201,20 @@ class Recipe < ActiveRecord::Base
   end
 
   def list_rated_users(ratings:)
-    self.ratings.includes(:user).where(:ratings=> ratings)
+    self.ratings.includes(:rater).where(:ratings=> ratings)
   end
 
   def self.search(query_hash:)
-    searched_recipes = Recipe.approved.scoped
+    searched_recipes = Recipe.approved.scoped if !query_hash.empty?
     flag_check = ["ingredients", "meal_class", "calories", "free_text", "aggregate_ratings"] # tie it in your head always check if data is coming fo user beofre executing
+    
     query_hash.each do |flag,query|
       # REVIEW: NEVER EVER execute untrusted code coming from user-input.
       # Either restructure this search completely OR create a whitelist of
       # permissible values for 'flag'
       searched_recipes = searched_recipes.send(flag,query) if flag_check.include? flag
-    end
-    searched_recipes
+    end 
+    searched_recipes ||=[]
   end
  private
   def strip_whitespace
