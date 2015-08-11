@@ -11,43 +11,25 @@
 			</div>
 		<% end %>
 	</div>
-<% @recipe_list.each_slice(2) do |rec_block| %>
+ 
+<% @recipe_list.each_slice(3) do |rec_block| %>
+	
 	<div class="row">
 	<% rec_block.each do |rec| %>
-		<ul class="thumbnails">
-		  <li class="span4">
-		    <div class="thumbnail">
-		      	<%= (!rec.photos.empty? ? (image_tag(rec.photos.first.avatar.url(:medium), :class => "media-object, img-rounded", :style=> "width:200px;height:150px")) : image_tag("missing.png", :style => "width:200px;height:150px;")) %> 
-		      <h3><%= link_to(rec.name.titlecase, rec, {:class => "list-recipe-name"}) %></h3>
-		      <p><%=raw rec.description.truncate(60) %></p>
-		      <%= list_approve_reject_button(rec, @admin_show_status) %>
-		    </div>
-		  </li>
-		</ul>
-
-		<div class="span6">
-			<div class="media">
-		    <a class="pull-left" href="#">
-		  		<%= (!rec.photos.empty? ? (image_tag(rec.photos.first.avatar.url(:medium), :class => "media-object, img-rounded", :style=> "width:200px;height:150px")) : image_tag("missing.png", :style => "width:200px;height:150px;")) %>  
-		    </a>
-		    <div class="media-body">
-		    <div>
-		      <h4 class="media-heading inline page-header"><%= link_to(rec.name.titlecase, rec, {:class => "list-recipe-name"}) %> </h4>
-		    </div>
-		      <div class="inline"><%= print_star_rates(rec.aggregate_ratings) %>  | </div> 
-		      <%= print_meal_class(rec.meal_class, 'list') %>
-		      <p>
-		      	<%=raw rec.description.truncate(60) %>
-		      </p>
-		      <hr class="custom-hr">
-		      <strong>created about <%= time_ago_in_words(rec.created_at) %> ago </strong> 
-		      <%= list_approve_reject_button(rec, @admin_show_status) %>
-		    </div>
-		  </div>
+		<div class="span4">
+			<ul class="thumbnails">
+			  <li class="span4">
+			    <div class="thumbnail">
+			      	<%= (!rec.photos.empty? ? (image_tag(rec.photos.first.avatar.url(:medium), :class => "media-object, img-rounded", :style=> "width:200px;height:150px")) : image_tag("missing.png", :style => "width:200px;height:150px;")) %> 
+			      <h3><%= link_to(rec.name.titlecase, rec, {:class => "list-recipe-name"}) %></h3>
+			      <p><%=raw rec.description.truncate(60) %></p>
+			      <%= list_approve_reject_button(rec, @admin_show_status) %>
+			    </div>
+			  </li>
+			</ul>
 		</div>
 	<% end %>
 	</div>
-	<hr>
 <% end %>
 	<div class="row">
 		<div class="span12">
@@ -111,4 +93,4 @@
 			 </div></div>'
   	end
  		html_code += "</div> "
- 	end if object_list != nil --> -->
+ 	end if object_list != nil --> 

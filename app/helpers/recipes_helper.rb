@@ -21,14 +21,14 @@ module RecipesHelper
 	end
 
 	def generate_approved_button(recipe)
-		approve_common_class = "btn btn-large btn-success"
+		approve_common_class = "btn btn-success"
 		approve_class_name = recipe.approved ? "disabled" : "approve-recipe"
 		approve_text =  recipe.approved ? "Approved": "Approve"
 		approve_button = link_to(approve_text, approve_recipe_path, {:class=> [approve_class_name, approve_common_class], :'data-rec-id' => recipe.id})
 	end
 
 	def generate_rejected_button(recipe)
-		reject_common_class = "btn btn-large btn-danger "
+		reject_common_class = "btn  btn-danger "
 		reject_class_name = recipe.rejected ? "disabled" : "reject-recipe"
 		reject_text = recipe.rejected ? "Rejected" : "Reject"
 		reject_button = link_to(reject_text, reject_recipe_path, {:class=> [reject_common_class,reject_class_name], :'data-rec-id' => recipe.id})
@@ -37,20 +37,24 @@ module RecipesHelper
 	def print_approve_reject_button(recipe)
 		button =""
 		button = generate_approved_button(recipe) + generate_rejected_button(recipe) if !recipe.approved && ! recipe.rejected #pending
-		button = generate_approved_button(recipe) if recipe.approved && !recipe.rejected 
-		button = generate_rejected_button(recipe) if recipe.rejected && !recipe.approved
+		# button = generate_approved_button(recipe) if recipe.approved && !recipe.rejected 
+		# button = generate_rejected_button(recipe) if recipe.rejected && !recipe.approved
 		return button.html_safe if (is_admin?)
 	end
 
 	def generate_rate_button(recipe)
-		approve_common_class = "btn btn-large btn-primary rate-recipe"
+		approve_common_class = "btn btn-primary rate-recipe"
 		rate_text =already_rated?(recipe) ? "You already rated this" : "Rate this recipe"
 		approve_button = link_to(rate_text,"#", {:class=> [approve_common_class], :'data-rec-id' => recipe.id})
 	end
 
 	def print_rate_button(recipe)
+ 		 
  		button =""
-		button = generate_rate_button(recipe) if !is_recipe_owner?(recipe) 
+		button = generate_rate_button(recipe) if (user_signed_in? && !is_recipe_owner?(recipe) && recipe.approved)
+		
+		puts button.inspect
+
 		return button.html_safe
 	end
 
@@ -70,9 +74,9 @@ module RecipesHelper
 
 	def list_approve_reject_button(rec, admin_show_status)
 		html = ""
-		html << content_tag(:div, :class => "inline approve-reject-button-block") do 
-			concat content_tag(:button, "approve", {:class => "btn btn-mini btn-success approve-recipe", :type => "button", :'data-rec-id' => rec.id})
-			concat content_tag(:button, "reject", {:class => "btn btn-mini btn-danger reject-recipe", :type => "button", :'data-rec-id' => rec.id})
+		html << content_tag(:p) do 
+			concat content_tag(:button, "approve", {:class => "btn btn-success approve-recipe", :type => "button", :'data-rec-id' => rec.id})
+			concat content_tag(:button, "reject", {:class => "btn btn-danger reject-recipe", :type => "button", :'data-rec-id' => rec.id})
 		end
 		html.html_safe if (user_signed_in? && current_user.is?(:admin) && admin_show_status)
 
