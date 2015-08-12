@@ -49,7 +49,7 @@
     	})
 
 	    $('#add-ingredient').on('click',function(e){
-	      e.preventDefault()
+	    	e.preventDefault()
 	      $('.ingredients-container').append(add_ingredients_block)
 	    })
 		
@@ -72,33 +72,40 @@
 	    // 	return false
 	    // })
 
-	   $('.ingredients-container').on("click", '.remove-new-ingredient',function(){
-	   		// alert('hello')
-	   		
-	   		// $(this).children('.add-ingredient').remove()
+	   $('.ingredients-container').on("click", '.remove-new-ingredient',function(e){
+	   		alert('hello')
+	   		$(this).closest('.add-ingredient').remove()
+	   		console.log($(this))
 	   })
 
-	   // $('ingredients-container').click('.remove-existing-ingredient', function(event){
-	   	
-	   // 		$remove_ing_container = $(event.delegateTarget)
-	   // 		console.log($remove_ing_container.attr('class'))
-	   // 		var recipe_ingredient = {"recipe_id": $(this).data('rec-id'), "ingredient_id" : $(this).data('ing-id')}
 
-	   //  	$.ajax({
-	   //  		url : "/recipes/destroy_ingredient",
-	   //  		method : 'DELETE',
-	   //  		data: {recipe_ingredient: recipe_ingredient},
-	   //  		dataType : "json"
-	   //  	})
-	   //  	 .done(function(response, textStatus, jqXHR) { 
-    // 	 	  	$this.children('.existing-ingredient').remove()
-    // 	 	  	console.log(response)
-    // 	 	  	console.log('successfully deleted')
-	   //  	 })
-	   //  	 .fail(function() {
-	   //  	    // alert( "error" );
-	   //  	 })
+	   // $('.ingredients-container').on("click", '.remove-existing-ingredient',function(e){
+	   // 		alert('hello')
+	   // 		$(this).closest('.add-ingredient').remove()
+	   // 		console.log($(this))
 	   // })
+
+
+
+	   $('ingredients-container').on('click','.remove-existing-ingredient', function(event){
+	   		var recipe_ingredient = {"recipe_id" : $(this).data('rec-id'), "ingredient_id" : $(this).data('ing-id')}
+
+	   		 console.log(recipe_ingredient)
+	    	$.ajax({
+	    		url : "/recipes/destroy_ingredient",
+	    		method : 'DELETE',
+	    		data: {recipe_ingredient: recipe_ingredient},
+	    		dataType : "json"
+	    	})
+	    	 .done(function(response, textStatus, jqXHR) { 
+	   				$(this).closest('.existing-ingredient').remove() 
+    	 	  	console.log(response)
+    	 	  	console.log('successfully deleted')
+	    	 })
+	    	 .fail(function() {
+	    	    // alert( "error" );
+	    	 })
+	   })
 
 
 	   $('.add-photo').click(function(){
