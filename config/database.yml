@@ -49,10 +49,12 @@ test:
   username: foodholic-recipe
   password: foodholic-recipe
 
-# production:
-#   adapter: postgresql
-#   encoding: unicode
-#   database: foodholic-recipe_production
-#   pool: 5
-#   username: foodholic-recipe
-#   password: foodholic-recipe
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: foodholic-recipe_production
+  pool: 5
+  host: localhost
+  port: 5432
+  username: foodholic-recipe
+  password: foodholic-recipe

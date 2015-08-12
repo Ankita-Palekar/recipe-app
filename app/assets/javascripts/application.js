@@ -16,4 +16,4 @@
 //= require dropzone
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales
-//= require chosen-jquery
+// require chosen-jquery
