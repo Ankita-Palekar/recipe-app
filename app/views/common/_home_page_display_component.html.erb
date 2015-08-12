@@ -1,0 +1,20 @@
+ <% @recipe_list.each do |rec| %>
+	<div class="media">
+    <a class="pull-left thumbnail" href="#">
+  		<%= (!rec.photos.empty? ? (image_tag(rec.photos.first.avatar.url(:medium), :class => "media-object, img-rounded", :style=> "width:175px;height:150px")) : image_tag("missing.png", :style => "width:175px;height:150px;")) %>  
+    </a>
+    <div class="media-body">
+    <div>
+      <h4 class="media-heading inline page-header"><%= link_to(rec.name.titlecase, rec, {:class => "list-recipe-name"}) %> </h4>
+      <%= print_meal_class(rec.meal_class, 'list') %>
+    </div>
+      <span><%= print_star_rates(rec.aggregate_ratings) %>  </span>
+      <p>
+      	<%= rec.description.truncate(60) %>
+      </p>
+      <strong>created about <%= time_ago_in_words(rec.created_at) %> ago </strong> 
+    </div>
+  </div>
+	<hr>
+<% end %>
+ 

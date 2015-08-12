@@ -1,0 +1,96 @@
+<% @recipe_list||=[] 
+	@admin_show_status ||= false
+%>
+<div class="container navbar-spacer">
+	<h1 class="page-header"> <%= "#{@page_header}" %></h1>
+	<%= render  '/common/rate_modal' %>
+	<div id="display-notice-message">
+		<% if notice %>
+			<div class="alert alert-info">
+				<%= notice %>
+			</div>
+		<% end %>
+	</div>
+ 
+<% @recipe_list.each_slice(3) do |rec_block| %>
+	
+	<div class="row">
+	<% rec_block.each do |rec| %>
+		<div class="span4">
+			<ul class="thumbnails">
+			  <li class="span4">
+			    <div class="thumbnail">
+			      	<%= (!rec.photos.empty? ? (image_tag(rec.photos.first.avatar.url(:medium), :class => "media-object, img-rounded", :style=> "width:200px;height:150px")) : image_tag("missing.png", :style => "width:200px;height:150px;")) %> 
+			      <h3><%= link_to(rec.name.titlecase, rec, {:class => "list-recipe-name"}) %></h3>
+			      <p><%=raw rec.description.truncate(60) %></p>
+			      <%= list_approve_reject_button(rec, @admin_show_status) %>
+			    </div>
+			  </li>
+			</ul>
+		</div>
+	<% end %>
+	</div>
+<% end %>
+	<div class="row">
+		<div class="span12">
+			<div class="pagination pagination-large">
+				<%= will_paginate @recipe_list, renderer: BootstrapPagination::Rails if !@recipe_list.empty? %>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+ 
+
+
+
+
+<!-- <%# @recipe_list||=[] %>
+<div class="container">
+	<h1 class="page-header"> <%# "#{@page_header}" %></h1>
+	<div class="row">
+	<div id="display-notice-message">
+	</div>
+		<%# @recipe_list.each_slice(2) do |rec_block| %>
+			<%# rec_block.each do |rec| %>
+				<div class="span6">
+					<div class="well">
+						<button type="button" class="btn btn-medium btn-success disabled pull-right" disabled="disabled"> <%# rec.meal_class %>
+						</button>
+						<h4 class="text-center"><%# link_to(rec.name.capitalize, rec) %></h4>
+						<hr>
+						<div class="image-div">
+							<%# (!rec.photos.empty? ? link_to(image_tag(rec.photos.first.avatar.url(:thumb), :class => "center-block img-responsive image-rounded")) : "") %> 
+						</div>
+						<p class="text-center"><%# rec.description.truncate(60) %> </p>
+						<hr>
+						<div class="inline">
+							<span > created about <%# time_ago_in_words(rec.created_at) %> ago </span>
+						</div>
+						<div class="inline pull-right"> 
+							<button class="btn btn-mini btn-success approve-recipe" type="button" data-rec-id='<%# "#{rec.id}"%>'>approve</button>
+							<button class="btn btn-mini btn-danger reject-recipe" type="button" data-rec-id='<%# "#{rec.id}"%>'>reject</button>
+						</div>
+					</div>
+				</div>
+			<%# end %>
+		<% #end %>
+	</div>
+</div>
+
+
+
+<!-- 
+ --> 	
+  <!-- 	html_code += '<div class="row">  ' 
+  	rec_block.each do |rec|
+  		rec_id = rec.id.to_s
+			html_code += '<div class="span6"><div class="well"><button type="button" class="btn btn-medium btn-success disabled pull-right" disabled="disabled">' + rec.meal_class + '</button><h4 class="text-center">' +  link_to(rec.name.capitalize, rec) + '</h4><hr><div class="image-div">'
+			html_code += (!rec.photos.empty? ? link_to(image_tag(rec.photos.first.avatar.url(:thumb), :class => "center-block img-responsive image-rounded")) : "") 
+			html_code += '</div><p class="text-center">' +  rec.description.truncate(60) + '</p> <hr><div class="inline"> <span > created about ' + time_ago_in_words(rec.created_at) +' ago </span></div><div class="inline pull-right"> <button class="btn btn-mini btn-success approve-recipe" type="button" data-rec-id="'+ rec_id +'">approve</button>
+				<button class="btn btn-mini btn-danger reject-recipe" type="button" data-rec-id="'+ rec_id +'">reject</button></div>
+			 </div></div>'
+  	end
+ 		html_code += "</div> "
+ 	end if object_list != nil --> 

@@ -28,7 +28,18 @@ gem 'therubyracer'
 gem 'rack-utf8_sanitizer'
 gem 'to_words'
 gem "font-awesome-rails"
-# To use ActiveModel has_secure_password
+gem 'delayed_job_active_record', '0.4.3'
+gem 'daemon-spawn', '0.4.2' #for productin
+gem 'devise'
+gem 'dropzonejs-rails'
+gem 'cancancan', '~> 1.10'
+gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-bootstrap'
+gem 'bootstrap-wysihtml5-rails', '~> 0.3.3.7' #for recipe content details
+gem 'chosen-rails'
+
+# To use ActiveModel has_s
+# secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON

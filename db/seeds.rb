@@ -14,9 +14,16 @@
 # {email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
 # ]
 
-# users_list.each do |u|
-# 	User.create!(u)
-# end
+users_list.each do |u|
+	User.create!(u)
+end
+
+
+ingredients_list = [{ingredient_id: }]
+
+
+ 
+
 
 # REVIEW -- how does one use a pre-existing ingredient?
 ingredients_list = [{:ingredient_id => 49 , :name => "casew", :quantity => 10, :meal_class =>  "veg", :calories_per_quantity => 500 , :std_measurement => "gm", :std_quantity => 1, :creator_id => 2},{:name=>"sugar", :meal_class=>"veg", :std_measurement=>"kg", :std_quantity=>1, :calories_per_quantity=>5050, :quantity => 2, :creator_id => 2}, {:name=>"casew", :meal_class=>"veg", :std_measurement=>"mg", :std_quantity=>10, :calories_per_quantity=>50, :quantity => 100, :creator_id => 2}]

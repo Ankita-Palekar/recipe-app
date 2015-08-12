@@ -14,7 +14,6 @@
       <div class="container">
         <div class="carousel-caption">
           <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus maxime, illo assumenda aliquam, consectetur consequatur repudiandae, necessitatibus est impedit a dicta nulla distinctio. Veniam ducimus suscipit fuga quaerat, illum vitae?</p>
-           
         </div>
       </div>
     </div>
@@ -32,81 +31,46 @@
   <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 </div>
 
-
 <section>
 	<div class="container">
 		<div class="row">
 			<div class="span12">
-				<div class="row">
-					<div class="span8">
-						<div class="tabbable">  
-						  <ul class="nav nav-tabs">
-						    <li class="active"><a href="#tab1" data-toggle="tab">Top Rated Recipes</a></li>
-						    <li><a href="#tab2" data-toggle="tab">Most rated Recipes</a></li>
-						  </ul>
-						  <div class="tab-content">
-						    <div class="tab-pane active" id="tab1">
-						       <% @top_rated_recipes.each do |rec| %>
-						       	<div class="well">
-						       		<span class="label label-info pull-left"><%= rec.meal_class %></span>
-						       		<span class="pull-right"><i class="icon-star"></i> <%= rec.aggregate_ratings %> </span>
-						       		<h3 class="text-center"> <%=link_to rec.name.capitalize, rec %> </h3>
-						       		<hr>
-						       		<div class="image-div">
-						       			<%=link_to image_tag  rec.photos.first.avatar.url(:medium), :class => "text-center" if !rec.photos.empty?%>
-						       		</div>
-						       		<p class="text-center"><%=rec.description.truncate(60) %></p>
-						       	</div>
-						       <% end %>
-						    </div>
-						    <div class="tab-pane" id="tab2">
-						      <% @most_rated_recipes.each do |rec| %>
-						       	<div class="well">
-						       		<span class="label label-info pull-left"><%= rec.meal_class %></span>
-						       		<span class="pull-right">
-							       		<% (0..rec.aggregate_ratings.to_i).each do %>
-							       			<i class="icon-star"></i> 
-							       		<% end %>
-							       	<%= rec.aggregate_ratings %> 
-						       		</span>
-						       		<h3 class="text-center"> <%=link_to rec.name.capitalize, rec %> </h3>
-						       		<hr>
-						       		<div class="image-div">
-						       			<%=link_to image_tag  rec.photos.first.avatar.url(:medium), :class => "img-rounded" if !rec.photos.empty?%>
-						       		</div>
-						       		<p class="text-center"><%=rec.description.truncate(60) %></p>
-						       		<hr>
-						       		<p class="pull-right"> <%= rec.count.to_i %>  votes </p>
-						       	</div>
-						      <% end %>
-						    </div>
-						  </div>
-						</div>
-						
-					</div>
-					<div class="span4">
-					<h5>Latest</h5>
-					<hr>
-						<% @latest_recipes.each do |rec| %>
-						 	<div class="well">
-						 		<span class="label label-info pull-left"><%= rec.meal_class %></span>
-						 		<span class="pull-right">
-					       	<% (0..rec.aggregate_ratings.to_i).each do %>
-					       			<i class="icon-star"></i> 
-					       		<% end %>
-					       	<%= rec.aggregate_ratings %> 
-			       		</span>
-						 		<h4 class="text-center"> <%=link_to rec.name.capitalize, rec %> </h4>
-						 		<hr>
-						 		<%=link_to image_tag  rec.photos.first.avatar.url(:medium), :class =>"img-rounded" if !rec.photos.empty?%>
-						 		<hr>
-						 		<strong class="pull-right"> created <%=time_ago_in_words(rec.created_at)  %> ago</strong>
-						 	</div>
-						<% end %>
-					</div>
+				<div class="tabbable">  
+				  <ul class="nav nav-tabs">
+				    <li class="active"><a href="#tab1" data-toggle="tab">Top Rated Recipes</a></li>
+				    <li><a href="#tab2" data-toggle="tab">Most rated Recipes</a></li>
+				    <li><a href="#tab3" data-toggle="tab">Latest recipes</a></li>
+				  </ul>
+				  <div class="tab-content">
+				    <div class="tab-pane active" id="tab1">
+				      <div class="row">
+				      	<div class="span10">
+						      <% @recipe_list = @top_rated_recipes %>
+						      <%= render :template => "/common/recipe_list" %>
+				      	</div>
+				      </div>
+				    </div>
+				    <div class="tab-pane" id="tab2">
+				    	<div class="row">
+				    		<div class="span10">
+						  		<% @recipe_list = @most_rated_recipes %>
+						  		<%= render :template =>  "/common/recipe_list" %>
+				    		</div>
+				    	</div>
+				    </div>
+		        <div class="tab-pane" id="tab3">
+		        	<div class="row">
+		        		<div class="span10">
+		    		  		<% @recipe_list = @latest_recipes %>
+		    		  		<%= render :template =>  "/common/recipe_list" %>
+		        		</div>
+		        	</div>
+		        </div>
+				  </div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+
 

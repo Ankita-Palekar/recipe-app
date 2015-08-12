@@ -8,10 +8,26 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *
+ * 
+ 	*= require_self
+  *= require_tree 
+  *= require font-awesome
+  *= require dropzone/dropzone
+  *= require bootstrap-wysihtml5
+  *= require chosen
  */
- 	//= require_self
-  //= require_tree 
-  //= require font-awesome
+
+
+.fixed-navbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  z-index: 2000;
+
+}
 
 .signup-form, .login-form
 {
@@ -62,11 +78,9 @@ margin: auto;
 	padding-right: 10px;
 }
 
-.image-div img{
-	margin: 0 auto;
-	display: block;
-  border-radius: 20px;
-}
+ a.recipe-edit:hover{
+  text-decoration: none;
+ }
 
 .recipe-container{
 	height: 240px;
@@ -187,7 +201,7 @@ body {
   width: 0;
   background-color: #FF8B5A;
 }
-
+/*histogram code end*/
 
 .spinner{
   display: none;
@@ -202,12 +216,113 @@ body {
 
 .star-rate-bock{
   font-size: 23px;
+  padding-right: 24px;
+  padding-top: 12px;
 }
 .fill-star, .star-rate:hover, .star-rate:hover ~ .star-rate{
     color: #ffd700
   }
-/*histogram code end
+.dropdown-search
+{
+  height: 120px;
+  /* width: 154px; */
+  padding-left: 27%;
+  padding-right: 27%;
+}
+
+i.search-button{
+  font-size: 10px;
+}
+
+.input-append input.search-box{
+  width: 150% ;
+  height: 35px
+}
+
+.input-append .advanced-search, .input-append .search-button{
+  height: 45px
+}
+button.advanced-search-dropdown{
+  height: 45px;
+}
+
+.dropdown-toggle.advanced-search-dropdown{
+  width: 140px;
+}
+
+.search-form{
+  padding-top: 3%;
+}
+select.advanced-search{
+  text-align: center;
+}
+ 
+ul.dropdown-menu.advanced-search{
+width:365px;
+height: 156px;
+}
+
+
+.advanced-search{
+  text-align: center; 
+}
+
+.list-meal-class{
+  margin-left: 5%
+}
+
+a.list-recipe-name{
+  color: #A7A7A7;
+}
+a.list-recipe-name:hover{ 
+  color: #918E8E;
+  text-decoration: none;
+}
+
+.full-page{
+  background: url('recipe1.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.btn.reject-recipe{
+  margin-left: 5px
+}
+
+.navbar-spacer{
+  margin-top:5%;
+}
+
+hr.custom-hr{
+  margin-bottom: 3px;
+}
+
+.approve-reject-button-block{
+  margin-top: 10px;
+}
+
+.profile-container{
+  width: 85%;
+  margin: 0 auto;
+  margin-top: 5%;
+  background-color: #f5f5f5;
+  padding: 3% 2%;
+  border-radius: 10px;
+} 
 
 
 
-/*spinner code start*/
+.image-div{
+  /*text-align: center;*/
+}
+
+.recipe-detail-container{
+  border: 1px solid #eee;
+  padding: 2%;
+  border-radius: 11px;
+}
+.recipe-create-form-container{
+  
+}

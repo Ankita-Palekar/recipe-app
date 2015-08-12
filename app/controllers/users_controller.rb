@@ -14,8 +14,9 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @recipe_list = @user.user_recipe_details.paginate(:page => params[:page])
     respond_to do |format|
-      format.html # show.html.erb
+      format.html {render '/common/user_profile'}
       format.json { render json: @user }
     end
   end
@@ -39,14 +40,20 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(:name => params[:name], :email=> params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation])
-    if @user.create_user
+    
+    # @user = User.new(:name => params[:name], :email=> params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation])
+    
+    puts "===============sign up=============="
+
+
+    @user = User.new(params)
+    if @user.save
       flash[:notice] = "Sucessfully signed up! you can login now"
-      redirect_to '/login'
+      redirect_to '/users/sign_in'
     else
       flash[:notice] = @user.errors.full_messages
       # puts @user.errors.full_messages
-      redirect_to '/signup'
+      redirect_to '/users/sign_up'
     end
 
     # respond_to do |format|

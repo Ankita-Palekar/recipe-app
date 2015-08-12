@@ -1,31 +1,76 @@
 Foodholic::Application.routes.draw do
-   
-  match '/recipes/pending' => 'recipes#admin_pending_recipes' , :via => :get
-  match '/recipes/approve_recipe' => 'recipes#approve_recipe', :via => :put
-  match '/recipes/reject_recipe' => 'recipes#reject_recipe', :via => :put
-  match '/recipes/rate' => 'recipes#rate_recipe', :via => :post
-  match '/recipes/:id/:ratings/rated_users' => 'recipes#rated_users_list', :via => :get
+
+  devise_for :users
+  # devise_for :user
+  root :to => 'home#index' 
   
-  resources :ingredients
+  # match '/login' => 'sessions#create', :via => :post
+  # match '/login' => 'sessions#login'
+  # match '/logout' => 'sessions#destroy', :via => :delete
+  # match '/signup' => 'users#new'
+  # match '/users' => 'users#create', :via => :post  
+  
+  # User::Application.routes.draw do 
+  #   resources :users
+  #   root :to => 'home#index' 
+  # end
+
+  devise_scope :user do
+    match '/user/sign_out' => 'devise/sessions#destroy', :as => :destroy_user_session, via: [:get, :delete]
+  end
+  
+ 
+
+  # scope :module => "admin" do
+  # end
+  
+  
+  scope :module => "recipe"   do
+    # public recipe controller related routes
+    get '/search' => 'recipes#search' , :via => :get, :as => 'search_recipes'
+    post '/search' => 'recipes#search_recipes', :as => 'search_by_click'
+    get '/recipes/:id/:ratings/rated_users' => 'recipes#rated_users_list', :as => 'rated_users_list' 
+    get '/recipes/top_rated_recipes' => 'recipes#top_rated_recipes', :as => "top_rated_recipes"
+    get '/recipes/most_rated_recipes'=> 'recipes#most_rated_recipes', :as => "most_rated_recipes"
+
+    #admin recipe controller related routes
+    
+    put '/recipes/approve_recipe' => 'admin_recipes#approve_recipe', :as => 'approve_recipe'
+    put '/recipes/reject_recipe' => 'admin_recipes#reject_recipe', :as => "reject_recipe"
+    get '/recipes/admin_pending_recipes' => 'admin_recipes#admin_pending_recipes', :as => 'admin_pending_recipes' 
+
+    # user recipe controller related routes routes
+    get '/recipes/new' => 'user_recipes#new',  :as => 'new_recipe'   
+    post '/recipes/rate' => 'user_recipes#rate_recipe'
+    get '/recipes/my_pending_recipes' => 'user_recipes#my_pending_recipes', :as => "my_pending_recipes"
+    get '/recipes/my_rejected_recipes' => 'user_recipes#my_rejected_recipes', :as => "my_rejected_recipes"
+    get '/recipes/my_top_rated_recipes' => 'user_recipes#my_top_rated_recipes', :as => "my_top_rated_recipes"
+    get '/recipes/my_most_rated_recipes' => 'user_recipes#my_most_rated_recipes', :as => "my_most_rated_recipes"
+    get '/recipes/my_approved_recipes' => 'user_recipes#my_approved_recipes', :as => "my_approved_recipes"
+    get '/recipes/:id/edit' => 'user_recipes#edit' , :as => 'edit_recipe'
+    put '/recipes/:id' => 'user_recipes#update'
+    post '/recipes' => 'user_recipes#create'
+    get '/recipes' => 'user_recipes#index'
+    delete '/recipes/destroy_ingredient' => "user_recipes#destroy_ingredient"
+    get '/recipes/:id' => 'recipes#show' ,:as => 'recipe'
+  end
+  
+
+  get '/users/:id' => 'users#show' ,:as => 'user'
+  get  'photos(.:format)' => 'photos#index', :as => :photos
+  post '/photos(.:format)' => 'photos#create'
+  get  '/photos/new(.:format)' => 'photos#new', :as => :new_photo
+  get  '/photos/:id/edit(.:format)' => 'photos#edit', :as => :edit_photo
+  get  '/photos/:id(.:format)' => 'photos#show', :as => :photo 
+  put  '/photos/:id(.:format)' => 'photos#update'
+  delete '/photos/:id(.:format)' => 'photos#destroy'
+                            
 
 
-  resources :recipes
+  # resources :ratings
+  # resources :users
 
 
-  resources :users
-
-
-  resources :ratings
-
-  match '/'   =>  'home#index',  :via => :get
-  match '/login' => 'sessions#create', :via => :post
-  match '/login' => 'sessions#login', :via => :get
-  match '/logout' => 'sessions#destroy', :via => :delete
-  match '/signup' => 'users#new', :via => :get
-  match '/signup' => 'users#create', :via => :post
-  match '/search' => 'recipes#search', :via => :get
-  match '/search' => 'recipes#searchrecipes', :via => :post
-  match '/recipes/search' => 'recipes#searchrecipes', :via => :post
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

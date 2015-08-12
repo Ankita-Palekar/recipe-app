@@ -1,0 +1,32 @@
+<div id="rate-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel" class="text-center">Rate This Recipe</h3>
+  </div>
+  <div class="modal-body">
+<!--    <form action="/recipes/rate" action="recipes/rate" method="post">
+    	<select name="recipe[ratings]" id="">
+	    	<option value="5">5 star</option>
+	    	<option value="4">4 star</option>
+	    	<option value="3">3 star</option>
+	    	<option value="2">2 star</option>
+	    	<option value="1">1 star</option>
+    	</select>
+    	<input type="hidden" id="modal-recipe-id"  name="id">
+    	<button type="submit btn btn-primary btn-large">Rate Recipe</button>
+    </form> -->
+    <div class="star-rate-content text-center">
+      <div class="notice-message"></div>
+      <div class="spinner">
+        <i class="fa fa-spinner fa-spin fa-5x"></i>
+      </div>
+      <div class="star-rating" data-rec-id = "<%= @recipe.id if @recipe %>">
+        <i class="fa fa-star star-rate fa-3x" data-star-rate = "1"></i>
+        <i class="fa fa-star star-rate fa-3x" data-star-rate = "2"></i>
+        <i class="fa fa-star star-rate fa-3x" data-star-rate = "3"></i>
+        <i class="fa fa-star star-rate fa-3x" data-star-rate = "4"></i>
+        <i class="fa fa-star star-rate fa-3x" data-star-rate = "5"></i>
+      </div>
+    </div>     
+  </div>
+</div>

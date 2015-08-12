@@ -1,0 +1,13 @@
+<div class="container navbar-spacer">
+	<div class="row">
+		<div class="span12">
+			<ul class="nav nav-tabs nav-stacked text-center">
+			  <% @users_list.each do |item| %>
+			  	<li> <%= link_to(item.rater.name, ("/users/"+item.rater.id.to_s)) %>
+			  		<!-- <a href="#"><%#item.rater.name %>  <%# item.rater.email %></a> -->
+			  	</li>
+			  <% end %>
+			</ul>
+		</div>
+	</div>
+</div>
