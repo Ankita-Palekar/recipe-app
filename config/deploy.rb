@@ -83,3 +83,5 @@ set :delayed_job_bin_path, 'script'
 after 'deploy:published', 'restart' do
     invoke 'delayed_job:restart'
 end
+
+# after 'deploy:update_code', 'deploy:migrate'
