@@ -43,6 +43,7 @@ gem 'capistrano-passenger'
 gem 'capistrano-rvm'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
+
 # gem 'capistrano-delayed-job'
 # To use ActiveModel has_s
 # secure_password
