@@ -83,7 +83,6 @@ GEM
       compass (~> 1.0.0)
       sass-rails (<= 5.0.1)
       sprockets (< 2.13)
-    daemon-spawn (0.4.2)
     daemons (1.2.3)
     delayed_job (3.0.5)
       activesupport (~> 3.0)
@@ -217,7 +216,6 @@ DEPENDENCIES
   capistrano-rvm
   chosen-rails
   coffee-rails (~> 3.2.1)
-  daemon-spawn (= 0.4.2)
   daemons
   delayed_job_active_record (= 0.4.3)
   devise

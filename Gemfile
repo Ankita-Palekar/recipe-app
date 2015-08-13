@@ -29,8 +29,8 @@ gem 'rack-utf8_sanitizer'
 gem 'to_words'
 gem "font-awesome-rails"
 gem 'delayed_job_active_record', '0.4.3'
-gem 'daemons'
-gem 'daemon-spawn', '0.4.2' #for productin
+gem "daemons"
+# gem 'daemon-spawn', '0.4.2' #for productin
 gem 'devise'
 gem 'dropzonejs-rails'
 gem 'cancancan', '~> 1.10'
