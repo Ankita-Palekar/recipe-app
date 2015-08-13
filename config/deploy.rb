@@ -66,7 +66,7 @@ set :delayed_job_bin_path, 'script'
 #       # end
 #     end
 #   end
-
+ 
 # end
 
 #used in order to use delayed job without gem
