@@ -17,10 +17,10 @@ recipe2.jpg: recipe2-03e328bb92b819d7166e70bd3d411f4a.jpg
 recipe2/index.jpg: recipe2-03e328bb92b819d7166e70bd3d411f4a.jpg
 thumb/missing.jpg: thumb/missing-dd566cc1d9931d8f8ffda1595d93bd24.jpg
 thumb/missing/index.jpg: thumb/missing-dd566cc1d9931d8f8ffda1595d93bd24.jpg
-application.js: application-64986cce30cc0064c4fe7fea1dc388df.js
-application/index.js: application-64986cce30cc0064c4fe7fea1dc388df.js
-application.css: application-ed1411ca78105378621e3cce7f51dfbc.css
-application/index.css: application-ed1411ca78105378621e3cce7f51dfbc.css
+application.js: application-cc40ca3eec2ef5c41b5d510de79f9179.js
+application/index.js: application-cc40ca3eec2ef5c41b5d510de79f9179.js
+application.css: application-2442b779a55feec0b0e75106c2fec1f1.css
+application/index.css: application-2442b779a55feec0b0e75106c2fec1f1.css
 chosen-sprite.png: chosen-sprite-8fee6f3a456063ad349676af69a1b285.png
 chosen-sprite/index.png: chosen-sprite-8fee6f3a456063ad349676af69a1b285.png
 chosen-sprite@2x.png: chosen-sprite@2x-005e953c8b1a56306ac6458fcc02a59e.png

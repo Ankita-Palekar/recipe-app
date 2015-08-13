@@ -13,9 +13,9 @@
  	*= require_self
   *= require_tree 
   *= require font-awesome
-  *= require dropzone/dropzone
   *= require bootstrap-wysihtml5
   *= require chosen
+  *= require dropzone/dropzone
  */
 
 

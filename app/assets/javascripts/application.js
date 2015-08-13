@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-//= require dropzone
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales
 //= require chosen-jquery
+//= require dropzone
