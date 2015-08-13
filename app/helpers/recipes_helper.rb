@@ -24,14 +24,14 @@ module RecipesHelper
 		approve_common_class = "btn btn-success"
 		approve_class_name = recipe.approved ? "disabled" : "approve-recipe"
 		approve_text =  recipe.approved ? "Approved": "Approve"
-		approve_button = link_to(approve_text, approve_recipe_path, {:class=> [approve_class_name, approve_common_class], :'data-rec-id' => recipe.id})
+		approve_button = link_to(approve_text, "#", {:class=> [approve_class_name, approve_common_class], :'data-rec-id' => recipe.id})
 	end
 
 	def generate_rejected_button(recipe)
 		reject_common_class = "btn  btn-danger "
 		reject_class_name = recipe.rejected ? "disabled" : "reject-recipe"
 		reject_text = recipe.rejected ? "Rejected" : "Reject"
-		reject_button = link_to(reject_text, reject_recipe_path, {:class=> [reject_common_class,reject_class_name], :'data-rec-id' => recipe.id})
+		reject_button = link_to(reject_text, "#", {:class=> [reject_common_class,reject_class_name], :'data-rec-id' => recipe.id})
 	end
 
 	def print_approve_reject_button(recipe)

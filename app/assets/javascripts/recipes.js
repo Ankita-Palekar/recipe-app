@@ -4,44 +4,52 @@
 		console.log(current_user_id)
 	  var add_ingredients_block = '<div class="add-ingredient"> <hr><button type="button" class="close remove-new-ingredient">&times;</button> <div class="control-group"> <label class="control-label" for="inputEmail">ingredient name</label> <div class="controls"> <input class="span8" type="text" placeholder="ingredient name" name="ingredient[][name]" required></div> </div> <div class="control-group inline"> <label class="control-label" for="inputEmail">ingredient standard measurement </label> <div class="controls"> <select name="ingredient[][std_measurement]"><option value="dz">dozen</option><option value="teaspoon">teaspoon</option> <option value="tablespoon">tablespoon</option> <option value="fluid ounce">ounce</option> <option value="gill">gill</option> <option value="cup">cup</option> <option value="pint">pint</option> <option value="quart">quart</option> <option value="gallon">gallon</option> <option value="ml">milli liter</option> <option value="l">liter</option> <option value="dl">deci liter</option> <option value="pounds">pounds</option> <option value="ounce">ounce</option> <option value="mg">mili grams</option> <option value="g">grams</option> <option value="kg">kilo grams</option> <option value="mm">mili meter</option> <option value="cm">centi meter</option> <option value="m">meter</option> <option value="inch">inch</option> </select> </div> </div> <div class="control-group inline"> <label class="control-label" for="inputEmail">ingredient meal class </label> <div class="controls"> <select name="ingredient[][meal_class]"> <option value="jain">jain</option> <option value="veg">veg</option> <option value="non-veg">non-veg</option> </select> </div> </div> <div class="control-group inline"> <label class="control-label" for="inputEmail">ingredient standard quantity</label> <div class="controls"> <input type="number" placeholder="example 10 grams" name="ingredient[][std_quantity]" required> </div> </div> <div class="control-group inline"> <label class="control-label" for="inputEmail">ingredient quantity</label> <div class="controls"> <input type="number" palceholder="e.g 1kg" name="ingredient[][quantity]" required> </div> </div> <div class="control-group"> <label class="control-label" for="inputEmail">calories per std qty</label> <div class="controls"> <input type="number" name="ingredient[][calories_per_quantity]" required> </div> </div> </div>'
 	    
-	  var existing_ingredient_block = '<div class="control-group inline"> <label class="control-label" for="ingredients">ingredient_name</label>  <div class="controls"> <input type="hidden" name="existing_ingredient[][ingredient_id]" value="ingredient_id_will_come_here">  <input type="hidden" name="existing_ingredient[][meal_class]" value="ingredient_meal_class"> <input type="hidden" name="existing_ingredient[][std_quantity]" value="ingredient_std_quantity"> <input type="hidden" name="existing_ingredient[][calories_per_quantity]" value="ingredient_calories_per_quantity"> <input placeholder="add-quantity" type="number" name="existing_ingredient[][quantity]" required> </div> </div>'
+	  var existing_ingredient_block = '<div class="control-group inline"> <label class="control-label" for="ingredients">ingredient_name</label>  <div class="controls"> <input type="hidden" name="existing_ingredient[][ingredient_id]" value="ingredient_id_will_come_here">  <input type="hidden" name="existing_ingredient[][meal_class]" value="ingredient_meal_class"> <input type="hidden" name="existing_ingredient[][std_quantity]" value="ingredient_std_quantity"> <input type="hidden" name="existing_ingredient[][calories_per_quantity]" value="ingredient_calories_per_quantity"> <div class="input-append"> <input placeholder="add-quantity" type="number" name="existing_ingredient[][quantity]" required><span class="add-on">ingredient_std_measurement</span> </div></div> </div>'
 	   
+	  	$('#recipe-description').wysihtml5();
+	  	$('.glyphicon.glyphicon-font').addClass('fa fa-font');
+	  	$('.fa.fa-font').removeClass('glyphicon glyphicon-font');
+	  	$('.glyphicon.glyphicon-list').addClass('fa fa-list');
+	  	$('.fa.fa-list').removeClass('glyphicon glyphicon-list');
+	  	$('.glyphicon.glyphicon-th-list').addClass('fa fa-th-list');
+	  	$('.fa.fa-th-list').removeClass('glyphicon glyphicon-th-list');
+	  	$('.glyphicon.glyphicon-indent-right').addClass('fa fa-dedent');
+	  	$('.fa.fa-dedent').removeClass('glyphicon glyphicon-indent-right');
+	  	$('.glyphicon.glyphicon-quote').addClass('fa fa-quote-left');
+	  	$('.fa.fa-quote-left').removeClass('glyphicon glyphicon-quote');
+	  	$('.glyphicon.glyphicon-indent-left').addClass('fa fa-indent');
+	  	$('.fa.fa-indent').removeClass('glyphicon glyphicon-indent-left');
+	  	$('.glyphicon.glyphicon-share').addClass('fa fa-link');
+	  	$('.fa.fa-link').removeClass('glyphicon glyphicon-share');
+	  	$('.glyphicon.glyphicon-picture').addClass('fa fa-file-image-o');
+	  	$('.fa.fa-file-image-o').removeClass('glyphicon glyphicon-picture');
+
+	  	// $('.chosen-select').chosen()
+	  	
+	  
+
 	    $('#add-ingredient').on('click',function(e){
-	      e.preventDefault()
+	    	e.preventDefault()
 	      $('.ingredients-container').append(add_ingredients_block)
 	    })
 		
-	    $('#add-existing-ingredients-block').click(function(e){
-	    	e.preventDefault()
-	    	values = $('#existing-ingredient-list').val()
-	   		var add_block_existing_recipes =  ""
-	    	$.each(values, function(index, ing_id){
-	    		ing = ing_id.split("-")
-	    		string = existing_ingredient_block
-	    		string = string.replace('ingredient_id_will_come_here', ing[0])
-	    		string = string.replace('ingredient_name', ing[1])
-	    		string = string.replace('ingredient_meal_class', ing[2])
-	    		string = string.replace('ingredient_std_quantity', ing[3])
-	    		string = string.replace('ingredient_calories_per_quantity', ing[4])
-	    		add_block_existing_recipes += string
-	    	})
-	    	  $('#existing-ingredient-block').html(add_block_existing_recipes)
-	    	return false
-	    })
-
-	   $('.ingredients-container').click('.remove-new-ingredient',function(){
+	   $('.ingredients-container').on("click", '.remove-new-ingredient',function(e){
 	   		alert('hello')
-	   		$(this).children('.add-ingredient').remove()
+	   		$(this).closest('.add-ingredient').remove()
+	   		console.log($(this))
 	   })
 
-	   $('body').click('.remove-existing-ingredient', function(event){
-	   	
-	   		$remove_ing_container = $(event.delegateTarget)
-	   		console.log($remove_ing_container.attr('class'))
+
+	  
 
 
-	   		var recipe_ingredient = {"recipe_id": $(this).data('rec-id'), "ingredient_id" : $(this).data('ing-id')}
 
+	   $('.ingredients-container').on('click','.remove-existing-ingredient', function(event){
+	   		$this = $(this)
+
+	   		var recipe_ingredient = {"recipe_id" : $(this).data('rec-id'), "ingredient_id" : $(this).data('ing-id')}
+
+	   		console.log(recipe_ingredient)
 	    	$.ajax({
 	    		url : "/recipes/destroy_ingredient",
 	    		method : 'DELETE',
@@ -49,7 +57,7 @@
 	    		dataType : "json"
 	    	})
 	    	 .done(function(response, textStatus, jqXHR) { 
-    	 	  	$this.children('.existing-ingredient').remove()
+	   				$this.closest('.my-existing-ingredient').remove() 
     	 	  	console.log(response)
     	 	  	console.log('successfully deleted')
 	    	 })
@@ -57,6 +65,29 @@
 	    	    // alert( "error" );
 	    	 })
 	   })
+
+ 	   $('.ingredients-container').on('click','.remove-my-existing-ingredient', function(event){
+ 	   		$this = $(this)
+
+ 	   		var recipe_ingredient = {"recipe_id" : $(this).data('rec-id'), "ingredient_id" : $(this).data('ing-id')}
+
+ 	   		console.log(recipe_ingredient)
+ 	    	$.ajax({
+ 	    		url : "/recipes/destroy_ingredient",
+ 	    		method : 'DELETE',
+ 	    		data: {recipe_ingredient: recipe_ingredient},
+ 	    		dataType : "json"
+ 	    	})
+ 	    	 .done(function(response, textStatus, jqXHR) { 
+ 	   				$this.closest('.existing-ingredient').remove() 
+     	 	  	console.log(response)
+     	 	  	console.log('successfully deleted')
+ 	    	 })
+ 	    	 .fail(function() {
+ 	    	    // alert( "error" );
+ 	    	 })
+ 	   })
+
 
 
 	   $('.add-photo').click(function(){
@@ -97,57 +128,6 @@
 	    	$(this).tooltip('toggle')
 	    })
 
-
-	    
-	    // ajaxapi created
-	    // @@TODO writing ajax call in the api
-	    
- 
-	    	
-	   // (function( $ ) {
-	   // 	 $.fn.ajax_api = function () {
-	   // 	 	var settings = $.extend({
-	   // 	 	  url: "",
-	   // 	 	  data: {},
-	   // 	 	  dataType: "",
-	   // 	 	  method: "",
-	   // 	 	  thisnode:this,
-	   // 	 	  parent_class_hide:"",
-	   // 	 	  id_for_message:"",
-	   // 	 	  message:""
-	   // 	 	  }, options);
-
-	   // 	 		$.ajax({
-	   // 	 			url : settings.url,
-	   // 	 			method : settings.method,
-	   // 	 			data: settings.data,
-	   // 	 			dataType : settings.dataType
-	   // 	 		})
-	   // 	 		 .done(function(data, textStatus, jqXHR) {
-	   // 	 		 	 settings.thisnode.closest('.'+settings.parent_class_hide).hide()
-	   // 	 		 	  $('#'+settings.id_for_message).html(settings.message)
-	   // 	 		 	  console.log(data)
-	   // 	 		 })
-	   // 	 		 .fail(function() {
-	   // 	 		    alert('done')
-	   // 	 		 })
-	   // 	 		 .always(function() {
-	   // 	 		    // alert( "complete" );
-	   // 	 		 });
-	   // 	 }
-	   // }(jQuery));
-
-	  // $('.approve-recipe').ajax_api({
-	  // 	url :'recipes/'+ $(this).data('rec-id'),
-			// data: {recipe:recipe},
-			// dataType: "json",
-			// method: "PUT",
-			// parent_class_hide:"span6",
-			// id_for_message:"display-notice-message",
-			// message:"<div class='alert alert-success'>recipe successfully approved</div>"
-	  // }); 
-	  
-	   
 		
 
 		$('.approve-recipe').click(function(e){
@@ -282,7 +262,28 @@
 		}
 		 });	
 		  
-
+	  	select = $(".chosen-select");
+    	select.chosen();
+    	chosen = select.data('chosen').container;
+    	chosen.bind('keypress', function(e){
+    		if(e.keyCode==13)
+    		{
+  			 	values = $('#existing-ingredient-list').val()
+  					var add_block_existing_recipes =  ""
+  			 	$.each(values, function(index, ing_id){
+  			 		ing = ing_id.split("-")
+  			 		string = existing_ingredient_block
+  			 		string = string.replace('ingredient_id_will_come_here', ing[0])
+  			 		string = string.replace('ingredient_name', ing[1])
+  			 		string = string.replace('ingredient_meal_class', ing[2])
+  			 		string = string.replace('ingredient_std_quantity', ing[3])
+  			 		string = string.replace('ingredient_calories_per_quantity', ing[4])
+  			 		string = string.replace('ingredient_std_measurement', ing[5])
+  			 		add_block_existing_recipes += string
+  			 	})
+  			 	  $('#existing-ingredient-block').html(add_block_existing_recipes)
+    		}
+    	})
 	})  
 
 

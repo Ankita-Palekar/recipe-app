@@ -64,11 +64,11 @@ class Recipe::UserRecipesController < ApplicationController
 
   def rate_recipe
     @current_user = current_user
-    puts params.inspect
+     
     @recipe = Recipe.find(params[:recipe][:id]) 
     respond_to do |format|
       @rate = @recipe.rate_recipe(current_user: @current_user, ratings: params[:recipe][:ratings])
-      puts @rate.inspect
+      
       notice = {}
       # @TODO find proper condition fr successfull rate
       notice[:message] =@rate.persisted? ? "successfully rated" : "could not rate"
@@ -101,8 +101,6 @@ class Recipe::UserRecipesController < ApplicationController
 
   # DELETE recipe_id ingredient_id
   def destroy_ingredient
-    puts params[:recipe_ingredient][:ingredient_id]
-    puts params[:recipe_ingredient][:recipe_id]
     @recipe = Recipe.find(params[:recipe_ingredient][:recipe_id])
     @recipe.destroy_recipe_ingredient(:ingredient_id => params[:recipe_ingredient][:ingredient_id], :current_user => current_user)
 

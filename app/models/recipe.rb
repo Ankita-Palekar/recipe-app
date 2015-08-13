@@ -39,15 +39,16 @@ class Recipe < ActiveRecord::Base
   scope :photos, -> {joins(:photos)}
   scope :include_photos, -> {includes(:photos)}
  
-  def save_recipe_ingredient_join(ingredient, recipe, quantity)
-    # recipe_ingredient = recipe.recipe_ingredients.build
-    # recipe_ingredient.ingredient = ingredient  #will assign ingredient_id in join to the ingrdient_id
-    # rec_ing = RecipeIngredient.first_or_initialize(recipe_ingredient) 
-    # rec_ing.update_attributes!(quantity: quantity)
-    
+  def save_recipe_ingredient_join(ingredient, recipe, quantity)    
     rec_ing = RecipeIngredient.where(:ingredient_id => ingredient.id, :recipe_id => recipe.id)
     rec_ing = RecipeIngredient.find_or_initialize_by_ingredient_id_and_recipe_id(ingredient.id, recipe.id)
-    rec_ing.update_attributes(:quantity => quantity)
+
+    rec_ing.update_attributes(:quantity => quantity, :recipe_id => recipe.id)
+    puts "========================"
+    puts recipe.id
+    puts rec_ing.persisted?
+    puts rec_ing.inspect
+    puts "========================"
   end
 
   def send_admin_mail(function_name)
@@ -94,6 +95,7 @@ class Recipe < ActiveRecord::Base
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
       # REVIEw: Why is the following line required?
       self.creator = current_user
+      self.save
       # current_user.recipes << self
       total_calories = add_recipe_ingredients(ingredients_list, self, current_user)
       add_recipe_photos(photo_list, self)
