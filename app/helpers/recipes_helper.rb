@@ -65,7 +65,7 @@ module RecipesHelper
 	end
 
 	def print_admin_pending_recipe_link
-		content_tag(:li, link_to("Admin Pending Recipes", admin_pending_recipes_path)) if is_admin?
+		content_tag(:li, link_to("Admin Pending Recipes", admin_pending_recipes_path)) if user_signed_in? && current_user.is?(:admin) 
 	end
 
 	def print_login_link
