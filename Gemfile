@@ -39,6 +39,7 @@ gem 'will_paginate-bootstrap'
 gem 'bootstrap-wysihtml5-rails', '~> 0.3.3.7' #for recipe content details
 gem 'chosen-rails'
 gem 'capistrano'
+gem 'capistrano-passenger'
 gem 'capistrano-rvm'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
