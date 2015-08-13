@@ -35,9 +35,24 @@ set :rails_env, "production"
 
 set :linked_dirs, %w{tmp/pids}
 
-set :delayed_job_server_role, :worker
-set :delayed_job_args, "-n 2"
+# set :delayed_job_server_role, :worker
+# set :delayed_job_args, "-n 2"
 
+set :delayed_job_workers, 2
+
+set :delayed_job_prefix, :reports   
+
+set :delayed_job_queues, ['mailer','tracking']
+
+set :delayed_job_pools, {
+    :mailer => 2,
+    :tracking => 1,
+    :* => 2
+}
+
+set :delayed_job_roles, [:app, :background]
+
+set :delayed_job_bin_path, 'script'
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
@@ -54,9 +69,17 @@ set :delayed_job_args, "-n 2"
 
 # end
 
-after 'deploy:publishing', 'deploy:restart'
-namespace :deploy do
-  task :restart do
+#used in order to use delayed job without gem
+#
+
+# after 'deploy:publishing', 'deploy:restart'
+# namespace :deploy do
+#   task :restart do
+#     invoke 'delayed_job:restart'
+#   end
+# end
+# 
+
+after 'deploy:published', 'restart' do
     invoke 'delayed_job:restart'
-  end
 end

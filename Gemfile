@@ -38,6 +38,7 @@ gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
 gem 'bootstrap-wysihtml5-rails', '~> 0.3.3.7' #for recipe content details
 gem 'chosen-rails'
+gem 'capistrano3-delayed-job', '~> 1.0'
 gem 'capistrano'
 gem 'capistrano-passenger'
 gem 'capistrano-rvm'

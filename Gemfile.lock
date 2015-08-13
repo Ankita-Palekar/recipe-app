@@ -50,6 +50,8 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    capistrano3-delayed-job (1.4.0)
+      capistrano (>= 3.0.0)
     chosen-rails (1.4.2)
       coffee-rails (>= 3.2)
       compass-rails (>= 2.0.4)
@@ -217,6 +219,7 @@ DEPENDENCIES
   capistrano-passenger
   capistrano-rails
   capistrano-rvm
+  capistrano3-delayed-job (~> 1.0)
   chosen-rails
   coffee-rails (~> 3.2.1)
   daemons
