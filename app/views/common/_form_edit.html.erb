@@ -67,10 +67,11 @@
   </div>
  
   <div class="ingredients-container">
-    <div class="my-existing-ingredients" >
       <% @recipe.ingredients.each_with_index do |ing, index| 
           if (ing.creator_id == @current_user.id )&& (ing.approved == false) %>
-            <hr>
+            <div class="my-existing-ingredient" >
+              <hr>
+              <button type="button" class="close remove-my-existing-ingredient" data-rec-id='<%= "#{@recipe.id}" %>' data-ing-id ='<%= "#{ing.id}" %>'>&times;</button> 
               <div class="control-group">
                 <label class="control-label" for="inputEmail" >ingredient name</label>
                 <div class="controls">
@@ -134,6 +135,7 @@
                   <input type="number" name="ingredient[][calories_per_quantity]" required value="<%= ing.calories_per_quantity %>" required>
                 </div>
               </div>
+            </div>
           <%else%>
           <div class="control-group existing-ingredient">
             <hr>
@@ -147,14 +149,11 @@
               required>
               <input type="hidden"  name="existing_ingredient[][meal_class]" value="<%= ing.meal_class %>" required>
               <button type="button" data-rec-id='<%= "#{@recipe.id}" %>' data-ing-id ='<%= "#{ing.id}" %>' class="close remove-existing-ingredient">&times;</button>
-
             </div>
-             
-             
           </div>          
           <% end %>
       <% end %>
-    </div>
+    
   </div>
   
   <div class="control-group">
