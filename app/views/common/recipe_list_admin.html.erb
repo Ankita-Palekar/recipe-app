@@ -20,7 +20,7 @@
 			<ul class="thumbnails">
 			  <li class="span4">
 			    <div class="thumbnail">
-			      	<%= (!rec.photos.empty? ? (image_tag(rec.photos.first.avatar.url(:medium), :class => "media-object, img-rounded", :style=> "width:200px;height:150px")) : image_tag("missing.png", :style => "width:200px;height:150px;")) %> 
+			      	<%= (!rec.photos.empty? ? (image_tag(rec.photos.first.avatar.url(:medium), :class => "media-object, img-rounded", :style=> "")) : image_tag("missing.png", :style => "")) %> 
 			      <h3><%= link_to(rec.name.titlecase, rec, {:class => "list-recipe-name"}) %></h3>
 			      <p><%=raw rec.description.truncate(60) %></p>
 			      <%= list_approve_reject_button(rec, @admin_show_status) %>

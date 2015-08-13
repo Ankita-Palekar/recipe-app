@@ -101,13 +101,13 @@ class Recipe::UserRecipesController < ApplicationController
 
   # DELETE recipe_id ingredient_id
   def destroy_ingredient
-    puts params.inspect
-
-
+    puts params[:recipe_ingredient][:ingredient_id]
+    puts params[:recipe_ingredient][:recipe_id]
     @recipe = Recipe.find(params[:recipe_ingredient][:recipe_id])
-    @recipe.destroy_recipe_ingredient(params[:recipe_ingredient][:ingredient_id])
+    @recipe.destroy_recipe_ingredient(:ingredient_id => params[:recipe_ingredient][:ingredient_id], :current_user => current_user)
+
     notice = {}
-    notice = "You are not the recipe owner to delete it" if !@Recipe.valid?
+    notice = "You are not the recipe owner to delete it" if !@recipe.valid?
     respond_to do |format|
       format.json{render json: notice, status: 200}
     end

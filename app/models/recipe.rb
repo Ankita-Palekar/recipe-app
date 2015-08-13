@@ -143,8 +143,8 @@ class Recipe < ActiveRecord::Base
     self
   end
 
-  def destroy_recipe_ingredient(ingredient_id:)
-    ((self.creator_id == current_user.id )|| (current_user.is? :admin)) ? self.recipe_ingredient.find_by_ingredient_id(ingredient_id).delete : (self.errors = "You are not the owner to delete this")
+  def destroy_recipe_ingredient(ingredient_id:, current_user:)
+    ((self.creator_id == current_user.id )|| (current_user.is? :admin)) ? self.recipe_ingredients.find_by_ingredient_id(ingredient_id).delete : (self.errors = "You are not the owner to delete this")
   end
 
   def self.get_recipe_meal_class(ingredients_list:)

@@ -87,10 +87,12 @@
 
 
 
-	   $('ingredients-container').on('click','.remove-existing-ingredient', function(event){
+	   $('.ingredients-container').on('click','.remove-existing-ingredient', function(event){
+	   		$this = $(this)
+
 	   		var recipe_ingredient = {"recipe_id" : $(this).data('rec-id'), "ingredient_id" : $(this).data('ing-id')}
 
-	   		 console.log(recipe_ingredient)
+	   		console.log(recipe_ingredient)
 	    	$.ajax({
 	    		url : "/recipes/destroy_ingredient",
 	    		method : 'DELETE',
@@ -98,7 +100,7 @@
 	    		dataType : "json"
 	    	})
 	    	 .done(function(response, textStatus, jqXHR) { 
-	   				$(this).closest('.existing-ingredient').remove() 
+	   				$this.closest('.my-existing-ingredient').remove() 
     	 	  	console.log(response)
     	 	  	console.log('successfully deleted')
 	    	 })
@@ -106,6 +108,29 @@
 	    	    // alert( "error" );
 	    	 })
 	   })
+
+ 	   $('.ingredients-container').on('click','.remove-my-existing-ingredient', function(event){
+ 	   		$this = $(this)
+
+ 	   		var recipe_ingredient = {"recipe_id" : $(this).data('rec-id'), "ingredient_id" : $(this).data('ing-id')}
+
+ 	   		console.log(recipe_ingredient)
+ 	    	$.ajax({
+ 	    		url : "/recipes/destroy_ingredient",
+ 	    		method : 'DELETE',
+ 	    		data: {recipe_ingredient: recipe_ingredient},
+ 	    		dataType : "json"
+ 	    	})
+ 	    	 .done(function(response, textStatus, jqXHR) { 
+ 	   				$this.closest('.existing-ingredient').remove() 
+     	 	  	console.log(response)
+     	 	  	console.log('successfully deleted')
+ 	    	 })
+ 	    	 .fail(function() {
+ 	    	    // alert( "error" );
+ 	    	 })
+ 	   })
+
 
 
 	   $('.add-photo').click(function(){
