@@ -33,6 +33,10 @@ set :format, :pretty
 # set :default_env, { path: "/opt/ruby/bin:$PATH" } 
 set :rails_env, "production"
 
+set :linked_dirs, %w{tmp/pids}
+
+set :delayed_job_server_role, :worker
+set :delayed_job_args, "-n 2"
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
@@ -49,3 +53,10 @@ set :rails_env, "production"
 #   end
 
 # end
+
+after 'deploy:publishing', 'deploy:restart'
+namespace :deploy do
+  task :restart do
+    invoke 'delayed_job:restart'
+  end
+end
