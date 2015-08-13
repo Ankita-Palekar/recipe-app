@@ -20,6 +20,24 @@ Foodholic::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  config.consider_all_requests_local       = true
+  config.action_controller.perform_caching = false
+
+  ActionMailer::Base.delivery_method = :smtp
+  # config.action_mailer.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+      address:              'smtp.mandrillapp.com',
+      port:                 587,
+      domain:               'gmail.com',
+      user_name:            '453ankitapalekar@gmail.com',
+      password:             'tNJVTrR75DSI2fIPHWNMrA',
+      authentication:       'plain',
+      enable_starttls_auto: true  }
+    
+    config.action_mailer.perform_deliveries = true 
+    config.action_mailer.raise_delivery_errors = true
+
+
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
