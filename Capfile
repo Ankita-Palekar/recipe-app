@@ -5,7 +5,7 @@ require 'capistrano/setup'
 require 'capistrano/deploy'
 require 'capistrano/bundler'
 require 'capistrano/rvm'
-require 'capistrano/delayed_job'
+# require 'capistrano/delayed_job'
 # Include tasks from other gems included in your Gemfile
 #
 # For documentation on these, see for example:
