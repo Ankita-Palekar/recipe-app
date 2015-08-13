@@ -84,6 +84,10 @@ GEM
       sass-rails (<= 5.0.1)
       sprockets (< 2.13)
     daemon-spawn (0.4.2)
+    daemons (1.2.3)
+    daemons-rails (1.2.1)
+      daemons
+      multi_json (~> 1.0)
     delayed_job (3.0.5)
       activesupport (~> 3.0)
     delayed_job_active_record (0.4.3)
@@ -217,6 +221,7 @@ DEPENDENCIES
   chosen-rails
   coffee-rails (~> 3.2.1)
   daemon-spawn (= 0.4.2)
+  daemons-rails (~> 1.2.1)
   delayed_job_active_record (= 0.4.3)
   devise
   dropzonejs-rails
