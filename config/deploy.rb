@@ -34,7 +34,7 @@ set :format, :pretty
 set :rails_env, "production"
 
 set :linked_dirs, %w{tmp/pids}
-
+set :linked_dirs, fetch(:linked_dirs, []).push('public/system')
 # set :delayed_job_server_role, :worker
 # set :delayed_job_args, "-n 2"
 

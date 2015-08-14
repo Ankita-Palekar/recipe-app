@@ -7,6 +7,9 @@ require 'capistrano/bundler'
 require 'capistrano/rvm'
 require 'capistrano/passenger'
 require 'capistrano/delayed-job'
+require 'capistrano/rails/assets'
+require 'capistrano/rails/migrations'
+
 # require 'capistrano/delayed_job'
 # Include tasks from other gems included in your Gemfile
 #
@@ -21,8 +24,6 @@ require 'capistrano/delayed-job'
 #
 # require 'capistrano/rbenv'
 # require 'capistrano/chruby'
-# require 'capistrano/rails/assets'
-# require 'capistrano/rails/migrations'
 # require 'capistrano/passenger'
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined

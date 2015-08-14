@@ -22,10 +22,10 @@ set :stage, :production
 # role :web, %w{ankita@104.236.196.6} 
 # role :db,  %w{ankita@104.236.196.6}
 
-role :app, %w{ankita@127.0.0.1} 
-role :web, %w{ankita@127.0.0.1} 
-role :db,  %w{ankita@127.0.0.1}
-server '127.0.0.1', user: 'ankita', roles: %w{web app db}
+role :app, %w{ankita@104.236.196.6} 
+role :web, %w{ankita@104.236.196.6} 
+role :db,  %w{ankita@104.236.196.6}
+server '104.236.196.6', user: 'ankita', roles: %w{web app db}
 
 # Configuration
 # =============
