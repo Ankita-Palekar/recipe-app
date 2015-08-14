@@ -12,7 +12,7 @@ set :repo_url, 'git@bitbucket.org:vacationlabs/ankita-recipe-project.git'
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, '/var/www/html/recipe-app' 
-set :deploy_to, '/var/www/html/recipe-app' #for thin server
+set :deploy_to, '/var/www/html/recipe-app-thin' #for thin server
 # Default value for :pty is false
 set :pty, true
 
@@ -61,7 +61,7 @@ set :delayed_job_bin_path, 'script'
 # 	end
 # end
 
-# after 'deploy', 'deploy:restart'
+after 'deploy', 'deploy:restart'
 
 after 'deploy:published', 'restart' do
   invoke 'delayed_job:restart'
