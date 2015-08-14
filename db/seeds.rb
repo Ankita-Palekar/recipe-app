@@ -8,22 +8,22 @@
 #   
 
  
-users_list = [{email: "ankita@vacationlabs.com.com", password: "ankita"},
-{email: "453ankitapalekar@gmail.com", password: "anki-cool"},
-{email: "pradosh@vacationlabs.com", password: "pradosh"},
-{email: "sanoop@vacationlabs.com", password: "lakshadeep"}
-{email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
-{email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
-{email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
-{email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
-{email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
-{email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
+# users_list = [{email: "ankita@vacationlabs.com.com", password: "ankita"},
+# {email: "453ankitapalekar@gmail.com", password: "anki-cool"},
+# {email: "pradosh@vacationlabs.com", password: "pradosh"},
+# {email: "sanoop@vacationlabs.com", password: "lakshadeep"}
+# {email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
+# {email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
+# {email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
+# {email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
+# {email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
+# {email: "lakshadeep@vacationlabs.com", password: "lakshadeep"}
 
-]
+# ]
 
-users_list.each do |u|
-	User.create!(u)
-end
+# users_list.each do |u|
+# 	User.create!(u)
+# end
 
 
 # ingredients_list = [{ingredient_id: }]
