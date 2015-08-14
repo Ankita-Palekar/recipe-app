@@ -90,4 +90,4 @@ after 'deploy:published', 'restart' do
     invoke 'delayed_job:restart'
 end
 
-after "deploy:restart_thin_server"
+after "deploy:published", 'restart_thin_server'
