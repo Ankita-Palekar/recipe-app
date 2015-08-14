@@ -12,7 +12,7 @@ set :repo_url, 'git@bitbucket.org:vacationlabs/ankita-recipe-project.git'
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, '/var/www/html/recipe-app' 
-set :deploy_to, '/var/www/html/recipe-app-thin' #for thin server
+set :deploy_to, '/var/www/html/recipe-app' #for thin server
 # Default value for :pty is false
 set :pty, true
 
@@ -79,26 +79,15 @@ set :delayed_job_bin_path, 'script'
 #   end
 # end
 
+namespace :deploy do
+	task :restart_thin_server do
+	  run "cd #{previous_release}; source $HOME/.bash_profile && thin stop -C thin_config.yml"
+	  run "cd #{release_path}; source $HOME/.bash_profile && thin start -C thin_config.yml"
+	end
+end
 
 after 'deploy:published', 'restart' do
     invoke 'delayed_job:restart'
 end
 
-
-
-
-# after 'deploy:update_code', 'deploy:migrate'
-# 
-namespace :deploy do
-    task :start, :roles => :app do
-        run "cd #{current_path} && bundle exec thin start -C config/thin/production.yml"
-    end
-
-    task :stop, :roles => :app do
-        run "cd #{current_path} && bundle exec thin stop -C config/thin/production.yml"
-    end
-
-    task :restart, :roles => :app do
-        run "cd #{current_path} && bundle exec thin restart -C config/thin/production.yml"
-    end 
-end
+after "deploy:restart_thin_server"
