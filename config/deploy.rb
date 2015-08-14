@@ -79,15 +79,15 @@ set :delayed_job_bin_path, 'script'
 #   end
 # end
 
-namespace :deploy do
-	task :restart_thin_server do
-	  run "cd #{previous_release}; source $HOME/.bash_profile && thin stop -C thin_config.yml"
-	  run "cd #{release_path}; source $HOME/.bash_profile && thin start -C thin_config.yml"
-	end
-end
+# namespace :deploy do
+# 	task :restart_thin_server do
+# 	  run "cd #{previous_release}; source $HOME/.bash_profile && thin stop -C thin_config.yml"
+# 	  run "cd #{release_path}; source $HOME/.bash_profile && thin start -C thin_config.yml"
+# 	end
+# end
 
 after 'deploy:published', 'restart' do
     invoke 'delayed_job:restart'
 end
 
-after "deploy:published", 'restart_thin_server'
+after "deploy:published", 'restart'
