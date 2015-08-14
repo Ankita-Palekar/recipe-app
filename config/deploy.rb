@@ -84,4 +84,21 @@ after 'deploy:published', 'restart' do
     invoke 'delayed_job:restart'
 end
 
+
+
+
 # after 'deploy:update_code', 'deploy:migrate'
+# 
+namespace :deploy do
+    task :start, :roles => :app do
+        run "cd #{current_path} && bundle exec thin start -C config/thin/production.yml"
+    end
+
+    task :stop, :roles => :app do
+        run "cd #{current_path} && bundle exec thin stop -C config/thin/production.yml"
+    end
+
+    task :restart, :roles => :app do
+        run "cd #{current_path} && bundle exec thin restart -C config/thin/production.yml"
+    end 
+end
