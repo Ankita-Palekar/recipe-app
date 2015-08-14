@@ -82,20 +82,17 @@
   </div>
 
   <br>
-  <!-- <div class="control-group">
-    <label class="control-label" for="inputEmail">Upload Multiple Images</label>
+ 
+  <div id="imageUpload" class="dropzone">
     
-    <div class="controls">
-        <%# file_field_tag "avatar[]", type: :file, multiple: true %>
-    </div>
-  </div> -->
+  </div>
 
   <!-- @@TODO precessqueue of images on click of button instead of auto  -->
-  <div class="controle-group">
+ <!--  <div class="controle-group">
     <div class="controls"> 
       <a href="#" class='btn btn-small add-photo'>Make Recipe image gallery</a> 
     </div>
-  </div>
+  </div> -->
 
   <br>
   
@@ -105,7 +102,7 @@
   
   <div class="control-group">
     <div class="controls">
-      <%= f.submit 'Save Recipe', :class => 'btn btn-primary btn-large' %>
+      <%= f.submit 'Save Recipe', :class => 'btn btn-primary' %>
     </div>
   </div>
 <% end %>

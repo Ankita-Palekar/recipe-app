@@ -313,7 +313,6 @@ hr.custom-hr{
 } 
 
 
-
 .image-div{
   /*text-align: center;*/
 }
@@ -325,4 +324,9 @@ hr.custom-hr{
 }
 .recipe-create-form-container{
   
+}
+
+.dropzone{
+  width: 75%;
+  margin-left: 19%;
 }
