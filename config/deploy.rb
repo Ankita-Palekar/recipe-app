@@ -53,32 +53,7 @@ set :delayed_job_queues, ['mailer','tracking']
 # set :delayed_job_roles, [:app, :background]
 
 set :delayed_job_bin_path, 'script'
-# Default value for keep_releases is 5
-# set :keep_releases, 5
-
-# namespace :deploy do
-
-#   after :restart, :clear_cache do
-#     on roles(:web), in: :groups, limit: 3, wait: 10 do
-#       # Here we can do anything such as:
-#       # within release_path do
-#       #   execute :rake, 'cache:clear'
-#       # end
-#     end
-#   end
  
-# end
-
-#used in order to use delayed job without gem
-#
-
-# after 'deploy:publishing', 'deploy:restart'
-# namespace :deploy do
-#   task :restart do
-#     invoke 'delayed_job:restart'
-#   end
-# end
-
 # namespace :deploy do
 # 	task :restart_thin_server do
 # 	  run "cd #{previous_release}; source $HOME/.bash_profile && thin stop -C thin_config.yml"
@@ -86,8 +61,8 @@ set :delayed_job_bin_path, 'script'
 # 	end
 # end
 
-after 'deploy:published', 'restart' do
-    invoke 'delayed_job:restart'
-end
+after 'deploy', 'deploy:restart'
 
-after "deploy:published", 'restart'
+after 'deploy:published', 'restart' do
+  invoke 'delayed_job:restart'
+end
