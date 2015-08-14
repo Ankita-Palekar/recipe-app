@@ -18,16 +18,16 @@
 # Don't use `:all`, it's a meta role.
 
 set :stage, :production
-role :app, %w{ankita@192.168.1.242} 
-role :web, %w{ankita@192.168.1.242} 
-role :db,  %w{ankita@192.168.1.242}
+# role :app, %w{ankita@192.168.1.242} 
+# role :web, %w{ankita@192.168.1.242} 
+# role :db,  %w{ankita@192.168.1.242}
 
-# role :app, %w{ankita@104.236.196.6} 
-# role :web, %w{ankita@104.236.196.6} 
-# role :db,  %w{ankita@104.236.196.6}
+role :app, %w{ankita@104.236.196.6} 
+role :web, %w{ankita@104.236.196.6} 
+role :db,  %w{ankita@104.236.196.6}
 
-# server '104.236.196.6', user: 'ankita', roles: %w{web app db}
-server '192.168.1.242', user: 'ankita', roles: %w{web app db}
+server '104.236.196.6', user: 'ankita', roles: %w{web app db}
+# server '192.168.1.242', user: 'ankita', roles: %w{web app db}
 
 # Configuration
 # =============
