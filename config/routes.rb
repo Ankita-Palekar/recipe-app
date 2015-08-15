@@ -1,5 +1,6 @@
 Foodholic::Application.routes.draw do
 
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks"}
   devise_for :users
   # devise_for :user
   root :to => 'home#index' 
@@ -65,7 +66,6 @@ Foodholic::Application.routes.draw do
   put  '/photos/:id(.:format)' => 'photos#update'
   delete '/photos/:id(.:format)' => 'photos#destroy'
                             
-
 
   # resources :ratings
   # resources :users

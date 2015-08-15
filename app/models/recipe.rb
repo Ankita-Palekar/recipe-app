@@ -129,19 +129,27 @@ class Recipe < ActiveRecord::Base
   # well.
   def approve_recipe(current_user:)
     Recipe.transaction do
-      update_attributes(:approved => true, :rejected=>false) 
-      self.ingredients.map {|ingredient| ingredient.approve_ingredient}
-      send_approved_or_rejected_mail('recipe_approval_email', current_user)
-    end if current_user.is_admin
+      if current_user.is?(:admin)
+        update_attributes(:approved => true, :rejected=>false) 
+        self.ingredients.map {|ingredient| ingredient.approve_ingredient}
+        send_approved_or_rejected_mail('recipe_approval_email', current_user)
+      else 
+        self.errors = "only admin can approve recipe"
+      end
+    end 
     self
   end
 
   def reject_recipe(current_user:)
     begin 
-      update_attributes(:rejected => true, :approved => false) 
-      user = User.find(self.creator_id)
-      send_approved_or_rejected_mail('recipe_rejected_email',user)  
-    end  if current_user.is_admin
+      if current_user.is?(:admin)
+        update_attributes(:rejected => true, :approved => false) 
+        user = User.find(self.creator_id)
+        send_approved_or_rejected_mail('recipe_rejected_email',user)  
+      else
+        self.errors = "only admin can reject recipe"
+      end
+    end  
     self
   end
 
