@@ -1,7 +1,7 @@
 ---
 user: ankita
 group: ankita
-pid: tmp/pids/thin.pid
+pid: /var/www/html/recipe-app-thin/current/pids/thin.pid
 timeout: 30
 wait: 30
 port : 81
@@ -14,6 +14,6 @@ servers: 1
 threaded: true
 no-epoll: true
 daemonize: true
-socket: tmp/sockets/thin.sock
+socket: /var/www/html/recipe-app-thin/current/sockets/thin.sock
 chdir: /var/www/html/recipe-app-thin/current
 tag: recipe-app-thin
