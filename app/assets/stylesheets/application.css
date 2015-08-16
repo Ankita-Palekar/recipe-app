@@ -330,3 +330,78 @@ hr.custom-hr{
   width: 75%;
   margin-left: 19%;
 }
+
+
+.spin-block{
+  display: none;
+}
+
+.recipe-list-content{
+  margin: 0px;
+  padding: 0px;
+}
+
+.recipe-list-description{
+  padding-top: 2%;  
+}
+
+a.histo-star-link:hover{
+  text-decoration: none;
+}
+
+.recipe-date{
+  padding-left: 5%;
+}
+
+/*user profile css start*/
+
+.fb-profile img.fb-image-lg{
+  z-index: 0;
+  width: 100%;  
+  margin-bottom: 10px;
+}
+
+.fb-image-profile
+{
+  margin: -90px 10px 0px 50px;
+  z-index: 9;
+  width: 15%; 
+}
+
+@media (max-width:768px){
+    
+.fb-profile-text>h1{
+  font-weight: 700;
+  font-size:16px;
+}
+
+.fb-image-profile
+{
+  margin: -45px 10px 0px 25px;
+  z-index: 9;
+  width: 15%; 
+}
+}
+
+/*user profile css end*/
+
+
+/*sign up with google button*/
+
+ 
+a.btn-google {
+  color: #fff;
+  background-color: #dd4b39;
+  border-color: rgba(0,0,0,0.2);
+}
+
+a.btn-social {
+  position: relative;
+  padding-left: 44px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+  
+

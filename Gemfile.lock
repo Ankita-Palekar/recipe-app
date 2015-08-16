@@ -250,6 +250,7 @@ DEPENDENCIES
   font-awesome-rails
   jquery-rails
   less-rails-bootstrap (~> 2)
+  omniauth
   omniauth-google-oauth2
   paperclip (~> 4.3)
   pg

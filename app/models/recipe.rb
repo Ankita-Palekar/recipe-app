@@ -38,17 +38,12 @@ class Recipe < ActiveRecord::Base
   scope :ratings_count_hash, -> {ratings.group(:ratings).count }
   scope :photos, -> {joins(:photos)}
   scope :include_photos, -> {includes(:photos)}
- 
+  scope :include_creator, -> {includes(:creator)}
+
   def save_recipe_ingredient_join(ingredient, recipe, quantity)    
     rec_ing = RecipeIngredient.where(:ingredient_id => ingredient.id, :recipe_id => recipe.id)
     rec_ing = RecipeIngredient.find_or_initialize_by_ingredient_id_and_recipe_id(ingredient.id, recipe.id)
-
     rec_ing.update_attributes(:quantity => quantity, :recipe_id => recipe.id)
-    puts "========================"
-    puts recipe.id
-    puts rec_ing.persisted?
-    puts rec_ing.inspect
-    puts "========================"
   end
 
   def send_admin_mail(function_name)
@@ -82,7 +77,7 @@ class Recipe < ActiveRecord::Base
         ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :ingredient_id))
       else
         ingredient = current_user.ingredients.build(ingre.except(:quantity))
-        ingredient.create_ingredient
+        ingredient = ingredient.create_ingredient
       end
       save_recipe_ingredient_join(ingredient, recipe, ingre[:quantity])
     end
@@ -170,10 +165,11 @@ class Recipe < ActiveRecord::Base
   # def self.list_recipes(list_type:, page_nav:, limit:, status: nil, current_user:nil)
   
   def self.list_recipes(list_type:, status: nil, current_user:nil, other_user: nil)
+    
     if status && current_user
-      current_user.recipes.include_photos.send(status).send(list_type).order_by_date
+      current_user.recipes.include_photos.include_creator.send(status).send(list_type).order_by_date
     elsif other_user && status
-      other_user.recipes.include_photos.send(status).send(list_type)
+      other_user.recipes.include_photos.include_creator.send(status).send(list_type)
     else
       Recipe.include_photos.approved.send(list_type).order_by_date
     end
@@ -202,7 +198,7 @@ class Recipe < ActiveRecord::Base
   end
 
   def get_recipe_details
-    return {recipe_content: Recipe.includes(:ratings, :photos, :ingredients).find(self),
+    return {recipe_content: Recipe.includes(:ratings, :photos, :ingredients, :creator).find(self),
       ratings_histogram: get_ratings_count_hash}
   end
 
@@ -222,6 +218,7 @@ class Recipe < ActiveRecord::Base
       # REVIEW: NEVER EVER execute untrusted code coming from user-input.
       # Either restructure this search completely OR create a whitelist of
       # permissible values for 'flag'
+      
       searched_recipes = searched_recipes.send(flag,query) if flag_check.include? flag
     end 
     searched_recipes ||=[]

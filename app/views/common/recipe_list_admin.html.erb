@@ -2,7 +2,7 @@
 	@admin_show_status ||= false
 %>
 <div class="container navbar-spacer">
-	<h1 class="page-header"> <%= "#{@page_header}" %></h1>
+	<h3 class="page-header"> <%= "#{@page_header}" %></h3>
 	<%= render  '/common/rate_modal' %>
 	<div id="display-notice-message">
 		<% if notice %>
@@ -23,7 +23,12 @@
 			      	<%= (!rec.photos.empty? ? (image_tag(rec.photos.first.avatar.url(:medium), :class => "media-object, img-rounded", :style=> "")) : image_tag("missing.png", :style => "")) %> 
 			      <h3><%= link_to(rec.name.titlecase, rec, {:class => "list-recipe-name"}) %></h3>
 			      <p><%=raw rec.description.truncate(60) %></p>
-			      <%= list_approve_reject_button(rec, @admin_show_status) %>
+			      <div class="spin-block">
+			      	<i class="fa fa-refresh fa-spin"></i>
+			      </div>
+			      <div class="approve-reject-block">
+			      	<%= list_approve_reject_button(rec, @admin_show_status) %>
+			      </div>
 			    </div>
 			  </li>
 			</ul>

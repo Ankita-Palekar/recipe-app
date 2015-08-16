@@ -7,6 +7,20 @@
           <h2 class="text-center">New User Signup</h2>
 
           <div class="control-group">
+            <div class="controls">
+              <%= link_to(user_omniauth_authorize_path(:google_oauth2), {:class => "btn btn-default text-center"}) do %>
+                <i class='fa fa-google-plus'> Sign in with google</i>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="controls" style="padding-left:15%">
+              OR
+            </div>
+          </div>
+
+          <div class="control-group">
             <label class="control-label" for="inputName">Name</label>
             <div class="controls">
                 <%= f.text_field :name, autofocus: true %>
@@ -46,7 +60,7 @@
           </div>
           <div class="control-group">
             <div class="controls">
-                <%= render "devise/shared/links" %>
+              <%= link_to('Login', new_user_session_path)  %>  
             </div>
           </div>
         <% end %>

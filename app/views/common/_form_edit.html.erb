@@ -39,7 +39,7 @@
   </div>  
   <div class="control-group">
     <div class="controls">
-       <h3 class="text-center">Edit your Ingredients</h3>
+       <h5>Type and select ingredients from the list of ingredietnss</h5>
     </div>
   </div>
   
@@ -49,7 +49,7 @@
       <select multiple="multiple" id="existing-ingredient-list" class="chosen-select">
       <%= @existing_ingredients_list = get_existing_ingredient_list %>
       <% @existing_ingredients_list.each do |ing| %>
-        <option value='<%= "#{ing.id}-#{ing.name}-#{ing.meal_class}-#{ing.std_quantity}-#{ing.calories_per_quantity}"%>' data-ingredient-name ="<%= "#{ing.name}"%>"><%= ing.name %></option>
+        <option value='<%= "#{ing.id}-#{ing.name}-#{ing.meal_class}-#{ing.std_quantity}-#{ing.calories_per_quantity}-#{ing.std_measurement}"%>' data-ingredient-name ="<%= "#{ing.name}"%>"><%= ing.name %></option>
         <% end %>
       </select>
     </div>
@@ -61,14 +61,17 @@
   </div>
  
   <div class="ingredients-container">
+    
       <% @recipe.ingredients.each_with_index do |ing, index| 
-          if (ing.creator_id == @current_user.id )&& (ing.approved == false) %>
+          if (ing.creator_id == current_user.id)&& (ing.approved == false) %>
+       
             <div class="my-existing-ingredient" >
               <hr>
               <button type="button" class="close remove-my-existing-ingredient" data-rec-id='<%= "#{@recipe.id}" %>' data-ing-id ='<%= "#{ing.id}" %>'>&times;</button> 
               <div class="control-group">
                 <label class="control-label" for="inputEmail" >ingredient name</label>
                 <div class="controls">
+
                   <input type="hidden"  name="ingredient[][ingredient_id]" value="<%= ing.id %>" required>
                   <input class="span8" type="text" placeholder="ingredient name" value="<%= ing.name %>"  name="ingredient[][name]" required>
                   <input type="hidden"  name="ingredient[][creator_id]" value="<%= ing.creator_id %>" required>
@@ -131,11 +134,15 @@
               </div>
             </div>
           <%else%>
+
           <div class="control-group existing-ingredient">
             <hr>
             <label class="control-label" for="inputEmail" > <%= ing.name %> already exists</label>
             <div class="controls">
-              <input  type="number" placeholder="edit quantity"  value="<%= @recipe.recipe_ingredients[index].quantity %>"  name="existing_ingredient[][quantity]" required>
+              <div class="input-append">
+                <input  type="number" placeholder="edit quantity"  value="<%= @recipe.recipe_ingredients[index].quantity %>"  name="existing_ingredient[][quantity]" required>
+                <span class="add-on"> <%= ing.std_measurement%> </span>
+              </div>
               <input type="hidden"  name="existing_ingredient[][ingredient_id]" value="<%= ing.id %>" required>
               <input type="hidden"  name="existing_ingredient[][creator_id]" value="<%= ing.creator_id %>" required>
               <input type="hidden"  name="existing_ingredient[][std_quantity]" value="<%= ing.std_quantity %>" required>

@@ -15,7 +15,7 @@
 				</div>
 			</div>
 			<div class="page-header">
-		  	<h1 > <%= @recipe.name.capitalize %>  </h1>
+		  	<h1> <%= @recipe.name.capitalize %></h1>
 			</div>
 		  <div class="carousel-wrapper">
 		 		  <div id="myCarousel" class="carousel slide">
@@ -58,11 +58,12 @@
 		 		    	<div class="rating">
 		 		      	<span class="rating-num"><%= @recipe.aggregate_ratings %></span>
 			 		      <div class="rating-stars">
+			 		      <%= print_star_rates_histogram(@recipe.aggregate_ratings) %>
+			 		        <!-- <span><i class="active icon-star"></i></span>
 			 		        <span><i class="active icon-star"></i></span>
 			 		        <span><i class="active icon-star"></i></span>
 			 		        <span><i class="active icon-star"></i></span>
-			 		        <span><i class="active icon-star"></i></span>
-			 		        <span><i class="icon-star"></i></span>
+			 		        <span><i class="icon-star"></i></span> -->
 			 		      </div>
 			 		      <div class="rating-users">
 			 		        <i class="icon-user"></i> <%= User.count %>
@@ -72,7 +73,7 @@
 								<% @recipe_ratings_histogram.sort.each do  |key,value|%>   	
 				 		      <div class="<%= key.to_words %>  histo-rate">
 				 		        <span class="histo-star">
-				 		          <a href="/recipes/<%=@recipe.id%>/<%= key %>/rated_users">
+				 		          <a class="histo-star-link" href="/recipes/<%=@recipe.id%>/<%= key %>/rated_users">
 				 		          	<i class="active icon-star"></i> <%= key %> 
 				 		          </a>
 				 		        </span>
@@ -118,10 +119,25 @@
 				<h4>Description : </h4>
 				<p><%=raw @recipe.description %></p>
 				<div class="text-center">	
-					<%= print_approve_reject_button(@recipe) %>
+					<div class="spin-block">
+						<i class="fa fa-refresh fa-spin"></i>
+					</div>
+					<div class="approve-reject-block">
+						<%= print_approve_reject_button(@recipe) %>
+						<%# list_approve_reject_button(rec, @admin_show_status) %>
+					</div>
 					<%= print_rate_button(@recipe) %>
 					<%= print_recipe_edit_content(@recipe) if user_signed_in? %> 
 				</div>		
+				<div class="user-details" style="margin:0 auto;display:block;width:80%">
+					<div style="border-top:1px solid;width:37%;margin-right:10px;" class="inline muted"></div>
+				  	<div class="inline">
+				  		<h5> Authored by <em><%= link_to(@recipe.creator.name, @recipe.creator) %></em>  </h5>
+				  	</div>
+					<div style="border-top:1px solid;width:37%;margin-left:10px;" class="muted inline"></div>
+				   
+				</div>
+
 			</div>
 	</div>
 </div>
