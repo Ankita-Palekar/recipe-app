@@ -54,6 +54,7 @@ set :delayed_job_queues, ['mailer','tracking']
 
 set :delayed_job_bin_path, 'script'
  
+
 # after 'deploy', 'deploy:restart'
 
 after 'deploy:published', 'restart' do
