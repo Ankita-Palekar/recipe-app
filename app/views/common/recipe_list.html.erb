@@ -2,7 +2,7 @@
 	@admin_show_status ||= false
 %>
 <div class="container navbar-spacer">
-	<h1 class="page-header"> <%= "#{@page_header}" %></h1>
+	<h3 class="page-header"> <%= "#{@page_header}" %></h3>
 	<%= render  '/common/rate_modal' %>
 	<div id="display-notice-message">
 		<% if notice %>
@@ -11,10 +11,10 @@
 			</div>
 		<% end %>
 	</div>
-<% @recipe_list.each_slice(2) do |rec_block| %>
+<% @recipe_list.each do |rec| %>
 	<div class="row">
-	<% rec_block.each do |rec| %>
-		<div class="span6">
+	<%# rec_block.each do |rec| %>
+		<div class="span12">
 			<div class="media">
 		    <a class="pull-left" href="#">
 		  		<%= (!rec.photos.empty? ? (image_tag(rec.photos.first.avatar.url(:medium), :class => "media-object, img-rounded", :style=> "width:200px;height:150px")) : image_tag("missing.png", :style => "width:200px;height:150px;")) %>  
@@ -23,18 +23,26 @@
 		    <div>
 		      <h4 class="media-heading inline page-header"><%= link_to(rec.name.titlecase, rec, {:class => "list-recipe-name"}) %> </h4>
 		    </div>
-		      <div class="inline"><%= print_star_rates(rec.aggregate_ratings) %>  | </div> 
-		      <%= print_meal_class(rec.meal_class, 'list') %>
-		      <p>
-		      	<%=raw rec.description.truncate(60) %>
+		    <ul class="recipe-list-content">
+		    	<li class="inline"> <%= print_star_rates(rec.aggregate_ratings) %> </li>
+		    	<li class="inline vertical-divider"> | </li>
+		    	<li class="inline"> <%= print_meal_class(rec.meal_class, 'list') %></li>
+		    	<li class="inline pull-right"> <strong class="pull-right">created about <%= time_ago_in_words(rec.created_at) %> ago <%= print_list_user_name(rec) %> </strong>  </li>
+		    </ul>
+		      <!-- <div class="inline"> </div> <div class="inline divider-vertical"></div> -->
+		      
+		       
+
+		      
+		      <!-- <hr class="custom-hr"> -->
+		      <p class="recipe-list-description">
+		      	<%= strip_tags(rec.description).truncate(250) %>
 		      </p>
-		      <hr class="custom-hr">
-		      <strong>created about <%= time_ago_in_words(rec.created_at) %> ago </strong> 
-		      <%= list_approve_reject_button(rec, @admin_show_status) %>
+		       
 		    </div>
 		  </div>
 		</div>
-	<% end %>
+	<%# end %>
 	</div>
 	<hr>
 <% end %>

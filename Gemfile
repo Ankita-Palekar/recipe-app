@@ -45,6 +45,10 @@ gem 'capistrano-rvm'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
 # gem 'capistrano-thin'
+ 
+gem 'omniauth'
+gem "omniauth-google-oauth2"
+ 
 
 # gem 'capistrano-delayed-job'
 # To use ActiveModel has_s

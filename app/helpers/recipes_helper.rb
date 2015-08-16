@@ -34,6 +34,14 @@ module RecipesHelper
 		reject_button = link_to(reject_text, "#", {:class=> [reject_common_class,reject_class_name], :'data-rec-id' => recipe.id})
 	end
 
+
+
+	def print_list_user_name(recipe)
+		html = ""
+		html = " by " + link_to(recipe.creator.name.capitalize, recipe.creator) if  user_signed_in? && recipe.creator_id!= current_user.id 
+		html.html_safe
+	end
+
 	def print_approve_reject_button(recipe)
 		button =""
 		button = generate_approved_button(recipe) + generate_rejected_button(recipe) if !recipe.approved && ! recipe.rejected #pending
@@ -44,7 +52,8 @@ module RecipesHelper
 
 	def generate_rate_button(recipe)
 		approve_common_class = "btn btn-primary rate-recipe"
-		rate_text =already_rated?(recipe) ? "You already rated this" : "Rate this recipe"
+		 
+		rate_text = !already_rated?(recipe).empty? ? "change recipe ratings" : "Rate this recipe"
 		approve_button = link_to(rate_text,"#", {:class=> [approve_common_class], :'data-rec-id' => recipe.id})
 	end
 
@@ -94,7 +103,8 @@ module RecipesHelper
 	def print_user_profile_navbar_links
 		# @@TODO use contet nested content tage for theis
  		html =""
- 		html = '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> '+"#{current_user.name.capitalize }" +'<b class="caret"></b></a><ul class="dropdown-menu">' + (link_to "Sign out", destroy_user_session_path, :method => :delete) + '</ul></li>' if user_signed_in?
+ 		html = '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> '+"#{current_user.name.capitalize }" +'<b class="caret"></b></a>
+ 		<ul class="dropdown-menu"><li>' + (link_to "Sign out", destroy_user_session_path, :method => :delete) + '</li><li>'+ (link_to "My Profile", current_user)  +'</li></ul></li>' if user_signed_in?
 		html.html_safe 
 	end
 
@@ -116,7 +126,16 @@ module RecipesHelper
 	end
 
 
-	def print_star_rates(aggregate_ratings)
+	def print_star_rates_histogram(aggregate_ratings)
+		html =""
+		
+		html = (0...(aggregate_ratings.to_i)).inject("") {|html, item| html+='<span><i class="active icon-star"></i></span>'}
+		html += (0...(5 - aggregate_ratings.to_i)).inject("") {|html, item| html+='<span><i class="active icon-star-empty"></i></span>'}
+
+		html.html_safe
+	end
+
+	def  print_star_rates(aggregate_ratings)
 		html =""
 		
 		html = (0...(aggregate_ratings.to_i)).inject("") {|html, item| html+='<i class="fa fa-star fill-star fa-1x"></i>'}
@@ -124,7 +143,6 @@ module RecipesHelper
 
 		html.html_safe
 	end
-
 
 	def print_meal_class(meal_class, page)
 		class_name = "info" if meal_class == 'jain'

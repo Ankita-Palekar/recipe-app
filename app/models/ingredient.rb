@@ -23,8 +23,13 @@ class Ingredient < ActiveRecord::Base
 	scope :unapproved_ingredients, -> {where(:approved => false)}
 	
 	def create_ingredient
-		save
-		self
+		if !Ingredient.exists?(:name => self.name)
+			save
+			self
+		else
+			puts "======ing ======"
+			ing = Ingredient.where(:name => self.name).first
+		end
 	end
 
 

@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   ROLES = %w(admin user) 
   validates :name, :presence => true
   devise :database_authenticatable, :registerable, :recoverable
-
+  devise :omniauthable, :omniauth_providers => [:google_oauth2]
 
   def user_notify_email(function_name:)
     # UserMailer.send(function_name, self.email).deliver
@@ -38,5 +38,18 @@ class User < ActiveRecord::Base
 
   def is?(requested_role)
     self.role == requested_role.to_s
+  end
+
+  def self.from_omniauth_google(access_token)
+      data = access_token.info
+      user = User.where(:email => data["email"]).first
+      #Uncomment the section below if you want users to be created if they don't exist
+      unless user
+        user = User.create(name: data["name"],
+           email: data["email"],
+           password: Devise.friendly_token[0,20]
+        )
+      end
+      user
   end
 end

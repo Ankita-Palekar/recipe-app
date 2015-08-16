@@ -1,29 +1,15 @@
-<div class="profile-container navbar-spacer"> 
-	<div class="row">
-		<div class="span3"> 
-			<div class="image-div">
-				<img src='<%= @user.avatar.url() %>' class="img-polaroid" style="width:100%; max-width:150px;" />
-			</div>
-  	</div>
-		<div class="span9">
-			<h1><%= @user.name %></h1>
+<!-- <div class="container navbar-spacer"> -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <div class="fb-profile">
+      <img align="left" class="fb-image-lg" src="<%= asset_path('cover2.jpg') %>" alt="Profile image example"/>
+      <img align="left" src='<%= @user.avatar.url() %>' class="fb-image-profile img-circle" alt="profile image" />
+      <!-- <img  class="" src="http://lorempixel.com/180/180/people/9/" /> -->
+      <div class="fb-profile-text">
+        <h1><%= @user.name %></h1>
+        <p>Total Recipes <%= "#{@recipe_list.count }" %></p>
+      </div>
+  </div>
+  <%= render '/common/user_profile_recipes' %>
+ 
 
-			<div class="information">
-				<div>
-					<h3 class="inline"><%= @recipe_list.count %></h3>
-					<button class="btn btn-success inline">
-						Recipes created
-					</button>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<div class="row">
-		<div class="span12">
-			<h3 class="page-header">Recent Created Recipes</h3>
-			<%= render :template => '/common/recipe_list' %>
-		</div>
-		
-	</div>
-</div>
+ 
