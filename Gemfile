@@ -40,11 +40,11 @@ gem 'bootstrap-wysihtml5-rails', '~> 0.3.3.7' #for recipe content details
 gem 'chosen-rails'
 gem 'capistrano3-delayed-job', '~> 1.0'
 gem 'capistrano'
-gem 'capistrano-passenger'
+# gem 'capistrano-passenger'
 gem 'capistrano-rvm'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
-# gem 'capistrano-thin'
+gem 'capistrano-thin'
  
 gem 'omniauth'
 gem "omniauth-google-oauth2"

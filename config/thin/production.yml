@@ -15,5 +15,5 @@ threaded: true
 no-epoll: true
 daemonize: true
 socket: tmp/sockets/thin.sock
-chdir: /var/www/html/recipe-app-thin
+chdir: /var/www/html/recipe-app-thin/current
 tag: recipe-app-thin
