@@ -38,7 +38,7 @@ module RecipesHelper
 
 	def print_list_user_name(recipe)
 		html = ""
-		html = " by " + link_to(recipe.creator.name.capitalize, recipe.creator) if  user_signed_in? && recipe.creator_id!= current_user.id 
+		html = " by " + link_to(recipe.creator.name.capitalize, recipe.creator) 
 		html.html_safe
 	end
 
