@@ -23,10 +23,13 @@ class Recipe < ActiveRecord::Base
   scope :meal_class, ->(meal_class) {where(meal_class: meal_class)}
   # REVIEW: Why is this a search by exact calories? It was supposed to be a
   # range search
-  scope :calories, -> (calories) {where("total_calories = ? * serves", "#{calories.to_i}")}
+  scope :calories, -> (calories) {where(:total_calories => (calories[0].to_i)..(calories[1].to_i))}
 
   # REVIEW: search by multiple ingredients is required
-  scope :ingredients, ->(query) {joins(:ingredients).where("ingredients.name ILIKE ? AND ingredients.name <> ''", "%#{query}%")}
+  # scope :ingredients, ->(query) {joins(:ingredients).where("ingredients.name ILIKE ? AND ingredients.name <> ''", "%#{query}%")}
+  scope :ingredients, ->(query) {joins(:ingredients).where(query)}
+
+  # scope :ingredients, ->(query_array) {joins(:ingredients).where(:name => query_array)}
   scope :approved, -> {where(:approved => true, :rejected => false)}
   scope :order_by_date, -> {order('created_at desc')} 
   scope :order_by_aggregate_ratings, -> {order('aggregate_ratings desc')} 
@@ -214,12 +217,20 @@ class Recipe < ActiveRecord::Base
     searched_recipes = Recipe.approved.scoped if !query_hash.empty?
     flag_check = ["ingredients", "meal_class", "calories", "free_text", "aggregate_ratings"] # tie it in your head always check if data is coming fo user beofre executing
     
+
     query_hash.each do |flag,query|
       # REVIEW: NEVER EVER execute untrusted code coming from user-input.
       # Either restructure this search completely OR create a whitelist of
       # permissible values for 'flag'
       
-      searched_recipes = searched_recipes.send(flag,query) if flag_check.include? flag
+      if flag == 'ingredients'
+        query = query.split(' ') 
+        query = query.reduce('') { |memo, ele| memo += " ingredients.name ILIKE '%#{ele}%' OR" }
+        query = query.strip
+        query = query[/(.*)\s/,1]
+        query += " AND ingredients.name <> '' "
+      end
+      searched_recipes = searched_recipes.send(flag,query) if flag_check.include? flag 
     end 
     searched_recipes ||=[]
   end

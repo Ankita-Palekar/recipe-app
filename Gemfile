@@ -48,7 +48,6 @@ gem 'capistrano-bundler'
  
 gem 'omniauth'
 gem "omniauth-google-oauth2"
- 
 
 # gem 'capistrano-delayed-job'
 # To use ActiveModel has_s

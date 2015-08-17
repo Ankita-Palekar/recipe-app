@@ -39,14 +39,16 @@
 							<input name="flag[free_text]" type="text" value="" class="input-small span3" placeholder="free-text">
 							<input class="input-small" placeholder="ingredients" type="text" name="flag[ingredients]">
   						<input class="input-small" type="number" name="flag[aggregate_ratings]" placeholder="aggregate ratings" value="">
-							<input class="input-small" placeholder="calories" type="number" name="flag[calories]">
+							<input class="input-small span2" placeholder="calories-from" type="number" name="flag[calories][]">
+							<input class="input-small span2" placeholder="calories-to" type="number" name="flag[calories][]">
 							<select name="flag[meal_class]"> 
-								<option value="">choose meal class</option>
+								<option value="">meal class</option>
 								<option value="jain">jain</option> 
 								<option value="veg">veg</option>
 								<option value="non-veg">non-veg</option>
 							</select>		 
 							<button type="submit" class="btn"><i class="fa fa-search"></i></button>
+							<div id="slider-range"></div>
 					</form>
 				</div>
 			</div>

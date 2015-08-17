@@ -412,3 +412,13 @@ a.btn-social {
   margin-right: auto;
   display: block;
 }
+
+
+#slider-range{
+  width: 20%;
+}
+
+
+.search-container select{
+  width: 13%;
+}
