@@ -8,20 +8,22 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :is_admin, :name
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "200x200>", :big => "1000x1000>"}, :default_url => "/images/avatar-missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  
+  has_attached_file :cover, :styles => { :medium => "500x500>", :thumb => "200x200>", :big => "1000x1000>", :cover_size => "1300x450"}, :default_url => "/images/cover-missing.jpg"
+  validates_attachment_content_type :cover, :content_type => /\Aimage\/.*\Z/
+
   # has_secure_password
   ROLES = %w(admin user) 
   validates :name, :presence => true
   devise :database_authenticatable, :registerable, :recoverable
   devise :omniauthable, :omniauth_providers => [:google_oauth2]
 
-  def user_notify_email(function_name:)
-    # UserMailer.send(function_name, self.email).deliver
-    UserMailer.delay.send(function_name, self.email) #for delayed jobs
+  def user_notify_email(function_name:, user:, recipe:)
+    UserMailer.delay.send(function_name, self.email, user, recipe) #for delayed jobs
   end
 
-  def admin_notify_email(function_name:)
-    # AdminMailer.send(function_name, self.email).deliver
-    AdminMailer.delay.send(function_name, self.email) #for delayed jobs
+  def admin_notify_email(function_name:, recipe:, user:)
+    AdminMailer.delay.send(function_name, self.email, user, recipe) #for delayed jobs
   end
   
   def self.get_admins

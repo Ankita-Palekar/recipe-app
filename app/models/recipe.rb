@@ -49,17 +49,17 @@ class Recipe < ActiveRecord::Base
     rec_ing.update_attributes(:quantity => quantity, :recipe_id => recipe.id)
   end
 
-  def send_admin_mail(function_name)
+  def send_admin_mail(function_name, recipe, user)
     admin_list  = User.get_admins 
     admin_list.each do |admin|
       user = User.find_by_id(admin.id)
-      user.admin_notify_email(:function_name => function_name)
+      user.admin_notify_email(:function_name => function_name, :recipe => recipe, :user => user)
     end
   end
 
-  def send_approved_or_rejected_mail(function_name, creator)
+  def send_approved_or_rejected_mail(function_name, creator, recipe)
     user = User.find(creator.id)
-    user.user_notify_email(:function_name => function_name)
+    user.user_notify_email(:function_name => function_name,:recipe => recipe, :user => creator)
   end
 
 
@@ -70,6 +70,8 @@ class Recipe < ActiveRecord::Base
       photo.save!
     end
   end
+
+
 
   def add_recipe_ingredients(ingredients_list, recipe, current_user)
     total_calories = 0
@@ -101,7 +103,7 @@ class Recipe < ActiveRecord::Base
       # REVIEW: What will happen if there is an error in updating the total_calories?
       # photo_list.map { |photo| photos.create(avatar: photo)}
       update_attributes!(:total_calories => total_calories)
-      send_admin_mail('recipe_created_email')
+      send_admin_mail('recipe_created_email', self, current_user)
     end
     self
   end
@@ -130,7 +132,7 @@ class Recipe < ActiveRecord::Base
       if current_user.is?(:admin)
         update_attributes(:approved => true, :rejected=>false) 
         self.ingredients.map {|ingredient| ingredient.approve_ingredient}
-        send_approved_or_rejected_mail('recipe_approval_email', current_user)
+        send_approved_or_rejected_mail('recipe_approval_email', current_user, self)
       else 
         self.errors = "only admin can approve recipe"
       end
@@ -143,7 +145,7 @@ class Recipe < ActiveRecord::Base
       if current_user.is?(:admin)
         update_attributes(:rejected => true, :approved => false) 
         user = User.find(self.creator_id)
-        send_approved_or_rejected_mail('recipe_rejected_email',user)  
+        send_approved_or_rejected_mail('recipe_rejected_email', current_user, self)  
       else
         self.errors = "only admin can reject recipe"
       end

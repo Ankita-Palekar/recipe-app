@@ -4,12 +4,9 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Hi! admin Recipe has been created by </h1>
+    <h1>Hi! admin Recipe has been created by <%= link_to(user.name, user_path(user)) %> </h1>
     <p>
-      Recipe Name:
-        <!-- recipe name wil come here -->
-      Ingredient list: 
-        <!-- recipe ingredients will come here -->
+      click <%= link_to("here", edit_recipe_path(recipe)) %> to view the recipe or got to <%%= link_to("admin section", admin_pending_recipes_path) %> and view all pending recipes
     </p>
     <p>Thanks for joining and have a great day!</p>
   </body>

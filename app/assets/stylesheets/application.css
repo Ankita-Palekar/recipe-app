@@ -422,3 +422,24 @@ a.btn-social {
 .search-container select{
   width: 13%;
 }
+
+a.user_edit{
+  padding-right: 20px;
+  padding-top: 20px;
+}
+
+a.user_edit:hover {
+  text-decoration: none;
+}
+
+.left-bar{
+  border-top:1px solid;
+  width:33%;
+  margin-right:10px
+}
+
+.right-bar{
+  border-top:1px solid;
+  width:33%;
+  margin-left:10px;
+}

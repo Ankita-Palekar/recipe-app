@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   # GET /users
   # GET /users.json
+  # before_filter :authenticate_user!
+  load_and_authorize_resource :user, :parent => false, :only => [:edit, :update]
+
+
   def index
     @users = User.all
 
@@ -72,7 +76,8 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
+    @user.avatar = params[:profile]
+    @user.cover = params[:cover]
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }

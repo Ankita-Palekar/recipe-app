@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="well">
-      <div class="signup-form">
+    <div class="spa12">
+       
           <%= form_for(@user,  :html => { :multipart => true , :class => 'form-horizontal'}) do |f| %>
           <% if @user.errors.any? %>
             <div id="error_explanation">
@@ -13,44 +13,60 @@
               </ul>
             </div>
           <% end %>
-          <h2 class="text-center">New User Signup</h2>
-
+           
           <div class="control-group">
             <label class="control-label" for="inputEmail">Name</label>
+
             <div class="controls">
-              <input type="text" id="inputEmail" placeholder="Email" name="name">
+              <input type="text" class="span8" id="inputEmail" placeholder="Email" name="user[name]" value = "<%= @user.name %>">
             </div>
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="inputPassword">Email</label>
+            <label class="control-label" for="inputEmail">change profile pic</label>
+
             <div class="controls">
-              <input type="email" id="inputPassword" placeholder="mail" name="email">
+             <div class="fileinput fileinput-new" data-provides="fileinput">
+               <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                 <img src='<%= @user.avatar.url() %>'>
+               </div>
+               <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+               <div>
+                 <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="profile"></span>
+                 <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+               </div>
             </div>
           </div>
 
+
           <div class="control-group">
-            <label class="control-label" for="inputPassword">Password</label>
+            <label class="control-label" for="inputEmail">change cover pic</label>
+
             <div class="controls">
-              <input type="password" id="inputPassword" placeholder="password" name="password">
+             <div class="fileinput fileinput-new" data-provides="fileinput">
+               <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                 <img src='<%= @user.cover.url() %>'>
+               </div>
+               <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+               <div>
+                 <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="cover"></span>
+                 <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+               </div>
             </div>
           </div>
 
-          <div class="control-group">
-            <label class="control-label" for="inputPassword">Password</label>
-            <div class="controls">
-              <input type="password" id="inputPassword" placeholder="confirm password" name="password_confirmation">
-            </div>
-          </div>
+
+           
+ 
           <div class="control-group"> 
           <div class="controls">
             <div class="actions">
-              <%= f.submit 'Sign up', :class => "btn" %>
+              <%= f.submit 'save changes', :class => "btn btn-primary" %>
             </div>
           </div>
           </div>
         <% end %>
-      </div>
+     
     </div>
   </div>
 </div>

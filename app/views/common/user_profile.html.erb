@@ -1,13 +1,15 @@
 <!-- <div class="container navbar-spacer"> -->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <div class="fb-profile">
-      <img align="left" class="fb-image-lg" src="<%= asset_path('cover2.jpg') %>" alt="Profile image example"/>
-      <img align="left" src='<%= @user.avatar.url() %>' class="fb-image-profile img-circle" alt="profile image" />
-      <!-- <img  class="" src="http://lorempixel.com/180/180/people/9/" /> -->
-      <div class="fb-profile-text">
-        <h1><%= @user.name %></h1>
-        <p>Total Recipes <%= "#{@recipe_list.count }" %></p>
-      </div>
+    <img align="left" class="fb-image-lg" src="<%= @user.cover.url(:cover_size) %>" alt="Profile image example"/>
+    <img align="left" src='<%= @user.avatar.url() %>' class="fb-image-profile img-circle" alt="profile image" />
+    <!-- <img  class="" src="http://lorempixel.com/180/180/people/9/" /> -->
+    <div class="fb-profile-text inline">
+      <h1><%= @user.name %></h1>
+      <h5>Total Recipes <%= "#{@recipe_list.count}" %></h5>
+    </div>
+
+    <%= print_user_profile_edit_link(@user)%>
   </div>
   <%= render '/common/user_profile_recipes' %>
  

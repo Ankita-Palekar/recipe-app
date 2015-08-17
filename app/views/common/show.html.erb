@@ -130,11 +130,11 @@
 					<%= print_recipe_edit_content(@recipe) if user_signed_in? %> 
 				</div>		
 				<div class="user-details" style="margin:0 auto;display:block;width:80%">
-					<div style="border-top:1px solid;width:37%;margin-right:10px;" class="inline muted"></div>
+					<div class="left-bar inline muted"></div>
 				  	<div class="inline">
 				  		<h5> Authored by <em><%= link_to(@recipe.creator.name, @recipe.creator) %></em>  </h5>
 				  	</div>
-					<div style="border-top:1px solid;width:37%;margin-left:10px;" class="muted inline"></div>
+					<div class="right-bar muted inline"></div>
 				   
 				</div>
 

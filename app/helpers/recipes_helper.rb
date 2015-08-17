@@ -20,6 +20,16 @@ module RecipesHelper
 		Ingredient.getIngredients(@current_user)		
 	end
 
+	def print_user_profile_edit_link(user)
+		html = ""
+		html = content_tag(:div, :class => "pull-right inline") do
+			concat link_to("", user_edit_path(user), :class => "fa fa-pencil fa-2x user_edit")
+		end
+
+		html.html_safe if user_signed_in? && current_user.id == user.id
+
+	end
+
 	def generate_approved_button(recipe)
 		approve_common_class = "btn btn-success"
 		approve_class_name = recipe.approved ? "disabled" : "approve-recipe"

@@ -58,6 +58,9 @@ Foodholic::Application.routes.draw do
   
 
   get '/users/:id' => 'users#show' ,:as => 'user'
+  get '/users/:id/edit' => 'users#edit', :as => 'user_edit'
+  
+  put '/users/:id' => 'users#update' 
   get  'photos(.:format)' => 'photos#index', :as => :photos
   post '/photos(.:format)' => 'photos#create'
   get  '/photos/new(.:format)' => 'photos#new', :as => :new_photo
