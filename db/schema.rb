@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150817100325) do
+ActiveRecord::Schema.define(:version => 20150818104917) do
 
   create_table "admins", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -39,11 +39,11 @@ ActiveRecord::Schema.define(:version => 20150817100325) do
     t.string   "name",                                     :null => false
     t.string   "meal_class",                               :null => false
     t.string   "std_measurement"
-    t.integer  "std_quantity"
-    t.integer  "calories_per_quantity"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
     t.boolean  "approved",              :default => false
+    t.decimal  "std_quantity",          :default => 0.0
+    t.decimal  "calories_per_quantity", :default => 0.0
   end
 
   add_index "ingredients", ["creator_id"], :name => "index_ingredients_on_user_id"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(:version => 20150817100325) do
   create_table "recipe_ingredients", :force => true do |t|
     t.integer "recipe_id"
     t.integer "ingredient_id"
-    t.integer "quantity"
+    t.decimal "quantity",      :default => 0.0
   end
 
   add_index "recipe_ingredients", ["recipe_id", "ingredient_id"], :name => "index_ingredients_recipes_on_recipe_id_and_ingredient_id", :unique => true

@@ -3,7 +3,7 @@ require 'test_helper'
 class IngredientTest < ActiveSupport::TestCase
   include ReusableFunctionsTests
   test "create ingredient" do
-    ingredient = Ingredient.new(:name=>"pepper", :meal_class=>"jain",:std_measurement=>"kg", :std_quantity=>2, :calories_per_quantity=>20, :creator_id=>3)
+    ingredient = Ingredient.new(:name=>"pepper", :meal_class=>"jain",:std_measurement=>"kg", :std_quantity=>2.8, :calories_per_quantity=>20.9, :creator_id=>3)
  		ingredient.create_ingredient
 		ingred_copy = Ingredient.last
   	Rails::logger.debug ingred_copy.inspect

@@ -8,7 +8,7 @@ class Ingredient < ActiveRecord::Base
 	MEAL_CLASS = %w(non-veg veg jain)
 	STD_QUANTITY = ["dz", "teaspoon", "tablespoon", "fluid ounce", "gill", "cup", "pint", "quart", "gallon", "ml", "l", "dl", "pounds", "ounce", "mg", "g", "kg", "mm", "cm", "m", "inch"]
 	
-	STD_QUANTITY_NAMES = ["dozen", "teaspoon", "tablespoon", "ounce", "gill", "cup", "pint", "quart", "gallon", "milli liter", "liter",  "deci liter", "pounds", "ounce", "mili grams", "grams", "kilo grams", "mili meter", "centi,meter", "meter","inch"]
+	STD_QUANTITY_NAMES = ["dozen", "teaspoon", "tablespoon", "ounce", "gill", "cup", "pint", "quart", "gallon", "milli liter", "liter",  "deci liter", "pounds", "ounce", "mili grams", "grams", "kilo grams", "mili meter", "centi,meter", "meter", "inch"]
 
   validates :name, :presence => true
   validates :meal_class, :inclusion => {:in => MEAL_CLASS, :message => "meal_class can only contain jain, veg, non-veg"}
@@ -17,11 +17,10 @@ class Ingredient < ActiveRecord::Base
 	validates :calories_per_quantity, :numericality => true, :presence => true
 	validates :creator_id, :presence => true
 	validates :name, :uniqueness => true
- 	
- 	before_validation :strip_whitespace, :only => [:name]
 
+
+ 	before_validation :strip_whitespace, :only => [:name]
 	scope :approved_ingredients, -> {where(:approved => true)}
-	# scope :my_unapproved_ingredients, ->(creator_id) {where(:approved => false, creator_id: creator_id )}
 	scope :unapproved_ingredients, -> {where(:approved => false)}
 	
 	def normalise_ingredient_name
@@ -30,9 +29,14 @@ class Ingredient < ActiveRecord::Base
 	end
 
 	def create_ingredient
+	 
+
 		self.normalise_ingredient_name
 		if !Ingredient.exists?(:name => self.name)
-			save
+			 
+			
+
+			save!
 			self
 		else
 			ing = Ingredient.where(:name => self.name).first
@@ -42,7 +46,7 @@ class Ingredient < ActiveRecord::Base
 
 	def update_ingredient(params:)
 		self.normalise_ingredient_name
-		update_attributes(params) 
+		update_attributes!(params) 
 		self
 	end
 

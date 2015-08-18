@@ -6,30 +6,20 @@ class Recipe < ActiveRecord::Base
   has_many :ingredients, :through => :recipe_ingredients
   has_many :ratings, :dependent => :destroy
   attr_accessible :name, :image_links, :description, :meal_class, :total_calories, :aggregate_ratings, :serves, :approved, :creator_id, :rejected
- 
-  
+
   validates :name, :presence => true
   validates :description, :presence => true
   validates :meal_class, :presence => true
   validates :serves, :numericality => true
   validates :aggregate_ratings, :numericality => true
   validates :creator_id, :presence => true
-
   before_validation :strip_whitespace, :only => [:name, :description]
   self.per_page = 10 #for pagination
-
   scope :free_text, ->(query) {where("name ILIKE ?", "%#{query}%")}
   scope :aggregate_ratings, ->(ratings) {where(aggregate_ratings: ratings)}
   scope :meal_class, ->(meal_class) {where(meal_class: meal_class)}
-  # REVIEW: Why is this a search by exact calories? It was supposed to be a
-  # range search
-  scope :calories, -> (calories) {where(:total_calories => (calories[0].to_i)..(calories[1].to_i))}
-
-  # REVIEW: search by multiple ingredients is required
-  # scope :ingredients, ->(query) {joins(:ingredients).where("ingredients.name ILIKE ? AND ingredients.name <> ''", "%#{query}%")}
+  scope :calories, -> (calories) {where(:total_calories => (calories[0].to_f)..(calories[1].to_f))}
   scope :ingredients, ->(query) {joins(:ingredients).where(query)}
-
-  # scope :ingredients, ->(query_array) {joins(:ingredients).where(:name => query_array)}
   scope :approved, -> {where(:approved => true, :rejected => false)}
   scope :order_by_date, -> {order('created_at desc')} 
   scope :order_by_aggregate_ratings, -> {order('aggregate_ratings desc')} 
@@ -37,7 +27,6 @@ class Recipe < ActiveRecord::Base
   scope :order_by_most_rated, -> {select("recipes.*, count(ratings.recipe_id) as count").joins(:ratings).group("recipes.id").ordered_by_count}
   scope :pending, -> {where(approved: false, rejected: false)}
   scope :rejected, -> {where(rejected: true)}
-  # scope :page_navigation, ->(limit, page_nav) {limit(limit).offset((page_nav-1)*limit) }
   scope :ratings_count_hash, -> {ratings.group(:ratings).count }
   scope :photos, -> {joins(:photos)}
   scope :include_photos, -> {includes(:photos)}
@@ -90,7 +79,7 @@ class Recipe < ActiveRecord::Base
   def add_recipe_ingredients(ingredients_list, recipe, current_user)
     total_calories = 0
     ingredients_list.each do |ingre|
-      total_calories += ingre[:quantity].to_i / ingre[:std_quantity].to_i * ingre[:calories_per_quantity].to_i #calculating total calories in recipe
+      total_calories += ingre[:quantity].to_f / ingre[:std_quantity].to_f * ingre[:calories_per_quantity].to_f #calculating total calories in recipe
       if ingre.has_key?(:ingredient_id)
         ingredient = Ingredient.find(ingre[:ingredient_id])
         ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :ingredient_id))

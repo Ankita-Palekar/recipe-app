@@ -42,6 +42,8 @@ class Recipe::UserRecipesController < ApplicationController
     params[:existing_ingredient] ||= []
     params[:avatar] = ["[]"] if params[:avatar].first.empty?
     photo_id_array = JSON::parse(params[:avatar].first) 
+
+     puts "====================> #{params[:std_quantity]} / #{params['ingredient'][0][:std_quantity].class}"
       
       if !((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?) && !(photo_id_array.empty?)
         @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: photo_id_array.compact)

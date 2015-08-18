@@ -8,8 +8,9 @@ class RecipeTest < ActiveSupport::TestCase
     recipe_copy = Recipe.find(recipe.id)
     assert((recipe_copy.present?) && (recipe.id = recipe_copy.id), 'recipe not saved') 
     assert(recipe.ingredients.count ,'ingredients not inserted')
+  
     assert(recipe.photos.count ,'images not inserted') #--TODO
-    assert_equal(15600, recipe.total_calories, 'total calorie calculation wrong')
+    assert_equal(10800.0, recipe.total_calories, 'total calorie calculation wrong')
   end
 
 
