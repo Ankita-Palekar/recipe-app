@@ -45,31 +45,16 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    
-    # @user = User.new(:name => params[:name], :email=> params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation])
-    
-    puts "===============sign up=============="
-
-
-    @user = User.new(params)
-    if @user.save
-      flash[:notice] = "Sucessfully signed up! you can login now"
-      redirect_to '/users/sign_in'
-    else
-      flash[:notice] = @user.errors.full_messages
-      # puts @user.errors.full_messages
-      redirect_to '/users/sign_up'
+    @user = User.new(params[:user])
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.json { render json: @user, status: :created, location: @user }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
-
-    # respond_to do |format|
-    #   if @user.save
-    #     format.html { redirect_to @user, notice: 'User was successfully created.' }
-    #     format.json { render json: @user, status: :created, location: @user }
-    #   else
-    #     format.html { render action: "new" }
-    #     format.json { render json: @user.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PUT /users/1

@@ -15,14 +15,11 @@ class User < ActiveRecord::Base
   # has_secure_password
   ROLES = %w(admin user) 
   validates :name, :presence => true
+  validates_uniqueness_of :email, :case_sensitive => false
   devise :database_authenticatable, :registerable, :recoverable
   devise :omniauthable, :omniauth_providers => [:google_oauth2]
 
   def user_notify_email(function_name:, user:, recipe:)
-    puts "==== inside user_notify ======"
-    puts user.inspect
-    puts recipe.inspect
-     
     UserMailer.delay.send function_name, self.email, user, recipe #for delayed jobs
   end
 
