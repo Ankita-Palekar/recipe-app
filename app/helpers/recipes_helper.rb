@@ -15,6 +15,18 @@ module RecipesHelper
 		(current_user.id == recipe.creator_id)
 	end
 
+	def build_meal_class_dropdown(selected_true_value: nil)
+		html = ""
+		html = select_tag(:'ingredient[][meal_class]', options_for_select(Ingredient::MEAL_CLASS.zip(Ingredient::MEAL_CLASS), selected_true_value))
+		html.html_safe
+	end
+
+	def build_std_measurement_dropdown(selected_true_value: nil)
+		html = ""
+		html = select_tag(:'ingredient[][std_measurement]', options_for_select(Ingredient::STD_QUANTITY_NAMES.zip(Ingredient::STD_QUANTITY), selected_true_value))
+		html.html_safe
+	end
+
 	def get_existing_ingredient_list
 		@current_user = current_user
 		Ingredient.getIngredients(@current_user)		

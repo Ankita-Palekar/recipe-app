@@ -20,6 +20,8 @@ Foodholic::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  config.action_mailer.default_url_options = { host: 'foodholic.duckdns.org' }
+
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 

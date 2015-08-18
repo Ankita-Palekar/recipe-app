@@ -8,6 +8,8 @@ class Ingredient < ActiveRecord::Base
 	MEAL_CLASS = %w(non-veg veg jain)
 	STD_QUANTITY = ["dz", "teaspoon", "tablespoon", "fluid ounce", "gill", "cup", "pint", "quart", "gallon", "ml", "l", "dl", "pounds", "ounce", "mg", "g", "kg", "mm", "cm", "m", "inch"]
 	
+	STD_QUANTITY_NAMES = ["dozen", "teaspoon", "tablespoon", "ounce", "gill", "cup", "pint", "quart", "gallon", "milli liter", "liter",  "deci liter", "pounds", "ounce", "mili grams", "grams", "kilo grams", "mili meter", "centi,meter", "meter","inch"]
+
   validates :name, :presence => true
   validates :meal_class, :inclusion => {:in => MEAL_CLASS, :message => "meal_class can only contain jain, veg, non-veg"}
   validates :std_measurement, :inclusion => {:in => STD_QUANTITY, :message => "invalid measurement unit"}
@@ -22,18 +24,24 @@ class Ingredient < ActiveRecord::Base
 	# scope :my_unapproved_ingredients, ->(creator_id) {where(:approved => false, creator_id: creator_id )}
 	scope :unapproved_ingredients, -> {where(:approved => false)}
 	
+	def normalise_ingredient_name
+		self.name = self.name.gsub(/[^\w\s]/, "")
+		name
+	end
+
 	def create_ingredient
+		self.normalise_ingredient_name
 		if !Ingredient.exists?(:name => self.name)
 			save
 			self
 		else
-			puts "======ing ======"
 			ing = Ingredient.where(:name => self.name).first
 		end
 	end
 
 
 	def update_ingredient(params:)
+		self.normalise_ingredient_name
 		update_attributes(params) 
 		self
 	end

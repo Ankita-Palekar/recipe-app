@@ -58,12 +58,9 @@ class Recipe::UserRecipesController < ApplicationController
       else
 
 
-        @new_ingredients = params[:ingredient]
-        @existing_ingredient = params[:existing_ingredient]
+        @form_error_new_ingredients = params[:ingredient]
+        @form_error_existing_ingredient = params[:existing_ingredient]
         
-        puts @new_ingredients.inspect
-        puts @existing_ingredient.inspect
-
         flash[:notice] = notice
         render '/common/create_recipe'
         

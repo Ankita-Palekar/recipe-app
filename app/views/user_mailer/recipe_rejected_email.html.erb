@@ -6,7 +6,7 @@
   <body>
     <h1>Hi! Your Recipe has been rejected by admin </h1>
     <p>
-      click <%= link_to("here", edit_recipe_path(recipe)) %> to view your recipe
+      click <%= link_to("here", recipe_url(@recipe)) %> to view your recipe
     </p>
     <p>
       Edit your recipe and resubmit it 

@@ -6,7 +6,7 @@
 		console.log(current_user_id)
 	  var add_ingredients_block = '<div class="add-ingredient"> <hr><a class="close remove-new-ingredient"> &times;</a> <div class="control-group"> <label class="control-label" for="inputEmail">ingredient name</label> <div class="controls"> <input class="span8" type="text" placeholder="ingredient name" name="ingredient[][name]" required></div> </div> <div class="control-group inline"> <label class="control-label" for="inputEmail">ingredient standard measurement </label> <div class="controls"> <select name="ingredient[][std_measurement]"><option value="dz">dozen</option><option value="teaspoon">teaspoon</option> <option value="tablespoon">tablespoon</option> <option value="fluid ounce">ounce</option> <option value="gill">gill</option> <option value="cup">cup</option> <option value="pint">pint</option> <option value="quart">quart</option> <option value="gallon">gallon</option> <option value="ml">milli liter</option> <option value="l">liter</option> <option value="dl">deci liter</option> <option value="pounds">pounds</option> <option value="ounce">ounce</option> <option value="mg">mili grams</option> <option value="g">grams</option> <option value="kg">kilo grams</option> <option value="mm">mili meter</option> <option value="cm">centi meter</option> <option value="m">meter</option> <option value="inch">inch</option> </select> </div> </div> <div class="control-group inline"> <label class="control-label" for="inputEmail">ingredient meal class </label> <div class="controls"> <select name="ingredient[][meal_class]"> <option value="jain">jain</option> <option value="veg">veg</option> <option value="non-veg">non-veg</option> </select> </div> </div> <div class="control-group inline"> <label class="control-label" for="inputEmail">ingredient standard quantity</label> <div class="controls"> <input type="number" placeholder="example 10 grams" name="ingredient[][std_quantity]" required> </div> </div> <div class="control-group inline"> <label class="control-label" for="inputEmail">ingredient quantity</label> <div class="controls"> <input type="number" palceholder="e.g 1kg" name="ingredient[][quantity]" required> </div> </div> <div class="control-group"> <label class="control-label" for="inputEmail">calories per std qty</label> <div class="controls"> <input type="number" name="ingredient[][calories_per_quantity]" required> </div> </div> </div>'
 	    
-	  var existing_ingredient_block = '<div class="control-group added-ingredient"><label class="control-label" for="ingredients">ingredient_name</label> <a class="close remove-added-ingredient" data-value="data_value" id="item_index">&times;</a> <div class="controls"> <input type="hidden" name="existing_ingredient[][ingredient_id]" value="ingredient_id_will_come_here">  <input type="hidden" name="existing_ingredient[][meal_class]" value="ingredient_meal_class"> <input type="hidden" name="existing_ingredient[][std_quantity]" value="ingredient_std_quantity"> <input type="hidden" name="existing_ingredient[][calories_per_quantity]" value="ingredient_calories_per_quantity"> <div class="input-append"> <input placeholder="add-quantity" type="number" name="existing_ingredient[][quantity]" required><span class="add-on">ingredient_std_measurement</span> </div></div> </div>'
+	  var existing_ingredient_block = '<div class="control-group added-ingredient"><label class="control-label" for="ingredients">ingredient_name</label> <a class="close remove-added-ingredient" data-value="data_value">&times;</a> <div class="controls"> <input type="hidden" name="existing_ingredient[][ingredient_id]" value="ingredient_id_will_come_here">  <input type="hidden" name="existing_ingredient[][meal_class]" value="ingredient_meal_class"> <input type="hidden" name="existing_ingredient[][name]" value="ingredient_name"> <input type="hidden" name="existing_ingredient[][std_measurement]" value="ingredient_std_measurement"><input type="hidden" name="existing_ingredient[][std_quantity]" value="ingredient_std_quantity"> <input type="hidden" name="existing_ingredient[][calories_per_quantity]" value="ingredient_calories_per_quantity"> <div class="input-append"> <input placeholder="add-quantity" type="number" name="existing_ingredient[][quantity]" required><span class="add-on">ingredient_std_measurement</span> </div></div> </div>'
 	   
 	  	$('#recipe-description').wysihtml5();
 	  	$('.glyphicon.glyphicon-font').addClass('fa fa-font');
@@ -40,18 +40,11 @@
 	   		$(this).closest('.add-ingredient').remove()
 	   })
 
-	   $('#existing-ingredient-block').on('click','.remove-added-ingredient', function(){
-   		id = $(this).attr('id') 
+	   $('#existing-ingredient-block').on('click','.remove-added-ingredient', function(){ 
    		data_value = $(this).data('value')
    		$('.chosen-select').find('option[value="' +data_value+ '"]').prop('selected', false).end().trigger('chosen:updated');
    		$(this).closest('.added-ingredient').remove()	
 	   })
-
-	   // $('.search-choice-close').on('click', function(){
-	   // 	alert('hi')
-	   // 	id = $(this).data('option-array-index')
-	   // 	$('#'+id).closest('.added-ingredient').remove()
-	   // })
 
 
 	   $('.ingredients-container').on('click','.remove-existing-ingredient', function(event){
@@ -241,17 +234,21 @@
 			// var chosen_control = $(selector);
 			// chosen_control.chosen();
 			
-			function make_add_ingredient_html (id, ing) {
+			function make_add_ingredient_html (ing) {
 	    	
 	    	var string = existing_ingredient_block  
 	    	string = string.replace('data_value', ing)
 	    	ing = ing.split('-'); 
-		    string = string.replace('item_index', id)
-    	  string = string.replace('ingredient_name', ing[1])
+		    // string = string.replace('item_index', id)
+		    string = string.replace('ingredient_id_will_come_here', ing[0])
+    	  // string = string.replace('ingredient_name', ing[1])
+    	  string = string.replace(/ingredient_name/g, ing[1])
     	  string = string.replace('ingredient_meal_class', ing[2])
     	  string = string.replace('ingredient_std_quantity', ing[3])
     	  string = string.replace('ingredient_calories_per_quantity', ing[4])
-    	  string = string.replace('ingredient_std_measurement', ing[5])
+    	  string = string.replace(/ingredient_std_measurement/g, ing[5])
+
+    	  // string = string.replace('ingredient_std_measurement', ing[5])
 	    	return string
 			}
  
@@ -263,46 +260,12 @@
 	    				data_value = params.deselected;
 	    				console.log(data_value)
 	    				$('#existing-ingredient-block').find('[data-value="' + data_value + '"]').closest('.added-ingredient').remove();
-	   					// $('#'+id).closest('.added-ingredient').remove()
 	    			};
 
-	    		$(".chosen-results li").on('click', function(){
-	 					id = $(this).data('option-array-index')
-    				if ('selected' in params) 
-    				{
-  	    	  	var ing = params.selected;
-			    	  $('#existing-ingredient-block').append(make_add_ingredient_html(id, ing))  
-    				};
-
-	 					$(".chosen-select").chosen().trigger('chosen:updated');
-	    		})
-
-	    		// @@ TODO find out why the event is trigeered n number of times
-					// var chosen_element = $(".chosen-choices");
-					// var chosen_input = chosen_element.find('input');
-					var chosen_class = ".chosen-choices"
-
-  				$(".chosen-choices").find('input').on('keyup', function (e) {
-  			    if (e.which == 13) {
-  		        var required_element = $(chosen_class + ' li:nth-last-child(2)')
-  		        console.log(required_element.html())
-  		        id = required_element.children('a').data('option-array-index')
-	    				if ('selected' in params) 
-	    				{
-	  	    	  	var ing = params.selected;
-				    	  $('#existing-ingredient-block').append(make_add_ingredient_html(id, ing))  
-	    				};
-  		        $(".chosen-select").chosen().trigger('chosen:updated');
-  			    }
-  				});			
-
-  				
-
-  				if('deselected' in params){
-
-  				}
-  				 console.log(params)
-	    	   
+	    		if ('selected' in params) {
+	    	  	var ing = params.selected;
+		    	  $('#existing-ingredient-block').append(make_add_ingredient_html(ing))  
+	    		};
 	    	});
 		
 	   var myDropzone = new Dropzone("div#imageUpload", { 
