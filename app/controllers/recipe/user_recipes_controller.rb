@@ -45,6 +45,7 @@ class Recipe::UserRecipesController < ApplicationController
       
       if !((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?) && !(photo_id_array.empty?)
         @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: photo_id_array.compact)
+
       else
         notice = "Recipe Images and Ingredients cannnot be blank"
       end
@@ -55,8 +56,17 @@ class Recipe::UserRecipesController < ApplicationController
         redirect_to @recipe
         # format.json { render json: @recipe, status: :created, location: @recipe }
       else
+
+
+        @new_ingredients = params[:ingredient]
+        @existing_ingredient = params[:existing_ingredient]
+        
+        puts @new_ingredients.inspect
+        puts @existing_ingredient.inspect
+
         flash[:notice] = notice
         render '/common/create_recipe'
+        
         # format.json {render json: @recipe.errors, status: :unprocessable_entity }
       end
     # end

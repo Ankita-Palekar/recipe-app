@@ -23,13 +23,13 @@
     <div class="controls">
       <input type="hidden" id="current_user_id">
       <input  type="hidden" name="recipe[aggregate_ratings]" value='<%=0%>'>
-      <input class="span8" type="text" id="inputEmail" placeholder="reipe name" name="recipe[name]" required>
+      <input class="span8" type="text" id="inputEmail" placeholder="reipe name" name="recipe[name]" value="<%= @recipe.name %>" required>
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputEmail">Discription</label>
     <div class="controls">
-      <textarea class="span8" id="recipe-description" name="recipe[description]" cols="30" rows="10" required></textarea>
+      <textarea class="span8" id="recipe-description" name="recipe[description]" cols="30" rows="10"  required></textarea>
     </div>
   </div>
   
@@ -86,13 +86,6 @@
   <div id="imageUpload" class="dropzone">
     
   </div>
-
-  <!-- @@TODO precessqueue of images on click of button instead of auto  -->
- <!--  <div class="controle-group">
-    <div class="controls"> 
-      <a href="#" class='btn btn-small add-photo'>Make Recipe image gallery</a> 
-    </div>
-  </div> -->
 
   <br>
   

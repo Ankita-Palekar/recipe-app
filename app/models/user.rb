@@ -19,11 +19,11 @@ class User < ActiveRecord::Base
   devise :omniauthable, :omniauth_providers => [:google_oauth2]
 
   def user_notify_email(function_name:, user:, recipe:)
-    UserMailer.delay.send(function_name, self.email, user, recipe) #for delayed jobs
+    UserMailer.delay.send :function_name, self.email, user, recipe #for delayed jobs
   end
 
   def admin_notify_email(function_name:, recipe:, user:)
-    AdminMailer.delay.send(function_name, self.email, user, recipe) #for delayed jobs
+    AdminMailer.delay.send :function_name, self.email, user, recipe #for delayed jobs
   end
   
   def self.get_admins

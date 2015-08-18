@@ -43,6 +43,10 @@ class Recipe < ActiveRecord::Base
   scope :include_photos, -> {includes(:photos)}
   scope :include_creator, -> {includes(:creator)}
 
+  # def initialize
+  #   Recipe.start_delete_unwanted_recipe_images
+  # end
+
   def save_recipe_ingredient_join(ingredient, recipe, quantity)    
     rec_ing = RecipeIngredient.where(:ingredient_id => ingredient.id, :recipe_id => recipe.id)
     rec_ing = RecipeIngredient.find_or_initialize_by_ingredient_id_and_recipe_id(ingredient.id, recipe.id)
@@ -72,6 +76,16 @@ class Recipe < ActiveRecord::Base
   end
 
 
+  def delete_unwanted_recipe_images
+    Photo.where(:recipe_id => nil).destroy_all
+    self.delay(:run_at => 20.minute.from_now).delete_unwanted_recipe_images
+  end
+
+  def self.start_delete_unwanted_recipe_images
+    new.delete_unwanted_recipe_images
+  end
+
+  handle_asynchronously :delete_unwanted_recipe_images
 
   def add_recipe_ingredients(ingredients_list, recipe, current_user)
     total_calories = 0
@@ -221,10 +235,8 @@ class Recipe < ActiveRecord::Base
     
 
     query_hash.each do |flag,query|
-      # REVIEW: NEVER EVER execute untrusted code coming from user-input.
-      # Either restructure this search completely OR create a whitelist of
-      # permissible values for 'flag'
       
+
       if flag == 'ingredients'
         query = query.split(' ') 
         query = query.reduce('') { |memo, ele| memo += " ingredients.name ILIKE '%#{ele}%' OR" }
@@ -234,7 +246,10 @@ class Recipe < ActiveRecord::Base
       end
       searched_recipes = searched_recipes.send(flag,query) if flag_check.include? flag 
     end 
+
+    puts searched_recipes.inspect
     searched_recipes ||=[]
+
   end
  private
   def strip_whitespace
