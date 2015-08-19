@@ -80,41 +80,38 @@ class Recipe < ActiveRecord::Base
   # end
 
   # handle_asynchronously :delete_unwanted_recipe_images
+  
+
+  def calculate_total_calories(ingredients_list)
+    total_calories = 0
+    ingredients_list.each do |ingre|
+      total_calories +=  (ingre[:std_quantity].to_f != 0) ? ((ingre[:quantity].to_f / ingre[:std_quantity].to_f) * ingre[:calories_per_quantity].to_f) : 0 
+    end
+  end
 
   def add_recipe_ingredients(ingredients_list, recipe, current_user)
     total_calories = 0
     ingredients_list.each do |ingre|
-      # @@TODO please fix this properly
-       
-      partial_val = (ingre[:quantity].to_f / ingre[:std_quantity].to_f) > 0 ? (ingre[:quantity].to_f / ingre[:std_quantity].to_f) : 0
-
-      total_calories += partial_val * ingre[:calories_per_quantity].to_f #calculating total calories in recipe
-       
-      if ingre.has_key?(:ingredient_id)
-        ingredient = Ingredient.find(ingre[:ingredient_id])
-        ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :ingredient_id))
+      if !ingre[:id].empty?
+        ingredient = Ingredient.find(ingre[:id])
+        ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :id))
       else
         ingredient = current_user.ingredients.build(ingre.except(:quantity))
         ingredient = ingredient.create_ingredient
       end
       save_recipe_ingredient_join(ingredient, recipe, ingre[:quantity])
     end
-    total_calories
   end
 
 
   def create_recipe(ingredients_list:, photo_list:, current_user:) 
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
-      # REVIEw: Why is the following line required?
       self.creator = current_user
       self.save
-      # current_user.recipes << self
-      total_calories = add_recipe_ingredients(ingredients_list, self, current_user)
+      add_recipe_ingredients(ingredients_list, self, current_user)
+      total_calories = calculate_total_calories(ingredients_list)
       add_recipe_photos(photo_list, self)
-      # REVIEW: What will happen if there is an error in creating the photo?
-      # REVIEW: What will happen if there is an error in updating the total_calories?
-      # photo_list.map { |photo| photos.create(avatar: photo)}
       update_attributes!(:total_calories => total_calories)
       send_admin_mail('recipe_created_email', self, current_user)
     end
@@ -125,7 +122,8 @@ class Recipe < ActiveRecord::Base
   def update_recipe(photo_list:, ingredients_list:, current_user:)
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)  if !ingredients_list.empty?
-      total_calories =  add_recipe_ingredients(ingredients_list, self, current_user)
+      add_recipe_ingredients(ingredients_list, self, current_user)
+      total_calories = calculate_total_calories(ingredients_list)
       add_recipe_photos(photo_list, self)
       update_attributes!(:total_calories => total_calories)
     end

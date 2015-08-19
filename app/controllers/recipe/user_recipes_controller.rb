@@ -39,36 +39,26 @@ class Recipe::UserRecipesController < ApplicationController
     @photo = Photo.new
     @recipe = Recipe.new(params[:recipe])
     params[:ingredient] ||= []
-    params[:existing_ingredient] ||= []
+    # params[:existing_ingredient] ||= []
     params[:avatar] = ["[]"] if params[:avatar].first.empty?
     photo_id_array = JSON::parse(params[:avatar].first) 
-
-     puts "====================> #{params[:std_quantity]} / #{params['ingredient'][0][:std_quantity].class}"
+ 
       
-      if !((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?) && !(photo_id_array.empty?)
-        @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: photo_id_array.compact)
+    if !((params[:ingredient].to_a.compact).empty?) && !(photo_id_array.empty?)
+      @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a),current_user: @current_user, photo_list: photo_id_array.compact)
+    else
+      notice = "Recipe Images and Ingredients cannnot be blank"
+    end
 
-      else
-        notice = "Recipe Images and Ingredients cannnot be blank"
-      end
-
-      if @recipe.persisted?
-        # format.html { redirect_to @recipe, notice: 'Recipe created successfully' }
-        flash[:notice] = 'Recipe created successfully'
-        redirect_to @recipe
-        # format.json { render json: @recipe, status: :created, location: @recipe }
-      else
-
-
-        @form_error_new_ingredients = params[:ingredient]
-        @form_error_existing_ingredient = params[:existing_ingredient]
-        
-        flash[:notice] = notice
-        render '/common/create_recipe'
-        
-        # format.json {render json: @recipe.errors, status: :unprocessable_entity }
-      end
-    # end
+    if @recipe.persisted?
+      flash[:notice] = 'Recipe created successfully'
+      redirect_to @recipe
+    else
+      @form_error_new_ingredients = params[:ingredient]
+      @form_error_existing_ingredient = params[:existing_ingredient]
+      flash[:notice] = notice
+      render '/common/create_recipe'
+    end
   end
 
   def rate_recipe
@@ -92,9 +82,6 @@ class Recipe::UserRecipesController < ApplicationController
 
     puts "================== error ==============="
     puts params.inspect 
-
-
-    
     @photo = Photo.new
     @current_user = current_user
     @recipe =  Recipe.find(params[:id])
