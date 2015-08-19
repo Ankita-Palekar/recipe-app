@@ -40,6 +40,7 @@ class Recipe::RecipesController < ApplicationController
 
   def search_recipes
     query_hash = params[:flag]
+    query_hash["calories"].delete_if(&:empty?)
     query_hash = query_hash.reject {|key, val| val.empty?}
     @page_header = "Search Result"
     @recipe_list =  Recipe.search(:query_hash => query_hash).paginate(:page => params["page"])

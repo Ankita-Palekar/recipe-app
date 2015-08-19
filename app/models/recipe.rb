@@ -15,11 +15,14 @@ class Recipe < ActiveRecord::Base
   validates :creator_id, :presence => true
   before_validation :strip_whitespace, :only => [:name, :description]
   self.per_page = 10 #for pagination
-  scope :free_text, ->(query) {where("name ILIKE ?", "%#{query}%")}
+  # where("to_tsvector(title) || to_tsvector(description) @@ to_tsquery('#{search_terms}')")
+
+  scope :free_text, ->(query) {where("to_tsvector(name) @@ plainto_tsquery(:q) OR to_tsvector(description)  @@ plainto_tsquery(:q)", q: query)}
   scope :aggregate_ratings, ->(ratings) {where(aggregate_ratings: ratings)}
   scope :meal_class, ->(meal_class) {where(meal_class: meal_class)}
   scope :calories, -> (calories) {where(:total_calories => (calories[0].to_f)..(calories[1].to_f))}
-  scope :ingredients, ->(query) {joins(:ingredients).where(query)}
+  # scope :ingredients, ->(query) {joins(:ingredients).where(query)}
+  scope :ingredients, ->(query) {joins(:ingredients).where("to_tsvector('english', ingredients.name)  @@ plainto_tsquery(:q)", q: query)}
   scope :approved, -> {where(:approved => true, :rejected => false)}
   scope :order_by_date, -> {order('created_at desc')} 
   scope :order_by_aggregate_ratings, -> {order('aggregate_ratings desc')} 
@@ -219,23 +222,27 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.search(query_hash:)
+    puts "============================ SEARCH RESULT ==============================="
     searched_recipes = Recipe.approved.scoped if !query_hash.empty?
-    flag_check = ["ingredients", "meal_class", "calories", "free_text", "aggregate_ratings"] # tie it in your head always check if data is coming fo user beofre executing
+    flag_check = ["ingredients", "meal_class", "calories", "free_text", "aggregate_ratings"]  
     
 
-    query_hash.each do |flag,query|
-      
 
-      if flag == 'ingredients'
-        query = query.split(' ') 
-        query = query.reduce('') { |memo, ele| memo += " ingredients.name ILIKE '%#{ele}%' OR" }
-        query = query.strip
-        query = query[/(.*)\s/,1]
-        query += " AND ingredients.name <> '' "
+    query_hash.each do |flag,query|
+      # if flag == 'ingredients'
+      #   query = query.split(' ') 
+      #   query = query.reduce('') { |memo, ele| memo += " ingredients.name ILIKE '%#{ele}%' OR" }
+      #   query = query.strip
+      #   query = query[/(.*)\s/,1]
+      #   query += " AND ingredients.name <> '' "
+      # end
+      
+      if flag== ('ingredients' || "free_text")
+        
       end
       searched_recipes = searched_recipes.send(flag,query) if flag_check.include? flag 
     end 
-
+    puts searched_recipes
     puts searched_recipes.inspect
     searched_recipes ||=[]
 
