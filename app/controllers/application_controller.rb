@@ -9,8 +9,8 @@ class ApplicationController < ActionController::Base
   end
 
   def allow_cross_domain_access
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "*"
+    response.headers["Access-Control-Allow-Origin"] = "http://1925030143.rsc.cdn77.org"
+    response.headers["Access-Control-Allow-Methods"] = "GET"
   end
 
 end

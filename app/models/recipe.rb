@@ -74,7 +74,7 @@ class Recipe < ActiveRecord::Base
     new.delete_unwanted_recipe_images
   end
 
-  handle_asynchronously :delete_unwanted_recipe_images
+  handle_asynchronously :start_delete_unwanted_recipe_images
 
   def add_recipe_ingredients(ingredients_list, recipe, current_user)
     total_calories = 0
