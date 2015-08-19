@@ -84,7 +84,11 @@ class Recipe < ActiveRecord::Base
   def add_recipe_ingredients(ingredients_list, recipe, current_user)
     total_calories = 0
     ingredients_list.each do |ingre|
-      total_calories += ingre[:quantity].to_f / ingre[:std_quantity].to_f * ingre[:calories_per_quantity].to_f #calculating total calories in recipe
+      # @@TODO please fix this properly
+       
+      partial_val = (ingre[:quantity].to_f / ingre[:std_quantity].to_f) > 0 ? (ingre[:quantity].to_f / ingre[:std_quantity].to_f) : 0
+
+      total_calories += partial_val * ingre[:calories_per_quantity].to_f #calculating total calories in recipe
        
       if ingre.has_key?(:ingredient_id)
         ingredient = Ingredient.find(ingre[:ingredient_id])

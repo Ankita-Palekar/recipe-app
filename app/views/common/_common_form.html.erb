@@ -157,9 +157,9 @@
             </div>
           </div>
         <%else%>
-          <div class="control-group added-ingredient">
+          <div class="control-group existing-ingredient">
             <label class="control-label" for="ingredients"><%= ing.name %></label> 
-            <a class="close remove-added-ingredient" data-value='<%="#{ing.id}-#{ing.name}-#{ing.meal_class}-#{ing.std_quantity}-#{ing.calories_per_quantity}-#{ing.std_measurement}"%>'>&times;</a> 
+            <a data-rec-id='<%= "#{@recipe.id}" %>' data-ing-id ='<%= "#{ing.id}" %>' class="close remove-added-ingredient" data-value='<%="#{ing.id}-#{ing.name}-#{ing.meal_class}-#{ing.std_quantity}-#{ing.calories_per_quantity}-#{ing.std_measurement}"%>'>&times;</a> 
               <div class="controls"> 
                 <input type="hidden" name="existing_ingredient[][ingredient_id]" value='<%="#{ing.id}" %>'>  
                 <input type="hidden" name="existing_ingredient[][meal_class]" value='<%="#{ing.meal_class}" %>'> 
