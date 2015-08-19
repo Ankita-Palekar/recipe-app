@@ -157,24 +157,22 @@
             </div>
           </div>
         <%else%>
-
-        <div class="control-group existing-ingredient">
-          <hr>
-          <label class="control-label" for="inputEmail" > <%= ing.name %> already exists</label>
-          <div class="controls">
-            <div class="input-append">
-              <input  type="number" placeholder="edit quantity"  value="<%= @recipe.recipe_ingredients[index].quantity %>"  name="existing_ingredient[][quantity]" required>
-              <span class="add-on"> <%= ing.std_measurement%> </span>
-            </div>
-            <input type="hidden"  name="existing_ingredient[][ingredient_id]" value="<%= ing.id %>" required>
-            <input type="hidden"  name="existing_ingredient[][creator_id]" value="<%= ing.creator_id %>" required>
-            <input type="hidden"  name="existing_ingredient[][std_quantity]" value="<%= ing.std_quantity %>" required>
-            <input type="hidden"  name="existing_ingredient[][calories_per_quantity]" value="<%= ing.calories_per_quantity %>" 
-            required>
-            <input type="hidden"  name="existing_ingredient[][meal_class]" value="<%= ing.meal_class %>" required>
-            <button type="button" data-rec-id='<%= "#{@recipe.id}" %>' data-ing-id ='<%= "#{ing.id}" %>' class="close remove-existing-ingredient">&times;</button>
+          <div class="control-group added-ingredient">
+            <label class="control-label" for="ingredients"><%= ing.name %></label> 
+            <a class="close remove-added-ingredient" data-value='<%="#{ing.id}-#{ing.name}-#{ing.meal_class}-#{ing.std_quantity}-#{ing.calories_per_quantity}-#{ing.std_measurement}"%>'>&times;</a> 
+              <div class="controls"> 
+                <input type="hidden" name="existing_ingredient[][ingredient_id]" value='<%="#{ing.id}" %>'>  
+                <input type="hidden" name="existing_ingredient[][meal_class]" value='<%="#{ing.meal_class}" %>'> 
+                <input type="hidden" name="existing_ingredient[][std_quantity]" value='<%="#{ing.std_quantity}" %>'> 
+                <input type="hidden" name="existing_ingredient[][calories_per_quantity]" value='<%="#{ing.calories_per_quantity}" %>'> 
+                <input type="hidden" name="existing_ingredient[][name]" value='<%="#{ing.name}" %>'> 
+                <input type="hidden" name="existing_ingredient[][std_measurement]" value='<%="#{ing.std_measurement}" %>'> 
+                <div class="input-append"> 
+                  <input placeholder="add-quantity" type="number" name="existing_ingredient[][quantity]" value='<%="#{@recipe.recipe_ingredients[index].quantity}" %>' required>
+                  <span class="add-on"><%= ing.std_measurement %></span> 
+                </div>
+              </div> 
           </div>
-        </div>          
         <% end %>
     <% end %>
     <% @form_error_new_ingredients ||= [] %>

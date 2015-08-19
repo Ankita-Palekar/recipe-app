@@ -89,6 +89,12 @@ class Recipe::UserRecipesController < ApplicationController
   # PUT /recipes/1
   # PUT /recipes/1.json
   def update
+
+    puts "================== error ==============="
+    puts params.inspect 
+
+
+    
     @photo = Photo.new
     @current_user = current_user
     @recipe =  Recipe.find(params[:id])

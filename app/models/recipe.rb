@@ -16,13 +16,15 @@ class Recipe < ActiveRecord::Base
   before_validation :strip_whitespace, :only => [:name, :description]
   self.per_page = 10 #for pagination
   # where("to_tsvector(title) || to_tsvector(description) @@ to_tsquery('#{search_terms}')")
+  scope :free_text, ->(query) {where("to_tsvector(name) || to_tsvector(description)  @@ plainto_tsquery(:q)", q: query)}
 
-  scope :free_text, ->(query) {where("to_tsvector(name) @@ plainto_tsquery(:q) OR to_tsvector(description)  @@ plainto_tsquery(:q)", q: query)}
+  # scope :free_text, ->(query) {where("to_tsvector(name) @@ plainto_tsquery(:q) OR to_tsvector(description)  @@ plainto_tsquery(:q)", q: query)}
+  
   scope :aggregate_ratings, ->(ratings) {where(aggregate_ratings: ratings)}
   scope :meal_class, ->(meal_class) {where(meal_class: meal_class)}
   scope :calories, -> (calories) {where(:total_calories => (calories[0].to_f)..(calories[1].to_f))}
   # scope :ingredients, ->(query) {joins(:ingredients).where(query)}
-  scope :ingredients, ->(query) {joins(:ingredients).where("to_tsvector('english', ingredients.name)  @@ plainto_tsquery(:q)", q: query)}
+  scope :ingredients, ->(query) {joins(:ingredients).where("to_tsvector(ingredients.name)  @@ plainto_tsquery(:q)", q: query)}
   scope :approved, -> {where(:approved => true, :rejected => false)}
   scope :order_by_date, -> {order('created_at desc')} 
   scope :order_by_aggregate_ratings, -> {order('aggregate_ratings desc')} 
@@ -83,6 +85,7 @@ class Recipe < ActiveRecord::Base
     total_calories = 0
     ingredients_list.each do |ingre|
       total_calories += ingre[:quantity].to_f / ingre[:std_quantity].to_f * ingre[:calories_per_quantity].to_f #calculating total calories in recipe
+       
       if ingre.has_key?(:ingredient_id)
         ingredient = Ingredient.find(ingre[:ingredient_id])
         ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :ingredient_id))
@@ -222,7 +225,7 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.search(query_hash:)
-    puts "============================ SEARCH RESULT ==============================="
+    
     searched_recipes = Recipe.approved.scoped if !query_hash.empty?
     flag_check = ["ingredients", "meal_class", "calories", "free_text", "aggregate_ratings"]  
     
