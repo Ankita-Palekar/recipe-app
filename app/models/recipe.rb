@@ -50,9 +50,9 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-  def send_approved_or_rejected_mail(function_name, recipe, creator)
-    user = User.find(creator.id)
-    user.user_notify_email(:function_name => function_name,:recipe => recipe, :user => creator)
+  def send_approved_or_rejected_mail(function_name, recipe, admin)
+    user = User.find(recipe.creator_id)
+    user.user_notify_email(:function_name => function_name,:recipe => recipe, :user => user)
   end
 
 
