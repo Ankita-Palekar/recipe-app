@@ -65,16 +65,16 @@ class Recipe < ActiveRecord::Base
   end
 
 
-  def delete_unwanted_recipe_images
-    Photo.where(:recipe_id => nil).destroy_all
-    self.delay(:run_at => 20.minute.from_now).delete_unwanted_recipe_images
-  end
+  # def delete_unwanted_recipe_images
+  #   Photo.where(:recipe_id => nil).destroy_all
+  #   self.delay(:run_at => 20.minute.from_now).delete_unwanted_recipe_images
+  # end
 
-  def self.start_delete_unwanted_recipe_images
-    new.delete_unwanted_recipe_images
-  end
+  # def self.start_delete_unwanted_recipe_images
+  #   new.delete_unwanted_recipe_images
+  # end
 
-  handle_asynchronously :start_delete_unwanted_recipe_images
+  # handle_asynchronously :delete_unwanted_recipe_images
 
   def add_recipe_ingredients(ingredients_list, recipe, current_user)
     total_calories = 0
