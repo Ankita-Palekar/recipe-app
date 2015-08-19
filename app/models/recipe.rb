@@ -42,11 +42,11 @@ class Recipe < ActiveRecord::Base
     rec_ing.update_attributes(:quantity => quantity, :recipe_id => recipe.id)
   end
 
-  def send_admin_mail(function_name, recipe, user)
+  def send_admin_mail(function_name, recipe, creator)
     admin_list  = User.get_admins 
     admin_list.each do |admin|
       user = User.find_by_id(admin.id)
-      user.admin_notify_email(:function_name => function_name, :recipe => recipe, :user => user)
+      user.admin_notify_email(:function_name => function_name, :recipe => recipe, :user => creator)
     end
   end
 
