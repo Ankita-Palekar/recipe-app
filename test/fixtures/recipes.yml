@@ -17,6 +17,7 @@ recipe2:
  name: gulab jamun
  description: fry it
  serves: 4
+ approved: true
  aggregate_ratings: 0
  meal_class: veg
  aggregate_ratings: 5
@@ -37,7 +38,6 @@ recipe4:
  aggregate_ratings: 4
  meal_class: veg
  creator_id : 1
-
 
 rate:
  name: papaya casew

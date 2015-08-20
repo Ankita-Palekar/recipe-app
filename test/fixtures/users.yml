@@ -10,6 +10,7 @@
 one: 
  email: 453ankitapalekar@gmail.com
  is_admin: true
+ role: admin
  encrypted_password: ankita123
  id: 1
  name: ankita

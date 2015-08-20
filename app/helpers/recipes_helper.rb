@@ -54,18 +54,11 @@ module RecipesHelper
 	def big_ingredient_container?(ing)
 
 		if ing.has_key?('creator_id')
-	 		return (((ing["creator_id"] == current_user.id) && (ing["approved"] == false)) || (ing['id'].empty?) ) 
+	 		return (((ing["creator_id"] == current_user.id) && (ing["approved"] == false)) || (ing['id']==0) ) 
 	 	else
-	 		return true # if it does not have id means its an new ingredient that needs to show up on page load 
+	 		return false # if it does not have id means its an new ingredient that needs to show up on page load 
 	 	end
 	end
-
-	# def make_combo_ingredients(user_set_ingredients, recipe_ingredients)
-	# 	combo_list = []
-
-
-	# end
-
 
 	def check_ingredient_exist_in_hash?(ing, ingredient_hash)
 		ingredient_hash.any?{|h| h["name"] == ing["name"]}

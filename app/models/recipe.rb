@@ -16,7 +16,7 @@ class Recipe < ActiveRecord::Base
   before_validation :strip_whitespace, :only => [:name, :description]
   self.per_page = 10 #for pagination
   # where("to_tsvector(title) || to_tsvector(description) @@ to_tsquery('#{search_terms}')")
-  scope :recipe, ->(query) {where("to_tsvector(name) || to_tsvector(description)  @@ plainto_tsquery(:q)", q: query)}
+  scope :recipe, ->(query) {where("to_tsvector(recipes.name) || to_tsvector(description)  @@ plainto_tsquery(:q)", q: query)}
   scope :aggregate_ratings, ->(ratings) {where(aggregate_ratings: ratings)}
   scope :meal_class, ->(meal_class) {where(meal_class: meal_class)}
   scope :calories, -> (calories) {where(:total_calories => (calories[0].to_f)..(calories[1].to_f))}
@@ -68,7 +68,6 @@ class Recipe < ActiveRecord::Base
 
 
   def delete_unwanted_recipe_images
-    puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=========deleteting photo image==========sxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     Photo.where(:recipe_id => nil).destroy_all
   end
   handle_asynchronously :delete_unwanted_recipe_images, :run_at => Proc.new { 5.minutes.from_now }
@@ -90,9 +89,9 @@ class Recipe < ActiveRecord::Base
   def add_recipe_ingredients(ingredients_list, recipe, current_user)
     total_calories = 0
     ingredients_list.each do |ingre|
-      puts "================== inspecting"
-      puts ingre.inspect
-      if !ingre[:id].empty?
+       
+
+      if !ingre[:id] == 0
         ingredient = Ingredient.find(ingre[:id])
         ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :id, :creator))
       else
@@ -145,7 +144,7 @@ class Recipe < ActiveRecord::Base
         self.ingredients.map {|ingredient| ingredient.approve_ingredient}
         send_approved_or_rejected_mail('recipe_approval_email', self, current_user)
       else 
-        self.errors = "only admin can approve recipe"
+        self.errors[:base] = "only admin can approve recipe"
       end
     end 
     self
@@ -158,7 +157,7 @@ class Recipe < ActiveRecord::Base
         user = User.find(self.creator_id)
         send_approved_or_rejected_mail('recipe_rejected_email', self, current_user)  
       else
-        self.errors = "only admin can reject recipe"
+        self.errors[:base] = "only admin can reject recipe"
       end
     end  
     self
@@ -192,13 +191,8 @@ class Recipe < ActiveRecord::Base
   end
 
   def rate_recipe(ratings:, current_user:)
-    
     rate = Rating.find_or_initialize_by_rater_id_and_recipe_id(current_user.id, self.id)
-    # rate = current_user.ratings.build
-    # rate.recipe = self
-    # rate_object = Rating.first_or_initialize(rate)
     transaction do 
-      # rate_object.update_attributes(:ratings => ratings)
       rate.update_attributes(:ratings => ratings)
       update_attributes(:aggregate_ratings => get_recipe_aggregate_ratings)
     end if current_user.id != self.creator_id
