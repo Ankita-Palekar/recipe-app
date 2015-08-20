@@ -2,10 +2,12 @@ module ReusableFunctionsTests
 	extend ActiveSupport::Concern
 	include ActionDispatch::TestProcess
 	included do 
-		@@ingredients_list = [{:ingredient_id => 49 , :name => "casew1", :quantity => 10.10, :meal_class =>  "jain", :calories_per_quantity => 20.20 , :std_measurement => "g", :std_quantity => 1, :creator_id => 2},{:name=>"sugar1", :meal_class=>"veg", :std_measurement=>"kg", :std_quantity=>1, :calories_per_quantity=>5050, :quantity => 2, :creator_id => 2}, {:name=>"tomato1", :meal_class=>"non-veg", :std_measurement=>"mg", :std_quantity=>10, :calories_per_quantity=>50.30, :quantity => 100, :creator_id => 2}]		
+		@@ingredients_list = [{:id => 49 , :name => "casew1", :quantity => 0.0, :meal_class =>  "jain", :calories_per_quantity => 0.0 , :std_measurement => "g", :std_quantity => 0.0, :creator_id => 2},{:id=> '', :name=>"sugar1", :meal_class=>"veg", :std_measurement=>"kg", :std_quantity=>1, :calories_per_quantity=>0, :quantity => 2, :creator_id => 2}, {:id => '', :name=>"tomato1", :meal_class=>"non-veg", :std_measurement=>"mg", :std_quantity=>0, :calories_per_quantity=>0, :quantity => 0, :creator_id => 2}]		
+		
 		USER_HASH ={:name => 'zomato1', :email => 'zomato@domain.com',is_admin: true ,:password => 'zomato123', :password_confirmation  => 'zomato123'}
 		RECIPE_HASH = {:name => "Pudin hara juice" ,:description => "mint leaves", :serves => 2, :aggregate_ratings => 0, :creator_id=>2}
 		UPDATE_RECIPE_HASH = {:name => "xyz" ,:description => "mint leaves", :serves => 2, :aggregate_ratings => 0, :creator_id=>2}
+		
 		@@photo_list = []
 		
 

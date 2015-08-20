@@ -3,3 +3,13 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
 require 'delayed/command'
 Delayed::Command.new(ARGV).daemonize
+# Task.schedule! # to delete unwanted images
+
+class recurring_job
+	include ScheduledJob
+	run_every 10.minutes
+	  def perform
+	    puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=============    Task file =======sxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	    Photo.where(:recipe_id => nil).destroy_all
+	  end
+end

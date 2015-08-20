@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   end
 
   def admin_notify_email(function_name:, recipe:, user:)
-    puts "===== inside admin notify ====="
+    
     AdminMailer.delay.send function_name, self.email, user, recipe #for delayed jobs
   end
   

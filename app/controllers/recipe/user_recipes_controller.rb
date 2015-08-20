@@ -35,49 +35,36 @@ class Recipe::UserRecipesController < ApplicationController
   end
 
   def create
-    @current_user = current_user
-    @photo = Photo.new
+    # @current_user = current_user
+    # @photo = Photo.new
     @recipe = Recipe.new(params[:recipe])
+
+    puts params[:ingredient].inspect
+
     params[:ingredient] ||= []
-    params[:existing_ingredient] ||= []
     params[:avatar] = ["[]"] if params[:avatar].first.empty?
-    photo_id_array = JSON::parse(params[:avatar].first) 
+    photo_id_array = JSON::parse(params[:avatar].first) # unserialising id array from the form 
+ 
+    if !((params[:ingredient].compact.to_a).empty?) && !(photo_id_array.empty?)
+      @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a),current_user:current_user, photo_list: photo_id_array.compact)
+    else
+      notice = "Recipe Images and Ingredients cannnot be blank"
+    end
 
-     puts "====================> #{params[:std_quantity]} / #{params['ingredient'][0][:std_quantity].class}"
-      
-      if !((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?) && !(photo_id_array.empty?)
-        @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: photo_id_array.compact)
-
-      else
-        notice = "Recipe Images and Ingredients cannnot be blank"
-      end
-
-      if @recipe.persisted?
-        # format.html { redirect_to @recipe, notice: 'Recipe created successfully' }
-        flash[:notice] = 'Recipe created successfully'
-        redirect_to @recipe
-        # format.json { render json: @recipe, status: :created, location: @recipe }
-      else
-
-
-        @form_error_new_ingredients = params[:ingredient]
-        @form_error_existing_ingredient = params[:existing_ingredient]
-        
-        flash[:notice] = notice
-        render '/common/create_recipe'
-        
-        # format.json {render json: @recipe.errors, status: :unprocessable_entity }
-      end
-    # end
+    if @recipe.persisted?
+      flash[:notice] = 'Recipe created successfully'
+      redirect_to @recipe
+    else
+      @user_set_ingredients = params[:ingredient]
+      flash[:notice] = notice
+      render '/common/create_recipe'
+    end
   end
 
   def rate_recipe
-    @current_user = current_user
-     
     @recipe = Recipe.find(params[:recipe][:id]) 
     respond_to do |format|
-      @rate = @recipe.rate_recipe(current_user: @current_user, ratings: params[:recipe][:ratings])
-      
+      @rate = @recipe.rate_recipe(current_user: current_user, ratings: params[:recipe][:ratings])
       notice = {}
       # @TODO find proper condition fr successfull rate
       notice[:message] =@rate.persisted? ? "successfully rated" : "could not rate"
@@ -89,25 +76,19 @@ class Recipe::UserRecipesController < ApplicationController
   # PUT /recipes/1
   # PUT /recipes/1.json
   def update
-
-    puts "================== error ==============="
-    puts params.inspect 
-
-
-    
-    @photo = Photo.new
-    @current_user = current_user
     @recipe =  Recipe.find(params[:id])
     params[:ingredient]||=[]
-    params[:existing_ingredient]||=[]
+
     params[:avatar] = ["[]"] if params[:avatar].first.empty?
     photo_id_array = JSON::parse(params[:avatar].first) 
+    
     respond_to do |format|  
       @recipe.update_attributes(params[:recipe])
-      @recipe.update_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a), photo_list:photo_id_array, current_user:@current_user)
+      @recipe.update_recipe(ingredients_list: params[:ingredient].compact.to_a, photo_list:photo_id_array, current_user:@current_user)
       if @recipe.valid?
         format.html { redirect_to @recipe, notice: 'Recipe was successfullt edited'}
       else
+        @user_set_ingredients = params[:ingredient]
         format.html { render  "/common/edit_recipe" }
         format.json { render json: @recipe.errors, status: :unprocessable_entity }
       end   

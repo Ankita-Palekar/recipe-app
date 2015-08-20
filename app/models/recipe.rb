@@ -16,10 +16,7 @@ class Recipe < ActiveRecord::Base
   before_validation :strip_whitespace, :only => [:name, :description]
   self.per_page = 10 #for pagination
   # where("to_tsvector(title) || to_tsvector(description) @@ to_tsquery('#{search_terms}')")
-  scope :free_text, ->(query) {where("to_tsvector(name) || to_tsvector(description)  @@ plainto_tsquery(:q)", q: query)}
-
-  # scope :free_text, ->(query) {where("to_tsvector(name) @@ plainto_tsquery(:q) OR to_tsvector(description)  @@ plainto_tsquery(:q)", q: query)}
-  
+  scope :recipe, ->(query) {where("to_tsvector(name) || to_tsvector(description)  @@ plainto_tsquery(:q)", q: query)}
   scope :aggregate_ratings, ->(ratings) {where(aggregate_ratings: ratings)}
   scope :meal_class, ->(meal_class) {where(meal_class: meal_class)}
   scope :calories, -> (calories) {where(:total_calories => (calories[0].to_f)..(calories[1].to_f))}
@@ -41,7 +38,7 @@ class Recipe < ActiveRecord::Base
   #   Recipe.start_delete_unwanted_recipe_images
   # end
 
-  def save_recipe_ingredient_join(ingredient, recipe, quantity)    
+  def save_recipe_ingredient_join(ingredient, recipe, quantity)
     rec_ing = RecipeIngredient.where(:ingredient_id => ingredient.id, :recipe_id => recipe.id)
     rec_ing = RecipeIngredient.find_or_initialize_by_ingredient_id_and_recipe_id(ingredient.id, recipe.id)
     rec_ing.update_attributes(:quantity => quantity, :recipe_id => recipe.id)
@@ -70,51 +67,51 @@ class Recipe < ActiveRecord::Base
   end
 
 
-  # def delete_unwanted_recipe_images
-  #   Photo.where(:recipe_id => nil).destroy_all
-  #   self.delay(:run_at => 20.minute.from_now).delete_unwanted_recipe_images
-  # end
+  def delete_unwanted_recipe_images
+    puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=========deleteting photo image==========sxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    Photo.where(:recipe_id => nil).destroy_all
+  end
+  handle_asynchronously :delete_unwanted_recipe_images, :run_at => Proc.new { 5.minutes.from_now }
 
   # def self.start_delete_unwanted_recipe_images
   #   new.delete_unwanted_recipe_images
   # end
 
-  # handle_asynchronously :delete_unwanted_recipe_images
+  
+
+  def calculate_total_calories(ingredients_list)
+    total_calories = 0
+    ingredients_list.each do |ingre|
+      total_calories +=  (ingre[:std_quantity].to_f != 0) ? ((ingre[:quantity].to_f / ingre[:std_quantity].to_f) * ingre[:calories_per_quantity].to_f) : 0 
+    end
+    total_calories
+  end
 
   def add_recipe_ingredients(ingredients_list, recipe, current_user)
     total_calories = 0
     ingredients_list.each do |ingre|
-      # @@TODO please fix this properly
-       
-      partial_val = (ingre[:quantity].to_f / ingre[:std_quantity].to_f) > 0 ? (ingre[:quantity].to_f / ingre[:std_quantity].to_f) : 0
-
-      total_calories += partial_val * ingre[:calories_per_quantity].to_f #calculating total calories in recipe
-       
-      if ingre.has_key?(:ingredient_id)
-        ingredient = Ingredient.find(ingre[:ingredient_id])
-        ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :ingredient_id))
+      puts "================== inspecting"
+      puts ingre.inspect
+      if !ingre[:id].empty?
+        ingredient = Ingredient.find(ingre[:id])
+        ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :id, :creator))
       else
         ingredient = current_user.ingredients.build(ingre.except(:quantity))
         ingredient = ingredient.create_ingredient
       end
       save_recipe_ingredient_join(ingredient, recipe, ingre[:quantity])
     end
-    total_calories
   end
 
 
   def create_recipe(ingredients_list:, photo_list:, current_user:) 
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)
-      # REVIEw: Why is the following line required?
       self.creator = current_user
       self.save
-      # current_user.recipes << self
-      total_calories = add_recipe_ingredients(ingredients_list, self, current_user)
+      add_recipe_ingredients(ingredients_list, self, current_user)
+      total_calories = calculate_total_calories(ingredients_list)
       add_recipe_photos(photo_list, self)
-      # REVIEW: What will happen if there is an error in creating the photo?
-      # REVIEW: What will happen if there is an error in updating the total_calories?
-      # photo_list.map { |photo| photos.create(avatar: photo)}
       update_attributes!(:total_calories => total_calories)
       send_admin_mail('recipe_created_email', self, current_user)
     end
@@ -125,7 +122,8 @@ class Recipe < ActiveRecord::Base
   def update_recipe(photo_list:, ingredients_list:, current_user:)
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)  if !ingredients_list.empty?
-      total_calories =  add_recipe_ingredients(ingredients_list, self, current_user)
+      add_recipe_ingredients(ingredients_list, self, current_user)
+      total_calories = calculate_total_calories(ingredients_list)
       add_recipe_photos(photo_list, self)
       update_attributes!(:total_calories => total_calories)
     end
@@ -216,8 +214,8 @@ class Recipe < ActiveRecord::Base
   end
 
   def get_recipe_details
-    return {recipe_content: Recipe.includes(:ratings, :photos, :ingredients, :creator).find(self),
-      ratings_histogram: get_ratings_count_hash}
+    return {recipe_content: Recipe.includes(:ratings, :photos, :ingredients, :creator, :recipe_ingredients).find(self),
+    ratings_histogram: get_ratings_count_hash}
   end
 
   def get_ratings_count_hash
@@ -229,12 +227,9 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.search(query_hash:)
-    
+    #free_text has been replaced by recipe
     searched_recipes = Recipe.approved.scoped if !query_hash.empty?
-    flag_check = ["ingredients", "meal_class", "calories", "free_text", "aggregate_ratings"]  
-    
-
-
+    flag_check = ["ingredients", "meal_class", "calories", "recipe", "aggregate_ratings"]  
     query_hash.each do |flag,query|
       # if flag == 'ingredients'
       #   query = query.split(' ') 
@@ -243,10 +238,6 @@ class Recipe < ActiveRecord::Base
       #   query = query[/(.*)\s/,1]
       #   query += " AND ingredients.name <> '' "
       # end
-      
-      if flag== ('ingredients' || "free_text")
-        
-      end
       searched_recipes = searched_recipes.send(flag,query) if flag_check.include? flag 
     end 
     puts searched_recipes

@@ -15,6 +15,67 @@ module RecipesHelper
 		(current_user.id == recipe.creator_id)
 	end
 
+# @@TODO combine below 2 funcitons 
+	def get_recipe_ingredient_array_of_hash(recipe)
+		recipe_ingredient_hash = []
+		recipe.ingredients.includes(:recipe_ingredients).each_with_index do |ing, i|
+			ing_hash = ing.as_json
+			ing_hash["quantity"] = recipe.recipe_ingredients[i].quantity
+			recipe_ingredient_hash.push(ing_hash)
+		end
+		recipe_ingredient_hash
+	end
+
+	def recipe_ingredients_array_of_hash(recipe)
+		array = []
+		recipe.recipe_ingredients.each do |rec_ing|
+			array.push(rec_ing.as_json)
+		end
+		array
+	end
+
+	def get_existing_ingredient_array_of_hash
+		existing_ingredients = get_existing_ingredient_list 
+		ingredients = []
+		existing_ingredients.each do |ing|
+			ingredients.push(ing.as_json)
+		end
+		ingredients
+	end
+
+	def add_remove_ingredient_form_data(recipe, ing)
+		data_value_string = "#{ing['id']}-"+ing['name']+"-#{ing['meal_class']}-#{ing['std_quantity']}-#{ing['calories_per_quantity']}-#{ing['std_measurement']}"
+		data = {:value => data_value_string, :existing => true, :'rec-id' => recipe.id, :'ing-id' => ing["id"]}
+		
+		html = recipe.id  ? link_to(raw("&times;"), "#", {:type=>"button", :class=>"close remove-ingredient", :data=>data}) : link_to( raw("&times;"), "#", {:type=>"button",  :class=>"close remove-ingredient"})
+		html ||= ''
+	end
+
+	def big_ingredient_container?(ing)
+
+		if ing.has_key?('creator_id')
+	 		return (((ing["creator_id"] == current_user.id) && (ing["approved"] == false)) || (ing['id'].empty?) ) 
+	 	else
+	 		return true # if it does not have id means its an new ingredient that needs to show up on page load 
+	 	end
+	end
+
+	# def make_combo_ingredients(user_set_ingredients, recipe_ingredients)
+	# 	combo_list = []
+
+
+	# end
+
+
+	def check_ingredient_exist_in_hash?(ing, ingredient_hash)
+		ingredient_hash.any?{|h| h["name"] == ing["name"]}
+	end
+
+	def selected_ingredient_for_chosen(user_chosen_ingredient_list, recipe_ingredient_list , ing)
+	  html = "selected = 'true'" 	if check_ingredient_exist_in_hash?(ing, user_chosen_ingredient_list) || check_ingredient_exist_in_hash?(ing, recipe_ingredient_list)
+	  html ||= ""
+	end
+
 	def build_meal_class_dropdown(selected_true_value: nil)
 		html = ""
 		html = select_tag(:'ingredient[][meal_class]', options_for_select(Ingredient::MEAL_CLASS.zip(Ingredient::MEAL_CLASS), selected_true_value))
@@ -140,6 +201,7 @@ module RecipesHelper
 			concat content_tag(:li, link_to("My Most Rated Recipes", my_most_rated_recipes_path))
 			concat content_tag(:li, link_to("My Top Rated Recipes", my_top_rated_recipes_path))
 			concat content_tag(:li, link_to("My Approved Recipes", my_approved_recipes_path))
+			concat content_tag(:li, link_to("My Rejected Recipes", my_rejected_recipes_path))
 		end
 		part3 = "</li>"
 		html =(part1+part2+part3) if user_signed_in?

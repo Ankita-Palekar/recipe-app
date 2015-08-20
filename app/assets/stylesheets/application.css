@@ -443,3 +443,17 @@ a.user_edit:hover {
   width:33%;
   margin-left:10px;
 }
+
+
+.button-to-form-class{
+  margin-bottom: 0px;
+}
+
+tr.ingredient-row{
+  height: 20px;
+  overflow: auto;
+}
+
+.btn.btn-link:hover{
+  text-decoration: none;
+}

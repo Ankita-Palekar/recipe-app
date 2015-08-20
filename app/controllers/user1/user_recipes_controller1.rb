@@ -44,7 +44,7 @@ include RecipesHelper
     photo_id_array = JSON::parse(params[:avatar].first) 
     respond_to do |format|
       notice = ''
-      if !((params[:ingredient].to_a.compact + params[:existing_ingredient].to_a.compact).empty?) && !(photo_id_array.empty?)
+      if !(params[:ingredient].to_a.compact.empty?) && !(photo_id_array.empty?)
         @recipe.create_recipe(ingredients_list: (params[:ingredient].compact.to_a + params[:existing_ingredient].compact.to_a),current_user: @current_user, photo_list: photo_id_array.compact)
       else
         notice = "Recipe Images and Ingredients cannnot be blank"
@@ -63,11 +63,11 @@ include RecipesHelper
 
   def rate_recipe
     @current_user = current_user
-    puts params.inspect
+    
     @recipe = Recipe.find(params[:recipe][:id]) 
     respond_to do |format|
       @rate = @recipe.rate_recipe(current_user: @current_user, ratings: params[:recipe][:ratings])
-      puts @rate.inspect
+     
       notice = {}
       # @TODO find proper consition fr successfull rate
       notice[:message] =@rate.persisted? ? "successfully rated" : "could not rate"
@@ -135,7 +135,7 @@ include RecipesHelper
   def confirm_is_recipe_owner
     @recipe = Recipe.find(params[:id])
     @current_user = current_user
-    puts @current_user.inspect
+   
     unless @recipe.creator_id == @current_user.id
       redirect_to '/caution'
       return false

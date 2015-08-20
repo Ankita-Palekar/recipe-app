@@ -1,4 +1,20 @@
 
+<%  
+  @user_set_ingredients ||=[] 
+
+
+  recipe_ingredients ||= []
+  ingredients_list ||=[]
+  existing_ingredients =  get_existing_ingredient_array_of_hash
+  recipe_ingredients =  get_recipe_ingredient_array_of_hash(@recipe) if @recipe.persisted?
+  ingredients_list = recipe_ingredients if @user_set_ingredients.empty?
+  ingredients_list = @user_set_ingredients if recipe_ingredients.empty?
+
+  puts ingredients_list.inspect
+  # ingredients_list = make_combo_ingredients(@user_set_ingredients, recipe_ingredients)
+ %>
+
+
 <%= render "/common/images_upload_modal"%>
 <%= form_for(@recipe, :html => { :multipart => true , :class => 'form-horizontal'}) do |f| %>
   <% if @recipe.errors.any? %>
@@ -13,7 +29,7 @@
     </div>
   <% end %>
   
-  <%# print_if_notice notice %>
+  <%= print_if_notice notice %>
 
   <div class="control-group">
     <label class="control-label" for="inputEmail">Recipe Name</label>
@@ -45,180 +61,82 @@
   <div class="control-group inline">
     <label class="control-label">Select existing ingredients</label>
     <div class="controls">
-    <!-- @@TODO minimise the form code its lot -->
+    
       <select multiple="multiple" id="existing-ingredient-list" class="chosen-select">
-      <%= @form_error_existing_ingredient||=[] %>
-      <%= @existing_ingredients_list = get_existing_ingredient_list %>
-     
-      <% @existing_ingredients_list.each do |ing| %>
-        <option value='<%= "#{ing.id}-#{ing.name}-#{ing.meal_class}-#{ing.std_quantity}-#{ing.calories_per_quantity}-#{ing.std_measurement}"%>' data-ingredient-name ="<%= "#{ing.name}"%>"   
-          <% if (@form_error_existing_ingredient.any? {|h| h["name"] == ing.name})%>
-            selected = "true" 
-          <% end %>
-          >
-          <%= ing.name %>
+      <% existing_ingredients.each do |ing| %>
+        <option value='<%= "#{ing['id']}-#{ing['name']}-#{ing['meal_class']}-#{ing['std_quantity']}-#{ing['calories_per_quantity']}-#{ing['std_measurement']}"%>' data-ingredient-name ="<%= "#{ing['name']}"%>" <%= selected_ingredient_for_chosen(@user_set_ingredients, recipe_ingredients, ing) %>>
+          <%= ing['name'] %>
         </option>
         <% end %>
       </select>
     </div>
   </div>
-  <div id="existing-ingredient-block">
-  
-    <% @form_error_existing_ingredient.each do |existing_ing| %>
-      <div class="control-group added-ingredient">
-        <label class="control-label" for="ingredients"><%= existing_ing['name'] %></label> 
-        <a class="close remove-added-ingredient" data-value='<%="#{existing_ing['ingredient_id']}-#{existing_ing['name']}-#{existing_ing['meal_class']}-#{existing_ing['std_quantity']}-#{existing_ing['calories_per_quantity']}-#{existing_ing['std_measurement']}"%>'>&times;</a> 
-          <div class="controls"> 
-            <input type="hidden" name="existing_ingredient[][ingredient_id]" value='<%="#{existing_ing['ingredient_id']}" %>'>  
-            <input type="hidden" name="existing_ingredient[][meal_class]" value='<%="#{existing_ing['meal_class']}" %>'> 
-            <input type="hidden" name="existing_ingredient[][std_quantity]" value='<%="#{existing_ing['std_quantity']}" %>'> 
-            <input type="hidden" name="existing_ingredient[][calories_per_quantity]" value='<%="#{existing_ing['calories_per_quantity']}" %>'> 
-            <input type="hidden" name="existing_ingredient[][name]" value='<%="#{existing_ing['name']}" %>'> 
-            <input type="hidden" name="existing_ingredient[][std_measurement]" value='<%="#{existing_ing['std_measurement']}" %>'> 
-            <div class="input-append"> 
-              <input placeholder="add-quantity" type="number" name="existing_ingredient[][quantity]" value='<%="#{existing_ing['quantity']}" %>' required>
-              <span class="add-on"><%= existing_ing['std_measurement'] %></span> 
-            </div>
-          </div> 
-      </div>
-    <% end %>
-  </div> 
+ 
   <div class="ingredients-container">
-    <% @recipe.ingredients.each_with_index do |ing, index| 
-        if (ing.creator_id == current_user.id)&& (ing.approved == false) %>
-     
-          <div class="my-existing-ingredient" >
-            <hr>
-            <button type="button" class="close remove-my-existing-ingredient" data-rec-id='<%= "#{@recipe.id}" %>' data-ing-id ='<%= "#{ing.id}" %>'>&times;</button> 
-            <div class="control-group">
-              <label class="control-label" for="inputEmail" >ingredient name</label>
-              <div class="controls">
-
-                <input type="hidden"  name="ingredient[][ingredient_id]" value="<%= ing.id %>" required>
-                <input class="span8" type="text" placeholder="ingredient name" value="<%= ing.name %>"  name="ingredient[][name]" required>
-                <input type="hidden"  name="ingredient[][creator_id]" value="<%= ing.creator_id %>" required>
-              </div>
-            </div>
-            <div class="control-group inline">
-              <label class="control-label" for="inputEmail">ingredient standard measurement </label>
-              <div class="controls">
-
-                <select name="ingredient[][std_measurement]">
-                  <option value="teaspoon">teaspoon</option>
-                  <option value="tablespoon">tablespoon</option>
-                  <option value="fluid ounce">ounce</option>
-                  <option value="gill">gill</option>
-                  <option value="cup">cup</option>
-                  <option value="pint">pint</option>
-                  <option value="quart">quart</option>
-                  <option value="gallon">gallon</option>
-                  <option value="ml">milli liter</option>
-                  <option value="l">liter</option>
-                  <option value="dl">deci liter</option>
-                  <option value="pounds">pounds</option>
-                  <option value="ounce">ounce</option>
-                  <option value="mg">mili grams</option>
-                  <option value="g">grams</option>
-                  <option value="kg">kilo grams</option>
-                  <option value="mm">mili meter</option>
-                  <option value="cm">centi meter</option>
-                  <option value="m">meter</option>
-                  <option value="inch">inch</option>
-                </select>
-              </div>
-            </div>
-            <div class="control-group inline">
-                <label class="control-label" for="inputEmail">ingredient meal class </label>
-                <div class="controls">
-                  <select name="ingredient[][meal_class]">
-                    <option value="jain">jain</option>
-                    <option value="veg">veg</option>
-                    <option value="non-veg">non-veg</option>
-                  </select>
-                </div>
-            </div>
-            <div class="control-group inline">
-              <label class="control-label" for="inputEmail">ingredient standard quantity</label>
-              <div class="controls">
-                <input type="number" placeholder="example 10 grams" value="<%= ing.std_quantity %>" name="ingredient[][std_quantity]" required>
-              </div>
-            </div>
-            <div class="control-group inline">
-              <label class="control-label" for="inputEmail">ingredient quantity</label>
-              <div class="controls">
-                <input type="number" palceholder="e.g 1kg" value="<%= @recipe.recipe_ingredients[index].quantity %>" name="ingredient[][quantity]" required>
-              </div>
-            </div>
-            <div class="control-group"> 
-              <label class="control-label" for="inputEmail">calories per std qty</label>
-              <div class="controls">
-                <input type="number" name="ingredient[][calories_per_quantity]" required value="<%= ing.calories_per_quantity %>" required>
-              </div>
+    <% ingredients_list.each_with_index do |ing, index| 
+      if big_ingredient_container?(ing) %>
+        <div class="add-ingredient" >
+          <hr>
+          <%= add_remove_ingredient_form_data(@recipe, ing) %>
+          <div class="control-group">
+            <label class="control-label" for="inputEmail" >ingredient name</label>
+            <div class="controls">
+              <input type="hidden"  name="ingredient[][id]" value="<%= ing['id'] %>" required>
+              <input class="span8" type="text" placeholder="ingredient name" value="<%= ing['name'] %>"  name="ingredient[][name]" required>
             </div>
           </div>
-        <%else%>
-          <div class="control-group existing-ingredient">
-            <label class="control-label" for="ingredients"><%= ing.name %></label> 
-            <a data-rec-id='<%= "#{@recipe.id}" %>' data-ing-id ='<%= "#{ing.id}" %>' class="close remove-added-ingredient" data-value='<%="#{ing.id}-#{ing.name}-#{ing.meal_class}-#{ing.std_quantity}-#{ing.calories_per_quantity}-#{ing.std_measurement}"%>'>&times;</a> 
+          <div class="control-group inline">
+            <label class="control-label" for="inputEmail">ingredient standard measurement </label>
+            <div class="controls">
+              <%= build_std_measurement_dropdown(:selected_true_value => ing['std_measurement'])%>
+            </div>
+          </div>
+          <div class="control-group inline">
+              <label class="control-label" for="inputEmail">ingredient meal class </label>
+              <div class="controls">
+                 <%= build_meal_class_dropdown(:selected_true_value => ing['meal_class'])%>
+              </div>
+          </div>
+          <div class="control-group inline">
+            <label class="control-label" for="inputEmail">ingredient standard quantity</label>
+            <div class="controls">
+              <input type="number" placeholder="example 10 grams" step="0.01" value="<%= ing['std_quantity'] %>" name="ingredient[][std_quantity]" required>
+            </div>
+          </div>
+          <div class="control-group inline">
+            <label class="control-label" for="inputEmail">ingredient quantity</label>
+            <div class="controls">
+              <input type="number" palceholder="e.g 1kg" step ="0.01" value="<%= ing['quantity'] %>" name="ingredient[][quantity]" required>
+            </div>
+          </div>
+          <div class="control-group"> 
+            <label class="control-label" for="inputEmail">calories per std qty</label>
+            <div class="controls">
+              <input type="number" name="ingredient[][calories_per_quantity]" step="0.01" required value="<%= ing['calories_per_quantity'] %>" required>
+            </div>
+          </div>
+        </div>
+      <%else%>
+        <div class="add-ingredient">  
+          <div class="control-group">
+            <label class="control-label" for="ingredients"><%= ing['name'] %></label> 
+             <%= add_remove_ingredient_form_data(@recipe, ing) %> 
               <div class="controls"> 
-                <input type="hidden" name="existing_ingredient[][ingredient_id]" value='<%="#{ing.id}" %>'>  
-                <input type="hidden" name="existing_ingredient[][meal_class]" value='<%="#{ing.meal_class}" %>'> 
-                <input type="hidden" name="existing_ingredient[][std_quantity]" value='<%="#{ing.std_quantity}" %>'> 
-                <input type="hidden" name="existing_ingredient[][calories_per_quantity]" value='<%="#{ing.calories_per_quantity}" %>'> 
-                <input type="hidden" name="existing_ingredient[][name]" value='<%="#{ing.name}" %>'> 
-                <input type="hidden" name="existing_ingredient[][std_measurement]" value='<%="#{ing.std_measurement}" %>'> 
+                <input type="hidden" name="ingredient[][id]" value='<%="#{ing['id']}" %>'>  
+                <input type="hidden" name="ingredient[][meal_class]" value='<%="#{ing['meal_class']}" %>'> 
+                <input type="hidden" name="ingredient[][std_quantity]" value='<%="#{ing['std_quantity']}" %>'> 
+                <input type="hidden" name="ingredient[][calories_per_quantity]" value='<%="#{ing['calories_per_quantity']}" %>'> 
+                <input type="hidden" name="ingredient[][name]" value='<%="#{ing['name']}" %>'> 
+                <input type="hidden" name="ingredient[][std_measurement]" value='<%="#{ing['std_measurement']}" %>'> 
                 <div class="input-append"> 
-                  <input placeholder="add-quantity" type="number" name="existing_ingredient[][quantity]" value='<%="#{@recipe.recipe_ingredients[index].quantity}" %>' required>
-                  <span class="add-on"><%= ing.std_measurement %></span> 
+                  <input placeholder="add-quantity" type="number" step="0.01" name="ingredient[][quantity]" value='<%="#{ing['quantity']}" %>' required>
+                  <span class="add-on"><%= ing['std_measurement'] %></span> 
                 </div>
               </div> 
           </div>
-        <% end %>
+        </div>
+      <% end %>
     <% end %>
-    <% @form_error_new_ingredients ||= [] %>
-    <% puts @form_error_new_ingredients.inspect %>
-    <% @form_error_new_ingredients.each do |new_ing| %>
-      <div class="add-ingredient" >
-        <hr>
-        <a class="close remove-new-ingredient">&times;</a> 
-        <div class="control-group">
-          <label class="control-label" for="inputEmail" >ingredient name</label>
-          <div class="controls">
-            <input class="span8" type="text" placeholder="ingredient name" value="<%= new_ing['name'] %>"  name="ingredient[][name]" required>
-          </div>
-        </div>
-        <div class="control-group inline">
-          <label class="control-label" for="inputEmail">ingredient standard measurement </label>
-          <div class="controls">
-            <%= build_std_measurement_dropdown(:selected_true_value => new_ing['std_measurement']) %>
-          </div>
-        </div>
-        <div class="control-group inline">
-            <label class="control-label" for="inputEmail">ingredient meal class </label>
-            <div class="controls">
-            <%= build_meal_class_dropdown(:selected_true_value => new_ing['meal_class']) %>
-            </div>
-        </div>
-        <div class="control-group inline">
-          <label class="control-label" for="inputEmail">ingredient standard quantity</label>
-          <div class="controls">
-            <input type="number" placeholder="example 10 grams" value="<%= new_ing['std_quantity'] %>" name="ingredient[][std_quantity]" required>
-          </div>
-        </div>
-        <div class="control-group inline">
-          <label class="control-label" for="inputEmail">ingredient quantity</label>
-          <div class="controls">
-            <input type="number" palceholder="e.g 1kg" value="<%= new_ing['quantity'] %>" name="ingredient[][quantity]" required>
-          </div>
-        </div>
-        <div class="control-group"> 
-          <label class="control-label" for="inputEmail">calories per std qty</label>
-          <div class="controls">
-            <input type="number" name="ingredient[][calories_per_quantity]" required value="<%= new_ing['calories_per_quantity'] %>" required>
-          </div>
-        </div>
-      </div>
-    <%end%>
   </div>
   <div class="control-group">
     <div class="controls">

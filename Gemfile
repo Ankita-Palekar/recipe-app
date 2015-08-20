@@ -48,7 +48,7 @@ gem 'capistrano-bundler'
  
 gem 'omniauth'
 gem "omniauth-google-oauth2"
-
+gem 'delayed_job_recurring'
 # gem 'capistrano-delayed-job'
 # To use ActiveModel has_s
 # secure_password

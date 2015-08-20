@@ -93,6 +93,9 @@ GEM
     delayed_job_active_record (0.4.3)
       activerecord (>= 2.1.0, < 4)
       delayed_job (~> 3.0)
+    delayed_job_recurring (0.3.5)
+      delayed_job (>= 3.0)
+      delayed_job_active_record
     devise (3.5.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -245,6 +248,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   daemons
   delayed_job_active_record (= 0.4.3)
+  delayed_job_recurring
   devise
   dropzonejs-rails
   font-awesome-rails
