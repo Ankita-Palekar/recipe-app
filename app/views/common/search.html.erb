@@ -3,40 +3,8 @@
 		<div class="row">
 			<div class="span12">
 				<div class="search-container">
-				<!-- 	<form class="search-form" method="post" action="/search">
-						<div class="input-append">
-						  <input class="search-box" placeholder="searc recipes" type="text" name="flag[free_text]" value="">
-								<div class="btn-group">
-	                <button class="btn dropdown-toggle advanced-search-dropdown" data-toggle="dropdown">Advanced Search<span class="caret"></span></button>
-	                <ul class="dropdown-menu advanced-search">
-	                  <li> <span>aggregate ratings :</span>
-	                  	<input class="pull-right" type="text" name="flag[aggregate_ratings]" value="">
-	                  </li>
-	                  <li class="divider"></li>
-	                  <li>ingredients :
-	                  	<input class="pull-right" type="text" name="flag[ingredients]">
-	                  </li>
-	                  <li class="divider"></li>
-	                  <li>calories :
-	                  	<input class="pull-right" type="text" name="flag[calories]">
-	                  </li>
-	                  <li class="divider"></li>
-	                  <li>meal class : 
-	                  	<select name="flag[meal_class]" class="pull-right"> 
-	                  		<option value=""></option>
-	                  		<option value="jain">jain</option> 
-	                  		<option value="veg">veg</option>
-	                  		<option value="non-veg">non-veg</option>
-	                  	</select>		 
-	                  </li>
-	                </ul>
-	              </div>
-						  <button type="submit" class="btn search-button"><i class="fa fa-search"></i></button>
-						</div>
-					</form> -->
-
 					<form method="post" action="/search" class="form-inline">
-							<input name="flag[free_text]" type="text" value="" class="input-small span3" placeholder="free-text">
+							<input name="flag[recipe]" type="text" value="" class="input-small span3" placeholder="free-text">
 							<input class="input-small" placeholder="ingredients" type="text" name="flag[ingredients]">
   						<input class="input-small" type="number" name="flag[aggregate_ratings]" placeholder="aggregate ratings" value="">
 							<input class="input-small span2" placeholder="calories-from" type="number" name="flag[calories][]">

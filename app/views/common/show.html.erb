@@ -1,3 +1,4 @@
+<%  recipe_ingredients =  recipe_ingredients_array_of_hash(@recipe) %>
 <%= render  '/common/rate_modal' %>
 <div class="container navbar-spacer">
 	<div class="row">
@@ -59,11 +60,6 @@
 		 		      	<span class="rating-num"><%= @recipe.aggregate_ratings %></span>
 			 		      <div class="rating-stars">
 			 		      <%= print_star_rates_histogram(@recipe.aggregate_ratings) %>
-			 		        <!-- <span><i class="active icon-star"></i></span>
-			 		        <span><i class="active icon-star"></i></span>
-			 		        <span><i class="active icon-star"></i></span>
-			 		        <span><i class="active icon-star"></i></span>
-			 		        <span><i class="icon-star"></i></span> -->
 			 		      </div>
 			 		      <div class="rating-users">
 			 		        <i class="icon-user"></i> <%= User.count %>
@@ -101,17 +97,19 @@
 			  		<th>calories pers standard quantity</th>
 			  	</tr>
 					<% @recipe.ingredients.each_with_index do |ingred, index| %>
-				  	<tr>		
+				  	<tr class="ingredient-row">		
 				  	 	<td>
-				  	 	<!-- @@TODO use named route and change below controller -->
-								<%= link_to ingred.name, {:controller => :recipes, :action => :search_recipes, :'flag[ingredients]'=> ingred.name}, { method: :POST , :'data-toggle' => "tooltip", :'data-placement' => "top", :title=> "search recipes with #{ingred.name}", :class=>"ingredient-link"}%>
+				  	 		<%= button_to ingred.name, {action: "search", :'flag[ingredients]'=> ingred.name}, {:method=>"POST", class: 'btn btn-link', :'data-toggle' => "tooltip", :'data-placement' => "top", :title=> "search recipes with #{ingred.name}",  :form_class => "button-to-form-class"} %>	
+								<%# link_to ingred.name, {:controller => :recipes, :action => :search_recipes, :'flag[ingredients]'=> ingred.name}, { method: :POST , :'data-toggle' => "tooltip", :'data-placement' => "top", :title=> "search recipes with #{ingred.name}", :class=>"ingredient-link"}%>
 				  		</td>
 				  		<td>
-				  		 	<%= link_to ingred.meal_class, {:controller => :recipes, :action => :search_recipes, :'flag[meal_class]'=> ingred.meal_class}, { method: :POST , :'data-toggle' => "tooltip", :'data-placement' => "top", :title=> "search recipes with #{ingred.meal_class}", :class=>"meal_class-link"}%>
+				  			<%= button_to ingred.meal_class, {action: "search", :'flag[meal_class]'=> ingred.meal_class}, {:method =>"POST", class: 'btn btn-link', :'data-toggle' => "tooltip", :'data-placement' => "top", :title=> "search recipes with #{ingred.meal_class}"} %>
+				  		 	<%# link_to ingred.meal_class, {:controller => :recipes, :action => :search_recipes, :'flag[meal_class]'=> ingred.meal_class}, { method: :POST , :'data-toggle' => "tooltip", :'data-placement' => "top", :title=> "search recipes with #{ingred.meal_class}", :class=>"meal_class-link"}%>
 				  		</td>
 				  		<td><%= ingred.std_measurement %></td>
 				  		<td><%= ingred.std_quantity %></td>
-				  		<td><%= @recipe.recipe_ingredients[index].quantity %></td>
+				  		<% rec_ing = 	recipe_ingredients.detect {  |h| h["ingredient_id"] == ingred.id }%>
+				  		<td><%= rec_ing["quantity"] %></td>
 				  		<td><%= ingred.calories_per_quantity %></td>
 				  	</tr>
 					<% end %>
@@ -124,7 +122,6 @@
 					</div>
 					<div class="approve-reject-block">
 						<%= print_approve_reject_button(@recipe) %>
-						<%# list_approve_reject_button(rec, @admin_show_status) %>
 					</div>
 					<%= print_rate_button(@recipe) %>
 					<%= print_recipe_edit_content(@recipe) if user_signed_in? %> 

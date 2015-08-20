@@ -25,6 +25,7 @@ class Recipe::RecipesController < ApplicationController
   # GET /recipes/1.json
   def show 
     @current_user = current_user
+
     @recipe_details = Recipe.find(params[:id]).get_recipe_details
     @recipe = @recipe_details[:recipe_content]
     @recipe_ratings_histogram = @recipe_details[:ratings_histogram]
@@ -40,9 +41,10 @@ class Recipe::RecipesController < ApplicationController
 
   def search_recipes
     query_hash = params[:flag]
-    query_hash["calories"].delete_if(&:empty?)
+    query_hash["calories"].delete_if(&:empty?) if params[:flag].has_key?(:calories)
     query_hash = query_hash.reject {|key, val| val.empty?}
-    @page_header = "Search Result"
+    
+    @page_header = "Search Result for " + query_hash.keys.join(', ').split('_').join(' ')
     @recipe_list =  Recipe.search(:query_hash => query_hash).paginate(:page => params["page"])
     render '/common/search'
   end

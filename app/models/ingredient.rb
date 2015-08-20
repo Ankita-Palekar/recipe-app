@@ -33,9 +33,6 @@ class Ingredient < ActiveRecord::Base
 
 		self.normalise_ingredient_name
 		if !Ingredient.exists?(:name => self.name)
-			 
-			
-
 			save!
 			self
 		else
