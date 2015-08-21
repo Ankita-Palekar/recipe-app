@@ -38,6 +38,7 @@ class Recipe < ActiveRecord::Base
   #   Recipe.start_delete_unwanted_recipe_images
   # end
 
+   
   def save_recipe_ingredient_join(ingredient, recipe, quantity)
     rec_ing = RecipeIngredient.where(:ingredient_id => ingredient.id, :recipe_id => recipe.id)
     rec_ing = RecipeIngredient.find_or_initialize_by_ingredient_id_and_recipe_id(ingredient.id, recipe.id)
@@ -66,7 +67,7 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-
+ 
   def delete_unwanted_recipe_images
     Photo.where(:recipe_id => nil).destroy_all
   end

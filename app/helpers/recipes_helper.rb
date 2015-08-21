@@ -52,9 +52,12 @@ module RecipesHelper
 	end
 
 	def big_ingredient_container?(ing)
-
 		if ing.has_key?('creator_id')
-	 		return (((ing["creator_id"] == current_user.id) && (ing["approved"] == false)) || (ing['id']==0) ) 
+	 		if ((ing["creator_id"] == current_user.id) && (ing["approved"] == false)) 
+	 			return true
+	 		end
+	 	elsif ing['id'].to_i== 0  
+	 		return true
 	 	else
 	 		return false # if it does not have id means its an new ingredient that needs to show up on page load 
 	 	end

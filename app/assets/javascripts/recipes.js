@@ -31,7 +31,7 @@
 	  })
 	
 	  $('.ingredients-container').on('click', '.remove-ingredient', function(e){
-	   		e.preventDefault
+	   		e.preventDefault();
 	   		existing = $(this).data('existing')
 	   		$this = $(this)
 	   		if(existing == true)
