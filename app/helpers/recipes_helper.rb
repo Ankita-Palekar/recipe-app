@@ -206,8 +206,8 @@ module RecipesHelper
 	def print_star_rates_histogram(aggregate_ratings)
 		html =""
 		
-		html = (0...(aggregate_ratings.to_i)).inject("") {|html, item| html+='<span><i class="active icon-star"></i></span>'}
-		html += (0...(5 - aggregate_ratings.to_i)).inject("") {|html, item| html+='<span><i class="active icon-star-empty"></i></span>'}
+		html = (0...(aggregate_ratings.to_i)).inject("") {|html, item| html+='<span><i class="fa fa-star fill-star histo-small-star"></i></span>'}
+		html += (0...(5 - aggregate_ratings.to_i)).inject("") {|html, item| html+='<span><i class="fa fa-star-o muted histo-small-star"></i></span>'}
 
 		html.html_safe
 	end

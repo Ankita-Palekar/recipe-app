@@ -62,7 +62,7 @@
 			 		      <%= print_star_rates_histogram(@recipe.aggregate_ratings) %>
 			 		      </div>
 			 		      <div class="rating-users">
-			 		        <i class="icon-user"></i> <%= User.count %>
+			 		        <i class="fa fa-user"></i> <%= User.count %>
 			 		      </div>
 		 		    	</div>
 			 		    <div class="histo">
@@ -70,7 +70,7 @@
 				 		      <div class="<%= key.to_words %>  histo-rate">
 				 		        <span class="histo-star">
 				 		          <a class="histo-star-link" href="/recipes/<%=@recipe.id%>/<%= key %>/rated_users">
-				 		          	<i class="active icon-star"></i> <%= key %> 
+				 		          	<i class="fa fa-star"></i> <%= key %> 
 				 		          </a>
 				 		        </span>
 				 		        <span class="bar-block">

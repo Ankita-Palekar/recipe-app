@@ -1,23 +1,23 @@
 <div class="container navbar-spacer">
 	<div class="row">
 		<div class="span12">
-		 <table class="table table-hover">
-		    <tr>
 			  <% @users_list.each do |item| %>
-		    	<td>
-		    		<img src='<%= item.rater.avatar.url(:thumb) %>' class="media-object inline" style="width:35px;" />
-		    	</td>
-		    	<td>
-		    		<%= link_to(item.rater.name, ("/users/"+item.rater.id.to_s),{:class => "inline"}) %>
-		    	</td>
-			  <% end %>
-		    </tr>
-		 </table>
-			<!-- <ul class="nav nav-tabs nav-stacked text-center">
-			  	<li>  
-			  		 
-			  	</li>
-			</ul> -->
+					<div class="panel panel-default">
+			      <div class="panel-heading">
+			        <h4 class="panel-title"><%= link_to(item.rater.name, ("/users/"+item.rater.id.to_s),{:class => "inline"}) %></h4>
+			      </div>
+			      <div class="panel-body">
+			      	<div class="user-info" style="padding-left:30%">
+				      	<div class="inline">	
+				        	<img src='<%= item.rater.avatar.url(:thumb) %>' class="media-object inline" style="width:35px;" />
+				      	</div>
+				      	<div class="inline" style="padding-left:30px;">
+				        	<%= item.rater.email %>
+				      	</div>
+			      	</div>
+			      </div>
+					</div>
+				<% end %>
 		</div>
 	</div>
 </div>
