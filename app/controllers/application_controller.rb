@@ -16,5 +16,6 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Allow-Headers'] = '*,x-requested-with,Content-Type,If-Modified-Since,If-None-Match'
     headers['Access-Control-Max-Age'] = '86400'
   end
+end
 
  
