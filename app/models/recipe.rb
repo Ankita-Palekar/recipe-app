@@ -1,5 +1,4 @@
 class Recipe < ActiveRecord::Base
-  # REVIEW: recipe <=> creator association
   belongs_to :creator, :foreign_key => 'creator_id', :class_name => User
   has_many :photos, :dependent => :destroy
   has_many :recipe_ingredients
@@ -37,7 +36,6 @@ class Recipe < ActiveRecord::Base
   # def initialize
   #   Recipe.start_delete_unwanted_recipe_images
   # end
-
    
   def save_recipe_ingredient_join(ingredient, recipe, quantity)
     rec_ing = RecipeIngredient.where(:ingredient_id => ingredient.id, :recipe_id => recipe.id)
@@ -58,7 +56,6 @@ class Recipe < ActiveRecord::Base
     user.user_notify_email(:function_name => function_name,:recipe => recipe, :user => user)
   end
 
-
   def add_recipe_photos(photo_list, recipe)
     photo_list.each do |photo|
       photo = Photo.find(photo)
@@ -66,19 +63,13 @@ class Recipe < ActiveRecord::Base
       photo.save!
     end
   end
-
  
-  def delete_unwanted_recipe_images
+  def self.delete_unwanted_recipe_images
+    puts "---------- job deleting unwanted recipes ---------"
     Photo.where(:recipe_id => nil).destroy_all
   end
-  handle_asynchronously :delete_unwanted_recipe_images, :run_at => Proc.new { 5.minutes.from_now }
-
-  # def self.start_delete_unwanted_recipe_images
-  #   new.delete_unwanted_recipe_images
-  # end
-
+  # handle_asynchronously :delete_unwanted_recipe_images, :run_at => Proc.new { 5.minutes.from_now }
   
-
   def calculate_total_calories(ingredients_list)
     total_calories = 0
     ingredients_list.each do |ingre|
@@ -90,8 +81,6 @@ class Recipe < ActiveRecord::Base
   def add_recipe_ingredients(ingredients_list, recipe, current_user)
     total_calories = 0
     ingredients_list.each do |ingre|
-       
-
       if !ingre[:id] == 0
         ingredient = Ingredient.find(ingre[:id])
         ingredient = ingredient.update_ingredient(params: ingre.except(:quantity, :id, :creator))
@@ -102,7 +91,6 @@ class Recipe < ActiveRecord::Base
       save_recipe_ingredient_join(ingredient, recipe, ingre[:quantity])
     end
   end
-
 
   def create_recipe(ingredients_list:, photo_list:, current_user:) 
     Recipe.transaction do 
@@ -118,7 +106,6 @@ class Recipe < ActiveRecord::Base
     self
   end
 
-  # REVIEW: Why is there code duplication in create & update?
   def update_recipe(photo_list:, ingredients_list:, current_user:)
     Recipe.transaction do 
       self.meal_class = Recipe.get_recipe_meal_class(ingredients_list: ingredients_list)  if !ingredients_list.empty?
@@ -130,14 +117,10 @@ class Recipe < ActiveRecord::Base
     self
   end
 
-  #for admin
   def self.list_pending_recipes
     Recipe.include_photos.pending.order_by_date 
   end
   
-  # REVIEW: what happens if user is not admin? Read ActiveRecord::Error class
-  # and use it. You can use it for your own custom validation messages as
-  # well.
   def approve_recipe(current_user:)
     Recipe.transaction do
       if current_user.is?(:admin)
@@ -200,7 +183,6 @@ class Recipe < ActiveRecord::Base
     rate
   end
 
-
   def get_recipe_aggregate_ratings
     rates_hash = ratings.group(:ratings).count
     rates_hash.empty? ? 0 : ((rates_hash.reduce(0) do |memo, pair|
@@ -226,20 +208,13 @@ class Recipe < ActiveRecord::Base
     searched_recipes = Recipe.approved.scoped if !query_hash.empty?
     flag_check = ["ingredients", "meal_class", "calories", "recipe", "aggregate_ratings"]  
     query_hash.each do |flag,query|
-      # if flag == 'ingredients'
-      #   query = query.split(' ') 
-      #   query = query.reduce('') { |memo, ele| memo += " ingredients.name ILIKE '%#{ele}%' OR" }
-      #   query = query.strip
-      #   query = query[/(.*)\s/,1]
-      #   query += " AND ingredients.name <> '' "
-      # end
       searched_recipes = searched_recipes.send(flag,query) if flag_check.include? flag 
     end 
     puts searched_recipes
     puts searched_recipes.inspect
     searched_recipes ||=[]
-
   end
+
  private
   def strip_whitespace
     self.name = self.name.strip

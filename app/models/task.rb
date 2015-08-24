@@ -5,8 +5,8 @@ class Task
   timezone 'Asia/Kolkata'
   queue 'slow-jobs'
   def perform
-  	puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx============= Task file =======sxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    Photo.where(:recipe_id => nil).destroy_all
+  	Recipe.delete_unwanted_recipe_images
+    # Photo.where(:recipe_id => nil).destroy_all
   end
 end
 

@@ -13,7 +13,6 @@
 	</div>
 <% @recipe_list.each do |rec| %>
 	<div class="row">
-	<%# rec_block.each do |rec| %>
 		<div class="span12">
 			<div class="media">
 		    <a class="pull-left" href="#">
@@ -29,12 +28,6 @@
 		    	<li class="inline"> <%= print_meal_class(rec.meal_class, 'list') %></li>
 		    	<li class="inline pull-right"> <strong class="pull-right">created about <%= time_ago_in_words(rec.created_at) %> ago <%= print_list_user_name(rec) %> </strong>  </li>
 		    </ul>
-		      <!-- <div class="inline"> </div> <div class="inline divider-vertical"></div> -->
-		      
-		       
-
-		      
-		      <!-- <hr class="custom-hr"> -->
 		      <p class="recipe-list-description">
 		      	<%= strip_tags(rec.description).truncate(250) %>
 		      </p>
@@ -42,7 +35,6 @@
 		    </div>
 		  </div>
 		</div>
-	<%# end %>
 	</div>
 	<hr>
 <% end %>
