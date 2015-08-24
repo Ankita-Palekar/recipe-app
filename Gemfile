@@ -44,7 +44,7 @@ gem 'capistrano-passenger'
 gem 'capistrano-rvm'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
-# gem 'capistrano-thin'
+gem 'capistrano-thin'
  
 gem 'omniauth'
 gem "omniauth-google-oauth2"

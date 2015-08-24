@@ -14,12 +14,10 @@ class Recipe < ActiveRecord::Base
   validates :creator_id, :presence => true
   before_validation :strip_whitespace, :only => [:name, :description]
   self.per_page = 10 #for pagination
-  # where("to_tsvector(title) || to_tsvector(description) @@ to_tsquery('#{search_terms}')")
   scope :recipe, ->(query) {where("to_tsvector(recipes.name) || to_tsvector(description)  @@ plainto_tsquery(:q)", q: query)}
   scope :aggregate_ratings, ->(ratings) {where(aggregate_ratings: ratings)}
   scope :meal_class, ->(meal_class) {where(meal_class: meal_class)}
   scope :calories, -> (calories) {where(:total_calories => (calories[0].to_f)..(calories[1].to_f))}
-  # scope :ingredients, ->(query) {joins(:ingredients).where(query)}
   scope :ingredients, ->(query) {joins(:ingredients).where("to_tsvector(ingredients.name)  @@ plainto_tsquery(:q)", q: query)}
   scope :approved, -> {where(:approved => true, :rejected => false)}
   scope :order_by_date, -> {order('created_at desc')} 
@@ -32,10 +30,6 @@ class Recipe < ActiveRecord::Base
   scope :photos, -> {joins(:photos)}
   scope :include_photos, -> {includes(:photos)}
   scope :include_creator, -> {includes(:creator)}
-
-  # def initialize
-  #   Recipe.start_delete_unwanted_recipe_images
-  # end
    
   def save_recipe_ingredient_join(ingredient, recipe, quantity)
     rec_ing = RecipeIngredient.where(:ingredient_id => ingredient.id, :recipe_id => recipe.id)
