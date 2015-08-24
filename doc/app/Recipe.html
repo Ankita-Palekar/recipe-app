@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Recipe - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/recipe.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-get_recipe_meal_class">::get_recipe_meal_class</a>
+    
+    <li><a href="#method-c-list_pending_recipes">::list_pending_recipes</a>
+    
+    <li><a href="#method-c-list_recipes">::list_recipes</a>
+    
+    <li><a href="#method-c-search">::search</a>
+    
+    <li><a href="#method-i-add_recipe_ingredients">#add_recipe_ingredients</a>
+    
+    <li><a href="#method-i-add_recipe_photos">#add_recipe_photos</a>
+    
+    <li><a href="#method-i-approve_recipe">#approve_recipe</a>
+    
+    <li><a href="#method-i-calculate_total_calories">#calculate_total_calories</a>
+    
+    <li><a href="#method-i-create_recipe">#create_recipe</a>
+    
+    <li><a href="#method-i-delete_unwanted_recipe_images">#delete_unwanted_recipe_images</a>
+    
+    <li><a href="#method-i-destroy_recipe_ingredient">#destroy_recipe_ingredient</a>
+    
+    <li><a href="#method-i-get_ratings_count_hash">#get_ratings_count_hash</a>
+    
+    <li><a href="#method-i-get_recipe_aggregate_ratings">#get_recipe_aggregate_ratings</a>
+    
+    <li><a href="#method-i-get_recipe_details">#get_recipe_details</a>
+    
+    <li><a href="#method-i-list_rated_users">#list_rated_users</a>
+    
+    <li><a href="#method-i-rate_recipe">#rate_recipe</a>
+    
+    <li><a href="#method-i-reject_recipe">#reject_recipe</a>
+    
+    <li><a href="#method-i-save_recipe_ingredient_join">#save_recipe_ingredient_join</a>
+    
+    <li><a href="#method-i-send_admin_mail">#send_admin_mail</a>
+    
+    <li><a href="#method-i-send_approved_or_rejected_mail">#send_approved_or_rejected_mail</a>
+    
+    <li><a href="#method-i-update_recipe">#update_recipe</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Users.html">Users</a>
+  
+    <li><a href="./Users/ConfirmationsController.html">Users::ConfirmationsController</a>
+  
+    <li><a href="./Users/OmniauthCallbacksController.html">Users::OmniauthCallbacksController</a>
+  
+    <li><a href="./Users/PasswordsController.html">Users::PasswordsController</a>
+  
+    <li><a href="./Users/RegistrationsController.html">Users::RegistrationsController</a>
+  
+    <li><a href="./Users/SessionsController.html">Users::SessionsController</a>
+  
+    <li><a href="./Users/UnlocksController.html">Users::UnlocksController</a>
+  
+    <li><a href="./Recipe.html">Recipe</a>
+  
+    <li><a href="./Recipe/AdminRecipesController.html">Recipe::AdminRecipesController</a>
+  
+    <li><a href="./Recipe/RecipesController.html">Recipe::RecipesController</a>
+  
+    <li><a href="./Recipe/UserRecipesController.html">Recipe::UserRecipesController</a>
+  
+    <li><a href="./Access.html">Access</a>
+  
+    <li><a href="./Access/PublicAccessController.html">Access::PublicAccessController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./User/UserRecipesController.html">User::UserRecipesController</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./Admin.html">Admin</a>
+  
+    <li><a href="./AdminMailer.html">AdminMailer</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./HomeController.html">HomeController</a>
+  
+    <li><a href="./HomeHelper.html">HomeHelper</a>
+  
+    <li><a href="./Ingredient.html">Ingredient</a>
+  
+    <li><a href="./IngredientsHelper.html">IngredientsHelper</a>
+  
+    <li><a href="./Photo.html">Photo</a>
+  
+    <li><a href="./PhotosController.html">PhotosController</a>
+  
+    <li><a href="./Rating.html">Rating</a>
+  
+    <li><a href="./RatingsController.html">RatingsController</a>
+  
+    <li><a href="./RatingsHelper.html">RatingsHelper</a>
+  
+    <li><a href="./RecipeIngredient.html">RecipeIngredient</a>
+  
+    <li><a href="./RecipesHelper.html">RecipesHelper</a>
+  
+    <li><a href="./SessionsController.html">SessionsController</a>
+  
+    <li><a href="./SessionsHelper.html">SessionsHelper</a>
+  
+    <li><a href="./Task.html">Task</a>
+  
+    <li><a href="./UserAccessController.html">UserAccessController</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Recipe</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-get_recipe_meal_class" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_recipe_meal_class</span><span
+            class="method-args">(ingredients_list:)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_recipe_meal_class-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 171</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_recipe_meal_class</span>(<span class="ruby-identifier">ingredients_list</span>))
+  <span class="ruby-identifier">meal_class</span> = <span class="ruby-constant">Ingredient</span><span class="ruby-operator">::</span><span class="ruby-constant">MEAL_CLASS</span>
+  <span class="ruby-identifier">memo</span> = <span class="ruby-identifier">meal_class</span>[<span class="ruby-identifier">meal_class</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>]
+  <span class="ruby-identifier">least_meal_class</span> = <span class="ruby-identifier">ingredients_list</span>.<span class="ruby-identifier">reduce</span>(<span class="ruby-identifier">memo</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">memo</span>, <span class="ruby-identifier">ingre</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">meal_class</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">memo</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">meal_class</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">ingre</span>[<span class="ruby-value">:meal_class</span>]) <span class="ruby-operator">?</span> <span class="ruby-identifier">ingre</span>[<span class="ruby-value">:meal_class</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">memo</span>
+  <span class="ruby-keyword">end</span>   
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_recipe_meal_class-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_recipe_meal_class-method -->
+
+    
+      <div id="method-c-list_pending_recipes" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">list_pending_recipes</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>for admin</p>
+          
+
+          
+          <div class="method-source-code" id="list_pending_recipes-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 134</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">list_pending_recipes</span>
+  <span class="ruby-constant">Recipe</span>.<span class="ruby-identifier">include_photos</span>.<span class="ruby-identifier">pending</span>.<span class="ruby-identifier">order_by_date</span> 
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- list_pending_recipes-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- list_pending_recipes-method -->
+
+    
+      <div id="method-c-list_recipes" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">list_recipes</span><span
+            class="method-args">(list_type:, status: nil, current_user:nil, other_user: nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <pre class="ruby"><span class="ruby-identifier">list_type</span> <span class="ruby-identifier">takes</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order_by_date</span>, <span class="ruby-identifier">order_by_aggregate_ratings</span>, <span class="ruby-identifier">order_by_most_rated</span>
+</pre>
+
+<p>status =&gt; pending, approved, rejected</p>
+
+<pre class="ruby"><span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">list_recipes</span>(<span class="ruby-identifier">list_type</span>:, <span class="ruby-identifier">page_nav</span>:, <span class="ruby-identifier">limit</span>:, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">current_user</span>:<span class="ruby-keyword">nil</span>)
+</pre>
+          
+
+          
+          <div class="method-source-code" id="list_recipes-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 183</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">list_recipes</span>(<span class="ruby-identifier">list_type</span>,, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">current_user</span><span class="ruby-value">:nil</span>, <span class="ruby-identifier">other_user</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>)
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>
+    <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">recipes</span>.<span class="ruby-identifier">include_photos</span>.<span class="ruby-identifier">include_creator</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">status</span>).<span class="ruby-identifier">send</span>(<span class="ruby-identifier">list_type</span>).<span class="ruby-identifier">order_by_date</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">other_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">status</span>
+    <span class="ruby-identifier">other_user</span>.<span class="ruby-identifier">recipes</span>.<span class="ruby-identifier">include_photos</span>.<span class="ruby-identifier">include_creator</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">status</span>).<span class="ruby-identifier">send</span>(<span class="ruby-identifier">list_type</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">Recipe</span>.<span class="ruby-identifier">include_photos</span>.<span class="ruby-identifier">approved</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">list_type</span>).<span class="ruby-identifier">order_by_date</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- list_recipes-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- list_recipes-method -->
+
+    
+      <div id="method-c-search" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">search</span><span
+            class="method-args">(query_hash:)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="search-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 224</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query_hash</span>))
+  <span class="ruby-comment">#free_text has been replaced by recipe</span>
+  <span class="ruby-identifier">searched_recipes</span> = <span class="ruby-constant">Recipe</span>.<span class="ruby-identifier">approved</span>.<span class="ruby-identifier">scoped</span> <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">query_hash</span>.<span class="ruby-identifier">empty?</span>
+  <span class="ruby-identifier">flag_check</span> = [<span class="ruby-string">&quot;ingredients&quot;</span>, <span class="ruby-string">&quot;meal_class&quot;</span>, <span class="ruby-string">&quot;calories&quot;</span>, <span class="ruby-string">&quot;recipe&quot;</span>, <span class="ruby-string">&quot;aggregate_ratings&quot;</span>]  
+  <span class="ruby-identifier">query_hash</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">flag</span>,<span class="ruby-identifier">query</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment"># if flag == &#39;ingredients&#39;</span>
+    <span class="ruby-comment">#   query = query.split(&#39; &#39;) </span>
+    <span class="ruby-comment">#   query = query.reduce(&#39;&#39;) { |memo, ele| memo += &quot; ingredients.name ILIKE &#39;%#{ele}%&#39; OR&quot; }</span>
+    <span class="ruby-comment">#   query = query.strip</span>
+    <span class="ruby-comment">#   query = query[/(.*)\s/,1]</span>
+    <span class="ruby-comment">#   query += &quot; AND ingredients.name &lt;&gt; &#39;&#39; &quot;</span>
+    <span class="ruby-comment"># end</span>
+    <span class="ruby-identifier">searched_recipes</span> = <span class="ruby-identifier">searched_recipes</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">flag</span>,<span class="ruby-identifier">query</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">flag_check</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">flag</span> 
+  <span class="ruby-keyword">end</span> 
+  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">searched_recipes</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">searched_recipes</span>.<span class="ruby-identifier">inspect</span>
+  <span class="ruby-identifier">searched_recipes</span> <span class="ruby-operator">||=</span>[]
+
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- search-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- search-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-add_recipe_ingredients" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_recipe_ingredients</span><span
+            class="method-args">(ingredients_list, recipe, current_user)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_recipe_ingredients-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 90</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_recipe_ingredients</span>(<span class="ruby-identifier">ingredients_list</span>, <span class="ruby-identifier">recipe</span>, <span class="ruby-identifier">current_user</span>)
+  <span class="ruby-identifier">total_calories</span> = <span class="ruby-value">0</span>
+  <span class="ruby-identifier">ingredients_list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ingre</span><span class="ruby-operator">|</span>
+     
+
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">ingre</span>[<span class="ruby-value">:id</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+      <span class="ruby-identifier">ingredient</span> = <span class="ruby-constant">Ingredient</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">ingre</span>[<span class="ruby-value">:id</span>])
+      <span class="ruby-identifier">ingredient</span> = <span class="ruby-identifier">ingredient</span>.<span class="ruby-identifier">update_ingredient</span>(<span class="ruby-identifier">params</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ingre</span>.<span class="ruby-identifier">except</span>(<span class="ruby-value">:quantity</span>, <span class="ruby-value">:id</span>, <span class="ruby-value">:creator</span>))
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">ingredient</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">ingredients</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">ingre</span>.<span class="ruby-identifier">except</span>(<span class="ruby-value">:quantity</span>))
+      <span class="ruby-identifier">ingredient</span> = <span class="ruby-identifier">ingredient</span>.<span class="ruby-identifier">create_ingredient</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">save_recipe_ingredient_join</span>(<span class="ruby-identifier">ingredient</span>, <span class="ruby-identifier">recipe</span>, <span class="ruby-identifier">ingre</span>[<span class="ruby-value">:quantity</span>])
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_recipe_ingredients-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_recipe_ingredients-method -->
+
+    
+      <div id="method-i-add_recipe_photos" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_recipe_photos</span><span
+            class="method-args">(photo_list, recipe)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_recipe_photos-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_recipe_photos</span>(<span class="ruby-identifier">photo_list</span>, <span class="ruby-identifier">recipe</span>)
+  <span class="ruby-identifier">photo_list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">photo</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">photo</span> = <span class="ruby-constant">Photo</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">photo</span>)
+    <span class="ruby-identifier">photo</span>.<span class="ruby-identifier">recipe</span> = <span class="ruby-keyword">self</span>
+    <span class="ruby-identifier">photo</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_recipe_photos-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_recipe_photos-method -->
+
+    
+      <div id="method-i-approve_recipe" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">approve_recipe</span><span
+            class="method-args">(current_user:)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>REVIEW: what happens if user is not admin? Read ActiveRecord::Error class
+and use it. You can use it for your own custom validation messages as well.</p>
+          
+
+          
+          <div class="method-source-code" id="approve_recipe-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 141</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">approve_recipe</span>(<span class="ruby-identifier">current_user</span>))
+  <span class="ruby-constant">Recipe</span>.<span class="ruby-identifier">transaction</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is?</span>(<span class="ruby-value">:admin</span>)
+      <span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:approved</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>, <span class="ruby-value">:rejected=</span><span class="ruby-operator">&gt;</span><span class="ruby-keyword">false</span>) 
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ingredients</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">ingredient</span><span class="ruby-operator">|</span> <span class="ruby-identifier">ingredient</span>.<span class="ruby-identifier">approve_ingredient</span>}
+      <span class="ruby-identifier">send_approved_or_rejected_mail</span>(<span class="ruby-string">&#39;recipe_approval_email&#39;</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">current_user</span>)
+    <span class="ruby-keyword">else</span> 
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">errors</span>[<span class="ruby-value">:base</span>] = <span class="ruby-string">&quot;only admin can approve recipe&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span> 
+  <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- approve_recipe-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- approve_recipe-method -->
+
+    
+      <div id="method-i-calculate_total_calories" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">calculate_total_calories</span><span
+            class="method-args">(ingredients_list)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>def self.start_delete_unwanted_recipe_images</p>
+
+<pre>new.delete_unwanted_recipe_images</pre>
+
+<p>end</p>
+          
+
+          
+          <div class="method-source-code" id="calculate_total_calories-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 82</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">calculate_total_calories</span>(<span class="ruby-identifier">ingredients_list</span>)
+  <span class="ruby-identifier">total_calories</span> = <span class="ruby-value">0</span>
+  <span class="ruby-identifier">ingredients_list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ingre</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">total_calories</span> <span class="ruby-operator">+=</span>  (<span class="ruby-identifier">ingre</span>[<span class="ruby-value">:std_quantity</span>].<span class="ruby-identifier">to_f</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>) <span class="ruby-operator">?</span> ((<span class="ruby-identifier">ingre</span>[<span class="ruby-value">:quantity</span>].<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">ingre</span>[<span class="ruby-value">:std_quantity</span>].<span class="ruby-identifier">to_f</span>) * <span class="ruby-identifier">ingre</span>[<span class="ruby-value">:calories_per_quantity</span>].<span class="ruby-identifier">to_f</span>) <span class="ruby-operator">:</span> <span class="ruby-value">0</span> 
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">total_calories</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- calculate_total_calories-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- calculate_total_calories-method -->
+
+    
+      <div id="method-i-create_recipe" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_recipe</span><span
+            class="method-args">(ingredients_list:, photo_list:, current_user:)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_recipe-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 107</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_recipe</span>(<span class="ruby-identifier">ingredients_list</span>,, <span class="ruby-identifier">photo_list</span>,, <span class="ruby-identifier">current_user</span>)) 
+  <span class="ruby-constant">Recipe</span>.<span class="ruby-identifier">transaction</span> <span class="ruby-keyword">do</span> 
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">meal_class</span> = <span class="ruby-constant">Recipe</span>.<span class="ruby-identifier">get_recipe_meal_class</span>(<span class="ruby-identifier">ingredients_list</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ingredients_list</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">creator</span> = <span class="ruby-identifier">current_user</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-identifier">add_recipe_ingredients</span>(<span class="ruby-identifier">ingredients_list</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">current_user</span>)
+    <span class="ruby-identifier">total_calories</span> = <span class="ruby-identifier">calculate_total_calories</span>(<span class="ruby-identifier">ingredients_list</span>)
+    <span class="ruby-identifier">add_recipe_photos</span>(<span class="ruby-identifier">photo_list</span>, <span class="ruby-keyword">self</span>)
+    <span class="ruby-identifier">update_attributes!</span>(<span class="ruby-value">:total_calories</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">total_calories</span>)
+    <span class="ruby-identifier">send_admin_mail</span>(<span class="ruby-string">&#39;recipe_created_email&#39;</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">current_user</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_recipe-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_recipe-method -->
+
+    
+      <div id="method-i-delete_unwanted_recipe_images" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete_unwanted_recipe_images</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="delete_unwanted_recipe_images-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_unwanted_recipe_images</span>
+  <span class="ruby-constant">Photo</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:recipe_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>).<span class="ruby-identifier">destroy_all</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete_unwanted_recipe_images-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete_unwanted_recipe_images-method -->
+
+    
+      <div id="method-i-destroy_recipe_ingredient" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy_recipe_ingredient</span><span
+            class="method-args">(ingredient_id:, current_user:)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="destroy_recipe_ingredient-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 167</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy_recipe_ingredient</span>(<span class="ruby-identifier">ingredient_id</span>,, <span class="ruby-identifier">current_user</span>))
+  ((<span class="ruby-keyword">self</span>.<span class="ruby-identifier">creator_id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span> )<span class="ruby-operator">||</span> (<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is?</span> <span class="ruby-value">:admin</span>)) <span class="ruby-operator">?</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recipe_ingredients</span>.<span class="ruby-identifier">find_by_ingredient_id</span>(<span class="ruby-identifier">ingredient_id</span>).<span class="ruby-identifier">delete</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">errors</span> = <span class="ruby-string">&quot;You are not the owner to delete this&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- destroy_recipe_ingredient-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- destroy_recipe_ingredient-method -->
+
+    
+      <div id="method-i-get_ratings_count_hash" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_ratings_count_hash</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_ratings_count_hash-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 216</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_ratings_count_hash</span>
+  <span class="ruby-identifier">ratings</span>.<span class="ruby-identifier">group</span>(<span class="ruby-value">:ratings</span>).<span class="ruby-identifier">count</span> 
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_ratings_count_hash-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_ratings_count_hash-method -->
+
+    
+      <div id="method-i-get_recipe_aggregate_ratings" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_recipe_aggregate_ratings</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_recipe_aggregate_ratings-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 204</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_recipe_aggregate_ratings</span>
+  <span class="ruby-identifier">rates_hash</span> = <span class="ruby-identifier">ratings</span>.<span class="ruby-identifier">group</span>(<span class="ruby-value">:ratings</span>).<span class="ruby-identifier">count</span>
+  <span class="ruby-identifier">rates_hash</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">?</span> <span class="ruby-value">0</span> <span class="ruby-operator">:</span> ((<span class="ruby-identifier">rates_hash</span>.<span class="ruby-identifier">reduce</span>(<span class="ruby-value">0</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">memo</span>, <span class="ruby-identifier">pair</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">memo</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">pair</span>[<span class="ruby-value">0</span>] * <span class="ruby-identifier">pair</span>[<span class="ruby-value">1</span>]
+  <span class="ruby-keyword">end</span>) <span class="ruby-operator">/</span> (<span class="ruby-identifier">rates_hash</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">reduce</span>(<span class="ruby-value">:+</span>)))  
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_recipe_aggregate_ratings-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_recipe_aggregate_ratings-method -->
+
+    
+      <div id="method-i-get_recipe_details" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_recipe_details</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_recipe_details-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 211</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_recipe_details</span>
+  <span class="ruby-keyword">return</span> {<span class="ruby-identifier">recipe_content</span><span class="ruby-operator">:</span> <span class="ruby-constant">Recipe</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:ratings</span>, <span class="ruby-value">:photos</span>, <span class="ruby-value">:ingredients</span>, <span class="ruby-value">:creator</span>, <span class="ruby-value">:recipe_ingredients</span>).<span class="ruby-identifier">find</span>(<span class="ruby-keyword">self</span>),
+  <span class="ruby-identifier">ratings_histogram</span><span class="ruby-operator">:</span> <span class="ruby-identifier">get_ratings_count_hash</span>}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_recipe_details-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_recipe_details-method -->
+
+    
+      <div id="method-i-list_rated_users" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">list_rated_users</span><span
+            class="method-args">(ratings:)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="list_rated_users-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 220</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">list_rated_users</span>(<span class="ruby-identifier">ratings</span>))
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ratings</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:rater</span>).<span class="ruby-identifier">where</span>(<span class="ruby-value">:ratings=</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ratings</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- list_rated_users-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- list_rated_users-method -->
+
+    
+      <div id="method-i-rate_recipe" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rate_recipe</span><span
+            class="method-args">(ratings:, current_user:)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="rate_recipe-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 194</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">rate_recipe</span>(<span class="ruby-identifier">ratings</span>,, <span class="ruby-identifier">current_user</span>))
+  <span class="ruby-identifier">rate</span> = <span class="ruby-constant">Rating</span>.<span class="ruby-identifier">find_or_initialize_by_rater_id_and_recipe_id</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-identifier">transaction</span> <span class="ruby-keyword">do</span> 
+    <span class="ruby-identifier">rate</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:ratings</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ratings</span>)
+    <span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:aggregate_ratings</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_recipe_aggregate_ratings</span>)
+  <span class="ruby-keyword">end</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">creator_id</span>
+  <span class="ruby-identifier">rate</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rate_recipe-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rate_recipe-method -->
+
+    
+      <div id="method-i-reject_recipe" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reject_recipe</span><span
+            class="method-args">(current_user:)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="reject_recipe-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 154</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reject_recipe</span>(<span class="ruby-identifier">current_user</span>))
+  <span class="ruby-keyword">begin</span> 
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is?</span>(<span class="ruby-value">:admin</span>)
+      <span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:rejected</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>, <span class="ruby-value">:approved</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>) 
+      <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">creator_id</span>)
+      <span class="ruby-identifier">send_approved_or_rejected_mail</span>(<span class="ruby-string">&#39;recipe_rejected_email&#39;</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">current_user</span>)  
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">errors</span>[<span class="ruby-value">:base</span>] = <span class="ruby-string">&quot;only admin can reject recipe&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>  
+  <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reject_recipe-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reject_recipe-method -->
+
+    
+      <div id="method-i-save_recipe_ingredient_join" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">save_recipe_ingredient_join</span><span
+            class="method-args">(ingredient, recipe, quantity)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>def initialize</p>
+
+<pre>Recipe.start_delete_unwanted_recipe_images</pre>
+
+<p>end</p>
+          
+
+          
+          <div class="method-source-code" id="save_recipe_ingredient_join-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">save_recipe_ingredient_join</span>(<span class="ruby-identifier">ingredient</span>, <span class="ruby-identifier">recipe</span>, <span class="ruby-identifier">quantity</span>)
+  <span class="ruby-identifier">rec_ing</span> = <span class="ruby-constant">RecipeIngredient</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:ingredient_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ingredient</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:recipe_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">recipe</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-identifier">rec_ing</span> = <span class="ruby-constant">RecipeIngredient</span>.<span class="ruby-identifier">find_or_initialize_by_ingredient_id_and_recipe_id</span>(<span class="ruby-identifier">ingredient</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">recipe</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-identifier">rec_ing</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:quantity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">quantity</span>, <span class="ruby-value">:recipe_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">recipe</span>.<span class="ruby-identifier">id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- save_recipe_ingredient_join-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- save_recipe_ingredient_join-method -->
+
+    
+      <div id="method-i-send_admin_mail" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">send_admin_mail</span><span
+            class="method-args">(function_name, recipe, creator)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="send_admin_mail-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">send_admin_mail</span>(<span class="ruby-identifier">function_name</span>, <span class="ruby-identifier">recipe</span>, <span class="ruby-identifier">creator</span>)
+  <span class="ruby-identifier">admin_list</span>  = <span class="ruby-constant">User</span>.<span class="ruby-identifier">get_admins</span> 
+  <span class="ruby-identifier">admin_list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">admin</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">admin</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">admin_notify_email</span>(<span class="ruby-value">:function_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">function_name</span>, <span class="ruby-value">:recipe</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">recipe</span>, <span class="ruby-value">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">creator</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- send_admin_mail-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- send_admin_mail-method -->
+
+    
+      <div id="method-i-send_approved_or_rejected_mail" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">send_approved_or_rejected_mail</span><span
+            class="method-args">(function_name, recipe, admin)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="send_approved_or_rejected_mail-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">send_approved_or_rejected_mail</span>(<span class="ruby-identifier">function_name</span>, <span class="ruby-identifier">recipe</span>, <span class="ruby-identifier">admin</span>)
+  <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">recipe</span>.<span class="ruby-identifier">creator_id</span>)
+  <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_notify_email</span>(<span class="ruby-value">:function_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">function_name</span>,<span class="ruby-value">:recipe</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">recipe</span>, <span class="ruby-value">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- send_approved_or_rejected_mail-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- send_approved_or_rejected_mail-method -->
+
+    
+      <div id="method-i-update_recipe" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_recipe</span><span
+            class="method-args">(photo_list:, ingredients_list:, current_user:)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>REVIEW: Why is there code duplication in create &amp; update?</p>
+          
+
+          
+          <div class="method-source-code" id="update_recipe-source">
+            <pre><span class="ruby-comment"># File app/models/recipe.rb, line 122</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_recipe</span>(<span class="ruby-identifier">photo_list</span>,, <span class="ruby-identifier">ingredients_list</span>,, <span class="ruby-identifier">current_user</span>))
+  <span class="ruby-constant">Recipe</span>.<span class="ruby-identifier">transaction</span> <span class="ruby-keyword">do</span> 
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">meal_class</span> = <span class="ruby-constant">Recipe</span>.<span class="ruby-identifier">get_recipe_meal_class</span>(<span class="ruby-identifier">ingredients_list</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ingredients_list</span>)  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">ingredients_list</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">add_recipe_ingredients</span>(<span class="ruby-identifier">ingredients_list</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">current_user</span>)
+    <span class="ruby-identifier">total_calories</span> = <span class="ruby-identifier">calculate_total_calories</span>(<span class="ruby-identifier">ingredients_list</span>)
+    <span class="ruby-identifier">add_recipe_photos</span>(<span class="ruby-identifier">photo_list</span>, <span class="ruby-keyword">self</span>)
+    <span class="ruby-identifier">update_attributes!</span>(<span class="ruby-value">:total_calories</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">total_calories</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_recipe-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_recipe-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
