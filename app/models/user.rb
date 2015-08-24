@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   def user_notify_email(function_name:, user:, recipe:)
     UserMailer.delay.send function_name, self.email, user, recipe #for delayed jobs
   end
-
+ 
   def admin_notify_email(function_name:, recipe:, user:)
     
     AdminMailer.delay.send function_name, self.email, user, recipe #for delayed jobs
