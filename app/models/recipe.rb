@@ -177,6 +177,7 @@ class Recipe < ActiveRecord::Base
     rate
   end
 
+
   def get_recipe_aggregate_ratings
     rates_hash = ratings.group(:ratings).count
     rates_hash.empty? ? 0 : ((rates_hash.reduce(0) do |memo, pair|
